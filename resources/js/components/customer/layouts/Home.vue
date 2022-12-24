@@ -1,119 +1,131 @@
 <template>
   <div>
     <!--================Home Banner Area =================-->
-  <section class="home_banner_area mb-40">
-    <div class="banner_inner d-flex align-items-center">
+    <section class="home_banner_area mb-40">
+      <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+          <div class="banner_content row">
+            <div class="col-lg-12">
+              <p class="sub text-uppercase">men Collection</p>
+              <h3><span>Show</span> Your <br />Personal <span>Style</span></h3>
+              <h4>Fowl saw dry which a above together place.</h4>
+              <a class="main_btn mt-40" href="#">View Collection</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+    <!-- Start feature Area -->
+    <section class="feature-area section_gap_bottom_custom">
       <div class="container">
-        <div class="banner_content row">
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="single-feature">
+              <a href="#" class="title">
+                <i class="flaticon-money"></i>
+                <h3>Money back gurantee</h3>
+              </a>
+              <p>Shall open divide a one</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="single-feature">
+              <a href="#" class="title">
+                <i class="flaticon-truck"></i>
+                <h3>Free Delivery</h3>
+              </a>
+              <p>Shall open divide a one</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="single-feature">
+              <a href="#" class="title">
+                <i class="flaticon-support"></i>
+                <h3>Alway support</h3>
+              </a>
+              <p>Shall open divide a one</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="single-feature">
+              <a href="#" class="title">
+                <i class="flaticon-blockchain"></i>
+                <h3>Secure payment</h3>
+              </a>
+              <p>Shall open divide a one</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End feature Area -->
+
+    <!--================ Feature Product Area =================-->
+    <section class="feature_product_area section_gap_bottom_custom">
+      <div class="container">
+        <div class="row justify-content-center">
           <div class="col-lg-12">
-            <p class="sub text-uppercase">men Collection</p>
-            <h3><span>Show</span> Your <br />Personal <span>Style</span></h3>
-            <h4>Fowl saw dry which a above together place.</h4>
-            <a class="main_btn mt-40" href="#">View Collection</a>
+            <div class="main_title">
+              <h2><span>Featured product</span></h2>
+              <p>Bring called seed first of third give itself now ment</p>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <!--================End Home Banner Area =================-->
-
-  <!-- Start feature Area -->
-  <section class="feature-area section_gap_bottom_custom">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-6">
-          <div class="single-feature">
-            <a href="#" class="title">
-              <i class="flaticon-money"></i>
-              <h3>Money back gurantee</h3>
-            </a>
-            <p>Shall open divide a one</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div class="single-feature">
-            <a href="#" class="title">
-              <i class="flaticon-truck"></i>
-              <h3>Free Delivery</h3>
-            </a>
-            <p>Shall open divide a one</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div class="single-feature">
-            <a href="#" class="title">
-              <i class="flaticon-support"></i>
-              <h3>Alway support</h3>
-            </a>
-            <p>Shall open divide a one</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div class="single-feature">
-            <a href="#" class="title">
-              <i class="flaticon-blockchain"></i>
-              <h3>Secure payment</h3>
-            </a>
-            <p>Shall open divide a one</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End feature Area -->
-
-  <!--================ Feature Product Area =================-->
-  <section class="feature_product_area section_gap_bottom_custom">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-12">
-          <div class="main_title">
-            <h2><span>Featured product</span></h2>
-            <p>Bring called seed first of third give itself now ment</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 col-md-6" v-for="f_Product in showProduct">
-          <div class="single-product">
-            <div class="product-img">
-              <img class="img-fluid w-100" :src="`/assets/img/20191214045454_41TxNIo3cQL.jpg`" alt=""/>
-              <div class="p_icon">
-                <router-link :to="`/customer/single-product/${f_Product.id}`">
-                  <i class="ti-eye"></i>
-                </router-link>
-                <a href="#">
-                  <i class="ti-heart"></i>
-                </a>
-                <button @click.prevent="addToCart(f_Product.id)">
+        <div class="row">
+          <div class="col-lg-4 col-md-6" v-for="f_Product in showProduct">
+            <div class="single-product">
+              <div class="product-img">
+                <img class="img-fluid w-100" :src="`/assets/img/20191214045454_41TxNIo3cQL.jpg`" alt="" />
+                <div class="p_icon">
+                  <router-link :to="`/customer/single-product/${f_Product.id}`">
+                    <i class="ti-eye"></i>
+                  </router-link>
+                  <a href="#">
+                    <i class="ti-heart"></i>
+                  </a>
+                  <button @click.prevent="addToCart(f_Product.id)">
                     <i class="ti-shopping-cart"></i>
-                </button>
+                  </button>
+                  <!-- <form method="post" @submit.prevent="addToCart(singleProduct.id)">
+                    <div class="product_count">
+                      <label for="qty">Quantity:</label>
+                      <input type="number" name="qty" v-model="cartQty" value="1" title="Quantity"
+                        class="input-text qty" />
+                    </div>
+                    <div class="card_area">
+                      <input type="submit" class="main_btn" value="Add to Cart">
+                    </div>
+                  </form> -->
+
+
+                </div>
               </div>
-            </div>
-            <div class="product-btm">
-              <router-link :to="`/customer/single-product/${f_Product.id}`" class="d-block">
-                <h4>{{f_Product.name}}</h4>
-              </router-link>
-              <div class="mt-3" v-if="f_Product.discount">
-                <span class="mr-4">৳ {{f_Product.discount}}</span>
-                <del>৳ {{f_Product.price}}</del>
-              </div>
-              <div class="mt-3" v-else>
-                <span class="mr-4">৳ {{f_Product.price}}</span>
+              <div class="product-btm">
+                <router-link :to="`/single-product/${f_Product.id}`" class="d-block">
+                  <h4>{{ f_Product.name }}</h4>
+                </router-link>
+                <div class="mt-3" v-if="f_Product.discount">
+                  <span class="mr-4">৳ {{ f_Product.discount }}</span>
+                  <del>৳ {{ f_Product.price }}</del>
+                </div>
+                <div class="mt-3" v-else>
+                  <span class="mr-4">৳ {{ f_Product.price }}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!--================ End Feature Product Area =================-->
+    </section>
+    <!--================ End Feature Product Area =================-->
 
-  <!--================ Offer Area =================-->
-  <!-- <section class="offer_area">
+    <!--================ Offer Area =================-->
+    <!-- <section class="offer_area">
     <div class="container">
       <div class="row justify-content-center">
         <div class="offset-lg-4 col-lg-6 text-center">
@@ -127,10 +139,10 @@
       </div>
     </div>
   </section> -->
-  <!--================ End Offer Area =================-->
+    <!--================ End Offer Area =================-->
 
-  <!--================ Inspired Product Area =================-->
-  <!-- <section class="new_product_area section_gap_top section_gap_bottom_custom">
+    <!--================ Inspired Product Area =================-->
+    <!-- <section class="new_product_area section_gap_top section_gap_bottom_custom">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-12">
@@ -272,9 +284,9 @@
       </div>
     </div>
   </section> -->
-  <!--================ End Inspired Product Area =================-->
+    <!--================ End Inspired Product Area =================-->
 
-  <!--================ New Product Area =================-->
+    <!--================ New Product Area =================-->
     <section class="inspired_product_area section_gap_bottom_custom">
       <div class="container">
         <div class="row justify-content-center">
@@ -292,7 +304,7 @@
               <div class="product-img">
                 <img class="img-fluid w-100" :src="`/assets/img/20191214045454_41TxNIo3cQL.jpg`" alt="">
                 <div class="p_icon">
-                  <router-link :to="`/customer/single-product/${newProduct.id}`">
+                  <router-link :to="`/single-product/${newProduct.id}`">
                     <i class="ti-eye"></i>
                   </router-link>
                   <a href="#">
@@ -300,20 +312,20 @@
                   </a>
                   <button @click.prevent="addToCart(newProduct.id)">
                     <i class="ti-shopping-cart"></i>
-                </button>
+                  </button>
                 </div>
               </div>
               <div class="product-btm">
-                <router-link :to="`/customer/single-product/${newProduct.id}`" class="d-block">
-                  <h4>{{newProduct.name}}</h4>
+                <router-link :to="`/single-product/${newProduct.id}`" class="d-block">
+                  <h4>{{ newProduct.name }}</h4>
                 </router-link>
                 <div class="mt-3" v-if="newProduct.discount">
-                <span class="mr-4">৳ {{newProduct.discount}}</span>
-                <del>৳ {{newProduct.price}}</del>
-              </div>
-              <div class="mt-3" v-else>
-                <span class="mr-4">৳ {{newProduct.price}}</span>
-              </div>
+                  <span class="mr-4">৳ {{ newProduct.discount }}</span>
+                  <del>৳ {{ newProduct.price }}</del>
+                </div>
+                <div class="mt-3" v-else>
+                  <span class="mr-4">৳ {{ newProduct.price }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -321,38 +333,52 @@
         </div>
       </div>
     </section>
-  <!--================ End Inspired Product Area =================-->
+    <!--================ End Inspired Product Area =================-->
   </div>
 </template>
 
 <script>
-    export default {
-        methods:{
-            addToCart(id){
-                this.$Progress.start();
-                axios.post('/add-cart',{
-                    id: id
-                })
-                    .then((response)=>{            
-                        this.$store.dispatch("countCart");
-                        this.$Progress.finish()
-                    })
-            }
-        },
-        mounted() {
+export default {
+  methods: {
+    // addToCart(id){
+    //     this.$Progress.start();
+    //     axios.post('/add-cart',{
+    //         id: id
+    //     })
+    //         .then((response)=>{            
+    //             this.$store.dispatch("countCart");
+    //             this.$Progress.finish()
+    //         })
+    // }
 
-            this.$Progress.start();
-            this.$store.dispatch("featuredProduct");
-            this.$store.dispatch("newProduct");
-            this.$Progress.finish();
-        },
-        computed: {
-          showProduct(){
-            return this.$store.getters.getfeaturedProduct
-          },
-          showNewProduct(){
-            return this.$store.getters.getNewProduct
-          }
-        }
+    addToCart(id) {
+      this.$Progress.start();
+      this.id = id
+      axios.get(`/add-cart/${id}/1`)
+        .then((response) => {
+
+          console.log(response.data.result);
+          this.$store.dispatch("getCartItem");
+          this.$store.dispatch("countCart");
+          this.$store.dispatch("getAllCarttotal");
+          this.$Progress.finish()
+        })
     }
+  },
+  mounted() {
+
+    this.$Progress.start();
+    this.$store.dispatch("featuredProduct");
+    this.$store.dispatch("newProduct");
+    this.$Progress.finish();
+  },
+  computed: {
+    showProduct() {
+      return this.$store.getters.getfeaturedProduct
+    },
+    showNewProduct() {
+      return this.$store.getters.getNewProduct
+    }
+  }
+}
 </script>

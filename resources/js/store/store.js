@@ -67,35 +67,35 @@ export default {
           })
     },
     featuredProduct(context){
-      axios.post('/customer/featured-product')
+      axios.post('/featured-product')
           .then((response) =>{
             //console.log(response.data)
             context.commit("featureProducts", response.data)
           })
     },
     newProduct(context){
-      axios.post('/customer/new-product')
+      axios.post('/new-product')
           .then((response) =>{
             //console.log(response.data)
             context.commit("getNewProduct", response.data)
           })
     },
     categoryByID(context, payload){
-      axios.post('/customer/category/'+ payload)
+      axios.post('/category_c/'+ payload)
           .then((response) =>{
             // console.log(response.data)
             context.commit("getProductbyId", response.data)
           })
     },
     getProducstbyId(context, payload){
-      axios.post('/customer/product-details/'+ payload)
+      axios.post('/product-details/'+ payload)
           .then((response) =>{
             //console.log(response.data)
             context.commit("getSingleProduct", response.data)
           })
     },
     getCartItem(context){
-      axios.post('/customer/all-cart')
+      axios.post('/all-cart')
           .then((response) =>{
             console.log(response.data.cart)
             
@@ -103,14 +103,14 @@ export default {
           })
     },
     countCart(context){
-      axios.post('/customer/all-cart')
+      axios.post('/all-cart')
           .then((response) =>{
             console.log(response.data)
             context.commit("countCartItem", response.data.count_cart)
           })
     },
     getAllCarttotal(context){
-      axios.post('/customer/all-cart')
+      axios.post('/all-cart')
           .then((response) =>{
             console.log(response)
             context.commit("allCarttotal", response.data.subtotal)
@@ -138,7 +138,7 @@ export default {
           })
     },
     customerSession(context){
-      axios.post('/customer/customer-session')
+      axios.post('/customer-session')
           .then((response)=>{
             // console.log(response.data.s_customer)
             context.commit("sessionData", response.data.s_customer)

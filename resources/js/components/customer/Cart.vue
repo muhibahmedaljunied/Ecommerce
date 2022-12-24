@@ -62,7 +62,7 @@
                   <td></td>
                   
                   <td>
-                    <div class="checkout_btn_inner" v-if="showSession.name">
+                    <div class="checkout_btn_inner" v-if="showSession">
                       <router-link class="gray_btn" to="/customer/home">Continue Shopping</router-link>
                       <router-link class="main_btn" to="/customer/shipping">Proceed to checkout</router-link>
                     </div>
@@ -99,7 +99,7 @@
         methods:{
           removeCart(Id){
               this.$Progress.start();
-              axios.post('/customer/delete-cart',{
+              axios.post('/delete-cart',{
                 id: Id
               }).then((response)=>{
                 
@@ -137,7 +137,7 @@
           updateCart(Id,Qty){
               this.$Progress.start();
 
-              axios.post('/customer/update-cart',{
+              axios.post('/update-cart',{
                 id: Id,
                 qty: Qty
               }).then((response)=>{

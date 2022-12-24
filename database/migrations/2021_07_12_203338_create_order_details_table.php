@@ -20,7 +20,7 @@ class CreateOrderDetailsTable extends Migration
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('quantity');
-            $table->float('price');
+            $table->float('price')->nullable();
              // $table->integer('tax')->nullable();
             // $table->integer('sub_total')->nullable()
             $table->float('total');

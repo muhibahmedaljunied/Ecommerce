@@ -449,7 +449,7 @@ methods: {
   addToCart(id){
   this.$Progress.start();
   this.id = id
-  axios.get(`/customer/add-cart/${this.id}/${this.cartQty}`)
+  axios.get(`/add-cart/${this.id}/${this.cartQty}`)
   .then((response)=>{
 
     console.log(response.data.result);

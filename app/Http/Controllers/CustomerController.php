@@ -59,14 +59,19 @@ class CustomerController extends Controller
 
     public function login(Request $request){
 		
-    	$customer = Customer::where('email_address',$request->email_address)->first();
+		
+
+    	$customer = User::where('email',$request->email_address)->first();
+		Auth::login($customer);
     	if ($customer) {
-    		// if (Hash::check($request->password, $customer->password)) {
+    		if (Hash::check($request->password, $customer->password)) {
+				session()->put('person',0);
     			session()->put('customerId',$customer->id);
-    			//Session::put('customerName',$customer->first_name.' '.$customer->last_name);
+				session()->put('customerName',$customer->first_name.' '.$customer->last_name);
+    			// Session::put('customerName',$customer->first_name.' '.$customer->last_name);
 
     			return response()->json($customer);
-    		// };
+    		};
     	}
 
     	return response()->json("Error");
@@ -79,13 +84,25 @@ class CustomerController extends Controller
     }
 
     public function logout(){
+
+		Auth::logout();
         session()->forget('customerId');
+   
+
+
         return response()->json(session()->get('customerId'));
     }
 
     public function sessionData(){
-        $id = Auth::user()->id;
-        $customer = User::find($id);
+
+		if(session()->get('person') == 0){
+		
+			$customer = User::find(session()->get('customerId'));
+		}else{
+			$id = Auth::user()->id;
+			$customer = User::find($id);
+		}
+        
 
         return response()->json([
             's_customer' => $customer

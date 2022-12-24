@@ -72,7 +72,7 @@
                 this.error = [],
                 this.success = '',
                 this.$Progress.start();
-                axios.post('/customer/customer-register',{
+                axios.post('/customer-register',{
                     first_name: this.form.first_name,
                     last_name: this.form.last_name,
                     email_address: this.form.email_address,

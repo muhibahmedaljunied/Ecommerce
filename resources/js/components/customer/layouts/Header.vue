@@ -4,24 +4,31 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-7">
-            <div class="float-left">
+            <div class="float-left" v-if="showSession">
               <p>Phone: +967 {{showSession.phone}}</p>
               <p>email:{{showSession.email}} </p>
             </div>
           </div>
           <div class="col-lg-5">
             <div class="float-right">
-              <ul class="right_side" v-if="showSession.name">
+              <ul class="right_side" v-if="showSession">
                 <li>
                   <a href="#">
                     {{showSession.name}}
                   </a>
                 </li>
-                <!-- <li>
+                <li >  
+
+                  <a href="#" @click ="logout">
+                    logout
+                  </a>
+                </li>
+
+         <!-- <li>
                   
                   <button type = 'button' @click ="logout"  class="btn ">Logout</button>
 
-                </li> -->
+                </li>  -->
               </ul>
               <ul class="right_side" v-else>
                 <li>
@@ -29,11 +36,14 @@
                     Login
                   </router-link>
                 </li>
-                <li>
+                <li>  
                   <router-link to="/customer/register">
                     Register
                   </router-link>
+
+            
                 </li>
+             
               </ul>
             </div>
           </div>
@@ -94,7 +104,7 @@
 
                 <li class="nav-item">
                     <router-link to="/customer/cart" class="icons">
-                      <i class="fas fa-shopping-cart"></i>
+                      <i class="fa fa-shopping-cart"></i>
                       <span class="badge badge-notify"  >{{showCountCart}}</span>
                     </router-link>
                     
@@ -129,7 +139,7 @@
             }
         },
         created(){
-           this.axios.post('/customer/home')
+           this.axios.post('/home')
                 .then((response =>{
                   // console.log(response.data);
                     this.categories = response.data

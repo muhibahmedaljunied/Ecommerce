@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <button type="button" @click.prevent="getDefault" class="btn btn-primary">Your address</button>
                         <button type="button" @click.prevent="clearDefault" class="btn btn-primary">Clear form</button>
-                        <form @submit.prevent="shippingInfo" method="post">
+                        <form  method="post">
                             
                             <div class="form-group">
                                 <label>Full name</label>
@@ -28,7 +28,7 @@
                                 <input type="text" v-model="address" class="form-control" name="address" required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Confirm Shipping Info</button>
+                            <button type="button" class="btn btn-primary" @click = 'shippingInfo'>Confirm Shipping Info</button>
                         
                         </form>
                     </div>
@@ -60,10 +60,11 @@
         },
         methods:{
             getDefault(){
-                this.full_name = this.showSession.first_name+' '+this.showSession.last_name
-                this.email = this.showSession.email_address
-                this.number = this.showSession.phone_no
-                this.address = this.showSession.address
+                console.log(this.showSession);
+                this.full_name = this.showSession.name
+                this.email = this.showSession.email
+                this.number = this.showSession.phone
+                // this.address = this.showSession.address
             },
             clearDefault(){
                 this.full_name = '',
@@ -72,13 +73,16 @@
                 this.address = ''
             },
             shippingInfo(){
+                // this.$router.push('/customer/payment')
                 axios.post('/customer/shipping-info',{
+                    id: this.showSession.id,
                     full_name: this.full_name,
                     email: this.email,
                     number: this.number,
                     address: this.address
                 })
                 .then((response)=>{
+                    console.log(response);
                     this.$router.push('/customer/payment')
                 })
             }

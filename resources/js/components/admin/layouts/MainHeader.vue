@@ -22,7 +22,7 @@
                                 <a href="customer/home"
                                     class="font-weight-slim font-italic">
                                     <img src="" alt=""
-                                        class="img-fluid">Electro Store
+                                        class="img-fluid">Shop
                                 </a>
                             </h1>
                       </div>

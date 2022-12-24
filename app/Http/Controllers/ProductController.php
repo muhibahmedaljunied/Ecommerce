@@ -18,45 +18,57 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-                // $this->middleware('Admin');
+        // $this->middleware('Admin');
 
-        
+
     }
     public function index(Request $request)
     {
-        if($request->id){ //this for show products in customer
+        if ($request->id) { //this for show products in customer
 
             $product = Product::where('category_id', $request->id)
-            ->join('categories','products.category_id', '=', 'categories.id')
-            ->join('countries','products.country_id', '=', 'countries.id')
-            ->join('sizes','products.size_id', '=', 'sizes.id')
-            ->select('products.*','categories.name as category_name','countries.name as country_name','sizes.name as size_name')
-            ->get();
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->join('countries', 'products.country_id', '=', 'countries.id')
+                ->join('sizes', 'products.size_id', '=', 'sizes.id')
+                ->select('products.*', 'categories.name as category_name', 'countries.name as country_name', 'sizes.name as size_name')
+                ->get();
             return response()->json($product);
-        }else{ //this for show products in admin
+        } else { //this for show products in admin
             $product = DB::table('products')
-            ->join('categories','products.category_id', '=', 'categories.id')
-            ->join('countries','products.country_id', '=', 'countries.id')
-            ->join('sizes','products.size_id', '=', 'sizes.id')
-            ->select('products.*','categories.name as category_name','countries.name as country_name','sizes.name as size_name')
-            ->get();
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->join('countries', 'products.country_id', '=', 'countries.id')
+                ->join('sizes', 'products.size_id', '=', 'sizes.id')
+                ->select('products.*', 'categories.name as category_name', 'countries.name as country_name', 'sizes.name as size_name')
+                ->get();
             return response()->json($product);
         }
     }
-// -------------------------------------------------------------------
-    public function getProductDetails($id){
+    // -------------------------------------------------------------------
+
+    public function product_by_price(Request $request)
+    {
+        $product = Product::where('price', $request->id)
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->join('countries', 'products.country_id', '=', 'countries.id')
+                ->join('sizes', 'products.size_id', '=', 'sizes.id')
+                ->select('products.*', 'categories.name as category_name', 'countries.name as country_name', 'sizes.name as size_name')
+                ->get();
+            return response()->json($product);
+    }
+    public function getProductDetails($id)
+    {
         $Product = DB::table('products')
-                    ->join('categories','products.category_id', '=', 'categories.id')
-                    ->where('products.id','=', $id)
-                    ->select('products.*','categories.name as category_name')
-                    ->first();
-        
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->where('products.id', '=', $id)
+            ->select('products.*', 'categories.name as category_name')
+            ->first();
+
         //$data = $Product->toArray();
         //var_dump($Product);
         return response()->json($Product);
     }
 
-// ---------------------------------------------------------------------
+    // ---------------------------------------------------------------------
     /**
      * Show the form for creating a new resource.
      *
@@ -68,7 +80,7 @@ class ProductController extends Controller
         $country = Country::all();
         $size = Size::all();
 
-        return response()->json(['category'=>$category,'country'=>$country,'size'=>$size]);
+        return response()->json(['category' => $category, 'country' => $country, 'size' => $size]);
     }
 
     /**
@@ -87,20 +99,20 @@ class ProductController extends Controller
         // $file->move($upload_path, $generated_new_name);
 
         $product = new Product();
-        $product->name=$request->post('product');
-        $product->category_id= $request->post('category');
-        $product->country_id= $request->post('country');
-        $product->size_id= $request->post('size');
-        $product->qty= $request->post('qty');
-        $product->price= $request->post('price');
-        $product->discount= $request->post('discount');
+        $product->name = $request->post('product');
+        $product->category_id = $request->post('category');
+        $product->country_id = $request->post('country');
+        $product->size_id = $request->post('size');
+        $product->qty = $request->post('qty');
+        $product->price = $request->post('price');
+        $product->discount = $request->post('discount');
         $product->status = $request->post('status');
         // $product->image = $file_name;
         $product->save();
         return response()->json($request->file('image'));
 
         // ------------------------------------------------------------
-   
+
 
     }
 
@@ -123,12 +135,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        
+
         $product = Product::find($id);
         $category = Category::all();
         $country = Country::all();
         $size = Size::all();
-        return response()->json(['product'=>$product,'category'=>$category,'country'=>$country,'size'=>$size]);
+        return response()->json(['product' => $product, 'category' => $category, 'country' => $country, 'size' => $size]);
     }
 
     /**

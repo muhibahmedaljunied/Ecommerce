@@ -7,7 +7,7 @@
                         <h3>Choose a Payment Method!</h3>
                     </div>
                     <div class="card-body">
-                        <form @submit.prevent="orderConfirm" method="post">
+                        <form  method="post">
                             
                             <table class="table table-bordered">
                                 <tr>
@@ -28,11 +28,11 @@
                                 </tr>
                             </table>
 
-                            <button type="submit" v-if="type=='cash'" class="btn btn-primary">Confirm Order</button>
+                            <button type="button" v-if="type=='cash'" class="btn btn-primary" @click="orderConfirm">Confirm Order</button>
                         
                         </form>
                         <div v-if="type=='stripe'">
-                             <form role="form" @submit.prevent="orderConfirm" action="" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="" id="payment-form">
+                             <form role="form"  action="" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="" id="payment-form">
                                 <div class='form-row row'>
                                     <div class='col-xs-12 form-group required'>
                                         <label class='control-label'>Name on Card</label> 
@@ -68,7 +68,7 @@
   
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now {{showSubtotal}}</button>
+                                        <button class="btn btn-primary btn-lg btn-block" type="button" @click="orderConfirm">Pay Now {{showSubtotal}}</button>
                                     </div>
                                 </div>
                             </form>
@@ -101,9 +101,33 @@
                     type: this.type
                 })
                 .then((response)=>{
-                    console.log(response.data);
-                    alert("Thanks for your order.");
-                    // this.$router.push('/');
+                    // console.log(response.data);
+                    // alert("Thanks for your order.");
+                    toast.fire({
+                                title: "Created!",
+                                text: "Thanks for your order.",
+                                button: "Close", // Text on button
+                                icon: "success", //built in icons: success, warning, error, info
+                                timer: 4000, //timeOut for auto-close
+                                buttons: {
+                                    confirm: {
+                                    text: "OK",
+                                    value: true,
+                                    visible: true,
+                                    className: "",
+                                    closeModal: true
+                                    },
+                                    cancel: {
+                                    text: "Cancel",
+                                    value: false,
+                                    visible: true,
+                                    className: "",
+                                    closeModal: true,
+                                    }
+                                }
+                            })
+
+                    this.$router.push('/customer/home');
                     // this.$store.dispatch("countCart");
                 })
             }

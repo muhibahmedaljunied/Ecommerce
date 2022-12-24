@@ -20,20 +20,22 @@ use Illuminate\Support\Facades\Route;
     Route::get('customer/{page}', function () {return view('customer/layouts/master');
     });
     
-    Route::post('/customer/customer-login', 'CustomerController@login');
-    Route::post('/customer/customer-register', 'CustomerController@register');
+    Route::post('/customer-login', 'CustomerController@login');
+    Route::post('/customer-register', 'CustomerController@register');
     Route::post('/customer/customer-logout', 'CustomerController@logout');
-    Route::post('/customer/customer-session', 'CustomerController@sessionData');
-    Route::post('/customer/home', 'CategoryController@index');
-    Route::post('/customer/category/{id}', 'ProductController@index');
-    Route::post('/customer/product-details/{id}', 'ProductController@getProductDetails');
-    Route::post('/customer/featured-product','customer\CartController@getFeaturedProducts');
-    Route::post('/customer/new-product','customer\CartController@getNewProducts');
+    Route::post('/customer-session', 'CustomerController@sessionData');
+    Route::post('/home', 'CategoryController@index');
+    Route::post('/category_c/{id}', 'ProductController@index');
+    Route::post('/product_by_price/{id}', 'ProductController@product_by_price');
+    Route::post('/product-details/{id}', 'ProductController@getProductDetails');
+    Route::post('/featured-product','customer\CartController@getFeaturedProducts');
+    Route::post('/new-product','customer\CartController@getNewProducts');
 
-    Route::get('/customer/add-cart/{id}/{cartQty}', 'customer\CartController@addToCart');
-    Route::post('/customer/all-cart', 'customer\CartController@allCart');
-    Route::post('/customer/delete-cart', 'customer\CartController@deleteCart');
-    Route::post('/customer/update-cart', 'customer\CartController@updateCart');
+    Route::get('/add-cart/{id}/{cartQty}', 'customer\CartController@addToCart');
+    Route::post('/customer/shipping-info', 'OrderController@shippinginfo');
+    Route::post('/all-cart', 'customer\CartController@allCart');
+    Route::post('/delete-cart', 'customer\CartController@deleteCart');
+    Route::post('/update-cart', 'customer\CartController@updateCart');
     Route::post('/customer/confirm-order', 'OrderController@store');
 
 // });    
@@ -46,6 +48,7 @@ Route::group(['middleware'=>['guest']],function(){
 
     Route::get('/login', function () {return view('auth/login');
     });
+    
 });
 
 Auth::routes();

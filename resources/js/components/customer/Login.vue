@@ -10,7 +10,7 @@
                         <h5 v-if="success" class="text-success">{{success}}</h5>
                     </div>
                     <div class="card-body">
-                    <form @submit.prevent="login" method="post">
+                    <form method="post">
                         <div class="form-group">
                             <label>Email address</label>
                             <input v-model="form['email_address']" type="email" class="form-control" name="email_address" required>
@@ -21,7 +21,7 @@
                             <input v-model="form['password']" type="password" class="form-control" name="password">
                             <span v-if="error.password" class="text-danger">{{error.password[0]}}</span>
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="button" class="btn btn-primary" @click='login'>Login</button>
                     </form>
                     <router-link to="/customer/register">Register Here</router-link>
                     </div>
@@ -44,9 +44,10 @@
         },
         methods:{
             login(){
+                // console.log(this.form.email_address,this.form.password);
                 this.success = '',
                 this.error = '',
-                axios.post('/customer/customer-login',{
+                axios.post('/customer-login',{
                     email_address: this.form.email_address,
                     password: this.form.password
                 })
@@ -60,6 +61,7 @@
                         this.$store.dispatch("customerSession");
                         this.$router.go(-1)
                     }
+                    console.log(response.data);
                 })
             }
         }
