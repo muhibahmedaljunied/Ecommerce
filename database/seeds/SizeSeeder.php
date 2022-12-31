@@ -12,7 +12,7 @@ class SizeSeeder extends Seeder
      */
     public function run()
     {
-        // factory(Size::class,10)->create();
+        factory(Size::class,10)->create();
 
     }
 }
