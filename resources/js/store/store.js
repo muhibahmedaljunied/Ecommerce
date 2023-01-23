@@ -2,6 +2,8 @@ import { forEach, forEachRight } from "lodash"
 export default {
   state: {
 		categories: [],
+    sizes: [],
+    countries:[],
     featuredProducts: [],
     newProducts: [],
     catProducts: [],
@@ -19,6 +21,12 @@ export default {
   getters: {
     getCategory(state){
   		return state.categories
+  	},
+    getSize(state){
+  		return state.sizes
+  	},
+    getCountry(state){
+  		return state.countries
   	},
     getfeaturedProduct(state){
       return state.featuredProducts
@@ -66,6 +74,23 @@ export default {
             context.commit("allCategory", response.data)
           })
     },
+    size(context){
+      axios.post('/size')
+          .then((response) =>{
+            // console.log('muhib',response.data)
+            // alert('df');
+            context.commit("allSize", response.data)
+          })
+    },
+    country(context){
+      axios.post('/country')
+          .then((response) =>{
+            // console.log('muhib',response.data)
+            // alert('df');
+            context.commit("allCountry", response.data)
+          })
+    },
+
     featuredProduct(context){
       axios.post('/featured-product')
           .then((response) =>{
@@ -156,6 +181,12 @@ export default {
 	mutations: {
     allCategory(state, data){
       return state.categories = data
+    },
+    allSize(state, data){
+      return state.sizes = data
+    },
+    allCountry(state, data){
+      return state.countries = data
     },
     featureProducts(state, data){
       return state.featuredProducts = data

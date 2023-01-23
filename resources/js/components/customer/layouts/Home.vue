@@ -80,7 +80,7 @@
           <div class="col-lg-4 col-md-6" v-for="f_Product in showProduct">
             <div class="single-product">
               <div class="product-img">
-                <img class="img-fluid w-100" :src="`/assets/img/20191214045454_41TxNIo3cQL.jpg`" alt="" />
+                <img class="img-fluid w-100" :src="`/assets/img/allimages/big/shirt/${f_Product.image}`" alt="" />
                 <div class="p_icon">
                   <router-link :to="`/customer/single-product/${f_Product.id}`">
                     <i class="ti-eye"></i>
@@ -109,13 +109,13 @@
                 <router-link :to="`/single-product/${f_Product.id}`" class="d-block">
                   <h4>{{ f_Product.name }}</h4>
                 </router-link>
-                <div class="mt-3" v-if="f_Product.discount">
-                  <span class="mr-4">৳ {{ f_Product.discount }}</span>
+                <div class="mt-3" v-if="f_Product.price">
+                  <span class="mr-4">৳ {{ f_Product.price }}</span>
                   <del>৳ {{ f_Product.price }}</del>
                 </div>
-                <div class="mt-3" v-else>
+                <!-- <div class="mt-3" v-else>
                   <span class="mr-4">৳ {{ f_Product.price }}</span>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -319,13 +319,13 @@
                 <router-link :to="`/single-product/${newProduct.id}`" class="d-block">
                   <h4>{{ newProduct.name }}</h4>
                 </router-link>
-                <div class="mt-3" v-if="newProduct.discount">
-                  <span class="mr-4">৳ {{ newProduct.discount }}</span>
+                <div class="mt-3" v-if="newProduct.price">
+                  <span class="mr-4">৳ {{ newProduct.price }}</span>
                   <del>৳ {{ newProduct.price }}</del>
                 </div>
-                <div class="mt-3" v-else>
+                <!-- <div class="mt-3" v-else>
                   <span class="mr-4">৳ {{ newProduct.price }}</span>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

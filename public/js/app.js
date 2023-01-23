@@ -4758,6 +4758,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4771,6 +4785,8 @@ __webpack_require__.r(__webpack_exports__);
     this.$Progress.start();
     this.$store.dispatch("categoryByID", this.$route.params.id);
     this.$store.dispatch("category");
+    this.$store.dispatch("size");
+    this.$store.dispatch("country");
     this.$Progress.finish();
     this.showProduct();
   },
@@ -4820,8 +4836,11 @@ __webpack_require__.r(__webpack_exports__);
     showAllCategory: function showAllCategory() {
       return this.$store.getters.getCategory;
     },
-    showAllBrands: function showAllBrands() {
-      return this.$store.getters.getBrand;
+    showAllSize: function showAllSize() {
+      return this.$store.getters.getSize;
+    },
+    showAllCountry: function showAllCountry() {
+      return this.$store.getters.getCountry;
     }
   }
 });
@@ -46602,7 +46621,7 @@ var staticRenderFns = [
     return _c(
       "a",
       { staticClass: "profile-user d-flex", attrs: { href: "" } },
-      [_c("img", { attrs: { alt: "", src: "assets/img/faces/6.jpg" } })]
+      [_c("img", { attrs: { alt: "", src: "assets/img/background.jpg" } })]
     )
   },
   function() {
@@ -46610,7 +46629,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "main-img-user" }, [
-      _c("img", { attrs: { alt: "", src: "assets/img/faces/6.jpg" } })
+      _c("img", { attrs: { alt: "", src: "assets/img/background.jpg" } })
     ])
   },
   function() {
@@ -50511,7 +50530,15 @@ var render = function() {
                     return _c("tr", [
                       _c("td", [
                         _c("div", { staticClass: "media" }, [
-                          _vm._m(1, true),
+                          _c("div", { staticClass: "d-flex" }, [
+                            _c("img", {
+                              attrs: {
+                                src: "/assets/img/" + cart.image,
+                                height: "100px",
+                                alt: "Product Image"
+                              }
+                            })
+                          ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "media-body" }, [
                             _c("p", [_vm._v(_vm._s(cart.name))])
@@ -50589,7 +50616,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("td"),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("td", [
                       _c("h5", [_vm._v("৳ " + _vm._s(_vm.showSubtotal))])
@@ -50690,20 +50717,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex" }, [
-      _c("img", {
-        attrs: {
-          src: "/assets/img/20191214045454_41TxNIo3cQL.jpg",
-          height: "100px",
-          alt: "Product Image"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("td", [_c("h5", [_vm._v("Subtotal")])])
   }
 ]
@@ -50770,49 +50783,15 @@ var render = function() {
                   _c(
                     "ul",
                     { staticClass: "list" },
-                    _vm._l(_vm.showAllCategory, function(category) {
+                    _vm._l(_vm.showAllSize, function(size) {
                       return _c("li", [
                         _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.bra,
-                              expression: "bra"
-                            }
-                          ],
-                          attrs: { type: "checkbox", id: category.id },
-                          domProps: {
-                            value: category.id,
-                            checked: Array.isArray(_vm.bra)
-                              ? _vm._i(_vm.bra, category.id) > -1
-                              : _vm.bra
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.bra,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = category.id,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 && (_vm.bra = $$a.concat([$$v]))
-                                } else {
-                                  $$i > -1 &&
-                                    (_vm.bra = $$a
-                                      .slice(0, $$i)
-                                      .concat($$a.slice($$i + 1)))
-                                }
-                              } else {
-                                _vm.bra = $$c
-                              }
-                            }
-                          }
+                          attrs: { type: "checkbox", id: size.id },
+                          domProps: { value: size.id }
                         }),
                         _vm._v(" "),
-                        _c("label", { attrs: { for: category.id } }, [
-                          _vm._v(_vm._s(category.name))
+                        _c("label", { attrs: { for: size.id } }, [
+                          _vm._v(_vm._s(size.name))
                         ])
                       ])
                     }),
@@ -50823,6 +50802,30 @@ var render = function() {
               _vm._v(" "),
               _c("aside", { staticClass: "left_widgets p_filter_widgets" }, [
                 _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "widgets_inner" }, [
+                  _c(
+                    "ul",
+                    { staticClass: "list" },
+                    _vm._l(_vm.showAllCountry, function(country) {
+                      return _c("li", [
+                        _c("input", {
+                          attrs: { type: "checkbox", id: country.id },
+                          domProps: { value: country.id }
+                        }),
+                        _vm._v(" "),
+                        _c("label", { attrs: { for: country.id } }, [
+                          _vm._v(_vm._s(country.name))
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("aside", { staticClass: "left_widgets p_filter_widgets" }, [
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "widgets_inner" }, [
                   _c("div", { staticClass: "range_item" }, [
@@ -50866,7 +50869,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-9" }, [
-            _vm._m(3),
+            _vm._m(4),
             _vm._v(" "),
             _c("div", { staticClass: "latest_product_inner" }, [
               _c(
@@ -50879,7 +50882,8 @@ var render = function() {
                         _c("img", {
                           staticClass: "card-img",
                           attrs: {
-                            src: "/assets/img/20191214045454_41TxNIo3cQL.jpg",
+                            src:
+                              "/assets/img/allimages/shirt/" + catProduct.image,
                             alt: "Product Image",
                             height: "50px"
                           }
@@ -50900,7 +50904,7 @@ var render = function() {
                               [_c("i", { staticClass: "ti-eye" })]
                             ),
                             _vm._v(" "),
-                            _vm._m(4, true),
+                            _vm._m(5, true),
                             _vm._v(" "),
                             _c(
                               "button",
@@ -50933,16 +50937,12 @@ var render = function() {
                           catProduct.discount
                             ? _c("div", { staticClass: "mt-3" }, [
                                 _c("span", { staticClass: "mr-4" }, [
-                                  _vm._v("৳ " + _vm._s(catProduct.discount))
-                                ]),
-                                _vm._v(" "),
-                                _c("del", [
-                                  _vm._v("৳ " + _vm._s(catProduct.price))
+                                  _vm._v("$ " + _vm._s(catProduct.price))
                                 ])
                               ])
                             : _c("div", { staticClass: "mt-3" }, [
                                 _c("span", { staticClass: "mr-4" }, [
-                                  _vm._v("৳" + _vm._s(catProduct.price))
+                                  _vm._v("$" + _vm._s(catProduct.price))
                                 ])
                               ])
                         ],
@@ -50974,7 +50974,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "l_w_title" }, [
-      _c("h3", [_vm._v("Product Brand")])
+      _c("h3", [_vm._v("Product Size")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "l_w_title" }, [
+      _c("h3", [_vm._v("Product Country")])
     ])
   },
   function() {
@@ -53181,7 +53189,8 @@ var render = function() {
                     _c("img", {
                       staticClass: "img-fluid w-100",
                       attrs: {
-                        src: "/assets/img/20191214045454_41TxNIo3cQL.jpg",
+                        src:
+                          "/assets/img/allimages/big/shirt/" + f_Product.image,
                         alt: ""
                       }
                     }),
@@ -53232,19 +53241,15 @@ var render = function() {
                         [_c("h4", [_vm._v(_vm._s(f_Product.name))])]
                       ),
                       _vm._v(" "),
-                      f_Product.discount
+                      f_Product.price
                         ? _c("div", { staticClass: "mt-3" }, [
                             _c("span", { staticClass: "mr-4" }, [
-                              _vm._v("৳ " + _vm._s(f_Product.discount))
+                              _vm._v("৳ " + _vm._s(f_Product.price))
                             ]),
                             _vm._v(" "),
                             _c("del", [_vm._v("৳ " + _vm._s(f_Product.price))])
                           ])
-                        : _c("div", { staticClass: "mt-3" }, [
-                            _c("span", { staticClass: "mr-4" }, [
-                              _vm._v("৳ " + _vm._s(f_Product.price))
-                            ])
-                          ])
+                        : _vm._e()
                     ],
                     1
                   )
@@ -53321,19 +53326,15 @@ var render = function() {
                         [_c("h4", [_vm._v(_vm._s(newProduct.name))])]
                       ),
                       _vm._v(" "),
-                      newProduct.discount
+                      newProduct.price
                         ? _c("div", { staticClass: "mt-3" }, [
                             _c("span", { staticClass: "mr-4" }, [
-                              _vm._v("৳ " + _vm._s(newProduct.discount))
+                              _vm._v("৳ " + _vm._s(newProduct.price))
                             ]),
                             _vm._v(" "),
                             _c("del", [_vm._v("৳ " + _vm._s(newProduct.price))])
                           ])
-                        : _c("div", { staticClass: "mt-3" }, [
-                            _c("span", { staticClass: "mr-4" }, [
-                              _vm._v("৳ " + _vm._s(newProduct.price))
-                            ])
-                          ])
+                        : _vm._e()
                     ],
                     1
                   )
@@ -72773,6 +72774,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     categories: [],
+    sizes: [],
+    countries: [],
     featuredProducts: [],
     newProducts: [],
     catProducts: [],
@@ -72789,6 +72792,12 @@ __webpack_require__.r(__webpack_exports__);
   getters: {
     getCategory: function getCategory(state) {
       return state.categories;
+    },
+    getSize: function getSize(state) {
+      return state.sizes;
+    },
+    getCountry: function getCountry(state) {
+      return state.countries;
     },
     getfeaturedProduct: function getfeaturedProduct(state) {
       return state.featuredProducts;
@@ -72832,6 +72841,20 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/category').then(function (response) {
         //console.log(response.data)
         context.commit("allCategory", response.data);
+      });
+    },
+    size: function size(context) {
+      axios.post('/size').then(function (response) {
+        // console.log('muhib',response.data)
+        // alert('df');
+        context.commit("allSize", response.data);
+      });
+    },
+    country: function country(context) {
+      axios.post('/country').then(function (response) {
+        // console.log('muhib',response.data)
+        // alert('df');
+        context.commit("allCountry", response.data);
       });
     },
     featuredProduct: function featuredProduct(context) {
@@ -72911,6 +72934,12 @@ __webpack_require__.r(__webpack_exports__);
   mutations: {
     allCategory: function allCategory(state, data) {
       return state.categories = data;
+    },
+    allSize: function allSize(state, data) {
+      return state.sizes = data;
+    },
+    allCountry: function allCountry(state, data) {
+      return state.countries = data;
     },
     featureProducts: function featureProducts(state, data) {
       return state.featuredProducts = data;

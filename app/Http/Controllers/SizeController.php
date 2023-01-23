@@ -20,8 +20,8 @@ class SizeController extends Controller
     }
     public function index()
     {
-        $Size = Size::all();
-        return response()->json($Size);
+       
+        return response()->json(Size::all());  
     }
 
     /**

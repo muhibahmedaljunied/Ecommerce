@@ -20,8 +20,8 @@ class CountryController extends Controller
     }
     public function index()
     {
-        $Country = Country::all();
-        return response()->json($Country);
+       
+        return response()->json(Country::all());
     }
 
     /**

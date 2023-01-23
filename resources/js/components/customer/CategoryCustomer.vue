@@ -23,13 +23,27 @@
 
               <aside class="left_widgets p_filter_widgets">
                 <div class="l_w_title">
-                  <h3>Product Brand</h3>
+                  <h3>Product Size</h3>
                 </div>
                 <div class="widgets_inner">
                   <ul class="list">
-                    <li v-for="category in showAllCategory">
-                      <input type="checkbox" :id="category.id" v-model="bra" :value="category.id">
-                      <label :for="category.id">{{category.name}}</label>
+                    <li v-for="size in showAllSize">
+                      <input type="checkbox" :id="size.id"  :value="size.id">
+                      <label :for="size.id">{{size.name}}</label>
+                    </li>
+
+                  </ul>
+                </div>
+              </aside>
+              <aside class="left_widgets p_filter_widgets">
+                <div class="l_w_title">
+                  <h3>Product Country</h3>
+                </div>
+                <div class="widgets_inner">
+                  <ul class="list">
+                    <li v-for="country in showAllCountry">
+                      <input type="checkbox" :id="country.id"  :value="country.id">
+                      <label :for="country.id">{{country.name}}</label>
                     </li>
 
                   </ul>
@@ -74,8 +88,8 @@
                 <div class="col-lg-4 col-md-6" v-for="catProduct in showCatProduct">
                   <div class="single-product">
                     <div class="product-img">
-                      <img class="card-img" src="/assets/img/20191214045454_41TxNIo3cQL.jpg" alt="Product Image"
-                        height='50px' />
+                      <img class="card-img" :src="`/assets/img/allimages/shirt/${catProduct.image}`" alt="Product Image"
+                        height='50px' /> 
                       <div class="p_icon">
                         <router-link :to="`/customer/single-product/${catProduct.id}`">
                           <i class="ti-eye"></i>
@@ -93,11 +107,11 @@
                         <h4>{{ catProduct.name }}</h4>
                       </router-link>
                       <div class="mt-3" v-if="catProduct.discount">
-                        <span class="mr-4">৳ {{ catProduct.discount }}</span>
-                        <del>৳ {{ catProduct.price }}</del>
+                        <span class="mr-4">$ {{ catProduct.price }}</span>
+                        <!-- <del>৳ {{ catProduct.price }}</del> -->
                       </div>
                       <div class="mt-3" v-else>
-                        <span class="mr-4">৳{{ catProduct.price }}</span>
+                        <span class="mr-4">${{ catProduct.price }}</span>
 
                       </div>
                     </div>
@@ -128,6 +142,8 @@ export default {
     this.$Progress.start();
     this.$store.dispatch("categoryByID", this.$route.params.id)
     this.$store.dispatch("category")
+    this.$store.dispatch("size")
+    this.$store.dispatch("country")
     this.$Progress.finish();
     this.showProduct();
   },
@@ -174,8 +190,11 @@ export default {
     showAllCategory() {
       return this.$store.getters.getCategory
     },
-    showAllBrands() {
-      return this.$store.getters.getBrand
+    showAllSize() {
+      return this.$store.getters.getSize
+    },
+    showAllCountry() {
+      return this.$store.getters.getCountry
     }
   },
 
