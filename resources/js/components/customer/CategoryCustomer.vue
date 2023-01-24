@@ -88,7 +88,7 @@
                 <div class="col-lg-4 col-md-6" v-for="catProduct in showCatProduct">
                   <div class="single-product">
                     <div class="product-img">
-                      <img class="card-img" :src="`/assets/img/allimages/shirt/${catProduct.image}`" alt="Product Image"
+                      <img class="card-img" :src="`/assets/img/allimages/${catProduct.category_name}/${catProduct.image}`" alt="Product Image"
                         height='50px' /> 
                       <div class="p_icon">
                         <router-link :to="`/customer/single-product/${catProduct.id}`">
@@ -103,7 +103,7 @@
                       </div>
                     </div>
                     <div class="product-btm">
-                      <router-link :to="`/single-product/${catProduct.id}`">
+                      <router-link :to="`/customer/single-product/${catProduct.id}`">
                         <h4>{{ catProduct.name }}</h4>
                       </router-link>
                       <div class="mt-3" v-if="catProduct.discount">

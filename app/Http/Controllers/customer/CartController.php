@@ -49,9 +49,18 @@ class CartController extends Controller
 
 
 
-        $cart = Temporale::select('temporales.*', 'temporales.qty as qty_cart', 'products.*')
+        // $cart = Temporale::select('temporales.*', 'temporales.qty as qty_cart', 'products.*')
+        //     ->join('products', 'products.id', '=', 'temporales.product_id')
+        //     ->get();
+
+            $cart = Temporale::select('temporales.*', 'temporales.qty as qty_cart', 'products.*')
             ->join('products', 'products.id', '=', 'temporales.product_id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->select('products.*', 'categories.name as category_name','temporales.*', 'temporales.qty as qty_cart')
             ->get();
+
+
+
 
 
         if (isset($cart)) {
@@ -84,7 +93,8 @@ class CartController extends Controller
     public function deleteCart(Request $request)
     {
 
-        DB::table('temporales')->where('product_id', '=', $request->post('id'))->delete();
+        $category = Temporale::find($request->id);
+        $category->delete($request->post());
 
         return response()->json(['success' => 'product deleted from cart']);
     }
@@ -92,29 +102,31 @@ class CartController extends Controller
     public function updateCart(Request $request)
     {
 
-        $total = Temporale::where('product_id', $request->post('id'))->join('products','products.id','temporales.product_id')->get();
-
-        if($total[0]->total != 0){
-            $cart = Temporale::where('product_id', $request->post('id'))->update(['qty' => $request->post('qty'),'total' => $request->post('qty')*$total[0]->price]);
-
-        }else{
-            $cart = Temporale::where('product_id', $request->post('id'))->update(['qty' => $request->post('qty'),'total' => $request->post('qty')*$total[0]->price]);
-
+        $total = Temporale::where('temporales.id', $request->id)->join('products', 'products.id', 'temporales.product_id')->get();
+        // return response()->json($total);
+        if ($total[0]->total != 0) {
+            $cart = Temporale::where('id', $request->id)->update(['qty' => $request->post('qty'), 'total' => $request->post('qty') * $total[0]->price]);
+        } else {
+            $cart = Temporale::where('id', $request->id)->update(['qty' => $request->post('qty'), 'total' => $request->post('qty') * $total[0]->price]);
         }
-        
-        
 
-
-        // $cart = new Cart(session()->get('cart'));
-        // $cart->updateQty($request->post('id'), $request->post('qty'));
         return response()->json($request);
     }
 
     public function getFeaturedProducts()
     {
-        $featuredProduct = Product::where('status', 1)
-            ->limit(3)
+        // $featuredProduct = Product::where('status', 2)
+        //     ->limit(3)
+        //     ->get();
+
+        $featuredProduct = DB::table('products')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->where('products.status', '=', 2)
+            ->select('products.*', 'categories.name as category_name')
             ->get();
+        // ->limit(3);
+
+
 
         //return $featuredProduct;
         return response()->json($featuredProduct);
@@ -122,10 +134,20 @@ class CartController extends Controller
 
     public function getNewProducts()
     {
-        $newProduct = Product::where('status', 1)
-            ->orderBy('id', 'desc')
-            ->limit(8)
+        // $newProduct = Product::where('status', 1)
+        //     ->orderBy('id', 'desc')
+        //     ->limit(8)
+        //     ->get();
+
+
+        $newProduct = DB::table('products')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->where('products.status', '=', 1)
+            ->select('products.*', 'categories.name as category_name')
             ->get();
+        // ->limit(3);
+
+
         //return $featuredProduct;
         return response()->json($newProduct);
     }

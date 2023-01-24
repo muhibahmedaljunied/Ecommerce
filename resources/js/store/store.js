@@ -28,7 +28,7 @@ export default {
     getCountry(state){
   		return state.countries
   	},
-    getfeaturedProduct(state){
+    getFeaturedProduct(state){
       return state.featuredProducts
     },
     getNewProduct(state){
@@ -95,7 +95,7 @@ export default {
       axios.post('/featured-product')
           .then((response) =>{
             //console.log(response.data)
-            context.commit("featureProducts", response.data)
+            context.commit("getFeaturedProduct", response.data)
           })
     },
     newProduct(context){
@@ -188,7 +188,7 @@ export default {
     allCountry(state, data){
       return state.countries = data
     },
-    featureProducts(state, data){
+    getFeaturedProduct(state, data){
       return state.featuredProducts = data
     },
     getNewProduct(state, data){

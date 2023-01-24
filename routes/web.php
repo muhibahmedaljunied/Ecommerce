@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 // Route::group(['prefix'=>['customer']],function(){
     Route::get('customer/{page}', function () {return view('customer/layouts/master');
     });
+    Route::get('customer/{page}/{id}', function () {return view('customer/layouts/master');
+    });
     
     Route::post('/customer-login', 'CustomerController@login');
     Route::post('/customer-register', 'CustomerController@register');

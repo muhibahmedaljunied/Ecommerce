@@ -18,7 +18,7 @@
                   class="active"
                   >
                   <img
-                  src="/assets/img/20191214045454_41TxNIo3cQL.jpg"
+                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
                   alt="product image" class="w-100"
                   />
                 </li>
@@ -27,7 +27,7 @@
                   data-slide-to="1"
                   >
                   <img
-                  src="/assets/img/20191214045454_41TxNIo3cQL.jpg"
+                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
                   alt="product image" class="w-100"
                   />
                 </li>
@@ -36,7 +36,7 @@
                   data-slide-to="2"
                   >
                   <img
-                  :src="`assets/img/${singleProduct.image}`"
+                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
                   alt="product image" class="w-100"
                   />
                 </li>
@@ -45,21 +45,21 @@
                 <div class="carousel-item active">
                   <img
                   class="d-block w-100"
-                  src="/assets/img/20191214045454_41TxNIo3cQL.jpg"
+                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
                   alt="First slide"
                   />
                 </div>
                 <div class="carousel-item">
                   <img
                   class="d-block w-100"
-                 src="/assets/img/20191214045454_41TxNIo3cQL.jpg"
+                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
                   alt="Second slide"
                   />
                 </div>
                 <div class="carousel-item">
                   <img
                   class="d-block w-100"
-                  v-bind:src="`assets/img/${singleProduct.image}`"
+                  v-bind:src="`assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
                   alt="Third slide"
                   />
                 </div>

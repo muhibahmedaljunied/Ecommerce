@@ -76,11 +76,12 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6" v-for="f_Product in showProduct">
+        <div class="row" >
+          
+          <div class="col-lg-4 col-md-6" v-for="f_Product in showFeaturedProduct" >
             <div class="single-product">
               <div class="product-img">
-                <img class="img-fluid w-100" :src="`/assets/img/allimages/big/shirt/${f_Product.image}`" alt="" />
+                <img class="img-fluid w-100" :src="`/assets/img/allimages/big/${f_Product.category_name}/${f_Product.image}`" alt="" />
                 <div class="p_icon">
                   <router-link :to="`/customer/single-product/${f_Product.id}`">
                     <i class="ti-eye"></i>
@@ -91,22 +92,10 @@
                   <button @click.prevent="addToCart(f_Product.id)">
                     <i class="ti-shopping-cart"></i>
                   </button>
-                  <!-- <form method="post" @submit.prevent="addToCart(singleProduct.id)">
-                    <div class="product_count">
-                      <label for="qty">Quantity:</label>
-                      <input type="number" name="qty" v-model="cartQty" value="1" title="Quantity"
-                        class="input-text qty" />
-                    </div>
-                    <div class="card_area">
-                      <input type="submit" class="main_btn" value="Add to Cart">
-                    </div>
-                  </form> -->
-
-
                 </div>
               </div>
               <div class="product-btm">
-                <router-link :to="`/single-product/${f_Product.id}`" class="d-block">
+                <router-link :to="`/customer/single-product/${f_Product.id}`" class="d-block">
                   <h4>{{ f_Product.name }}</h4>
                 </router-link>
                 <div class="mt-3" v-if="f_Product.price">
@@ -119,13 +108,14 @@
               </div>
             </div>
           </div>
+          
         </div>
       </div>
     </section>
     <!--================ End Feature Product Area =================-->
 
     <!--================ Offer Area =================-->
-    <!-- <section class="offer_area">
+    <section class="offer_area">
     <div class="container">
       <div class="row justify-content-center">
         <div class="offset-lg-4 col-lg-6 text-center">
@@ -138,7 +128,7 @@
         </div>
       </div>
     </div>
-  </section> -->
+  </section>
     <!--================ End Offer Area =================-->
 
     <!--================ Inspired Product Area =================-->
@@ -302,9 +292,9 @@
           <div class="col-lg-3 col-md-6" v-for="newProduct in showNewProduct">
             <div class="single-product">
               <div class="product-img">
-                <img class="img-fluid w-100" :src="`/assets/img/20191214045454_41TxNIo3cQL.jpg`" alt="">
+                <img class="img-fluid w-100" :src="`/assets/img/allimages/big/${newProduct.category_name}/${newProduct.image}`" alt="">
                 <div class="p_icon">
-                  <router-link :to="`/single-product/${newProduct.id}`">
+                  <router-link :to="`/customer/single-product/${newProduct.id}`">
                     <i class="ti-eye"></i>
                   </router-link>
                   <a href="#">
@@ -316,7 +306,7 @@
                 </div>
               </div>
               <div class="product-btm">
-                <router-link :to="`/single-product/${newProduct.id}`" class="d-block">
+                <router-link :to="`/customer/single-product/${newProduct.id}`" class="d-block">
                   <h4>{{ newProduct.name }}</h4>
                 </router-link>
                 <div class="mt-3" v-if="newProduct.price">
@@ -373,8 +363,8 @@ export default {
     this.$Progress.finish();
   },
   computed: {
-    showProduct() {
-      return this.$store.getters.getfeaturedProduct
+    showFeaturedProduct() {
+      return this.$store.getters.getFeaturedProduct
     },
     showNewProduct() {
       return this.$store.getters.getNewProduct

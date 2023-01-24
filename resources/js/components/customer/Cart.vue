@@ -22,7 +22,7 @@
                   <td>
                     <div class="media">
                       <div class="d-flex">
-                        <img :src="`/assets/img/${cart.image}`" height="100px" alt="Product Image"/>
+                        <img :src="`/assets/img/allimages/${cart.category_name}/${cart.image}`" height="100px" alt="Product Image"/>
                       </div>
                       <div class="media-body">
                         <p>{{cart.name}}</p>
@@ -34,7 +34,7 @@
                   </td>
                   <td>
                     <div class="product_count">
-                      <input type="number" name="qty" v-model="cart.qty_cart" @input="updateCart(cart.id,cart.qty_cart)" title="Quantity" class="input-text qty"/>
+                      <input type="number" name="qty" v-model="cart.qty_cart" @change="updateCart(cart.id,cart.qty_cart)" title="Quantity" class="input-text qty"/>
                     </div>
                   </td>
                   <td>
@@ -98,7 +98,7 @@
         },
         methods:{
           removeCart(Id){
-              this.$Progress.start();
+              // this.$Progress.start();
               axios.post('/delete-cart',{
                 id: Id
               }).then((response)=>{
@@ -135,14 +135,16 @@
               })
           },
           updateCart(Id,Qty){
+         
               this.$Progress.start();
 
               axios.post('/update-cart',{
                 id: Id,
                 qty: Qty
               }).then((response)=>{
-                
+                console.log('dfdf1');
                 console.log(response.data);
+                console.log('dfdf2');
                   // toast.fire({
                   //               title: "Updated!",
                   //               text: "Your product has been updated in cart.",
