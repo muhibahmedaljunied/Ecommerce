@@ -5,8 +5,32 @@ window.Vue = require('vue');			//import vue same as(import Vue from 'vue')
 import VueRouter from 'vue-router';		//import vue router
 import VueAxios from 'vue-axios';
 import axios from 'axios';
+
 // ---------------------------- sweetalert ---------------------------------------------------------
 import swal from 'sweetalert2'
+
+// ----------------
+
+window.checkAndAttachMapScript = function (callback) {
+  let scriptId = "map-api-script";
+  let mapAlreadyAttached = !!document.getElementById(scriptId);
+
+  if (mapAlreadyAttached) {
+      if (window.google) // Script attached but may not finished loading; so check for 'google' object.
+          callback();
+  }
+  else {
+      window.mapApiInitialized = callback;
+
+      let script = document.createElement('script');
+      script.id = scriptId;
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAgDyMQ54mW-EHsTaFTnWd0XorOOvdDR34&libraries=places,geometry&callback=mapApiInitialized';
+      document.body.appendChild(script);
+  }
+
+  return mapAlreadyAttached;
+}
+// ---------------
 
 window.swal = swal;
 

@@ -17,18 +17,18 @@
 
                      <input v-model ='user.id' type="hidden"  name="id_name" id="id_name">
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">الاسم</label>
                         <input v-model='user.name' type="text"  name="name" id="name">
                        
                     </div>
 
                     <div class="form-group">
-                        <label for="status">status</label>
+                        <label for="status">الحاله</label>
                         <input v-model='user.status' type="text"  name="status" id="status">
                        
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">update</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">حفظ</button>
                 </form>
             </div>
 								

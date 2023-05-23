@@ -101,7 +101,7 @@
                     type: this.type
                 })
                 .then((response)=>{
-                    // console.log(response.data);
+                    console.log(response);
                     // alert("Thanks for your order.");
                     toast.fire({
                                 title: "Created!",

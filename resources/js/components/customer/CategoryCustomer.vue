@@ -12,8 +12,9 @@
                 </div>
                 <div class="widgets_inner">
                   <ul class="list">
-                    <li v-for="category in showAllCategory">
-                      <input type="checkbox" :id="category.id"  :value="category.id" @change="onchange(category.id)" >
+                    <li v-for="(category, index) in showAllCategory">
+                      <input v-model="check_category[index]" type="checkbox" :id="category.id" :value="category.id"
+                        @change="onchange_category(category.id, index)">
                       <label :for="category.id">{{ category.name }}</label>
                     </li>
 
@@ -27,9 +28,10 @@
                 </div>
                 <div class="widgets_inner">
                   <ul class="list">
-                    <li v-for="size in showAllSize">
-                      <input type="checkbox" :id="size.id"  :value="size.id">
-                      <label :for="size.id">{{size.name}}</label>
+                    <li v-for="(size, index) in showAllSize">
+                      <input @change="onchange_size(size.id, index)" v-model="check_size[index]" type="checkbox"
+                        :id="size.id" :value="size.id">
+                      <label :for="size.id">{{ size.name }}</label>
                     </li>
 
                   </ul>
@@ -41,9 +43,10 @@
                 </div>
                 <div class="widgets_inner">
                   <ul class="list">
-                    <li v-for="country in showAllCountry">
-                      <input type="checkbox" :id="country.id"  :value="country.id">
-                      <label :for="country.id">{{country.name}}</label>
+                    <li v-for="(country, index) in showAllCountry">
+                      <input @change="onchange_country(country.id, index)" v-model="check_country[index]" type="checkbox"
+                        :id="country.id" :value="country.id">
+                      <label :for="country.id">{{ country.name }}</label>
                     </li>
 
                   </ul>
@@ -88,8 +91,8 @@
                 <div class="col-lg-4 col-md-6" v-for="catProduct in showCatProduct">
                   <div class="single-product">
                     <div class="product-img">
-                      <img class="card-img" :src="`/assets/img/allimages/${catProduct.category_name}/${catProduct.image}`" alt="Product Image"
-                        height='50px' /> 
+                      <img class="card-img" :src="`/assets/upload/${catProduct.image}`" alt="Product Image"
+                        height='50px' />
                       <div class="p_icon">
                         <router-link :to="`/customer/single-product/${catProduct.id}`">
                           <i class="ti-eye"></i>
@@ -134,8 +137,18 @@ export default {
     return {
       cartQty: '1',
       id: '',
-      showCatProduct:'',
-      myInput:'',
+      showCatProduct: '',
+      myInput: '',
+      check_category: [],
+      check_country: [],
+      check_size: [],
+      array_id: {
+
+        'category_id':0,
+        'country_id':0,
+        'size_id':0,
+      },
+
     }
   },
   mounted() {
@@ -150,27 +163,91 @@ export default {
   methods: {
     showProduct() {
       axios.post(`/category_c/${this.$route.params.id}`)
-          .then((response) =>{
-            // console.log(response.data)
-            this.showCatProduct= response.data;
-          })
+        .then((response) => {
+          console.log(response.data)
+          this.showCatProduct = response.data;
+        })
     },
-    onchange(id) {
-      axios.post(`/category_c/${id}`)
-          .then((response) =>{
-            // console.log(response.data)
-            this.showCatProduct= response.data;
-          })
-    },
-    get_by_price(e){
- 
+    onchange_category(id, index) {
       
+
+      if (this.check_category[index] == true) {
+
+        this.array_id.category_id =id;
+        for (let i = 0; i < this.check_category.length; i++) {
+
+          if (index != i) {
+
+            this.check_category[i] = false;
+
+          }
+
+        }
+        axios.post(`/category_filter`, { 'array_id':this.array_id})
+          .then((response) => {
+            console.log(response.data);
+            this.showCatProduct = response.data;
+          })
+      }
+
+    },
+    onchange_country(id, index) {
+      console.log(index);
+
+      if (this.check_country[index] == true) {
+
+        this.array_id.country_id =id;
+        for (let i = 0; i < this.check_country.length; i++) {
+
+          if (index != i) {
+
+            this.check_country[i] = false;
+
+          }
+
+        }
+        axios.post(`/country_filter`,{ 'array_id':this.array_id})
+          .then((response) => {
+            console.log(response.data);
+
+            this.showCatProduct = response.data;
+          })
+      }
+
+    },
+    onchange_size(id, index) {
+      console.log(index);
+
+      if (this.check_size[index] == true) {
+        this.array_id.size_id =id;
+
+        for (let i = 0; i < this.check_size.length; i++) {
+
+          if (index != i) {
+
+            this.check_size[i] = false;
+
+          }
+
+        }
+        axios.post(`/size_filter`,{ 'array_id':this.array_id})
+          .then((response) => {
+            console.log(response.data);
+
+            this.showCatProduct = response.data;
+          })
+      }
+
+    },
+    get_by_price(e) {
+
+
       // alert(this.myInput);
       axios.post(`/product_by_price/${this.myInput}`)
-          .then((response) =>{
-            // console.log(response.data)
-            this.showCatProduct= response.data;
-          })
+        .then((response) => {
+          // console.log(response.data)
+          this.showCatProduct = response.data;
+        })
 
 
     },

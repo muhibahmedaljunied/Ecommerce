@@ -28,6 +28,10 @@ use Illuminate\Support\Facades\Route;
     Route::post('/customer-session', 'CustomerController@sessionData');
     Route::post('/home', 'CategoryController@index');
     Route::post('/category_c/{id}', 'ProductController@index');
+
+    Route::post('/category_filter', 'ProductController@category_filter');
+    Route::post('/country_filter', 'ProductController@country_filter');
+    Route::post('/size_filter', 'ProductController@size_filter');
     Route::post('/product_by_price/{id}', 'ProductController@product_by_price');
     Route::post('/product-details/{id}', 'ProductController@getProductDetails');
     Route::post('/featured-product','customer\CartController@getFeaturedProducts');
@@ -53,7 +57,7 @@ Route::group(['middleware'=>['guest']],function(){
     
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/logout', 'HomeController@logout');
 
@@ -110,6 +114,8 @@ Route::group(['middleware'=>['auth']],function(){
     Route::post('/order-invoice/{id}', 'OrderDetailController@orderinvoice');
     Route::post('/product-order/{id}', 'OrderDetailController@orderproduct');
     Route::post('/customer-order/{id}', 'OrderDetailController@ordercustomer');
+    Route::post('/payment-details/{id}', 'OrderDetailController@orderpayment');
+
     Route::post('/user_name','HomeController@show');
 
     // Route::get('/{page}', function () {return view('admin/layouts/master');

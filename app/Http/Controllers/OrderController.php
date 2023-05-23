@@ -30,10 +30,14 @@ class OrderController extends Controller
     public function index()
     {
 
+        // $order = DB::table('orders')
+        //     ->join('users', 'orders.customer_id', '=', 'users.id')
+        //     ->select('orders.*', 'users.name as customer_name')
+        //     ->get();
         $order = DB::table('orders')
-            ->join('users', 'orders.customer_id', '=', 'users.id')
-            ->select('orders.*', 'users.name as customer_name')
-            ->get();
+        ->join('shipping_addresses', 'orders.shipping_id', '=', 'shipping_addresses.id')
+        ->select('orders.*', 'shipping_addresses.full_name as customer_name')
+        ->get();
         return response()->json($order);
     }
 
@@ -50,7 +54,7 @@ class OrderController extends Controller
     {
 
         $shippingInfo = new ShippingAddress();
-        $shippingInfo->customer_id = $request->id;
+        // $shippingInfo->customer_id = $request->id;
         $shippingInfo->full_name = $request->full_name;
         $shippingInfo->email_address = $request->email;
         $shippingInfo->phone_no = $request->number;
@@ -81,20 +85,20 @@ class OrderController extends Controller
                 ->select(DB::Raw('sum(total) as total'))
                 ->get();
       
-            // return response()->json($cart);
+            // return response()->json($cart1);
             // =====================================
-            if (session()->get('person') == 0) {
+            // if (session()->get('person') == 0) {
 
-                $customer = User::find(session()->get('customerId'))->id;
-            } else {
-                $id = Auth::user()->id;
-                $customer = User::find($id);
-            }
+            //     $customer = User::find(session()->get('customerId'))->id;
+            // } else {
+            //     $id = Auth::user()->id;
+            //     $customer = User::find($id);
+            // }
             // =====================================
             
 
             $order = new Order();
-            $order->customer_id = $customer;
+            // $order->customer_id = $customer;
             $order->shipping_id = Session::get('shippingId');
             $order->order_total = $cart[0]->total;
             $order->save();
@@ -104,16 +108,17 @@ class OrderController extends Controller
             $payment->payment_info = $request->type;
             $payment->save();
 
+            // return response()->json($cart1);
 
             foreach ($cart1 as $cartProduct) {
                 // return response()->json($cartProduct->id);
                 $orderDetails = new OrderDetail();
                 $orderDetails->order_id = $order->id;
-                $orderDetails->product_id = $cartProduct->id;
+                $orderDetails->product_id = $cartProduct->product_id;
                 // $orderDetails->product_name = $cartProduct['name'];
-                // $orderDetails->price = $cartProduct->price;
+                $orderDetails->price = $cartProduct->price;
                 $orderDetails->quantity = $cartProduct->qty;
-                $orderDetails->total = $cartProduct->price * $cartProduct->qty;
+                $orderDetails->total = $cartProduct->total;
                 $orderDetails->save();
             }
             // Cart::destroy();

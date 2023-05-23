@@ -15,7 +15,6 @@ export default {
     productOrder:[],
     orderDetails:[],
     customerOrder:[],
-    // productComment:[]
   },
 
   getters: {
@@ -144,7 +143,7 @@ export default {
     getOrderdetails(context,payload){
       axios.post('/order-details/'+ payload)
           .then((response) =>{
-            // alert(response.data.order_total);
+            // console.log(response.data);
             context.commit("orderDetails", response.data)
           })
     },
@@ -158,7 +157,7 @@ export default {
     customerByorder(context,payload){
       axios.post('/customer-order/'+ payload)
           .then((response) =>{
-            console.log(response.data)
+            // console.log(response.data)
             context.commit("customerByorder", response.data)
           })
     },

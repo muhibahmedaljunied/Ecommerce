@@ -5,28 +5,26 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">SIMPLE TABLE</h4>
+                        <h4 class="card-title mg-b-0"> بلد الصنع</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
-                    <p class="tx-12 tx-gray-500 mb-2">Example of Valex Simple Table. <a href="">Learn more</a></p>
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        <h3 class="text-center">Add country</h3>
                         <form method="post" @submit.prevent="addcountry">
 
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">الاسم</label>
                                 <input v-model="name" type="text" class="form-control" name="name" id="name">
 
                             </div>
 
                             <div class="form-group">
-                                <label for="status">status</label>
+                                <label for="status">الحاله</label>
                                 <input v-model='status' type="text" class="form-control" name="status" id="status">
 
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Add</button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">حفظ</button>
                         </form>
                     </div>
 

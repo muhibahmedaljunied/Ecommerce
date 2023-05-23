@@ -18,7 +18,7 @@
                   class="active"
                   >
                   <img
-                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
+                  :src="`/assets/upload/${singleProduct.image}`"
                   alt="product image" class="w-100"
                   />
                 </li>
@@ -27,7 +27,7 @@
                   data-slide-to="1"
                   >
                   <img
-                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
+                  :src="`/assets/upload/${singleProduct.image}`"
                   alt="product image" class="w-100"
                   />
                 </li>
@@ -36,7 +36,7 @@
                   data-slide-to="2"
                   >
                   <img
-                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
+                  :src="`/assets/upload/${singleProduct.image}`"
                   alt="product image" class="w-100"
                   />
                 </li>
@@ -45,21 +45,21 @@
                 <div class="carousel-item active">
                   <img
                   class="d-block w-100"
-                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
+                  :src="`/assets/upload/${singleProduct.image}`"
                   alt="First slide"
                   />
                 </div>
                 <div class="carousel-item">
                   <img
                   class="d-block w-100"
-                  :src="`/assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
+                  :src="`/assets/upload/${singleProduct.image}`"
                   alt="Second slide"
                   />
                 </div>
                 <div class="carousel-item">
                   <img
                   class="d-block w-100"
-                  v-bind:src="`assets/img/allimages/${singleProduct.category_name}/${singleProduct.image}`"
+                  v-bind:src="`assets/upload/${singleProduct.image}`"
                   alt="Third slide"
                   />
                 </div>
@@ -71,8 +71,8 @@
           <div class="s_product_text">
             <h3>{{singleProduct.name}}</h3>
             <span >
-              <h2>৳{{singleProduct.price}} </h2>
-              <del>৳{{singleProduct.discount}}</del>
+              <h2>৳{{singleProduct.price  - singleProduct.discount }} </h2>
+              <del style="color:red;" v-if="singleProduct.discount">৳{{singleProduct.price}}</del>
             </span>
             <span >
               <h2></h2>
@@ -80,12 +80,18 @@
             </span>
             <ul class="list">
               <li>
-                <router-link class="active" :to="`/category/${singleProduct.category_id}`">
-                <span>Category</span> : {{singleProduct.category_name}}</router-link
-                >
+                
+                <span>Category</span> : {{singleProduct.category_name}}
               </li>
               <li>
-                <span>Availibility</span>{{singleProduct.qty}} : In Stock
+               <span>Country</span> : {{singleProduct.country_name}}
+              </li>
+
+              <li>
+              <span>size</span> : {{singleProduct.size_name}}
+              </li>
+              <li>
+               <span>Availibility</span>In Stock :{{singleProduct.qty}}
               </li>
             </ul>
             <p>

@@ -22,7 +22,7 @@
                   <td>
                     <div class="media">
                       <div class="d-flex">
-                        <img :src="`/assets/img/allimages/${cart.category_name}/${cart.image}`" height="100px" alt="Product Image"/>
+                        <img :src="`/assets/upload/${cart.image}`" height="100px" alt="Product Image"/>
                       </div>
                       <div class="media-body">
                         <p>{{cart.name}}</p>
@@ -62,18 +62,18 @@
                   <td></td>
                   
                   <td>
-                    <div class="checkout_btn_inner" v-if="showSession">
+                    <!-- <div class="checkout_btn_inner" v-if="showSession">
                       <router-link class="gray_btn" to="/customer/home">Continue Shopping</router-link>
                       <router-link class="main_btn" to="/customer/shipping">Proceed to checkout</router-link>
                     </div>
                     <div class="checkout_btn_inner" v-else>
                       <router-link class="gray_btn" to="/customer/home">Continue Shopping</router-link>
                       <router-link class="main_btn" to="/customer/login">Proceed to checkout</router-link>
-                    </div>
-                     <!-- <div class="checkout_btn_inner" >
+                    </div> -->
+                     <div class="checkout_btn_inner" >
                       <router-link class="gray_btn" to="/customer/home">Continue Shopping</router-link>
                       <router-link class="main_btn" to="/customer/shipping">Proceed to checkout</router-link>
-                    </div> -->
+                    </div>
                   
                   </td>
                 </tr>

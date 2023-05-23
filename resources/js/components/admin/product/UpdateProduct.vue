@@ -5,23 +5,21 @@
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
-									<h4 class="card-title mg-b-0">SIMPLE TABLE</h4>
+									<h4 class="card-title mg-b-0">المنتجات</h4>
 									<i class="mdi mdi-dots-horizontal text-gray"></i>
 								</div>
-								<p class="tx-12 tx-gray-500 mb-2">Example of Valex Simple Table. <a href="">Learn more</a></p>
 							</div>
 							<div class="card-body">
                                  <div class="form">
-                    <h3 class="text-center">Update Product</h3>
                     <form method="post" @submit.prevent="updateproduct">
 
                      <div class="form-group">
-                        <label for="Product">Product</label>
+                        <label for="Product">الاسم</label>
                         <input v-model="product" type="text" class="form-control"  name="Product" id="Product">                   
                     </div>
 
                     <div class="form-group">
-                        <label for="Category">Category</label>
+                        <label for="Category">الصنف</label>
                         <select v-model="categoryselected" name="Category" id="Category" class="form-control">
                             <option value="">select</option>
                             <option v-for="categorys in category"  v-bind:value ='categorys.id' >{{categorys.name}}</option>
@@ -29,7 +27,7 @@
                    
                     </div>
                    <div class="form-group">
-                        <label for="Country">Country</label>
+                        <label for="Country">بلد الصنع</label>
                         <select v-model ='countryselected'  name="Country" id="Country" class="form-control">
                             <option value="">select</option>
                             <option v-for="countrys in country" v-bind:value ='countrys.id'>{{countrys.name}} </option>
@@ -37,7 +35,7 @@
                    
                     </div>
                     <div class="form-group">
-                        <label for="Size">Size</label>
+                        <label for="Size">المقاس</label>
                         <select v-model='sizeselected'  name="Size" id="Size" class="form-control">
                             <option value="">select</option>
                             <option  v-for="sizes in size" v-bind:value ='sizes.id' >{{sizes.name}}</option>
@@ -45,24 +43,24 @@
                    
                     </div>
                      <div class="form-group">
-                        <label for="qty">Qty</label>
+                        <label for="qty">الكميه</label>
                         <input v-model="qty" type="text"  name="qty" id="qty" class="form-control">                   
                     </div>
                      <div class="form-group">
-                        <label for="price">Price</label>
+                        <label for="price">السعر</label>
                         <input v-model="price" type="text"  name="price" id="price" class="form-control">                   
                     </div>
                      <div class="form-group">
-                        <label for="discount">Discount</label>
+                        <label for="discount">الخصم</label>
                         <input v-model="discount" type="text"  name="discount" id="discount" class="form-control">                   
                     </div>
                     <div class="form-group">
-                        <label for="Product">Status</label>
+                        <label for="Product">الجاله</label>
                         <input v-model="status" type="text"  name="status" id="status" class="form-control">
                    
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">update</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">حفظ</button>
                 </form>
             </div>
 								

@@ -25,6 +25,8 @@ import CategoryCustomer from './components/customer/CategoryCustomer'
 import SingleProduct from './components/customer/SingleProduct'
 import Cart from './components/customer/Cart'
 import Shipping from './components/customer/Shipping'
+import Shipping2 from './components/customer/Shipping2'
+
 import Payment from './components/customer/Payment'
 
 // -------------------------------------------------------------------
@@ -153,6 +155,10 @@ import Payment from './components/customer/Payment'
   { 
     path: '/customer/shipping', 
     component: Shipping
+  },
+  { 
+    path: '/customer/shipping2', 
+    component: Shipping2
   },
   { 
     path: '/customer/payment', 

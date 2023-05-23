@@ -81,7 +81,7 @@
           <div class="col-lg-4 col-md-6" v-for="f_Product in showFeaturedProduct" >
             <div class="single-product">
               <div class="product-img">
-                <img class="img-fluid w-100" :src="`/assets/img/allimages/big/${f_Product.category_name}/${f_Product.image}`" alt="" />
+                <img class="img-fluid w-100" :src="`/assets/upload/${f_Product.image}`" alt="" />
                 <div class="p_icon">
                   <router-link :to="`/customer/single-product/${f_Product.id}`">
                     <i class="ti-eye"></i>
@@ -99,8 +99,8 @@
                   <h4>{{ f_Product.name }}</h4>
                 </router-link>
                 <div class="mt-3" v-if="f_Product.price">
-                  <span class="mr-4">৳ {{ f_Product.price }}</span>
-                  <del>৳ {{ f_Product.price }}</del>
+                  <span class="mr-4">৳ {{ f_Product.price - f_Product.discount }}</span>
+                  <del style="color:red" v-if="f_Product.discount">৳ {{ f_Product.price }}</del>
                 </div>
                 <!-- <div class="mt-3" v-else>
                   <span class="mr-4">৳ {{ f_Product.price }}</span>
@@ -292,7 +292,7 @@
           <div class="col-lg-3 col-md-6" v-for="newProduct in showNewProduct">
             <div class="single-product">
               <div class="product-img">
-                <img class="img-fluid w-100" :src="`/assets/img/allimages/big/${newProduct.category_name}/${newProduct.image}`" alt="">
+                <img class="img-fluid w-100" :src="`/assets/upload/${newProduct.image}`" alt="">
                 <div class="p_icon">
                   <router-link :to="`/customer/single-product/${newProduct.id}`">
                     <i class="ti-eye"></i>
@@ -310,8 +310,8 @@
                   <h4>{{ newProduct.name }}</h4>
                 </router-link>
                 <div class="mt-3" v-if="newProduct.price">
-                  <span class="mr-4">৳ {{ newProduct.price }}</span>
-                  <del>৳ {{ newProduct.price }}</del>
+                  <span class="mr-4">৳ {{ newProduct.price - newProduct.discount  }}</span>
+                  <del v-if="newProduct.discount" style="color:red">৳ {{ newProduct.price }}</del>
                 </div>
                 <!-- <div class="mt-3" v-else>
                   <span class="mr-4">৳ {{ newProduct.price }}</span>
