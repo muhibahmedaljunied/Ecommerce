@@ -164,6 +164,10 @@ import Payment from './components/customer/Payment'
     path: '/customer/payment', 
     component: Payment
   },
+  { 
+    path: '/customer/payment/:message', 
+    component: Payment
+  },
 ]
 
 export default routes;

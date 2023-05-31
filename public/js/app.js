@@ -4848,7 +4848,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(process) {//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4935,9 +4944,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      type: 'cash',
-      publishedKey: process.env.STRIPE_KEY
+      type: 'payment' // publishedKey: process.env.STRIPE_KEY,
+
     };
+  },
+  mounted: function mounted() {
+    if (this.$route.query.status) {
+      this.message_payment(this.$route.query);
+    }
   },
   created: {
     showSubtotal: function showSubtotal() {
@@ -4949,7 +4963,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/customer/confirm-order', {
-        type: this.type
+        type: this.type,
+        type_pay: 'cash'
       }).then(function (response) {
         console.log(response); // alert("Thanks for your order.");
 
@@ -4983,10 +4998,54 @@ __webpack_require__.r(__webpack_exports__);
         _this.$router.push('/customer/home'); // this.$store.dispatch("countCart");
 
       });
+    },
+    orderPayment: function orderPayment() {
+      axios.post('/api/paypal/process-transaction', {
+        type: this.type,
+        type_pay: 'paypal'
+      }).then(function (response) {
+        console.log(response.data); // alert("Thanks for your order.");
+
+        window.top.location.href = response.data; // this.$router.push('/customer/home');
+        // this.$store.dispatch("countCart");
+      });
+    },
+    message_payment: function message_payment() {
+      var icon = 'error';
+
+      if (this.$route.query.status == 'success') {
+        icon = 'success';
+      }
+
+      toast.fire({
+        title: this.$route.query.status,
+        text: this.$route.query.message,
+        button: "Close",
+        // Text on button
+        icon: icon,
+        //built in icons: success, warning, error, info
+        timer: 5000,
+        //timeOut for auto-close
+        buttons: {
+          confirm: {
+            text: "OK",
+            value: true,
+            visible: true,
+            className: "",
+            closeModal: true
+          },
+          cancel: {
+            text: "Cancel",
+            value: false,
+            visible: true,
+            className: "",
+            closeModal: true
+          }
+        }
+      });
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -5193,10 +5252,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      full_name: '',
-      email: '',
-      number: '',
-      address: ''
+      full_name: 'muhib ahmed aljunied',
+      email: 'muhibalmuhib10@gmail.com',
+      number: '776165784',
+      address: 'sana`a'
     };
   },
   mounted: function mounted() {
@@ -52682,7 +52741,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("tr", [
-                  _c("td", [_vm._v("Visa/Master Card")]),
+                  _c("td", [_vm._v("Paypal")]),
                   _vm._v(" "),
                   _c("td", [
                     _c("input", {
@@ -52703,34 +52762,6 @@ var render = function() {
                       on: {
                         change: function($event) {
                           _vm.type = "card"
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tr", [
-                  _c("td", [_vm._v("Bkash")]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.type,
-                          expression: "type"
-                        }
-                      ],
-                      attrs: {
-                        type: "radio",
-                        name: "payment_info",
-                        value: "bkash"
-                      },
-                      domProps: { checked: _vm._q(_vm.type, "bkash") },
-                      on: {
-                        change: function($event) {
-                          _vm.type = "bkash"
                         }
                       }
                     })
@@ -52773,6 +52804,18 @@ var render = function() {
                       staticClass: "btn btn-primary",
                       attrs: { type: "button" },
                       on: { click: _vm.orderConfirm }
+                    },
+                    [_vm._v("Confirm\n                            Order")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.type == "card"
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "button" },
+                      on: { click: _vm.orderPayment }
                     },
                     [_vm._v("Confirm Order")]
                   )
@@ -52830,7 +52873,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header text-center" }, [
-      _c("h3", [_vm._v("Choose a Payment Method!")])
+      _c("h3", [_vm._v("Choose a Payment Method!\n                    ")])
     ])
   },
   function() {
@@ -74333,6 +74376,9 @@ var routes = [{
   component: _components_customer_Shipping2__WEBPACK_IMPORTED_MODULE_26__["default"]
 }, {
   path: '/customer/payment',
+  component: _components_customer_Payment__WEBPACK_IMPORTED_MODULE_27__["default"]
+}, {
+  path: '/customer/payment/:message',
   component: _components_customer_Payment__WEBPACK_IMPORTED_MODULE_27__["default"]
 }];
 /* harmony default export */ __webpack_exports__["default"] = (routes);

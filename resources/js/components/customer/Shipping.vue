@@ -84,10 +84,10 @@ import gmapsInit from './utils/gmaps';
 export default {
     data() {
         return {
-            full_name: '',
-            email: '',
-            number: '',
-            address: ''
+            full_name: 'muhib ahmed aljunied',
+            email: 'muhibalmuhib10@gmail.com',
+            number: '776165784',
+            address: 'sana`a'
         }
     },
     mounted() {

@@ -27,49 +27,50 @@
 
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <style type="text/css">
-  .badge-notify{
-   background:#4CD964;
-   position:relative;
-   top: -15px;
-   left: -7px;
-  }
+    .badge-notify {
+      background: #4CD964;
+      position: relative;
+      top: -15px;
+      left: -7px;
+    }
   </style>
 </head>
 
 <body>
-	<div id="app">
-  <!--================Header Menu Area =================-->
-  <header-section-customer></header-section-customer>
-  <!--================Header Menu Area =================-->
-  <router-view></router-view>
-  <!--================ start footer Area  =================-->
-  <footer-section-customer></footer-section-customer>
-  <!-- <vue-progress-bar></vue-progress-bar> -->
-  <!--================ End footer Area  =================-->
-</div>
+
+  <div id="app">
+    <!--================Header Menu Area =================-->
+    <header-section-customer></header-section-customer>
+    <!--================Header Menu Area =================-->
+    <router-view></router-view>
+    <!--================ start footer Area  =================-->
+    <footer-section-customer></footer-section-customer>
+    <!-- <vue-progress-bar></vue-progress-bar> -->
+    <!--================ End footer Area  =================-->
+  </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=<?php echo env('PAYPAL_SANDBOX_CLIENT_ID') ?>&currency=USD"></script> -->
 
   <script src="{{asset('assets/front-end/js/jquery-3.2.1.min.js')}}"></script>
-	<script src="{{asset('assets/front-end/js/popper.js')}}"></script>
-	<script src="{{asset('assets/front-end/js/bootstrap.min.js')}}"></script>
-	<script src="{{asset('assets/front-end/js/stellar.js')}}"></script>
-	<script src="{{asset('assets/front-end/vendors/lightbox/simpleLightbox.min.js')}}"></script>
-	<script src="{{asset('assets/front-end/vendors/nice-select/js/jquery.nice-select.min.js')}}"></script>
-	<script src="{{asset('assets/front-end/vendors/isotope/imagesloaded.pkgd.min.js')}}"></script>
-	<script src="{{asset('assets/front-end/vendors/isotope/isotope-min.js')}}"></script>
-	<script src="{{asset('assets/front-end/vendors/owl-carousel/owl.carousel.min.js')}}"></script>
-	<script src="{{asset('assets/front-end/js/jquery.ajaxchimp.min.js')}}"></script>
-	<script src="{{asset('assets/front-end/vendors/counter-up/jquery.waypoints.min.js')}}"></script>
-	<script src="{{asset('assets/front-end/vendors/counter-up/jquery.counterup.js')}}"></script>
-	<script src="{{asset('assets/front-end/js/mail-script.js')}}"></script>
-	<script src="{{asset('assets/front-end/js/theme.js')}}"></script> 
-    <script src="{{ asset('js/app.js') }}" ></script>
-    
+  <script src="{{asset('assets/front-end/js/popper.js')}}"></script>
+  <script src="{{asset('assets/front-end/js/bootstrap.min.js')}}"></script>
+  <script src="{{asset('assets/front-end/js/stellar.js')}}"></script>
+  <script src="{{asset('assets/front-end/vendors/lightbox/simpleLightbox.min.js')}}"></script>
+  <script src="{{asset('assets/front-end/vendors/nice-select/js/jquery.nice-select.min.js')}}"></script>
+  <script src="{{asset('assets/front-end/vendors/isotope/imagesloaded.pkgd.min.js')}}"></script>
+  <script src="{{asset('assets/front-end/vendors/isotope/isotope-min.js')}}"></script>
+  <script src="{{asset('assets/front-end/vendors/owl-carousel/owl.carousel.min.js')}}"></script>
+  <script src="{{asset('assets/front-end/js/jquery.ajaxchimp.min.js')}}"></script>
+  <script src="{{asset('assets/front-end/vendors/counter-up/jquery.waypoints.min.js')}}"></script>
+  <script src="{{asset('assets/front-end/vendors/counter-up/jquery.counterup.js')}}"></script>
+  <script src="{{asset('assets/front-end/js/mail-script.js')}}"></script>
+  <script src="{{asset('assets/front-end/js/theme.js')}}"></script>
+  <script src="{{ asset('js/app.js') }}"></script>
 
-<!-- stripe payment method -->
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+  <!-- stripe payment method -->
+  <!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script> -->
 
 
 </body>

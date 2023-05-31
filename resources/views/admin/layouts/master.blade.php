@@ -21,9 +21,7 @@
 	</div>
 	<div id='app'>
 
-		<!-- /Loader -->
 		<main-sidebar></main-sidebar>
-		<!-- main-content -->
 		<div class="main-content app-content">
 			<main-header></main-header>
 			<div class="container-fluid">
