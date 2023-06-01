@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentsController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -48,5 +51,20 @@ require __dir__.'/admin.php';
 //         return view('admin/layouts/master');
 //     });
 // });
-   
+
 // });
+// -------------------------stripe------------------------------------------------------
+// Route::group(['prefix' => 'stripe'], function () {
+
+//     Route::get('/stripe-payment', [PaymentsController::class, 'handleGet']);
+//     Route::post('/stripe-payment', [PaymentsController::class, 'handlePost'])->name('stripe.payment');
+// });
+
+
+Route::group(['prefix' => 'stripe'], function () {
+
+    // Route::get('/stripe-payment', [PaymentsController::class, 'handleGet']);
+    // Route::post('/stripe-payment', [PaymentsController::class, 'handlePost'])->name('stripe.payment');
+
+    Route::post('/stripe-payment', [OrderController::class, 'pay'])->name('stripe.payment');
+});

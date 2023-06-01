@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,13 +24,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['prefix'=>'paypal'], function(){
-
-// Route::get('create-transaction', [OrderController::class, 'createTransaction'])->name('createTransaction');
+    
 Route::post('process-transaction', [OrderController::class, 'pay'])->name('processTransaction');
 Route::get('success-transaction', [OrderController::class, 'success'])->name('successTransaction');
 Route::get('cancel-transaction', [OrderController::class, 'cancel'])->name('cancelTransaction');
 });
-
 
 
 

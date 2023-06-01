@@ -72,7 +72,7 @@
                     </div> -->
                      <div class="checkout_btn_inner" >
                       <router-link class="gray_btn" to="/customer/home">Continue Shopping</router-link>
-                      <router-link class="main_btn" to="/customer/shipping">Proceed to checkout</router-link>
+                      <router-link class="main_btn" to="/customer/payment">Proceed to checkout</router-link>
                     </div>
                   
                   </td>

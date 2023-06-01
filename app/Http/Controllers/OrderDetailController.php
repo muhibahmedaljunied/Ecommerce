@@ -39,12 +39,7 @@ class OrderDetailController extends Controller
 
     public function ordercustomer($id)
     {
-        // $customers = Order::where('orders.id', $id)
-        // ->join('payments','orders.id', '=', 'payments.order_id')
-        // ->join('shipping_addresses','shipping_addresses.id', '=', 'orders.shipping_id')
-        // ->join('users','users.id', '=', 'shipping_addresses.customer_id')
-        // ->select('orders.*','users.*','shipping_addresses.*','payments.*')
-        // ->get();
+    
         $customers = Order::where('orders.id', $id)
         ->join('payments','orders.id', '=', 'payments.order_id')
         ->join('shipping_addresses','shipping_addresses.id', '=', 'orders.shipping_id')

@@ -6,28 +6,27 @@ use Illuminate\Http\Request;
 use App\Services\Payment\Pay;
 // use App\Services\Payment\Traits\Payment;
 use App\Services\Payment\Traits\Store;
-
 use Illuminate\Support\Facades\Session;
 use App\ShippingAddress;
 use App\Order;
 use DB;
 
+
+
 class OrderController extends Controller
 {
 
     use Store;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public $pay;
+
+    
     private $gateway;
 
-    public function __construct()
+    public function __construct(Pay $pay)
     {
-        // $this->middleware('Admin');
-
-
+        $this->pay = $pay;
+  
 
     }
     public function index()
@@ -62,18 +61,14 @@ class OrderController extends Controller
         return response()->json("Shipping Info Putting in session");
     }
 
-    public function pay(Request $request, Pay $pay)
+    public function pay(Request $request)
     {
-        // dd($request->all());
-
-        $link = $pay->processTransaction($request);
+ 
+        $link = $this->pay->processTransaction($request);
+           
         return response()->json($link);
 
-       
     }
-
-
-   
 
 
     public function show(Request $request)

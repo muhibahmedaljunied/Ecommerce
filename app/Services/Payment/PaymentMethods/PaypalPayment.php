@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Services\Payment\Traits;
-
+namespace App\Services\Payment\PaymentMethods;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Services\Payment\Traits\Store;
+use Illuminate\Http\Request;
 
-trait Payment
-{
+class PaypalPayment{
+    
     use Store;
-
     public function paypal($request)
     {
 
@@ -57,58 +56,43 @@ trait Payment
         }
         
     }
-    
-    public function stripe($request)
+
+    public function success(Request $request)
     {
 
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
-        $paypalToken = $provider->getAccessToken();
+        $provider->getAccessToken();
+        $response = $provider->capturePaymentOrder($request['token']);
+        if (isset($response['status']) && $response['status'] == 'COMPLETED') {
 
-        $response = $provider->createOrder([
-            "intent" => "CAPTURE",
-            "application_context" => [
-                "return_url" => route('successTransaction'),
-                "cancel_url" => route('cancelTransaction')
-
-            ],
-            "purchase_units" => [
-                0 => [
-                    "amount" => [
-                        "currency_code" => "USD",
-                        "value" => "1000.00"
-                    ]
-                ]
-            ]
-        ]);
-
-        if (isset($response['id']) && $response['id'] != null) {
-            // redirect to approve href
-            foreach ($response['links'] as $links) {
-
-
-
-                if ($links['rel'] == 'approve') {
-
-                    return $links['href'];
-                }
-            }
-
+     
+            $this->store($request);
 
             return redirect()
-                ->route('customer', ['page' => 'payment', 'status' => 'error', 'message' => 'Something went wrong.']);
+                ->route('customer', ['page' => 'payment', 'status' => 'success', 'message' => 'Transaction complete.']);
         } else {
 
-
             return redirect()
-                ->route('customer', ['page' => 'payment', 'status' => 'canceld', 'message' => $response['message'] ?? 'Something went wrong.']);
+                ->route('customer', ['page' => 'payment', 'status' => 'error', 'message' => $response['message'] ?? 'Something went wrong.']);
         }
-        
     }
 
-    public function cash($request)
+    public function cancel(Request $request)
     {
-        $this->store($request);
-       
+
+        return redirect()
+            ->route('customer', ['page' => 'payment', 'status' => 'canceld', 'message' => $response['message'] ?? 'You have canceled the transaction.']);
     }
+
 }
+
+
+
+
+
+
+
+
+
+ 
