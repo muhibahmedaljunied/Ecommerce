@@ -1,0 +1,32 @@
+{
+    "customers": [
+        {
+            "id": 1,
+            "first_name": "muhib Kumar",
+            "last_name": "Sanjay Kumar",
+            "email_address": "sanjay@gmail.com",
+            "phone_no":776165784
+        },
+        {
+            "id": 2,
+            "first_name": "Ashish muhib",
+            "last_name": "Sanjay Kumar",
+            "email_address": "ashish@gmail.com",
+            "phone_no":776165784
+        },
+        {
+            "id": 3,
+            "first_name": "muhib Negi",
+            "last_name": "Sanjay Kumar",
+            "email_address": "dj@gmail.com",
+            "phone_no":776165784
+        },
+        {
+            "id": 4,
+            "first_name": "muhib Rohila",
+            "last_name": "Sanjay Kumar",
+            "email_address": "vijay@gmail.com",
+            "phone_no":776165784
+        }
+    ]
+}

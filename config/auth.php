@@ -12,9 +12,10 @@ return [
     | as required, but they're a perfect start for most applications.
     |
     */
-
+    
     'defaults' => [
         'guard' => 'web',
+        // 'guard' => 'sanctum',
         'passwords' => 'users',
     ],
 
@@ -46,6 +47,13 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        // 'sanctum' => [
+        //     'driver' => 'token',
+        //     'provider' => 'users',
+        //     'hash' => false,
+        // ],
+
     ],
 
     /*

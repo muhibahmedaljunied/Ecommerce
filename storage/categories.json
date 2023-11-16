@@ -1,0 +1,64 @@
+{
+    "categories": [
+        {
+            "id": 1,
+            "name": "food"
+        
+        },
+        {
+            "id": 2,
+            "name": "Ashish Kumar"
+          
+        },
+        {
+            "id": 3,
+            "name": "Dhananjay Negi"
+     
+        },
+        {
+            "id": 4,
+            "name": "Vijay Rohila"
+          
+        },
+        {
+            "id": 5,
+            "name": "Vijay Rohila"
+          
+        },
+        {
+            "id": 6,
+            "name": "Vijay Rohila"
+          
+        },
+        {
+            "id": 7,
+            "name": "Vijay Rohila"
+          
+        },
+        {
+            "id": 8,
+            "name": "Vijay Rohila"
+          
+        },
+        {
+            "id": 9,
+            "name": "Vijay Rohila"
+          
+        },
+        {
+            "id": 10,
+            "name": "Vijay Rohila"
+          
+        },
+        {
+            "id": 11,
+            "name": "Vijay Rohila"
+          
+        },
+        {
+            "id": 12,
+            "name": "Vijay Rohila"
+          
+        }
+    ]
+}

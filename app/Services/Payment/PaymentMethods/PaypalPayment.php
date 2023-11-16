@@ -2,13 +2,14 @@
 
 namespace App\Services\Payment\PaymentMethods;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use App\Repository\PaymentRepositoryInterface;
 use App\Services\Payment\Traits\Store;
 use Illuminate\Http\Request;
 
-class PaypalPayment{
+class PaypalPayment implements PaymentRepositoryInterface {
     
     use Store;
-    public function paypal($request)
+    public function payment($request)
     {
 
 

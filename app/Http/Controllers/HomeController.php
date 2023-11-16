@@ -39,10 +39,11 @@ class HomeController extends Controller
             return response()->json(['product'=>$product,'category'=>$category,'order'=>$order,'user'=>Auth::user()]);
 
     }
-    public function logout(Request $request) {
-        
+    public function logout() {
+       
         Auth::logout();
-        DB::table('temporales')->delete();
+        // DB::table('temporales')->delete();
+     
         return redirect('/login');
       }
 }

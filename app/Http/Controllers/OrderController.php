@@ -1,14 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Repository\PaymentRepositoryInterface;
+use App\Country;
 use Illuminate\Http\Request;
-use App\Services\Payment\Pay;
-// use App\Services\Payment\Traits\Payment;
 use App\Services\Payment\Traits\Store;
 use Illuminate\Support\Facades\Session;
 use App\ShippingAddress;
-use App\Order;
 use DB;
 
 
@@ -18,78 +16,26 @@ class OrderController extends Controller
 
     use Store;
 
-    public $pay;
-
-    
-    private $gateway;
-
-    public function __construct(Pay $pay)
+    public $payment;
+    public function __construct(PaymentRepositoryInterface $payment)
     {
-        $this->pay = $pay;
+        $this->payment = $payment;
   
 
     }
     public function index()
     {
+        $country = Country::all();
+
         $order = DB::table('orders')
             ->join('shipping_addresses', 'orders.shipping_id', '=', 'shipping_addresses.id')
             ->select('orders.*', 'shipping_addresses.full_name as customer_name')
             ->get();
-        return response()->json($order);
+        return response()->json(['country' => $country,'order'=>$order]);
     }
 
-    
-    public function create()
-    {
-    }
 
-    public function shippingInfo(Request $request)
-    {
-
-        $shippingInfo = new ShippingAddress();
-        // $shippingInfo->customer_id = $request->id;
-        $shippingInfo->full_name = $request->full_name;
-        $shippingInfo->email_address = $request->email;
-        $shippingInfo->phone_no = $request->number;
-        $shippingInfo->address = $request->address;
-
-        $shippingInfo->save();
-
-        Session::put('shippingId', $shippingInfo->id);
-
-        // return response()->json(Session::get());
-        return response()->json("Shipping Info Putting in session");
-    }
-
-    public function pay(Request $request)
-    {
  
-        $link = $this->pay->processTransaction($request);
-           
-        return response()->json($link);
-
-    }
 
 
-    public function show(Request $request)
-    {
-    }
-
-
-    public function edit(Order $order)
-    {
-        //
-    }
-
-
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-
-    public function destroy(Order $order)
-    {
-        //
-    }
 }

@@ -10,7 +10,7 @@ class CreateProductsTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ 
     public function up()
     {
          Schema::create('products', function (Blueprint $table) {
@@ -26,7 +26,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price');
             $table->decimal('discount');
             $table->string('image')->nullable();
-            $table->integer('status');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

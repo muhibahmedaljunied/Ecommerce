@@ -1,41 +1,50 @@
 <?php
 
-use App\Http\Controllers\OrderController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 
+use Illuminate\Support\Facades\Route;
+
+
+use Illuminate\Support\Facades\Auth;
 
 
 Route::get('customer/{page}', function () {
-
-
-    return view('customer/layouts/master',['name' => 'James']);
+    return view('customer/layouts/master', ['name' => 'James']);
 })->name('customer');
 
 Route::get('customer/{page}/{message}', function () {
     return view('customer/layouts/master');
 });
 
+Route::post('/home', 'CategoryController@index');
+
+// Route::group(['prefix' => 'cart'], function () {
+
+Route::post('/featured-product', 'Customer\CartController@getFeaturedProducts');
+Route::post('/new-product', 'Customer\CartController@getNewProducts');
+Route::get('/add-cart/{id}/{cartQty}', 'Customer\CartController@addToCart');
+Route::post('/all-cart', 'Customer\CartController@allCart');
+Route::post('/delete-cart', 'Customer\CartController@deleteCart');
+Route::post('/update-cart', 'Customer\CartController@updateCart');
+// });
+
+// Route::group(['prefix' => 'product'], function () {
+
+Route::post('/product_by_price/{id}', 'Customer\ProductController@product_by_price');
+Route::post('/product-details/{id}', 'Customer\ProductController@getProductDetails');
+Route::post('/category_filter', 'Customer\ProductController@category_filter');
+Route::post('/country_filter', 'Customer\ProductController@country_filter');
+Route::post('/size_filter', 'Customer\ProductController@size_filter');
+// });
+
+
+// Route::group(['prefix' => 'order'], function () {
+Route::post('/customer/confirm-order', 'Customer\ProductController@pay');
+Route::post('/customer/shipping-info',  'Customer\ProductController@shippinginfo');
+// });
+
+// Route::group(['prefix' => 'customer'], function () {
 Route::post('/customer-login', 'CustomerController@login');
 Route::post('/customer-register', 'CustomerController@register');
 Route::post('/customer/customer-logout', 'CustomerController@logout');
-Route::post('/customer-session', 'CustomerController@sessionData');
-Route::post('/home', 'CategoryController@index');
-Route::post('/category_c/{id}', 'ProductController@index');
-
-Route::post('/category_filter', 'ProductController@category_filter');
-Route::post('/country_filter', 'ProductController@country_filter');
-Route::post('/size_filter', 'ProductController@size_filter');
-Route::post('/product_by_price/{id}', 'ProductController@product_by_price');
-Route::post('/product-details/{id}', 'ProductController@getProductDetails');
-Route::post('/featured-product', 'customer\CartController@getFeaturedProducts');
-Route::post('/new-product', 'customer\CartController@getNewProducts');
-
-Route::get('/add-cart/{id}/{cartQty}', 'customer\CartController@addToCart');
-Route::post('/customer/shipping-info', 'OrderController@shippinginfo');
-Route::post('/all-cart', 'customer\CartController@allCart');
-Route::post('/delete-cart', 'customer\CartController@deleteCart');
-Route::post('/update-cart', 'customer\CartController@updateCart');
-
-Route::post('/customer/confirm-order', 'OrderController@pay');
+Route::post('/customer-session', 'CustomerController@sessionData');;
+// });

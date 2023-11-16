@@ -1,0 +1,19 @@
+{
+
+ 
+
+    "users": [
+        {
+            "id": 1,
+            "name": "muhib admin",
+            "email": "admin@gmail.com"
+          
+        },
+        {
+            "id": 2,
+            "name": "muhib ahmed",
+            "email": "muhib@gmail.com"
+        }
+  
+    ]
+}

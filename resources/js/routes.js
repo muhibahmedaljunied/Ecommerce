@@ -28,9 +28,27 @@ import Shipping from './components/customer/Shipping'
 import Shipping2 from './components/customer/Shipping2'
 
 import Payment from './components/customer/Payment'
+// -------------------------------Api-----------------------------------------
+import LoginApi from './components/api/Login'
+import RegisterApi from './components/api/Register'
+import ListApi from './components/api/ListApi'
 
 // -------------------------------------------------------------------
  const routes = [
+  { 
+    path: '/api/login', 
+    component: LoginApi
+  },
+  { 
+    path: '/api/register', 
+    component: RegisterApi
+  },
+
+  { 
+    path: '/api/listApi', 
+    component: ListApi
+  },
+
   { 
     path: '/', 
     component: Dashboard

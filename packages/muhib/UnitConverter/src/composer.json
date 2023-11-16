@@ -1,0 +1,16 @@
+{
+    "name": "muhib/unitconverter",
+    "description": "this convert any unit",
+    "autoload": {
+        "psr-4": {
+            "Muhib\\Unitconverter\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "muhibahmedaljunied",
+            "email": "muhibalmuhib10@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -2,8 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OrderController;
-
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -17,22 +16,28 @@ use App\Http\Controllers\OrderController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::get('/login', function () {
+
+    return view('api.master');
+});
+
+Route::get('/register', function () {
+
+    return view('api.master');
 });
 
 
+Route::post('/login', 'API\AuthController@signin');
+Route::post('/register', 'API\AuthController@signup');
 
-Route::group(['prefix'=>'paypal'], function(){
-    
-Route::post('process-transaction', [OrderController::class, 'pay'])->name('processTransaction');
-Route::get('success-transaction', [OrderController::class, 'success'])->name('successTransaction');
-Route::get('cancel-transaction', [OrderController::class, 'cancel'])->name('cancelTransaction');
+
+Route::post('/logout', 'API\AuthController@logout')->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->get('/blogs', 'API\BlogController@index');
+
+Route::group(['prefix' => 'paypal'], function () {
+
+    Route::post('process-transaction', [OrderController::class, 'pay'])->name('processTransaction');
+    Route::get('success-transaction', [OrderController::class, 'success'])->name('successTransaction');
+    Route::get('cancel-transaction', [OrderController::class, 'cancel'])->name('cancelTransaction');
 });
-
-
-
-
-
-
-

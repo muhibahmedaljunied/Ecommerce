@@ -6,6 +6,15 @@ import VueRouter from 'vue-router';		//import vue router
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 
+
+
+
+// window.axios.defaults.baseURL = "http://127.0.0.1:8007";
+// Vue.config.productionTip = false;
+// axios.defaults.headers.common['Accept'] = 'application/json';
+// axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// axios.defaults.withCredentials = true;
+
 // ---------------------------- sweetalert ---------------------------------------------------------
 import swal from 'sweetalert2'
 

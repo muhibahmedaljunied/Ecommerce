@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        <form method="post" @submit.prevent="submitForm">
+                        <form method="post">
                             <div class="form-group">
                                 <ul>
                                     <div v-for="error in errors">
@@ -70,8 +70,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="Product">الخصم</label>
-                                <input v-model="discount" type="text" name="discount" id="discount"
-                                    class="form-control">
+                                <input v-model="discount" type="text" name="discount" id="discount" class="form-control">
 
                             </div>
                             <div class="form-group">
@@ -80,7 +79,8 @@
 
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">حفظ</button>
+                            <button @click="submitForm()" type="button"
+                                class="btn btn-primary btn-lg btn-block">حفظ</button>
                         </form>
                     </div>
 
@@ -90,7 +90,6 @@
         <!--/div-->
     </div>
     <!-- /row -->
-
 </template>
 <script>
 export default {
@@ -128,8 +127,7 @@ export default {
 
             this.file = e.target.files[0];
         },
-        submitForm(e) {
-            e.preventDefault();
+        submitForm() {
             let currentObj = this;
             const config = {
                 headers: {
@@ -150,10 +148,9 @@ export default {
             // send upload request
             this.axios.post('store_product', formData, config)
                 .then(function (response) {
-                    currentObj.success = response.data.success;
-                    currentObj.filename = "";
+                    // currentObj.success = response.data.success;
+                    // currentObj.filename = "";
 
-                    event.preventDefault();
                     toast.fire({
                         title: "Added!",
                         text: "Your product has been added.",
@@ -181,7 +178,7 @@ export default {
                 .catch(function (error) {
                     currentObj.output = error;
                 });
-                this.$router.go(-1);
+            // this.$router.go(-1);
         }
     }
 }

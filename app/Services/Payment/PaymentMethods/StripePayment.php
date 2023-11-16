@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Services\Payment\PaymentMethods;
-use Stripe;
-use Illuminate\Http\Request;
+use App\Repository\PaymentRepositoryInterface;
 use App\Services\Payment\Traits\Store;
+use Illuminate\Http\Request;
+use Stripe;
 
-class StripePayment{
+class StripePayment implements PaymentRepositoryInterface{
     
     use Store;
-    public function handlePost(Request $request)
+    public function payment($request)
     {
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
