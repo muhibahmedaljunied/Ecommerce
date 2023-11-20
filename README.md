@@ -27,7 +27,7 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
      
 
 
-
+['server', 'username', 'password', 'port', 'protocol', 'local-dir', 'server-dir', 'state-name', 'dry-run', 'dangerous-clean-slate', 'exclude', 'log-level', 'security', 'timeout']
 
 -->
 
