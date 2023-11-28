@@ -1,24 +1,27 @@
-name: Deploy Laravel Project on push
-on:
+name: Deploy Site on push
+on: 
   push:
-    branches:
-      - master
+      branches:
+        - master
 jobs:
   web-deploy:
-    name: Deploy
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Get the latest code
-        uses: actions/checkout@v2.3.2
-      - uses: actions/setup-node@master
-      - name: Install Dependencies
-        run: composer update --ignore-platform-reqs
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
-        with:
-          server: ${{ secrets.SERVER }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          server-dir: "/htdocs/"
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+    - name: Install Dependencies
+      run: composer update --ignore-platform-reqs
+    - name: Install Dependencies for vue
+      run: npm install
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.SERVER }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        server-dir: "/htdocs/"
+    
+
 
