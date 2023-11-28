@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
-use App\category;
-use App\country;
-use App\size;
+use App\Category;
+use App\Country;
+use App\Size;
 use DB;
 
 class ProductController extends Controller
