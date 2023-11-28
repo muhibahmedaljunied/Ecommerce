@@ -2,63 +2,39 @@
     "categories": [
         {
             "id": 1,
-            "name": "food"
+            "name": "Shoes"
         
         },
         {
             "id": 2,
-            "name": "Ashish Kumar"
+            "name": "Clothes"
           
         },
         {
             "id": 3,
-            "name": "Dhananjay Negi"
+            "name": "Gifts"
      
         },
         {
             "id": 4,
-            "name": "Vijay Rohila"
+            "name": "Dresses"
           
         },
         {
             "id": 5,
-            "name": "Vijay Rohila"
+            "name": "Accessories"
           
         },
         {
             "id": 6,
-            "name": "Vijay Rohila"
+            "name": "Winter"
           
         },
         {
             "id": 7,
-            "name": "Vijay Rohila"
-          
-        },
-        {
-            "id": 8,
-            "name": "Vijay Rohila"
-          
-        },
-        {
-            "id": 9,
-            "name": "Vijay Rohila"
-          
-        },
-        {
-            "id": 10,
-            "name": "Vijay Rohila"
-          
-        },
-        {
-            "id": 11,
-            "name": "Vijay Rohila"
-          
-        },
-        {
-            "id": 12,
-            "name": "Vijay Rohila"
+            "name": "Face+Body"
           
         }
+        
     ]
 }

@@ -26,6 +26,15 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
     FTP Password =>jllm5dIAlq
     FTP Host Name =>	ftpupload.net
     FTP Port => 21
+
+    <!-- -----database------
+    
+    MySQL DB Name =>if0_35461612_supervue	
+    MySQL User Name  =>if0_35461612	
+    MySQL Password  =>(Your vPanel Password)	
+    MySQL Host Name =>sql205.infinityfree.com
+    
+     -->
      
 ['server', 'username', 'password', 'port', 'protocol', 'local-dir', 'server-dir', 'state-name', 'dry-run', 'dangerous-clean-slate', 'exclude', 'log-level', 'security', 'timeout']
 
