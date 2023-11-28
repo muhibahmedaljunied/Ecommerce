@@ -15,7 +15,6 @@ jobs:
         run: composer update --ignore-platform-reqs
       - name: Install Dependencies for vue
         run: npm install
-        run: npm run watch
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
