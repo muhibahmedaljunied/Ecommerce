@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Configure PHP 8.1
         uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      - name: CMD
-        run: ls
         with:
           php-version: '8.1'
       - name: Get the latest code
@@ -21,6 +19,8 @@ jobs:
         run: composer install --no-dev --no-interaction --prefer-dist
       - name: Install Dependencies for vue
         run: npm install
+      - name: CMD
+        run: ls  
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
