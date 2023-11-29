@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: Configure PHP 8.1
         uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        run: ls
         with:
           php-version: '8.1'
       - name: Get the latest code
