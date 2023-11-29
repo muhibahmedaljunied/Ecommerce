@@ -15,8 +15,8 @@ jobs:
       - name: Get the latest code
         uses: actions/checkout@v2.3.2
       - uses: actions/setup-node@master
-      # - name: Install Dependencies
-      #   run: composer install --no-dev --no-interaction --prefer-dist
+      - name: Install Dependencies
+        run: composer install --no-dev --no-interaction --prefer-dist
       - name: Install Dependencies for vue
         run: npm install
       - name: CMD
