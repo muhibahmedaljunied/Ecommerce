@@ -19,10 +19,13 @@ jobs:
         run: composer install --no-dev --no-interaction --prefer-dist
       - name: Install Dependencies for vue
         run: npm install
-      - name: Directory Permissions
+      - name: key:generate
         run: php artisan key:generate
+      - name: config:cache
         run: php artisan config:cache
+      - name: route:cache
         run: php artisan route:cache
+      - name: view:cache
         run: php artisan view:cache
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
