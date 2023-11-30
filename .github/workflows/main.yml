@@ -2,7 +2,7 @@ name: Deploy Laravel Project on push muhib
 on:
   push:
     branches:
-      - master
+      - ProductAttribute
 jobs:
   web-deploy:
     name: Deploy
