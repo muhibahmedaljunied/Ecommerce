@@ -162,9 +162,10 @@ export default {
   },
   methods: {
     showProduct() {
+      // console.log(this.$route.params.id);
       axios.post(`/category_c/${this.$route.params.id}`)
         .then((response) => {
-          console.log(response.data)
+          console.log('sdddd',response.data);
           this.showCatProduct = response.data;
         })
     },

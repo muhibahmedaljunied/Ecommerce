@@ -26,7 +26,18 @@ class ProductController extends Controller
      
     }
  
+  
+    public function show(Request $request)
+    {
 
+
+            $product = DB::table('products')->where('products.category_id',$request->id)
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->select('products.*', 'categories.name as category_name')
+                ->get();
+            return response()->json($product);
+     
+    }
 
  
 

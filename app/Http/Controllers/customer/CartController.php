@@ -11,8 +11,11 @@ use Illuminate\Support\Facades\DB;
 class CartController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        
+       
+        
     }
 
     // -----------------------------
@@ -127,7 +130,6 @@ class CartController extends Controller
 
 
 
-        //return $featuredProduct;
         return response()->json($featuredProduct);
     }
 

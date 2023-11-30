@@ -16,6 +16,7 @@ Route::get('customer/{page}/{message}', function () {
 });
 
 Route::post('/home', 'CategoryController@index');
+Route::post('/category_c/{id}', 'ProductController@show');
 
 // Route::group(['prefix' => 'cart'], function () {
 

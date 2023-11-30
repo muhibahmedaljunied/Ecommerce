@@ -5144,8 +5144,9 @@ __webpack_require__.r(__webpack_exports__);
     showProduct: function showProduct() {
       var _this = this;
 
+      // console.log(this.$route.params.id);
       axios.post("/category_c/".concat(this.$route.params.id)).then(function (response) {
-        console.log(response.data);
+        console.log('sdddd', response.data);
         _this.showCatProduct = response.data;
       });
     },
