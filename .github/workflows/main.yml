@@ -20,7 +20,7 @@ jobs:
       - name: Install Dependencies for vue
         run: npm install
       - name: cache
-        run: php artisan route:clear  
+        run: php artisan optimize  
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
