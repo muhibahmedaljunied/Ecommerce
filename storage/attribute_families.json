@@ -1,0 +1,22 @@
+{
+    "attribute_families": [
+        {
+            "id": 1,
+            "code": "sh",
+            "name": "shoes"
+      
+        },
+        {
+            "id": 2,
+            "code": "k",
+            "name": "kids"
+     
+        },
+        {
+            "id": 3,
+            "code": "s",
+            "name": "skirt"
+         
+        }
+    ]
+}

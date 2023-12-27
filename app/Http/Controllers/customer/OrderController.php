@@ -5,11 +5,9 @@ use App\Repository\PaymentRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Services\Payment\Traits\Store;
 use Illuminate\Support\Facades\Session;
-use App\ShippingAddress;
+use App\Http\Controllers\Controller;
+use App\Models\ShippingAddress;
 use DB;
-
-
-
 class OrderController extends Controller
 {
 
@@ -33,7 +31,6 @@ class OrderController extends Controller
         $shippingInfo->email_address = $request->email;
         $shippingInfo->phone_no = $request->number;
         $shippingInfo->address = $request->address;
-
         $shippingInfo->save();
 
         Session::put('shippingId', $shippingInfo->id);
@@ -46,6 +43,7 @@ class OrderController extends Controller
     {
  
         
+        // dd($request->all());
         $link = $this->payment->payment($request);
 
            

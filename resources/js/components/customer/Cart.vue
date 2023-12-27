@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--================Cart Area =================-->
-    <section class="cart_area">
+    <section class="cat_product_area section_gap">
       <div class="container">
         <div class="cart_inner">
           <div class="table-responsive">
@@ -25,7 +25,7 @@
                         <img :src="`/assets/upload/${cart.image}`" height="100px" alt="Product Image"/>
                       </div>
                       <div class="media-body">
-                        <p>{{cart.name}}</p>
+                        <p>{{cart.text}}</p>
                       </div>
                     </div>
                   </td>

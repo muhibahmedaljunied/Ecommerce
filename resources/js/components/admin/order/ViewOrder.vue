@@ -120,7 +120,7 @@
                                     <tbody>
                                         <tr v-for="Product in showProductInformation">
                                             <td>{{ Product.id }}</td>
-                                            <td>{{ Product.name }}</td>
+                                            <td>{{ Product.text }}</td>
                                             <td>{{ Product.category }}</td>
                                             <td>{{ Product.size }}</td>
                                             <td>{{ Product.country }}</td>

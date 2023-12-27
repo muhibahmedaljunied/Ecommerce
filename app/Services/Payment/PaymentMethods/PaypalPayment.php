@@ -34,6 +34,7 @@ class PaypalPayment implements PaymentRepositoryInterface {
             ]
         ]);
 
+        dd($response);
         if (isset($response['id']) && $response['id'] != null) {
             // redirect to approve href
             foreach ($response['links'] as $links) {

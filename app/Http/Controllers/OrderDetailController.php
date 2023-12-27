@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\OrderDetail;
-use App\Order;
+use App\Models\OrderDetail;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderDetailController extends Controller
@@ -15,9 +15,9 @@ class OrderDetailController extends Controller
      */
     public function __construct()
     {
-              // $this->middleware('Admin');
-  
-        
+        // $this->middleware('Admin');
+
+
     }
     public function index($id)
     {
@@ -28,41 +28,49 @@ class OrderDetailController extends Controller
     public function orderproduct($id)
     {
         $product = OrderDetail::where('order_id', $id)
-        ->join('products','products.id', '=', 'order_details.product_id')
-        ->join('sizes','sizes.id', '=', 'products.size_id')
-        ->join('countries','countries.id', '=', 'products.country_id')
-        ->join('categories','categories.id', '=', 'products.category_id')
-        ->select('products.*','products.price as product_price','order_details.*','sizes.name as size','countries.name as country','categories.name as category')
-        ->get();
+            ->join('products', 'products.id', '=', 'order_details.product_id')
+            ->join('product_attributes', 'product_attributes.product_id', '=', 'products.id')
+            ->join('sizes', 'sizes.id', '=', 'product_attributes.size_id')
+            ->join('countries', 'countries.id', '=', 'product_attributes.country_id')
+            ->select(
+                'products.*',
+                'product_attributes.*',
+                'product_attributes.price as product_price',
+                'order_details.*',
+                'sizes.name as size',
+                'countries.name as country',
+            )
+            ->get();
         return response()->json($product);
     }
 
     public function ordercustomer($id)
     {
-    
+
         $customers = Order::where('orders.id', $id)
-        ->join('payments','orders.id', '=', 'payments.order_id')
-        ->join('shipping_addresses','shipping_addresses.id', '=', 'orders.shipping_id')
-        // ->join('users','users.id', '=', 'shipping_addresses.customer_id')
-        ->select('orders.*','shipping_addresses.*','payments.*')
-        ->get();
+            ->join('payments', 'orders.id', '=', 'payments.order_id')
+            ->join('shipping_addresses', 'shipping_addresses.id', '=', 'orders.shipping_id')
+            // ->join('users','users.id', '=', 'shipping_addresses.customer_id')
+            ->select('orders.*', 'shipping_addresses.*', 'payments.*')
+            ->get();
         return response()->json($customers);
     }
 
- 
 
-   
 
-    
-    public function orderInvoice($orderId){
-    	// $order = Order::with('customer','payment','shipping')->find($orderId);
-        $order = Order::with('payment','shipping')->find($orderId);
 
-    	$productDetails = OrderDetail::where('order_id', $order->id)->get();
-    	//return $order;
-    	return view('admin.order.order-invoice',[
-    		'orderDetails'=>$order,
-    		'productDetails' => $productDetails
-    	]);
+
+
+    public function orderInvoice($orderId)
+    {
+        // $order = Order::with('customer','payment','shipping')->find($orderId);
+        $order = Order::with('payment', 'shipping')->find($orderId);
+
+        $productDetails = OrderDetail::where('order_id', $order->id)->get();
+        //return $order;
+        return view('admin.order.order-invoice', [
+            'orderDetails' => $order,
+            'productDetails' => $productDetails
+        ]);
     }
 }

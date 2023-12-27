@@ -8,12 +8,12 @@ import AddUser from './components/admin/user/AddUser'
 import Product from './components/admin/product/Product'
 import UpdateProduct from './components/admin/product/UpdateProduct'
 import AddProduct from './components/admin/product/AddProduct'
-import Country from './components/admin/country/Country'
-import UpdateCountry from './components/admin/country/UpdateCountry'
-import AddCountry from './components/admin/country/AddCountry'
-import Size from './components/admin/size/Size'
-import UpdateSize from './components/admin/size/UpdateSize'
-import AddSize from './components/admin/size/AddSize'
+import Attribute from './components/admin/attribute/Attribute'
+import UpdateAttribute from './components/admin/attribute/UpdateAttribute'
+import AddAttribute from './components/admin/attribute/AddAttribute'
+import AttributeFamily from './components/admin/attribute_family/AttributeFamily'
+import UpdateAttributeFamily from './components/admin/attribute_family/UpdateAttributeFamily'
+import AddAttributeFamily from './components/admin/attribute_family/AddAttributeFamily'
 import Order from './components/admin/order/Order'
 import ViewOrder from './components/admin/order/ViewOrder'
 import OrderInvoice from './components/admin/order/OrderInvoice'
@@ -62,91 +62,92 @@ import ListApi from './components/api/ListApi'
     component: Home
   },
   { 
-    path: '/category', 
+    path: '/category/category', 
     name:'category',
     component: Category
   },
   { 
-    path: '/edit_category/:id', 
+    path: '/category/edit_category/:id', 
     name:'edit_category',
     component: UpdateCategory
   },
   { 
-    path: '/create_category', 
+    path: '/category/create_category', 
     name:'create_category',
     component: AddCategory
   },
   { 
-    path: '/user', 
+    path: '/user/user', 
     name:'user',
     component: User
   },
   { 
-    path: '/edit_user/:id', 
+    path: '/user/edit_user/:id', 
     name:'edit_user',
     component: UpdateUser
   },
   { 
-    path: '/create_user', 
+    path: '/user/create_user', 
     name:'create_user',
     component: AddUser
   },
   { 
-    path: '/product', 
+    path: '/product/product', 
     name:'product',
     component: Product
   },
    { 
-    path: '/edit_product/:id', 
+    path: '/product/edit_product/:id', 
     name:'edit_product',
     component: UpdateProduct
   },
   { 
-    path: '/create_product', 
+    path: '/product/create_product', 
     name:'create_product',
     component: AddProduct
   },
   { 
-    path: '/country', 
-    name:'country',
-    component: Country
+    path: '/attribute/attribute', 
+    name:'attribute',
+    component: Attribute
   },
    { 
-    path: '/edit_country/:id', 
-    name:'edit_country',
-    component: UpdateCountry
+    path: '/attribute/edit_attribute/:id', 
+    name:'edit_attribute',
+    component: UpdateAttribute
   },
   { 
-    path: '/create_country', 
-    name:'create_country',
-    component: AddCountry
+    path: '/attribute/create_attribute', 
+    name:'create_attribute',
+    component: AddAttribute
   },
   { 
-    path: '/size', 
-    name:'size',
-    component: Size
+    path: '/attribute/attribute_family', 
+    name:'attribute_family',
+    component: AttributeFamily
   },
    { 
-    path: '/edit_size/:id', 
-    name:'edit_size',
-    component: UpdateSize
+    path: '/attribute/edit_attribute_family/:id', 
+    name:'edit_attribute_family',
+    component: UpdateAttributeFamily
   },
   { 
-    path: '/create_size', 
-    name:'create_size',
-    component: AddSize
+    path: '/attribute/create_attribute_family', 
+    name:'create_attribute_family',
+    component: AddAttributeFamily
   },
    { 
-    path: '/order', 
+    path: '/order/order', 
     name:'order',
     component: Order
   },
   { 
-    path: '/order_details/:id', 
+    path: '/order/order_details/:id', 
+    name:'order_details',
     component: ViewOrder
   },
   { 
-    path: '/order_invoice/:id', 
+    path: '/order/order_invoice/:id', 
     component: OrderInvoice
   },
   // --------------------------------------customer----------------------
@@ -160,6 +161,7 @@ import ListApi from './components/api/ListApi'
   },
  { 
     path: '/customer/category/:id', 
+    name:'CustomerCategory',
     component: CategoryCustomer
   },
   { 

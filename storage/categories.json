@@ -2,39 +2,18 @@
     "categories": [
         {
             "id": 1,
-            "name": "Shoes"
+            "name": "Women"
         
         },
         {
             "id": 2,
-            "name": "Clothes"
+            "name": "Men"
           
         },
         {
             "id": 3,
-            "name": "Gifts"
+            "name": "Kids"
      
-        },
-        {
-            "id": 4,
-            "name": "Dresses"
-          
-        },
-        {
-            "id": 5,
-            "name": "Accessories"
-          
-        },
-        {
-            "id": 6,
-            "name": "Winter"
-          
-        },
-        {
-            "id": 7,
-            "name": "Face+Body"
-          
         }
-        
     ]
 }

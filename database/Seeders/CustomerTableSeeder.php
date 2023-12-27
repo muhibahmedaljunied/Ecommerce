@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-use App\customer;
+use App\Models\customer;
 use Illuminate\Database\Seeder;
 
 class CustomerTableSeeder extends Seeder

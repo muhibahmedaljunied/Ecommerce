@@ -33,3 +33,8 @@
 <!-- custom js -->
 <script src="{{URL::asset('assets/js/custom.js')}}"></script><!-- Left-menu js-->
 <script src="{{URL::asset('assets/plugins/side-menu/sidemenu.js')}}"></script>
+
+
+<!--  -->
+<script src="{{URL::asset('assets/js/jstree.js')}}" defer></script>
+<script src="https://public-assets.envato-static.com/assets/market/pages/full_screen_preview/index-7f7b99e2fce428dfe1ffa7553744b98eb6c004f82f8f6656439c2f7c74d0a4dd.js" nonce="GdQoh6wPdWpgA/HI3yEW9w=="></script>

@@ -1,0 +1,35 @@
+{
+    "colors": [
+        {
+            "id": 1,
+            "name": "Red"
+        
+        },
+        {
+            "id": 2,
+            "name": "Gren"
+          
+        },
+        {
+            "id": 3,
+            "name": "Blue"
+     
+        },
+        {
+            "id": 4,
+            "name": "Yellow"
+          
+        },
+        {
+            "id": 5,
+            "name": "Black"
+          
+        },
+        {
+            "id": 6,
+            "name": "Darck"
+          
+        }
+        
+    ]
+}

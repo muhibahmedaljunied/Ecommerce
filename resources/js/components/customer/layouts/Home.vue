@@ -96,7 +96,7 @@
               </div>
               <div class="product-btm">
                 <router-link :to="`/customer/single-product/${f_Product.id}`" class="d-block">
-                  <h4>{{ f_Product.name }}</h4>
+                  <h4>{{ f_Product.text }}</h4>
                 </router-link>
                 <div class="mt-3" v-if="f_Product.price">
                   <span class="mr-4">৳ {{ f_Product.price - f_Product.discount }}</span>
@@ -307,7 +307,7 @@
               </div>
               <div class="product-btm">
                 <router-link :to="`/customer/single-product/${newProduct.id}`" class="d-block">
-                  <h4>{{ newProduct.name }}</h4>
+                  <h4>{{ newProduct.text }}</h4>
                 </router-link>
                 <div class="mt-3" v-if="newProduct.price">
                   <span class="mr-4">৳ {{ newProduct.price - newProduct.discount  }}</span>

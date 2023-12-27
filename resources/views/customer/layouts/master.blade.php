@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="{{URL::asset('assets/front-end/css/style.css')}}" />
   <link rel="stylesheet" href="{{URL::asset('assets/front-end/css/responsive.css')}}" />
 
+  <!-- <link rel="stylesheet" href="{{URL::asset('assets/css/jstree.css')}}" > -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <style type="text/css">
@@ -67,7 +69,7 @@
   <script src="{{asset('assets/front-end/js/mail-script.js')}}"></script>
   <script src="{{asset('assets/front-end/js/theme.js')}}"></script>
   <script src="{{ asset('js/app.js') }}"></script>
-
+  <script src="{{URL::asset('assets/js/jstree.js')}}" defer></script>
 <!-- ---------------------------------------------stripe------------------------ -->
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">

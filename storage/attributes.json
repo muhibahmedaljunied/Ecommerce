@@ -1,0 +1,46 @@
+{
+    "attributes": [
+        {
+            "id": 1,
+            "code": "S",
+            "name": "Size"
+        
+        },
+        {
+            "id": 2,
+            "code": "C",
+            "name": "Color"
+  
+        },
+        {
+            "id": 3,
+            "code": "B",
+            "name": "Brand"
+    
+        },
+        {
+            "id": 4,
+            "code": "A",
+            "name": "Age"
+          
+        },
+        {
+            "id": 5,
+            "code": "M",
+            "name": "Material"
+          
+        },
+        {
+            "id": 6,
+            "code": "Co",
+            "name": "Country"
+          
+        },
+        {
+            "id": 7,
+            "code": "W",
+            "name": "Width"
+          
+        }
+    ]
+}

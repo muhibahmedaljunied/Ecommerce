@@ -53,7 +53,7 @@
     <div class="main_menu">
       <div class="container-fluid">
         <div class="navbar">
-           
+         
               <!-- Navbar logo -->
               <div class="nav-header">
                   <div class="nav-logo">
@@ -62,7 +62,7 @@
                         </a>
                     </div>
                 </div>
-           
+         
               <!-- responsive navbar toggle button -->
               <input type="checkbox" id="nav-check">
               <div class="nav-btn">
@@ -72,17 +72,16 @@
                       <span></span>
                     </label>
                 </div>
-           
+         
               <!-- Navbar items -->
               <div class="nav-links">
             <!--       <a href="#">Home</a> -->
-            <router-link to="/customer/home">Home</router-link>
-                
-             
-                  <!-- Dropdown menu -->
-                  <div class="dropdown">
+            <router-link to="/customer/home">الرئيسيه</router-link>
+              
+           
+
+            <!--       <div class="dropdown">
                       <a class="dropBtn" href="#">Category
-                <!--           <i class="fas fa-angle-down"></i> -->
                         </a>
                       <div class="drop-content">
 
@@ -96,15 +95,22 @@
 
                         
               </div>
-                    </div>
-               <a href="/">Dashboard</a>
-                 
-                  <router-link to="/customer/cart"><i class="fa fa-shopping-cart"></i> <span
-                class="badge badge-notify">{{ showCountCart }}</span></router-link>
+                    </div> -->
+                 <div class="dropdown" v-for="category in categories">
+                    
+              <!-- <router-link :to="`/customer/category/${category.id}`">{{ category.text }}</router-link> -->
+              <router-link :to="{ name: 'CustomerCategory', params: { id: category.id }}" replace: true >{{ category.text }}</router-link>
+               
+                  
+            </div>
+               <a href="/">لوحه التحكم</a>
+               
+                  <router-link to="/customer/cart"><i class="fa fa-shopping-cart"></i> <span class="badge badge-notify">{{
+                    showCountCart }}</span></router-link>
              <router-link to="/customer/login"><i class="ti-user" aria-hidden="true"></i></router-link>
-                
+              
           </div>
-           
+         
             </div>
 
 
@@ -199,6 +205,16 @@ export default {
     }
   },
   methods: {
+
+    push(id) {
+
+      this.$router.push({
+        name: 'CustomerCategory',
+        params: id
+      },
+      );
+
+    },
     logout() {
       axios.post('/customer/customer-logout')
         .then((response) => {

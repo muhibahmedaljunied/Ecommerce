@@ -2,11 +2,11 @@
 
 namespace App\Services\Payment\Traits;
 use Illuminate\Support\Facades\Session;
-use App\Temporale;
-use App\Payment as Pay;
-use App\OrderDetail;
-use App\Order;
-use DB;
+use App\Models\Temporale;
+use App\Models\Payment as Pay;
+use App\Models\OrderDetail;
+use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 trait Store
 {
@@ -58,7 +58,7 @@ trait Store
             ->select(DB::Raw('sum(total) as total'))
             ->get();
 
-        $id = $this->order_table($cart );
+        $id = $this->order_table($cart,$id);
     
         $this->payment_table($id,$request);
 
@@ -72,14 +72,14 @@ trait Store
 
 
 
-    public function order_table($cart )
+    public function order_table($cart,$id)
     {
 
 
-        // dd(Session::all());
+
         $order = new Order();
         // $order->customer_id = $customer;
-        $order->shipping_id = Session::get('shippingId');
+        $order->shipping_id = $id;
         $order->order_total = $cart[0]->total;
         $order->save();
 

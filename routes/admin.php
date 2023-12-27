@@ -1,20 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 Route::post('/dashboard', 'HomeController@show')->name('dashboard');
 
 // Route::group(['prefix' => 'category'], function () {
+Route::post('/tree_product/{id}', [ProductController::class, 'tree_product']);
+Route::post('/tree_product', [ProductController::class, 'tree_product_admin']);
 
-Route::post('/category', [CategoryController::class, 'index']);
-Route::get('/create_category', [CategoryController::class, 'create']);
-Route::post('/store_category', [CategoryController::class, 'store']);
-Route::post('/update_category/{id}', [CategoryController::class, 'update']);
-Route::post('/category/{id}', [CategoryController::class, 'edit']);
-Route::post('/delete_category/{id}', [CategoryController::class, 'destroy']);
+Route::post('/category', [ProductController::class, 'index']);
+Route::get('/create_category', [ProductController::class, 'create']);
+Route::post('/store_category', [ProductController::class, 'store_category']);
+Route::post('/update_category/{id}', [ProductController::class, 'update']);
+Route::post('/category/{id}', [ProductController::class, 'edit']);
+Route::post('/delete_category/{id}', [ProductController::class, 'destroy']);
 // });
 
 // Route::group(['prefix' => 'user'], function () {
@@ -32,33 +34,36 @@ Route::post('/delete_user/{id}', [UserController::class, 'destroy']);
 Route::post('/product', 'ProductController@index')->name('product');
 Route::post('/create_product', 'ProductController@create');
 Route::post('/store_product', 'ProductController@store');
+Route::post('/store_product_as_category', 'ProductController@store_as_category');
+
 Route::post('/update_product/{id}', 'ProductController@update');
 Route::get('/product/{id}', 'ProductController@edit');
 Route::post('/delete_product/{id}', 'ProductController@destroy');
 // });
 
 
-// Route::group(['prefix' => 'country'], function () {
+// Route::group(['prefix' => 'attribute'], function () {
 
-Route::post('/country', 'CountryController@index');
-Route::get('/create_country', 'CountryController@create');
-Route::post('/store_country', 'CountryController@store');
-Route::post('/update_country/{id}', 'CountryController@update');
-Route::post('/country/{id}', 'CountryController@edit');
-Route::post('/delete_country/{id}', 'CountryController@destroy');
+Route::post('/attribute', 'AttributeController@index');
+Route::post('/get_attributes', 'AttributeController@show');
+Route::get('/create_attribute', 'AttributeController@create');
+Route::post('/store_attribute', 'AttributeController@store');
+Route::post('/update_attribute/{id}', 'AttributeController@update');
+Route::post('/attribute/{id}', 'AttributeController@edit');
+Route::post('/delete_attribute/{id}', 'AttributeController@destroy');
 // });
 
 
 
 
-// Route::group(['prefix' => 'size'], function () {
+// Route::group(['prefix' => 'attribute_family'], function () {
 
-Route::post('/size', 'SizeController@index');
-Route::get('/create_size', 'SizeController@create');
-Route::post('/store_size', 'SizeController@store');
-Route::post('/update_size/{id}', 'SizeController@update');
-Route::post('/size/{id}', 'SizeController@edit');
-Route::post('/delete_size/{id}', 'SizeController@destroy');
+Route::post('/attribute_family_mapping', 'AttributeFamilyMappingController@index');
+Route::get('/create_attribute_family_mapping', 'AttributeFamilyMappingController@create');
+Route::post('/store_attribute_family_mapping', 'AttributeFamilyMappingController@store');
+Route::post('/update_attribute_family_mapping/{id}', 'AttributeFamilyMappingController@update');
+Route::post('/attribute_family_mapping/{id}', 'AttributeFamilyMappingController@edit');
+Route::post('/delete_attribute_family_mapping/{id}', 'AttributeFamilyMappingController@destroy');
 // });
 
 

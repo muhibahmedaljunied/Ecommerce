@@ -20,8 +20,8 @@ Route::post('/category_c/{id}', 'ProductController@show');
 
 // Route::group(['prefix' => 'cart'], function () {
 
-Route::post('/featured-product', 'Customer\CartController@getFeaturedProducts');
-Route::post('/new-product', 'Customer\CartController@getNewProducts');
+Route::post('/featured-product', 'Customer\ProductController@getFeaturedProducts');
+Route::post('/new-product', 'Customer\ProductController@getNewProducts');
 Route::get('/add-cart/{id}/{cartQty}', 'Customer\CartController@addToCart');
 Route::post('/all-cart', 'Customer\CartController@allCart');
 Route::post('/delete-cart', 'Customer\CartController@deleteCart');
@@ -32,14 +32,16 @@ Route::post('/update-cart', 'Customer\CartController@updateCart');
 
 Route::post('/product_by_price/{id}', 'Customer\ProductController@product_by_price');
 Route::post('/product-details/{id}', 'Customer\ProductController@getProductDetails');
-Route::post('/category_filter', 'Customer\ProductController@category_filter');
+// Route::post('/category_filter', 'Customer\ProductController@category_filter');
+Route::post('/category_filter/{id}', 'Customer\ProductController@category_filter');
+
 Route::post('/country_filter', 'Customer\ProductController@country_filter');
 Route::post('/size_filter', 'Customer\ProductController@size_filter');
 // });
 
 
 // Route::group(['prefix' => 'order'], function () {
-Route::post('/customer/confirm-order', 'Customer\ProductController@pay');
+Route::post('/customer/confirm-order', 'Customer\OrderController@pay');
 Route::post('/customer/shipping-info',  'Customer\ProductController@shippinginfo');
 // });
 
