@@ -10,19 +10,21 @@ class FilterService
     public $array_where = array();
     public $data = [];
     public $count = 0;
-    function filter()
+    function filter($link)
     {
 
 
-        $link = collect($this->product)->toArray();
+        // $link = collect($this->product)->toArray();
 
+   
         foreach ($link as $value) {
 
             if (array_key_exists('children', $value)) {
 
+                
                 if ($value['children'] == null) {
 
-                    if (array_key_exists('product_attribute', $value)) {
+                    if (array_key_exists('product_family_attribute', $value)) {
 
                         $this->data[$this->count] = $value;
                         $this->count = $this->count + 1;

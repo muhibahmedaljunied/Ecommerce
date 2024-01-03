@@ -1,25 +1,43 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\AttributeOption;
 use App\Models\Attribute;
 use App\Models\AttributeFamily;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 class AttributeController extends Controller
 {
 
-    public function show(Request $request)
+    public function index(Request $request)
     {
 
 
-        $attributes = AttributeFamily::where('id',$request->id)
+        $attributes = Attribute::with([
+            'attribute_option' => function ($query) {
+
+                $query->select('*');
+            }
+        ])->get();
+
+        return response()->json([
+            'attributes' => $attributes,
+
+        ]);
+
+
+
+    }
+
+    public function get_attribute(Request $request)
+    {
+
+         $attributes = AttributeFamily::where('id',$request->id)
             ->with([
                 'attribute_family_mapping' => function ($query) {
 
                     $query->select('*');
+                    // $query->withCount('attribute_family_mappings');
                 },
                 'attribute_family_mapping.attribute' => function ($query) {
 
@@ -31,30 +49,25 @@ class AttributeController extends Controller
                 }
             ])->get();
 
+           $count_attributes =  DB::table('attribute_family_mappings')
+           ->where('attribute_family_id',$request->id)
+           ->get()->count();
+
+         
         return response()->json([
             'attributes' => $attributes,
+            'count_attributes' => $count_attributes,
+
 
         ]);
 
-        // $attributes = DB::table('attribute_family_mappings')
-        // ->where('attribute_family_mappings.attribute_family_id',$request->id)
-        // ->join('attribute_families', 'attribute_families.id', '=', 'attribute_family_mappings.attribute_family_id')
-        // ->join('attributes', 'attributes.id', '=', 'attribute_family_mappings.attribute_id')
-        // ->join('attribute_options', 'attribute_options.attribute_id', '=', 'attributes.id')
-        // ->select('attributes.*','attribute_options.*')
-        // ->get();
-
-        // dd($attributes);
         // return response()->json([
-        //     'attributes' => $attributes,
+        //     'attributes' => Attribute::all(),
 
         // ]);
 
-
+ 
     }
-
-
-
 
 
     public function store(Request $request)
@@ -72,7 +85,7 @@ class AttributeController extends Controller
             $attribute_option = new AttributeOption();
             $attribute_option->attribute_id = $attribute->id;
             $attribute_option->code = $request->post('code_value')[$value];
-            $attribute_option->name = $request->post('value')[$value];
+            $attribute_option->value = $request->post('value')[$value];
             $attribute_option->save();
         }
 

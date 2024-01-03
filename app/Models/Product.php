@@ -25,9 +25,14 @@ class Product extends Model
 
     }
 
-    public function product_attribute()
+    public function product_family_attribute()
     {
-        return $this->hasMany(ProductAttribute::class);
+        return $this->hasMany(ProductFamilyAttribute::class);
+    }
+
+    public function product_filterable_attribute()
+    {
+        return $this->hasMany(ProductFilterableAttribute::class);
     }
 
     

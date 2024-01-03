@@ -49,7 +49,7 @@
 
 											<template>
 												<div>
-													{{ attr.name }}   {{ attr.code }}
+													{{ attr.value }}   {{ attr.code }}
 												</div>
 												<hr>
 											</template>

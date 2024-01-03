@@ -40,7 +40,7 @@
 								<tr v-for="categorys in category">
 									<td>{{ categorys.id }}</td>
 
-									<td>{{ categorys.name }}</td>
+									<td>{{ categorys.text }}</td>
 									<!-- <td>
                                                 <img :src="`assets/img/20191214045454_41TxNIo3cQL.jpg`" height="50px" alt="category image">
                                                 </td> -->
@@ -83,7 +83,7 @@ export default {
 	mounted() {
 		this.axios.post('/category').then(response => {
 			this.category = response.data;
-			this.$root.logo = 'Category'
+			// this.$root.logo = 'Category'
 
 		})
 	},

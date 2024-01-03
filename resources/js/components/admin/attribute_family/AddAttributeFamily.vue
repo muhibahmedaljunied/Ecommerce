@@ -45,7 +45,7 @@
 
 
 
-                            <div v-for="(item) in attributes" class="form-check form-check-inline">
+                            <div v-for="item in attributes" class="form-check form-check-inline">
                                 <input v-model="checkedItems" :value="item.id" id="checkedItems" class="form-check-input"
                                     type="checkbox">
                                 <label class="form-check-label" for="inlineCheckbox1">{{ item.name }}</label>
@@ -84,7 +84,7 @@ export default {
 
     mounted() {
 
-        this.axios.post(`/attribute`).then((response) => {
+        this.axios.post(`/get_attributes`).then((response) => {
 
             this.attributes = response.data.attributes;
         })

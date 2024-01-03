@@ -20,4 +20,18 @@ class AttributeFamilyMapping extends Model
         return $this->belongsTo(AttributeFamily::class);
     }
 
+
+    public function product_family_attribute()
+    {
+        return $this->hasMany(ProductFamilyAttribute::class);
+    }
+
+    
+
+    public function family_attribute_option()
+    {
+        return $this->hasMany(FamilyAttributeOption::class);
+    }
+
+
 }

@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\ProductAttribute;
 use App\Models\Temporale;
-use Illuminate\Database\Eloquent\Collection;
 
 class CartController extends Controller
 {

@@ -3,30 +3,31 @@
     <!--================Single Product Area =================-->
     <div class="product_image_area">
       <div class="container">
-        <div class="row s_product_inner">
+        <div class="row s_product_inner" v-for="single in singleProduct">
+        
           <div class="col-lg-6">
             <div class="s_product_img">
               <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
-                    <img :src="`/assets/upload/${singleProduct.image}`" alt="product image" class="w-100" />
+                    <img :src="`/assets/upload/${single.image}`" alt="product image" class="w-100" />
                   </li>
                   <li data-target="#carouselExampleIndicators" data-slide-to="1">
-                    <img :src="`/assets/upload/${singleProduct.image}`" alt="product image" class="w-100" />
+                    <img :src="`/assets/upload/${single.image}`" alt="product image" class="w-100" />
                   </li>
                   <li data-target="#carouselExampleIndicators" data-slide-to="2">
-                    <img :src="`/assets/upload/${singleProduct.image}`" alt="product image" class="w-100" />
+                    <img :src="`/assets/upload/${single.image}`" alt="product image" class="w-100" />
                   </li>
                 </ol>
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img class="d-block w-100" :src="`/assets/upload/${singleProduct.image}`" alt="First slide" />
+                    <img class="d-block w-100" :src="`/assets/upload/${single.image}`" alt="First slide" />
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" :src="`/assets/upload/${singleProduct.image}`" alt="Second slide" />
+                    <img class="d-block w-100" :src="`/assets/upload/${single.image}`" alt="Second slide" />
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" v-bind:src="`assets/upload/${singleProduct.image}`" alt="Third slide" />
+                    <img class="d-block w-100" v-bind:src="`assets/upload/${single.image}`" alt="Third slide" />
                   </div>
                 </div>
               </div>
@@ -34,37 +35,45 @@
           </div>
           <div class="col-lg-5 offset-lg-1">
             <div class="s_product_text">
-              <h3>{{ singleProduct.name }}</h3>
+              <h3>{{ single.text }}</h3>
               <span>
-                <h2>৳{{ singleProduct.price - singleProduct.discount }} </h2>
-                <del style="color:red;" v-if="singleProduct.discount">৳{{ singleProduct.price }}</del>
+                <h2>৳{{ single.price - single.discount }} </h2>
+                <del style="color:red;" v-if="single.discount">৳{{ single.price }}</del>
               </span>
               <span>
                 <h2></h2>
 
               </span>
               <ul class="list">
-                <li>
 
-                  <span>Product</span> : {{ singleProduct.text }}
-                </li>
+                
                 <li>
-                  <span>Country</span> : {{ singleProduct.country_name }}
+                
+                      <span>المنتج</span> : {{ single.product.text }}
+               
                 </li>
+         
+                    <li v-for="single2 in single.family_attribute_option" >
+
+
+                          <span>{{single2.attribute_option.attribute.name}}</span> : {{single2.attribute_option.value}}   
+
+                </li>
+           
+                
+             
+             
 
                 <li>
-                  <span>size</span> : {{ singleProduct.size_name }}
+                  <span>المتوفر</span>في المخزن :{{ singleProduct.qty }}
                 </li>
                 <li>
-                  <span>Availibility</span>In Stock :{{ singleProduct.qty }}
-                </li>
-                <li>
-                  <span>Sales</span>:{{ singleProduct.qty }}
+                  <span>المبيعات</span>:{{ singleProduct.qty }}
                 </li>
               </ul>
               <p>
               </p>
-              <form method="post" @submit.prevent="addToCart(singleProduct.id)">
+              <form method="post" @submit.prevent="addToCart(single.id)">
                 <div class="product_count">
                   <label for="qty">Quantity:</label>
                   <input type="number" name="qty" v-model="cartQty" value="1" title="Quantity" class="input-text qty" />

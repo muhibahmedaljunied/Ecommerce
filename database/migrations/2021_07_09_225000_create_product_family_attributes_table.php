@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductFamilyAttributeOptionsTable extends Migration
+class CreateProductFamilyAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProductFamilyAttributeOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_family_attribute_options', function (Blueprint $table) {
+        Schema::create('product_family_attributes', function (Blueprint $table) {
 
             $table->Increments('id');
             // -------------------------------------------------------------------------------------------
@@ -23,12 +23,7 @@ class CreateProductFamilyAttributeOptionsTable extends Migration
             $table->unsignedInteger('attribute_family_mapping_id');
             $table->foreign('attribute_family_mapping_id','att_fam')
             ->references('id')->on('attribute_family_mappings')->onDelete('cascade');
-            // -------------------------------------------------------------------------------------------
-            $table->unsignedInteger('attribute_option_id');
-            $table->foreign('attribute_option_id')->references('id')->on('attribute_options')->onDelete('cascade');
-            // --------------------------------------------------------------------------------------------
-
-
+          
             $table->integer('qty');
             $table->decimal('price');
             $table->decimal('discount');
@@ -47,6 +42,6 @@ class CreateProductFamilyAttributeOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_family_attribute_options');
+        Schema::dropIfExists('product_family_attributes');
     }
 }

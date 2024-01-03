@@ -38,8 +38,8 @@
                           <div class="col-xs-12">
                             <div class="input-group">
 
-                              <input type="text" id="ricerca-enti" class="form-control"
-                                placeholder="بحث..." aria-describedby="search-addon">
+                              <input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
+                                aria-describedby="search-addon">
 
                             </div>
                           </div>
@@ -52,12 +52,45 @@
                           </div>
                         </div>
                       </div>
-                      <!-- ------------------------ -->
                     </div>
 
                   </div>
                 </div>
-                <div class="card">
+
+                <div class="card" v-for="attribute_filter in all_attribute_filter">
+                
+                                           
+
+                  <div class="card-header" :id="'headingThree'+attribute_filter.id" >
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#collapseThree'+attribute_filter.id" 
+                        aria-expanded="false" :aria-controls="'collapseThree'+attribute_filter.id">
+                        بحسب   {{attribute_filter.attribute.name}}
+                      </button>
+                     
+                    </h5>
+                  </div>
+                  <div :id="'collapseThree'+attribute_filter.id"   class="collapse" :aria-labelledby="'headingThree'+attribute_filter.id" data-parent="#accordion">
+                    <div class="card-body">
+                 
+                      <ul class="list">
+                      
+                     <li v-for="(attribute_filter2, index) in attribute_filter.attribute.attribute_option">
+                          <input @change="onchange_country(attribute_filter2.id, index)" v-model="check_country[index]"
+                            type="checkbox" :id="attribute_filter2.id" :value="attribute_filter2.id">
+                          <label :for="attribute_filter2.id">     {{attribute_filter2.value}}</label>
+                        </li>
+                        <!-- <li>
+                          <input v-model="check_country[index]" type="checkbox" id="country_id" :value="0"
+                            @change="onchange_country(0, index)">
+                          <label>Show all</label>
+                        </li>  -->
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="card">
                   <div class="card-header" id="headingTwo">
                     <h5 class="mb-0">
                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
@@ -121,10 +154,7 @@
                   </div>
                   <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                     <div class="card-body">
-                      <!-- <aside class="left_widgets p_filter_widgets"> -->
-                      <!-- <div class="l_w_title">
-                          <h3>Price Filter</h3>
-                        </div> -->
+                  
                       <div class="widgets_inner">
                         <div class="range_item">
                           <div id="slider-range"></div>
@@ -134,7 +164,7 @@
                           </div>
                         </div>
                       </div>
-                      <!-- </aside> -->
+              
                     </div>
                   </div>
                 </div>
@@ -236,7 +266,7 @@
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
 
             </div>
@@ -245,7 +275,7 @@
             <div class="product_top_bar">
 
               <div class="left_dorp">
-              
+
                 <select class="sorting">
                   <option value="1">Default sorting</option>
                   <option value="2">Default sorting 01</option>
@@ -276,14 +306,14 @@
                       {{catProduct}}
                     </div>
                   </div> -->
-                  <div v-if="catProduct['product_attribute']" class="single-product">
+                  <div v-if="catProduct['product_family_attribute']" class="single-product">
 
 
-                    <div v-for="dd in catProduct['product_attribute']">
+                    <div v-for="dd in catProduct['product_family_attribute']">
                       <div class="product-img">
                         <img class="card-img" :src="`/assets/upload/${dd.image}`" alt="Product Image" height='50px' />
                         <div class="p_icon">
-                          <router-link :to="`/customer/single-product/${dd.product_id}`">
+                          <router-link :to="`/customer/single-product/${dd.id}`">
                             <i class="ti-eye"></i>
                           </router-link>
                           <a href="#">
@@ -299,27 +329,32 @@
                       <div class="product-btm">
                         <div class="mt-3">
 
-                        <router-link :to="`/customer/single-product/${dd.product_id}`">
-                          <h1>{{ catProduct.text }}</h1>
-                        </router-link>
+                          <router-link :to="`/customer/single-product/${dd.product_id}`">
+                            <h1>{{ catProduct.text }}</h1>
+                          </router-link>
 
                         </div>
                         <hr>
-                        <div class="mt-3" v-if="dd.discount">
-                          <span class="mr-4">$ {{ dd.price }}</span>
-                        </div>
-                        <div class="mt-3" v-else>
-                          <span class="mr-4">${{ dd.price }}</span>
-                        </div>
-<hr>
-                        <div class="mt-3" >
-                          <span class="mr-4">{{ dd.description }}</span>
-                        </div>
+                        <!-- <div v-for="dd2 in dd.product_family_attribute "> -->
 
-<hr>
-                        <div class="mt-3" >
-                          <h5>Sales </h5>
-                        </div>
+                          <div class="mt-3" v-if="dd.discount">
+                            <span class="mr-4">$ {{ dd.price }}</span>
+                          </div>
+                          <div class="mt-3" v-else>
+                            <span class="mr-4">${{ dd.price }}</span>
+                          </div>
+                          <hr>
+                          <div class="mt-3">
+                            <span class="mr-4">{{ dd.description }}</span>
+                          </div>
+
+                          <hr>
+                          <div class="mt-3">
+                            <h5>Sales </h5>
+                          </div>
+
+                        <!-- </div> -->
+
 
 
 
@@ -349,11 +384,12 @@
                     <div class="product-btm">
                       <div class="mt-3">
 
-                      <router-link :to="`/customer/single-product/${catProduct.product_id}`">
-                        <h1>{{ catProduct.text }}</h1>
-                      </router-link>
-</div>
-<hr>
+                        <router-link :to="`/customer/single-product/${catProduct.product_id}`">
+                          <h1>{{ catProduct.text }}</h1>
+                        </router-link>
+                      </div>
+                      <hr>
+                   
                       <div class="mt-3" v-if="catProduct.discount">
                         <span class="mr-4">$ {{ catProduct.price }}</span>
                       </div>
@@ -363,9 +399,9 @@
                       <div class="mt-3">
                         <span class="mr-4">{{ catProduct.description }}</span>
                       </div>
-                      <div class="mt-3" >
-                          <h5>Sales </h5>
-                        </div>
+                      <div class="mt-3">
+                        <h5>Sales </h5>
+                      </div>
 
 
 
@@ -409,6 +445,7 @@ export default {
       check_country: [],
       check_size: [],
       check_brand: [],
+      all_attribute_filter:'',
       array_id: {
 
         'product_id': 0,
@@ -425,9 +462,9 @@ export default {
 
     this.$Progress.start();
     this.$store.dispatch("categoryByID", this.$route.params.id)
-    this.$store.dispatch("category")
-    this.$store.dispatch("size")
-    this.$store.dispatch("country")
+    // this.$store.dispatch("category")
+    // this.$store.dispatch("size")
+    // this.$store.dispatch("country")
 
     // this.$store.dispatch("brand")
     // this.$store.dispatch("color")
@@ -443,14 +480,14 @@ export default {
 
       this.$Progress.start();
       this.$store.dispatch("categoryByID", this.$route.params.id)
-      this.$store.dispatch("category")
-      this.$store.dispatch("size")
-      this.$store.dispatch("country")
+      // this.$store.dispatch("category")
+      // this.$store.dispatch("size")
+      // this.$store.dispatch("country")
 
       // this.$store.dispatch("brand")
-    // this.$store.dispatch("color")
-    // this.$store.dispatch("material")
-    // this.$store.dispatch("gender")
+      // this.$store.dispatch("color")
+      // this.$store.dispatch("material")
+      // this.$store.dispatch("gender")
 
       this.$Progress.finish();
       this.showProduct();
@@ -585,6 +622,7 @@ export default {
 
       $('#treeview_json_product').jstree(true).destroy();
 
+
     },
 
 
@@ -594,7 +632,8 @@ export default {
       axios.post(`/category_c/${this.$route.params.id}`)
         .then((response) => {
           console.log('sdddd', response.data);
-          this.showCatProduct = response.data;
+          this.all_attribute_filter = response.data.product_filterable_attributes;
+          this.showCatProduct = response.data.products;
         })
     },
 
@@ -628,78 +667,109 @@ export default {
       }
 
     },
-    onchange_brand(id, index) {
-      console.log(index);
+    
+    // onchange_country(id, index) {
+    //   console.log(index);
 
-      if (this.check_brand[index] == true) {
+    //   if (this.check_country[index] == true) {
 
-        this.array_id.brand_id = id;
-        for (let i = 0; i < this.check_brand.length; i++) {
+    //     this.array_id.country_id = id;
+    //     for (let i = 0; i < this.check_country.length; i++) {
 
-          if (index != i) {
+    //       if (index != i) {
 
-            this.check_brand[i] = false;
+    //         this.check_country[i] = false;
 
-          }
+    //       }
 
-        }
-        axios.post(`/brand_filter`, { 'array_id': this.array_id })
-          .then((response) => {
-            console.log('brand', response.data);
+    //     }
+    //     axios.post(`/country_filter`, { 'array_id': this.array_id })
+    //       .then((response) => {
+    //         console.log('country', response.data);
 
-            this.showCatProduct = response.data;
-          })
-      }
+    //         this.showCatProduct = response.data;
+    //       })
+    //   }
 
-      if (this.check_brand[index] == false) {
+    //   if (this.check_country[index] == false) {
 
-        this.array_id.brand_id = 0;
+    //     this.array_id.country_id = 0;
 
-      }
+    //   }
 
-    },
-    onchange_size(id, index) {
-      console.log('array', this.array_id);
+    // },
+    // onchange_brand(id, index) {
+    //   console.log(index);
 
-      if (this.check_size[index] == true) {
-        this.array_id.size_id = id;
+    //   if (this.check_brand[index] == true) {
 
-        for (let i = 0; i < this.check_size.length; i++) {
+    //     this.array_id.brand_id = id;
+    //     for (let i = 0; i < this.check_brand.length; i++) {
 
-          if (index != i) {
+    //       if (index != i) {
 
-            this.check_size[i] = false;
+    //         this.check_brand[i] = false;
 
-          }
+    //       }
 
-        }
-        axios.post(`/size_filter`, { 'array_id': this.array_id })
-          .then((response) => {
-            console.log('size', response.data);
+    //     }
+    //     axios.post(`/brand_filter`, { 'array_id': this.array_id })
+    //       .then((response) => {
+    //         console.log('brand', response.data);
 
-            this.showCatProduct = response.data;
-          })
-      }
+    //         this.showCatProduct = response.data;
+    //       })
+    //   }
 
-      if (this.check_size[index] == false) {
+    //   if (this.check_brand[index] == false) {
 
-        this.array_id.size_id = 0;
+    //     this.array_id.brand_id = 0;
 
-      }
+    //   }
 
-    },
-    get_by_price(e) {
+    // },
+    // onchange_size(id, index) {
+    //   console.log('array', this.array_id);
+
+    //   if (this.check_size[index] == true) {
+    //     this.array_id.size_id = id;
+
+    //     for (let i = 0; i < this.check_size.length; i++) {
+
+    //       if (index != i) {
+
+    //         this.check_size[i] = false;
+
+    //       }
+
+    //     }
+    //     axios.post(`/size_filter`, { 'array_id': this.array_id })
+    //       .then((response) => {
+    //         console.log('size', response.data);
+
+    //         this.showCatProduct = response.data;
+    //       })
+    //   }
+
+    //   if (this.check_size[index] == false) {
+
+    //     this.array_id.size_id = 0;
+
+    //   }
+
+    // },
+    // get_by_price(e) {
 
 
-      // alert(this.myInput);
-      axios.post(`/product_by_price/${this.myInput}`)
-        .then((response) => {
-          // console.log(response.data)
-          this.showCatProduct = response.data;
-        })
+    //   // alert(this.myInput);
+    //   axios.post(`/product_by_price/${this.myInput}`)
+    //     .then((response) => {
+    //       // console.log(response.data)
+    //       this.showCatProduct = response.data;
+    //     })
 
 
-    },
+    // },
     addToCart(id) {
       this.$Progress.start();
       this.axios.get(`/add-cart/${id}/1`).then((response) => {
@@ -713,18 +783,18 @@ export default {
     // showCatProduct() {
     //   return this.$store.getters.getCatProduct
     // },
-    showAllCategory() {
-      return this.$store.getters.getCategory
-    },
-    showAllSize() {
-      return this.$store.getters.getSize
-    },
-    showAllCountry() {
-      return this.$store.getters.getCountry
-    }
+    // showAllCategory() {
+    //   return this.$store.getters.getCategory
+    // },
+    // showAllSize() {
+    //   return this.$store.getters.getSize
+    // },
+    // showAllCountry() {
+    //   return this.$store.getters.getCountry
+  }
 
 
-  },
+  // },
 
 }
 

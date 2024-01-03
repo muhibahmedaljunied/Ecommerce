@@ -5,32 +5,48 @@ namespace App\Http\Controllers;
 use App\Services\FilterService;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Category;
-use App\Models\Country;
-use App\Models\Size;
-use App\Models\Color;
-use App\Models\Brand;
-use App\Models\Age;
 use App\Models\Attribute;
 use App\Models\AttributeFamily;
-use App\Models\ProductAttribute;
-use App\Models\ProductAttributeOption;
-use App\Models\ProductAttributeValue;
+use App\Models\FamilyAttributeOption;
 use App\Models\ProductFilterableAttribute;
+use App\Models\ProductFamilyAttribute;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
 
+    public function index()
+    {
 
+        $product = Product::where(function ($query) {
 
+            return $query->where('status', 'false');
+        })
+            ->with([
+                'product_family_attribute.family_attribute_option' => function ($query) {
 
+                    $query->join('attribute_options', 'family_attribute_options.attribute_option_id', '=', 'attribute_options.id');
+                    $query->join('attributes', 'attributes.id', '=', 'attribute_options.attribute_id');
+                    $query->select('*');
+                },
+            ])
+            ->get();
 
-
+        return response()->json(['product' => $product]);
+    }
     public function show(Request $request, FilterService $filter)
     {
 
 
+        $product_filterable_attributes = ProductFilterableAttribute::where(function ($query) use ($request) {
+            return $query->where('product_filterable_attributes.product_id', '=', $request->id);
+          
+        })->with(['attribute.attribute_option' => function ($query) {
+                $query->select('*');
+            }
+        ])
+        ->get();
+// -----------------------------------------------------------------------------------------------
         $product = Product::where(function ($query) use ($request) {
             return $query->where('parent_id', '=', $request->id)
                 ->orWhere('id', '=', $request->id)->where('status', '=', 'false');
@@ -38,22 +54,27 @@ class ProductController extends Controller
             ->with([
                 'children' => function ($query) {
 
-
-                    $query->join('product_attributes', 'product_attributes.product_id', '=', 'products.id');
-
+                    $query->join('product_family_attributes', 'product_family_attributes.product_id', '=', 'products.id');
                     $query->select('*');
                 },
-                'product_attribute' => function ($query) {
+                'product_family_attribute' => function ($query) {
                     $query->select('*');
                 }
             ])
+   
             ->get();
 
+         
         $filter->filter(collect($product)->toArray());
-
-        return response()->json($filter->data);
+        return response()->json([
+            'products' => $filter->data,
+            'product_filterable_attributes' => $product_filterable_attributes
+        ]);
+       
+        // return response()->json($filter->data);
     }
 
+   
 
 
     public function tree_product(Request $request)
@@ -95,24 +116,14 @@ class ProductController extends Controller
 
     public function create()
     {
-        $category = Category::all();
-        $country = Country::all();
-        $size = Size::all();
-        $color = Color::all();
-        $brand = Brand::all();
-        $age = Age::all();
+
         $product = Product::where('status', 'true')->get();
 
 
         // dd($product);
 
         return response()->json([
-            'category' => $category,
-            'country' => $country,
-            'size' => $size,
-            'color' => $color,
-            'brand' => $brand,
-            'age' => $age,
+
             'product' => $product,
         ]);
     }
@@ -126,29 +137,18 @@ class ProductController extends Controller
 
             $product->parent_id = $request->post('parent');
         }
-        $product->status = $request->post('status');
+        $product->status = 'true';
         $product->save();
 
 
-
-
-        foreach ($request['items'] as $value) {
-
-            $PFA = new ProductFilterableAttribute();
-            $PFA->product_id = $product->id;
-            $PFA->attribute_id = $value;
-            $PFA->save();
-        }
     }
     public function store(Request $request)
     {
+        // dd($request->all());
+        $count = json_decode($request['count']);
+        $data = json_decode($request['product_attr']);
 
-        // dd($request['attribute'][0][0]);
-        // foreach ($request['attribute'] as $value) {
-
-        //     dd($value);
-        // }
-
+        // dd($data);
         try {
             DB::beginTransaction(); // Tell Laravel all the code beneath this is a transaction
 
@@ -159,33 +159,57 @@ class ProductController extends Controller
                 $product->parent_id = $request->post('parent');
             }
             $product->status = $request->post('status');
-
             $product->save();
+            // --------------------------------------------------------------------------------------
+
+            $arrayName = array();
+            foreach ($count as $value) {
+
+                // dd($data);
+                foreach ($data[$value - 1] as $key => $value2) {
+
+
+                    $arrayName['fam'][$value - 1][$key]  = $value2[0];
+                    $arrayName['att'][$value - 1][$key]  = [$value2[1]];
+                }
+            }
+
 
             // --------------------------------------------------------------------------------------
 
             if ($request->post('status') == 'false') {
 
-                $file = $request->file('image');
-                $upload_path = public_path('assets/upload');
-                $file_name = $file->getClientOriginalName();
-                $generated_new_name = time() . '.' . $file->getClientOriginalExtension();
-                $file->move($upload_path, $generated_new_name);
-                // --------------------------------------------------------------------------------------
 
-                foreach ($request['attribute'] as $value) {
+                foreach ($count as $value) {
 
-                    dd($value);
+
+
+                    $file = $request->file('image')[$value - 1];
+                    $upload_path = public_path('assets/upload');
+                    $generated_new_name = time() . '.' . $file->getClientOriginalExtension();
+                    $file->move($upload_path, $generated_new_name);
+                    // ---------------------------------------------------------------------
+                    $product_attribute = new ProductFamilyAttribute();
+                    $product_attribute->product_id = $product->id;
+                    // $product_attribute->attribute_family_mapping_id = $arrayName['fam'][$value - 1][$value - 1];
+                    $product_attribute->qty = json_decode($request['qty'])[$value - 1];
+                    $product_attribute->price = json_decode($request['price'])[$value - 1];
+                    $product_attribute->image = $generated_new_name;
+                    $product_attribute->save();
+
+                    // ---------------------------------------------------------------------
+
+
+                    foreach ($arrayName['att'][$value - 1] as $value2) {
+
+
+                        $attribute_option = new FamilyAttributeOption();
+                        $attribute_option->attribute_family_mapping_id = $arrayName['fam'][$value - 1][$value - 1];
+                        $attribute_option->product_family_attribute_id = $product_attribute->id;
+                        $attribute_option->attribute_option_id = $value2[0];
+                        $attribute_option->save();
+                    }
                 }
-
-                $product_attribute = new ProductAttributeOption();
-                $product_attribute->product_id = $product->id;
-                $product_attribute->attribute_option_id = $product->id;
-                $product_attribute->qty = $request->post('qty');
-                $product_attribute->price = $request->post('price');
-                $product_attribute->discount = $request->post('discount');
-                $product_attribute->image = $generated_new_name;
-                $product_attribute->save();
             }
 
 
@@ -213,36 +237,20 @@ class ProductController extends Controller
     }
 
 
-    public function edit($id)
-    {
+    // public function edit($id)
+    // {
 
-        $product = Product::find($id);
-        $category = Category::all();
-        $country = Country::all();
-        $size = Size::all();
-        $brand = Brand::all();
-        $color = Color::all();
-        $age = Age::all();
+    //     $product = Product::find($id);
 
-        return response()->json([
-            'product' => $product,
-            'category' => $category,
-            'country' => $country,
-            'size' => $size,
-            'brand' => $brand,
-            'color' => $color,
-            'age' => $age
 
-        ]);
-    }
+    //     return response()->json([
+    //         'product' => $product,
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
+
+    //     ]);
+    // }
+
+   
     public function update(Request $request)
     {
         $product = Product::find($request->id);

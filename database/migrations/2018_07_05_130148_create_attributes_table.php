@@ -17,7 +17,7 @@ class CreateAttributesTable extends Migration
             $table->increments('id');
             $table->string('code')->unique();
             $table->string('value');
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

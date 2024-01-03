@@ -20,5 +20,10 @@ class Attribute extends Model
     {
         return $this->hasMany(AttributeOption::class);
     }
+    public function product_filterable_attribute()
+    {
+        return $this->hasMany(ProductFilterableAttribute::class);
+    }
+    
 
 }

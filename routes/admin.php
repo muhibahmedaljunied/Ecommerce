@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -11,7 +12,7 @@ Route::post('/dashboard', 'HomeController@show')->name('dashboard');
 Route::post('/tree_product/{id}', [ProductController::class, 'tree_product']);
 Route::post('/tree_product', [ProductController::class, 'tree_product_admin']);
 
-Route::post('/category', [ProductController::class, 'index']);
+Route::post('/category', [CategoryController::class, 'index']);
 Route::get('/create_category', [ProductController::class, 'create']);
 Route::post('/store_category', [ProductController::class, 'store_category']);
 Route::post('/update_category/{id}', [ProductController::class, 'update']);
@@ -45,7 +46,7 @@ Route::post('/delete_product/{id}', 'ProductController@destroy');
 // Route::group(['prefix' => 'attribute'], function () {
 
 Route::post('/attribute', 'AttributeController@index');
-Route::post('/get_attributes', 'AttributeController@show');
+Route::post('/get_attributes', 'AttributeController@get_attribute');
 Route::get('/create_attribute', 'AttributeController@create');
 Route::post('/store_attribute', 'AttributeController@store');
 Route::post('/update_attribute/{id}', 'AttributeController@update');
