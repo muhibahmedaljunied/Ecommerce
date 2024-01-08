@@ -5,7 +5,7 @@
 			<div class="card">
 
 				<div class="card-header pb-0">
-						<span class="h2"> الاصناف</span>
+						<span class="h4"> الاصناف</span>
 
 					<div style="display: flex;float: left; margin: 5px">
 
@@ -36,7 +36,7 @@
 
 								</tr>
 							</thead>
-							<tbody>
+							<tbody v-if="category && category.length>0">
 								<tr v-for="categorys in category">
 									<td>{{ categorys.id }}</td>
 
@@ -61,6 +61,13 @@
 
 								</tr>
 
+							</tbody>
+							<tbody>
+								<tr>
+									<td style="text-align: center;" colspan="5">
+										لايوجد اي بيانات
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

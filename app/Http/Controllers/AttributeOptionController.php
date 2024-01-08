@@ -19,27 +19,5 @@ class AttributeOptionController extends Controller
   
 
 
-    // public function store(Request $request)
-    // {
-
-    //     $attribute = new Attribute();
-    //     $attribute->name = $request->post('name');
-    //     $attribute->code = $request->post('code');
-    //     $attribute->save();
-
-    //     foreach ($request['items'] as $value) {
-
-    //         $PFA = new AttributeOption();
-    //         $PFA->attribute_id = $attribute->id;
-    //         $PFA->attribute_id = $value;
-    //         $PFA->save();
-    //     }
-
-
-   
-
-    //     return response()->json();
-        
-    // }
     
 }

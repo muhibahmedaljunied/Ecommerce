@@ -3,13 +3,26 @@
 namespace App\Http\Controllers;
 use App\Models\AttributeFamily;
 use App\Models\AttributeFamilyMapping;
-use Attribute;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 
 class AttributeFamilyController extends Controller
 {
     
     public function index(Request $request)
+    {      
+       
+        $attributes = Attribute::all();
+
+        return response()->json([
+            'attributes' => $attributes,
+
+        ]);
+
+    }
+
+
+    public function get_attribute()
     {      
        
         $attributes = Attribute::all();

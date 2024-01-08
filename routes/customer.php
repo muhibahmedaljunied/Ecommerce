@@ -36,6 +36,10 @@ Route::post('/product-details/{id}', 'Customer\ProductController@getProductDetai
 Route::post('/category_filter/{id}', 'Customer\ProductController@category_filter');
 
 Route::post('/country_filter', 'Customer\ProductController@country_filter');
+
+Route::post('/filter', 'Customer\ProductController@filter');
+
+
 Route::post('/size_filter', 'Customer\ProductController@size_filter');
 // });
 

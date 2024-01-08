@@ -5,7 +5,7 @@
 			<div class="card">
 
 				<div class="card-header pb-0">
-					<span class="h2"> مجموعه الخواص</span>
+					<span class="h4"> مجموعه الخواص</span>
 
 
 					<div style="display: flex;float: left; margin: 5px">
@@ -38,7 +38,7 @@
 
 								</tr>
 							</thead>
-							<tbody>
+							<tbody v-if="attribute_families && attribute_families.length>0">
 								<tr v-for="family in attribute_families">
 									<td>{{ family.id }}</td>
 
@@ -77,6 +77,13 @@
 
 								</tr>
 
+							</tbody>
+							<tbody>
+								<tr>
+									<td style="text-align: center;" colspan="5">
+										لايوجد اي بيانات
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

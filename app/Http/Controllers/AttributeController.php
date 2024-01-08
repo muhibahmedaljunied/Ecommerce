@@ -37,7 +37,6 @@ class AttributeController extends Controller
                 'attribute_family_mapping' => function ($query) {
 
                     $query->select('*');
-                    // $query->withCount('attribute_family_mappings');
                 },
                 'attribute_family_mapping.attribute' => function ($query) {
 

@@ -5,7 +5,7 @@
 			<div class="card">
 
 				<div class="card-header pb-0">
-					<span class="h2">المنتجات</span>
+					<span class="h4">المنتجات</span>
 
 
 					<div style="display: flex;float: left; margin: 5px">
@@ -41,7 +41,7 @@
 
 								</tr>
 							</thead>
-							<tbody>
+							<tbody v-if="product && product.length>0">
 								<tr v-for="products in product">
 									<td>{{ products.text }}</td>
 								
@@ -129,6 +129,13 @@
 
 								</tr>
 
+							</tbody>
+							<tbody>
+								<tr>
+									<td style="text-align: center;" colspan="7">
+										لايوجد اي بيانات
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

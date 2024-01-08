@@ -39,7 +39,7 @@
                                         <th>العمليات</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody v-if="order && order.length>0">
                                     <tr v-for="orders in order">
                                         <td>{{ orders.id }}</td>
                                         <td>{{ orders.customer_name }}</td>
@@ -60,6 +60,13 @@
 
                                     </tr>
                                 </tbody>
+                                <tbody>
+								<tr>
+									<td style="text-align: center;" colspan="5">
+										لايوجد اي بيانات
+									</td>
+								</tr>
+							</tbody>
                                 <!-- <tfoot>
                                 <tr>
                                     <th>Order no.</th>

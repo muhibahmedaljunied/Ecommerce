@@ -2128,7 +2128,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var _this = this;
-    this.axios.post("/get_attributes").then(function (response) {
+    this.axios.post("/attribute_family/get_attributes").then(function (response) {
       _this.attributes = response.data.attributes;
     });
   },
@@ -2690,7 +2690,8 @@ __webpack_require__.r(__webpack_exports__);
       product: '',
       qty: [],
       price: [],
-      description: '',
+      description: [],
+      discount: [],
       New: '',
       featured: '',
       status: '',
@@ -2748,10 +2749,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     get_attribute: function get_attribute() {
       var gf = this;
-      this.axios.post('/get_attributes', {
+      this.axios.post('/product/get_attributes', {
         id: this.family_attribute
       }).then(function (response) {
-        console.log(response.data.count_attributes);
+        console.log(response.data.attributes);
         gf.count_attributes = response.data.count_attributes;
         gf.attributes = response.data.attributes;
       })["catch"](function (error) {
@@ -2764,7 +2765,6 @@ __webpack_require__.r(__webpack_exports__);
       // console.log('in show tree', this.$route.params.id);
       var uri = "/tree_product";
       var gf = this;
-
       // ------------هذا لاجل البحث في الشجره-----------------------------
       var to = false;
       $('#ricerca-enti').keyup(function () {
@@ -2878,11 +2878,12 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("parent", this.product_id);
       formData.append("attribute", this.attr_array);
       formData.append("family_id", this.family_attribute);
-      // formData.append("attr_option_id", this.attr_array);
       formData.append("product_attr", JSON.stringify(this.att_family));
       formData.append("status", 'false');
       formData.append("qty", JSON.stringify(this.qty));
       formData.append("price", JSON.stringify(this.price));
+      formData.append("description", JSON.stringify(this.description));
+      formData.append("discount", JSON.stringify(this.discount));
       formData.append("featured", this.featured);
       formData.append("new", this.New);
       for (var i = 0; i < this.file.length; i++) {
@@ -2892,18 +2893,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // formData.append("image", this.file);
 
-      this.axios.post('/store_product', formData, config
-      //  {
-
-      //     product: this.product,
-      //     parent: this.product_id,
-      //     attribute: this.attr_array,
-      //     product_attr:this.att_family,
-      //     status: 'false',
-      //     image: this.file,
-
-      // }
-      ).then(function (response) {})["catch"](function (error) {
+      this.axios.post('/store_product', formData, config).then(function (response) {})["catch"](function (error) {
         currentObj.output = error;
       });
       // this.$router.go(-1);
@@ -3460,11 +3450,10 @@ __webpack_require__.r(__webpack_exports__);
       check_size: [],
       check_brand: [],
       all_attribute_filter: '',
+      data_fliter: '',
+      check_value: [],
       array_id: {
-        'product_id': 0,
-        'country_id': 0,
-        'size_id': 0
-        // 'brand_id': 0,
+        'product_id': Array(this.count)
       },
       jsonTreeData: ''
     };
@@ -3472,15 +3461,6 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$Progress.start();
     this.$store.dispatch("categoryByID", this.$route.params.id);
-    // this.$store.dispatch("category")
-    // this.$store.dispatch("size")
-    // this.$store.dispatch("country")
-
-    // this.$store.dispatch("brand")
-    // this.$store.dispatch("color")
-    // this.$store.dispatch("material")
-    // this.$store.dispatch("gender")
-
     this.$Progress.finish();
     this.showProduct();
     this.showtree();
@@ -3489,15 +3469,6 @@ __webpack_require__.r(__webpack_exports__);
     $route: function $route(to, from) {
       this.$Progress.start();
       this.$store.dispatch("categoryByID", this.$route.params.id);
-      // this.$store.dispatch("category")
-      // this.$store.dispatch("size")
-      // this.$store.dispatch("country")
-
-      // this.$store.dispatch("brand")
-      // this.$store.dispatch("color")
-      // this.$store.dispatch("material")
-      // this.$store.dispatch("gender")
-
       this.$Progress.finish();
       this.showProduct();
       this.showtree();
@@ -3592,8 +3563,10 @@ __webpack_require__.r(__webpack_exports__);
           gf.array_id.product_id = data.node.id;
 
           // alert(data.node.id);
-          axios.post("/category_filter/".concat(data.node.id)).then(function (response) {
-            gf.showCatProduct = response.data;
+          axios.post("/category_filter/".concat(data.node.id), {
+            'type': 'product'
+          }).then(function (response) {
+            gf.showCatProduct = response.data.products;
             gf.array_id.product_id = data.node.id;
           });
         });
@@ -3607,87 +3580,37 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/category_c/".concat(this.$route.params.id)).then(function (response) {
         console.log('sdddd', response.data);
         _this2.all_attribute_filter = response.data.product_filterable_attributes;
+        var studentsList = {};
+        _this2.all_attribute_filter.forEach(function (student) {
+          studentsList[student.attribute.name] = {};
+          student.attribute.attribute_option.forEach(function (student2) {
+            studentsList[student.attribute.name][student2.value] = 0;
+          });
+        });
+        _this2.data_fliter = studentsList;
+        // console.log('ddddd22222', this.data_fliter)
         _this2.showCatProduct = response.data.products;
       });
     },
-    onchange_country: function onchange_country(id, index) {
+    onchange: function onchange(event, id, index) {
       var _this3 = this;
-      console.log(index);
-      if (this.check_country[index] == true) {
-        this.array_id.country_id = id;
-        for (var i = 0; i < this.check_country.length; i++) {
-          if (index != i) {
-            this.check_country[i] = false;
-          }
-        }
-        axios.post("/country_filter", {
-          'array_id': this.array_id
-        }).then(function (response) {
-          console.log('country', response.data);
-          _this3.showCatProduct = response.data;
-        });
+      // console.log('---------',event.target.checked);
+
+      if (event.target.checked == true) {
+        this.data_fliter[id][index] = true;
+      } else {
+        this.data_fliter[id][index] = false;
       }
-      if (this.check_country[index] == false) {
-        this.array_id.country_id = 0;
-      }
+      axios.post("/filter", {
+        'data_fliter': this.data_fliter,
+        'array_id': this.array_id,
+        'type': 'attribute'
+      }).then(function (response) {
+        // console.log('country', response.data);
+
+        _this3.showCatProduct = response.data.products;
+      });
     },
-    // onchange_country(id, index) {
-    //   console.log(index);
-    //   if (this.check_country[index] == true) {
-    //     this.array_id.country_id = id;
-    //     for (let i = 0; i < this.check_country.length; i++) {
-    //       if (index != i) {
-    //         this.check_country[i] = false;
-    //       }
-    //     }
-    //     axios.post(`/country_filter`, { 'array_id': this.array_id })
-    //       .then((response) => {
-    //         console.log('country', response.data);
-    //         this.showCatProduct = response.data;
-    //       })
-    //   }
-    //   if (this.check_country[index] == false) {
-    //     this.array_id.country_id = 0;
-    //   }
-    // },
-    // onchange_brand(id, index) {
-    //   console.log(index);
-    //   if (this.check_brand[index] == true) {
-    //     this.array_id.brand_id = id;
-    //     for (let i = 0; i < this.check_brand.length; i++) {
-    //       if (index != i) {
-    //         this.check_brand[i] = false;
-    //       }
-    //     }
-    //     axios.post(`/brand_filter`, { 'array_id': this.array_id })
-    //       .then((response) => {
-    //         console.log('brand', response.data);
-    //         this.showCatProduct = response.data;
-    //       })
-    //   }
-    //   if (this.check_brand[index] == false) {
-    //     this.array_id.brand_id = 0;
-    //   }
-    // },
-    // onchange_size(id, index) {
-    //   console.log('array', this.array_id);
-    //   if (this.check_size[index] == true) {
-    //     this.array_id.size_id = id;
-    //     for (let i = 0; i < this.check_size.length; i++) {
-    //       if (index != i) {
-    //         this.check_size[i] = false;
-    //       }
-    //     }
-    //     axios.post(`/size_filter`, { 'array_id': this.array_id })
-    //       .then((response) => {
-    //         console.log('size', response.data);
-    //         this.showCatProduct = response.data;
-    //       })
-    //   }
-    //   if (this.check_size[index] == false) {
-    //     this.array_id.size_id = 0;
-    //   }
-    // },
     // get_by_price(e) {
     //   // alert(this.myInput);
     //   axios.post(`/product_by_price/${this.myInput}`)
@@ -3705,22 +3628,7 @@ __webpack_require__.r(__webpack_exports__);
         _this4.$Progress.finish();
       });
     }
-  },
-  computed: {
-    // showCatProduct() {
-    //   return this.$store.getters.getCatProduct
-    // },
-    // showAllCategory() {
-    //   return this.$store.getters.getCategory
-    // },
-    // showAllSize() {
-    //   return this.$store.getters.getSize
-    // },
-    // showAllCountry() {
-    //   return this.$store.getters.getCountry
   }
-
-  // },
 });
 
 /***/ }),
@@ -4736,7 +4644,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card-header pb-0"
   }, [_c("span", {
-    staticClass: "h2"
+    staticClass: "h4"
   }, [_vm._v(" الخواص ")]), _vm._v(" "), _c("div", {
     staticStyle: {
       display: "flex",
@@ -4790,7 +4698,7 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.attributes, function (attribute) {
+  }, [_vm._m(0), _vm._v(" "), _vm.attributes && _vm.attributes.length > 0 ? _c("tbody", _vm._l(_vm.attributes, function (attribute) {
     return _c("tr", [_c("td", [_vm._v(_vm._s(attribute.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(attribute.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(attribute.code))]), _vm._v(" "), _c("td", [_vm._l(attribute.attribute_option, function (attr) {
       return [[_c("div", [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(attr.value) + "   " + _vm._s(attr.code) + "\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("hr")]];
     })], 2), _vm._v(" "), _c("td", [_vm._m(1, true), _vm._v(" "), _c("router-link", {
@@ -4806,7 +4714,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0)])])])])])]);
+  }), 0) : _vm._e(), _vm._v(" "), _vm._m(2)])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -4831,6 +4739,17 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "fa fa-trash"
   })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tbody", [_c("tr", [_c("td", {
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t")])])]);
 }];
 render._withStripped = true;
 
@@ -5157,7 +5076,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card-header pb-0"
   }, [_c("span", {
-    staticClass: "h2"
+    staticClass: "h4"
   }, [_vm._v(" مجموعه الخواص")]), _vm._v(" "), _c("div", {
     staticStyle: {
       display: "flex",
@@ -5211,7 +5130,7 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.attribute_families, function (family) {
+  }, [_vm._m(0), _vm._v(" "), _vm.attribute_families && _vm.attribute_families.length > 0 ? _c("tbody", _vm._l(_vm.attribute_families, function (family) {
     return _c("tr", [_c("td", [_vm._v(_vm._s(family.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.code))]), _vm._v(" "), _c("td", [_vm._l(family.attribute_family_mapping, function (attr) {
       return [[_c("div", [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(attr.attribute.name) + "\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("hr")]];
     })], 2), _vm._v(" "), _c("td", [_vm._m(1, true), _vm._v(" "), _c("router-link", {
@@ -5227,7 +5146,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0)])])])])])]);
+  }), 0) : _vm._e(), _vm._v(" "), _vm._m(2)])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -5254,6 +5173,17 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "fa fa-trash"
   })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tbody", [_c("tr", [_c("td", {
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t")])])]);
 }];
 render._withStripped = true;
 
@@ -5588,7 +5518,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card-header pb-0"
   }, [_c("span", {
-    staticClass: "h2"
+    staticClass: "h4"
   }, [_vm._v(" الاصناف")]), _vm._v(" "), _c("div", {
     staticStyle: {
       display: "flex",
@@ -5642,7 +5572,7 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.category, function (categorys) {
+  }, [_vm._m(0), _vm._v(" "), _vm.category && _vm.category.length > 0 ? _c("tbody", _vm._l(_vm.category, function (categorys) {
     return _c("tr", [_c("td", [_vm._v(_vm._s(categorys.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(categorys.text))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-danger btn-sm",
       attrs: {
@@ -5668,7 +5598,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0)])])])])])]);
+  }), 0) : _vm._e(), _vm._v(" "), _vm._m(1)])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -5680,6 +5610,17 @@ var staticRenderFns = [function () {
   }, [_vm._v("الاسم")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
   }, [_vm._v(" العمليات")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tbody", [_c("tr", [_c("td", {
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])])]);
 }];
 render._withStripped = true;
 
@@ -6213,66 +6154,6 @@ var render = function render() {
     staticClass: "side-menu__item",
     attrs: {
       "data-toggle": "slide",
-      to: "/category/category"
-    }
-  }, [_c("svg", {
-    staticClass: "side-menu__icon",
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      viewBox: "0 0 24 24"
-    }
-  }, [_c("path", {
-    attrs: {
-      d: "M0 0h24v24H0V0z",
-      fill: "none"
-    }
-  }), _c("path", {
-    attrs: {
-      d: "M19 5H5v14h14V5zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z",
-      opacity: ".3"
-    }
-  }), _c("path", {
-    attrs: {
-      d: "M3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2zm2 0h14v14H5V5zm2 5h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"
-    }
-  })]), _c("span", {
-    staticClass: "side-menu__label"
-  }, [_vm._v("Category")]), _c("i", {
-    staticClass: "angle fe fe-chevron-down"
-  })]), _vm._v(" "), _c("router-link", {
-    staticClass: "side-menu__item",
-    attrs: {
-      "data-toggle": "slide",
-      to: "/product/product"
-    }
-  }, [_c("svg", {
-    staticClass: "side-menu__icon",
-    attrs: {
-      xmlns: "http://www.w3.org/2000/svg",
-      viewBox: "0 0 24 24"
-    }
-  }, [_c("path", {
-    attrs: {
-      d: "M0 0h24v24H0V0z",
-      fill: "none"
-    }
-  }), _c("path", {
-    attrs: {
-      d: "M19 5H5v14h14V5zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z",
-      opacity: ".3"
-    }
-  }), _c("path", {
-    attrs: {
-      d: "M3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2zm2 0h14v14H5V5zm2 5h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"
-    }
-  })]), _c("span", {
-    staticClass: "side-menu__label"
-  }, [_vm._v("Product")]), _c("i", {
-    staticClass: "angle fe fe-chevron-down"
-  })]), _vm._v(" "), _c("router-link", {
-    staticClass: "side-menu__item",
-    attrs: {
-      "data-toggle": "slide",
       to: "/attribute/attribute"
     }
   }, [_c("svg", {
@@ -6328,6 +6209,66 @@ var render = function render() {
   })]), _c("span", {
     staticClass: "side-menu__label"
   }, [_vm._v("AttributeFamily")]), _c("i", {
+    staticClass: "angle fe fe-chevron-down"
+  })]), _vm._v(" "), _c("router-link", {
+    staticClass: "side-menu__item",
+    attrs: {
+      "data-toggle": "slide",
+      to: "/category/category"
+    }
+  }, [_c("svg", {
+    staticClass: "side-menu__icon",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      viewBox: "0 0 24 24"
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M0 0h24v24H0V0z",
+      fill: "none"
+    }
+  }), _c("path", {
+    attrs: {
+      d: "M19 5H5v14h14V5zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z",
+      opacity: ".3"
+    }
+  }), _c("path", {
+    attrs: {
+      d: "M3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2zm2 0h14v14H5V5zm2 5h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"
+    }
+  })]), _c("span", {
+    staticClass: "side-menu__label"
+  }, [_vm._v("Category")]), _c("i", {
+    staticClass: "angle fe fe-chevron-down"
+  })]), _vm._v(" "), _c("router-link", {
+    staticClass: "side-menu__item",
+    attrs: {
+      "data-toggle": "slide",
+      to: "/product/product"
+    }
+  }, [_c("svg", {
+    staticClass: "side-menu__icon",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      viewBox: "0 0 24 24"
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M0 0h24v24H0V0z",
+      fill: "none"
+    }
+  }), _c("path", {
+    attrs: {
+      d: "M19 5H5v14h14V5zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z",
+      opacity: ".3"
+    }
+  }), _c("path", {
+    attrs: {
+      d: "M3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2zm2 0h14v14H5V5zm2 5h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"
+    }
+  })]), _c("span", {
+    staticClass: "side-menu__label"
+  }, [_vm._v("Product")]), _c("i", {
     staticClass: "angle fe fe-chevron-down"
   })]), _vm._v(" "), _c("router-link", {
     staticClass: "side-menu__item",
@@ -7255,7 +7196,7 @@ var render = function render() {
     attrs: {
       id: "brandDatatable"
     }
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.order, function (orders) {
+  }, [_vm._m(1), _vm._v(" "), _vm.order && _vm.order.length > 0 ? _c("tbody", _vm._l(_vm.order, function (orders) {
     return _c("tr", [_c("td", [_vm._v(_vm._s(orders.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(orders.customer_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(orders.order_total))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(orders.order_status))]), _vm._v(" "), _c("td", [_c("router-link", {
       staticClass: "btn btn-success btn-sm",
       attrs: {
@@ -7269,7 +7210,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-search-plus"
     })])], 1)]);
-  }), 0)])])])])])])]);
+  }), 0) : _vm._e(), _vm._v(" "), _vm._m(2)])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -7297,6 +7238,17 @@ var staticRenderFns = [function () {
       width: "200"
     }
   }, [_vm._v("العميل")]), _vm._v(" "), _c("th", [_vm._v("الاجمالي")]), _vm._v(" "), _c("th", [_vm._v("حاله الطلب")]), _vm._v(" "), _c("th", [_vm._v("العمليات")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tbody", [_c("tr", [_c("td", {
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])])]);
 }];
 render._withStripped = true;
 
@@ -7657,6 +7609,12 @@ var render = function render() {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-12"
+  }, [_c("fieldset", {
+    staticClass: "border rounded-3 p-3"
+  }, [_c("legend", {
+    staticClass: "float-none w-auto px-3"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12"
   }, [_c("label", {
     attrs: {
       "for": "pagoPrevio"
@@ -7683,15 +7641,7 @@ var render = function render() {
         _vm.product = $event.target.value;
       }
     }
-  })])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-md-4"
-  }, [_c("fieldset", {
-    staticClass: "border rounded-3 p-3"
-  }, [_c("legend", {
-    staticClass: "float-none w-auto px-3"
-  }, [_vm._v("الخواص")]), _vm._v(" "), _c("div", {
+  })]), _vm._v(" "), _c("div", {
     staticClass: "col-md-12"
   }, [_c("label", {
     attrs: {
@@ -7727,9 +7677,9 @@ var render = function render() {
       domProps: {
         value: families.id
       }
-    }, [_vm._v("\n                                                " + _vm._s(families.name) + "\n                                            ")]);
+    }, [_vm._v("\n                                                        " + _vm._s(families.name) + "\n                                                    ")]);
   }), 0)]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-12"
+    staticClass: "col-md-6"
   }, [_c("label", {
     attrs: {
       "for": "pagoPrevio"
@@ -7763,14 +7713,14 @@ var render = function render() {
     }
   }, [_vm._v("select")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "1"
+      value: "yes"
     }
   }, [_vm._v("yes")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "0"
+      value: "no"
     }
   }, [_vm._v("no")])])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-12"
+    staticClass: "col-md-6"
   }, [_c("label", {
     attrs: {
       "for": "pagoPrevio"
@@ -7804,14 +7754,16 @@ var render = function render() {
     }
   }, [_vm._v("select")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "1"
+      value: "yes"
     }
   }, [_vm._v("yes")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "0"
+      value: "no"
     }
-  }, [_vm._v("no")])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-8"
+  }, [_vm._v("no")])])])])])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
   }, [_c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
@@ -7854,6 +7806,29 @@ var render = function render() {
         input: function input($event) {
           if ($event.target.composing) return;
           _vm.$set(_vm.price, index - 1, $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.discount[index - 1],
+        expression: "discount[index - 1]"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text",
+        name: "name",
+        id: "name",
+        required: ""
+      },
+      domProps: {
+        value: _vm.discount[index - 1]
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(_vm.discount, index - 1, $event.target.value);
         }
       }
     })]), _vm._v(" "), _c("td", [_c("input", {
@@ -7909,6 +7884,26 @@ var render = function render() {
       on: {
         change: function change($event) {
           return _vm.onFileChange($event, index);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.description[index - 1],
+        expression: "description[index - 1]"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text"
+      },
+      domProps: {
+        value: _vm.description[index - 1]
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(_vm.description, index - 1, $event.target.value);
         }
       }
     })]), _vm._v(" "), index == 1 ? _c("td", [_c("a", {
@@ -7997,7 +7992,7 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("السعر")]), _vm._v(" "), _c("th", [_vm._v("الكميه")]), _vm._v(" "), _c("th", [_vm._v("الخواص")]), _vm._v(" "), _c("th", [_vm._v("صوره المنتج")]), _vm._v(" "), _c("th", [_vm._v("اضافه")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("السعر")]), _vm._v(" "), _c("th", [_vm._v("الخصم")]), _vm._v(" "), _c("th", [_vm._v("الكميه")]), _vm._v(" "), _c("th", [_vm._v("الخواص")]), _vm._v(" "), _c("th", [_vm._v("صوره المنتج")]), _vm._v(" "), _c("th", [_vm._v("الوصف")]), _vm._v(" "), _c("th", [_vm._v("اضافه")])])]);
 }];
 render._withStripped = true;
 
@@ -8027,7 +8022,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card-header pb-0"
   }, [_c("span", {
-    staticClass: "h2"
+    staticClass: "h4"
   }, [_vm._v("المنتجات")]), _vm._v(" "), _c("div", {
     staticStyle: {
       display: "flex",
@@ -8081,7 +8076,7 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.product, function (products) {
+  }, [_vm._m(0), _vm._v(" "), _vm.product && _vm.product.length > 0 ? _c("tbody", _vm._l(_vm.product, function (products) {
     return _c("tr", [_c("td", [_vm._v(_vm._s(products.text))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(products.category_name))]), _vm._v(" "), _c("td", [_vm._l(products.product_family_attribute, function (product_family) {
       return [[_c("div", [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(product_family.image) + "\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("hr")]];
     })], 2), _vm._v(" "), _c("td", [_vm._l(products.product_family_attribute, function (product_family) {
@@ -8117,7 +8112,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0)])])])])])]);
+  }), 0) : _vm._e(), _vm._v(" "), _vm._m(1)])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -8137,6 +8132,17 @@ var staticRenderFns = [function () {
   }, [_vm._v("الخواص")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
   }, [_vm._v(" العمليات")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tbody", [_c("tr", [_c("td", {
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      colspan: "7"
+    }
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t")])])]);
 }];
 render._withStripped = true;
 
@@ -8737,7 +8743,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card-header pb-0"
   }, [_c("span", {
-    staticClass: "h2"
+    staticClass: "h4"
   }, [_vm._v("المستخدمين")]), _vm._v(" "), _c("div", {
     staticStyle: {
       display: "flex",
@@ -8791,9 +8797,9 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.user, function (users) {
+  }, [_vm._m(0), _vm._v(" "), _vm.user && _vm.user.length > 0 ? _c("tbody", _vm._l(_vm.user, function (users) {
     return _c("tr", [_c("td", [_vm._v(_vm._s(users.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.phone))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.address))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.status))]), _vm._v(" "), _c("td")]);
-  }), 0)])])])])])]);
+  }), 0) : _vm._e(), _vm._v(" "), _vm._m(1)])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -8809,6 +8815,17 @@ var staticRenderFns = [function () {
   }, [_vm._v("العنوان")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
   }, [_vm._v("الحاله")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tbody", [_c("tr", [_c("td", {
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t")])])]);
 }];
 render._withStripped = true;
 
@@ -9339,87 +9356,62 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-lg-3"
+    staticClass: "col-lg-2"
   }, [_c("div", {
     staticClass: "left_sidebar_area"
   }, [_c("div", {
     attrs: {
       id: "accordion"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm._l(_vm.all_attribute_filter, function (attribute_filter) {
+  }, [_vm._m(0), _vm._v(" "), _vm._l(_vm.data_fliter, function (attribute_filter, index) {
     return _c("div", {
       staticClass: "card"
     }, [_c("div", {
       staticClass: "card-header",
       attrs: {
-        id: "headingThree" + attribute_filter.id
+        id: "headingThree" + index
       }
-    }, [_c("h5", {
+    }, [_c("h1", {
       staticClass: "mb-0"
     }, [_c("button", {
       staticClass: "btn btn-link collapsed",
       attrs: {
         "data-toggle": "collapse",
-        "data-target": "#collapseThree" + attribute_filter.id,
+        "data-target": "#collapseThree" + index,
         "aria-expanded": "false",
-        "aria-controls": "collapseThree" + attribute_filter.id
+        "aria-controls": "collapseThree" + index
       }
-    }, [_vm._v("\n                      بحسب   " + _vm._s(attribute_filter.attribute.name) + "\n                    ")])])]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n                        بحسب " + _vm._s(index) + "\n                      ")])])]), _vm._v(" "), _c("div", {
       staticClass: "collapse",
       attrs: {
-        id: "collapseThree" + attribute_filter.id,
-        "aria-labelledby": "headingThree" + attribute_filter.id,
+        id: "collapseThree" + index,
+        "aria-labelledby": "headingThree" + index,
         "data-parent": "#accordion"
       }
     }, [_c("div", {
       staticClass: "card-body"
     }, [_c("ul", {
       staticClass: "list"
-    }, _vm._l(attribute_filter.attribute.attribute_option, function (attribute_filter2, index) {
+    }, [_vm._l(attribute_filter, function (attribute_filter2, index1) {
       return _c("li", [_c("input", {
-        directives: [{
-          name: "model",
-          rawName: "v-model",
-          value: _vm.check_country[index],
-          expression: "check_country[index]"
-        }],
         attrs: {
           type: "checkbox",
-          id: attribute_filter2.id
-        },
-        domProps: {
-          value: attribute_filter2.id,
-          checked: Array.isArray(_vm.check_country[index]) ? _vm._i(_vm.check_country[index], attribute_filter2.id) > -1 : _vm.check_country[index]
+          id: index1
         },
         on: {
-          change: [function ($event) {
-            var $$a = _vm.check_country[index],
-              $$el = $event.target,
-              $$c = $$el.checked ? true : false;
-            if (Array.isArray($$a)) {
-              var $$v = attribute_filter2.id,
-                $$i = _vm._i($$a, $$v);
-              if ($$el.checked) {
-                $$i < 0 && _vm.$set(_vm.check_country, index, $$a.concat([$$v]));
-              } else {
-                $$i > -1 && _vm.$set(_vm.check_country, index, $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-              }
-            } else {
-              _vm.$set(_vm.check_country, index, $$c);
-            }
-          }, function ($event) {
-            return _vm.onchange_country(attribute_filter2.id, index);
-          }]
+          change: function change($event) {
+            return _vm.onchange($event, index, index1);
+          }
         }
       }), _vm._v(" "), _c("label", {
         attrs: {
-          "for": attribute_filter2.id
+          "for": index
         }
-      }, [_vm._v("     " + _vm._s(attribute_filter2.value))])]);
-    }), 0)])])]);
+      }, [_vm._v(" " + _vm._s(index1))])]);
+    }), _vm._v(" "), _vm._m(1, true)], 2)])])]);
   })], 2)])]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-9"
-  }, [_vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-10"
+  }, [_vm._m(2), _vm._v(" "), _c("div", {
     staticClass: "latest_product_inner"
   }, [_vm.showCatProduct && _vm.showCatProduct.length > 0 ? _c("div", {
     staticClass: "row"
@@ -9446,10 +9438,10 @@ var render = function render() {
         }
       }, [_c("i", {
         staticClass: "ti-eye"
-      })]), _vm._v(" "), _vm._m(2, true), _vm._v(" "), _c("button", {
+      })]), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _c("button", {
         on: {
           click: function click($event) {
-            return _vm.addToCart(dd.product_id);
+            return _vm.addToCart(dd.id);
           }
         }
       }, [_c("i", {
@@ -9474,58 +9466,11 @@ var render = function render() {
         staticClass: "mt-3"
       }, [_c("span", {
         staticClass: "mr-4"
-      }, [_vm._v(_vm._s(dd.description))])]), _vm._v(" "), _c("hr"), _vm._v(" "), _vm._m(3, true)])]);
-    }), 0) : _c("div", {
-      staticClass: "single-product"
-    }, [_c("div", {
-      staticClass: "product-img"
-    }, [_c("img", {
-      staticClass: "card-img",
-      attrs: {
-        src: "/assets/upload/".concat(catProduct.image),
-        alt: "Product Image",
-        height: "50px"
-      }
-    }), _vm._v(" "), _c("div", {
-      staticClass: "p_icon"
-    }, [_c("router-link", {
-      attrs: {
-        to: "/customer/single-product/".concat(catProduct.product_id)
-      }
-    }, [_c("i", {
-      staticClass: "ti-eye"
-    })]), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c("button", {
-      on: {
-        click: function click($event) {
-          return _vm.addToCart(catProduct.product_id);
-        }
-      }
-    }, [_c("i", {
-      staticClass: "ti-shopping-cart"
-    })])], 1)]), _vm._v(" "), _c("div", {
-      staticClass: "product-btm"
-    }, [_c("div", {
-      staticClass: "mt-3"
-    }, [_c("router-link", {
-      attrs: {
-        to: "/customer/single-product/".concat(catProduct.product_id)
-      }
-    }, [_c("h1", [_vm._v(_vm._s(catProduct.text))])])], 1), _vm._v(" "), _c("hr"), _vm._v(" "), catProduct.discount ? _c("div", {
-      staticClass: "mt-3"
-    }, [_c("span", {
-      staticClass: "mr-4"
-    }, [_vm._v("$ " + _vm._s(catProduct.price))])]) : _c("div", {
-      staticClass: "mt-3"
-    }, [_c("span", {
-      staticClass: "mr-4"
-    }, [_vm._v("$" + _vm._s(catProduct.price))])]), _vm._v(" "), _c("div", {
-      staticClass: "mt-3"
-    }, [_c("span", {
-      staticClass: "mr-4"
-    }, [_vm._v(_vm._s(catProduct.description))])]), _vm._v(" "), _vm._m(5, true)])])]);
+      }, [_vm._v(_vm._s(dd.description))])]), _vm._v(" "), _c("hr"), _vm._v(" "), _vm._m(4, true)])]);
+    }), 0) : _vm._e()]);
   }), 0) : _c("div", {
     staticClass: "row"
-  }, [_vm._m(6)])])])])])])]);
+  }, [_vm._m(5)])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -9537,7 +9482,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "headingOne"
     }
-  }, [_c("h5", {
+  }, [_c("h1", {
     staticClass: "mb-0"
   }, [_c("button", {
     staticClass: "btn btn-link",
@@ -9547,7 +9492,7 @@ var staticRenderFns = [function () {
       "aria-expanded": "true",
       "aria-controls": "collapseOne"
     }
-  }, [_vm._v("\n                      Filter By Category\n\n\n                    ")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n\n                        بحسب الصنف\n                      ")])])]), _vm._v(" "), _c("div", {
     staticClass: "collapse show",
     attrs: {
       id: "collapseOne",
@@ -9584,6 +9529,14 @@ var staticRenderFns = [function () {
       id: "test"
     }
   })])])])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("li", [_c("input", {
+    attrs: {
+      type: "checkbox"
+    }
+  }), _vm._v(" "), _c("label", [_vm._v("الكل ")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -9639,25 +9592,9 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "ti-heart"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "mt-3"
-  }, [_c("h5", [_vm._v("Sales ")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
   return _c("div", {
     staticClass: "col-md-12"
-  }, [_c("h1", [_vm._v(" لايوجد اي منتجات\n\n                ")])]);
+  }, [_c("h1", [_vm._v(" لايوجد اي منتجات\n\n                  ")])]);
 }];
 render._withStripped = true;
 

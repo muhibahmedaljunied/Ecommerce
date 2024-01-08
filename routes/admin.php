@@ -46,7 +46,8 @@ Route::post('/delete_product/{id}', 'ProductController@destroy');
 // Route::group(['prefix' => 'attribute'], function () {
 
 Route::post('/attribute', 'AttributeController@index');
-Route::post('/get_attributes', 'AttributeController@get_attribute');
+Route::post('/attribute_family/get_attributes', 'AttributeFamilyController@get_attribute');
+Route::post('/product/get_attributes', 'AttributeController@get_attribute');
 Route::get('/create_attribute', 'AttributeController@create');
 Route::post('/store_attribute', 'AttributeController@store');
 Route::post('/update_attribute/{id}', 'AttributeController@update');

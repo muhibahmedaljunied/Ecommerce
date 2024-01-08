@@ -13,11 +13,12 @@ use DB;
 class ProductController extends Controller
 {
 
-    public $array_data;
-    public function __construct(Request $request)
+    public $filter;
+    public $request;
+    public function __construct(Request $request, FilterService $filter)
     {
-        
-       $this->array_data =  $request->post('array_id');
+        $this->request = $request;
+        $this->filter = $filter;
     }
     public function index(Request $request)
     {
@@ -36,92 +37,36 @@ class ProductController extends Controller
             ->get();
         return response()->json($product);
     }
- 
-    public function filter(Request $request, FilterService $filter){
 
-        
-        $filter->wherefilter()->queryfilter()->filter();
-        return response()->json($filter->data);
+    public function filter(Request $request, FilterService $filter)
+    {
 
+
+        $filter->product_id =  $request->post('array_id');
+        $filter->array_data =  $request->post('data_fliter');
+
+        $filter->wherefilter()
+            ->queryfilter($this->request['type'])
+            ->filter();
+        return response()->json([
+            'products' => $filter->data,
+        ]);
     }
     public function category_filter(Request $request, FilterService $filter)
     {
 
+        $filter->product_id =  $request->id;
 
-        $product = Product::where('id', $request->id)
-      
-        ->select(
-            'products.*',
-      
-        )
-        ->get();
+        // dd($this->request['type']);
+        $filter->queryfilter($this->request['type'])->filter();
+        return response()->json([
+            'products' => $filter->data,
+        ]);
 
-        $product = Product::where(function ($query) use ($request) {
-            return $query->where('parent_id', '=', $request->id)
-                ->orWhere('id', '=', $request->id)->where('status', '=', 'false');
-        })
-            ->with([
-                'children' => function ($query) {
-
-
-                    $query->join('product_family_attributes', 'product_family_attributes.product_id', '=', 'products.id');
-
-                    $query->select('*');
-                },
-                'product_family_attribute' => function ($query) {
-                    $query->select('*');
-                }
-            ])
-            ->get();
-
-        $filter->filter(collect($product)->toArray());
-        // return response()->json([
-        //     'trees' => $filter->dat,
-        //     'category_attribute_filter' => $last_nodes
-        // ]);
-
-        return response()->json($filter->data);
     }
 
+  
 
- 
-    // public function country_filter(FilterService $filter)
-    // {
-
-    //     $filter->wherefilter()->queryfilter()->filter();
-    //     return response()->json($filter->data);
-    // }
-
-
-    // public function size_filter(FilterService $filter)
-    // {
-
-    //     $filter->wherefilter()->queryfilter()->filter();
-
-    //     return response()->json($filter->data);
-    // }
-    // // ---------------------------------------------------
-    // public function color_filter(FilterService $filter)
-    // {
-
-    //     $filter->wherefilter()->queryfilter()->filter();
-    //     return response()->json($filter->data);
-    // }
-    // // -------------------------------------------------------------------
-    // public function material_filter(FilterService $filter)
-    // {
-
-    //     $filter->wherefilter()->queryfilter()->filter();
-    //     return response()->json($filter->data);
-    // }
-    // // -------------------------------------------------------------------
-    // public function gender_filter(FilterService $filter)
-    // {
-
-    //     $filter->wherefilter()->queryfilter()->filter();
-    //     return response()->json($filter->data);
-    // }
-    // -------------------------------------------------------------------
     public function product_by_price(Request $request)
     {
         // $array_id = [];
@@ -147,48 +92,37 @@ class ProductController extends Controller
     }
     public function getProductDetails($id)
     {
-        
-        // $Product = DB::table('products')
-        //     ->join('product_attributes', 'product_attributes.product_id', '=', 'products.id')
-        //     ->where('products.id', '=', $id)
-        //     ->select(
-        //         'products.*',
-        //         'product_attributes.*',
-        //     )
-        //     ->first();
+
         $product = ProductFamilyAttribute::where(function ($query) use ($id) {
-            return $query->where('id', '=',$id);
+            return $query->where('id', '=', $id);
         })
-            ->with([
-                'product' => function ($query){
-                    $query->where('status','false');
-                    $query->select('*');
-            
-                }
-            ]
-                
-            )->with(['family_attribute_option'=> function ($query){
-                $query->with(['attribute_option'=>function($query){
+            ->with(
+                [
+                    'product' => function ($query) {
+                        $query->where('status', 'false');
+                        $query->select('*');
+                    }
+                ]
 
-                    $query->with(['attribute'=>function($query){
+            )->with(
+                ['family_attribute_option' => function ($query) {
+                    $query->with(['attribute_option' => function ($query) {
 
-                        $query->select('attributes.*');
-    
+                        $query->with(['attribute' => function ($query) {
+
+                            $query->select('attributes.*');
+                        }]);
+
+                        $query->select('attribute_options.*');
                     }]);
+                    // $query->with('attribute');
+                    $query->select('family_attribute_options.*');
+                }]
 
-                    $query->select('attribute_options.*');
-
-                }]);
-                // $query->with('attribute');
-                $query->select('family_attribute_options.*');
-            }]
-                
             )
             ->get();
 
 
-        //$data = $Product->toArray();
-        //var_dump($Product);
         return response()->json($product);
     }
 
@@ -229,7 +163,4 @@ class ProductController extends Controller
         //return $featuredProduct;
         return response()->json($newProduct);
     }
-
-
-
 }

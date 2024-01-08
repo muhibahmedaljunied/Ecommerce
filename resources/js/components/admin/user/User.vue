@@ -5,7 +5,7 @@
 			<div class="card">
 				
 				<div class="card-header pb-0">
-						<span class="h2">المستخدمين</span>
+						<span class="h4">المستخدمين</span>
 				
 
 					<div style="display: flex;float: left; margin: 5px">
@@ -40,7 +40,7 @@
 
 								</tr>
 							</thead>
-							<tbody>
+							<tbody v-if="user && user.length>0">
 								<tr v-for="users in user">
 									<td>{{ users.name }}</td>
 									<td>{{ users.phone }}</td>
@@ -57,6 +57,13 @@
 
 								</tr>
 
+							</tbody>
+							<tbody>
+								<tr>
+									<td style="text-align: center;" colspan="5">
+										لايوجد اي بيانات
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

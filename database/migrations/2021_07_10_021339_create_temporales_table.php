@@ -15,16 +15,11 @@ class CreateTemporalesTable extends Migration
     {
         Schema::create('temporales', function (Blueprint $table) {
             $table->increments('id'); 
-            $table->integer('product_id')->unsigned()->nullable();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            // $table->integer('customer_id')->unsigned()->nullable();
-            // $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->integer('product_family_attribute_id')->unsigned()->nullable();
+            $table->foreign('product_family_attribute_id')->references('id')->on('product_family_attributes')
+            ->onDelete('cascade');
             $table->integer('qty');
-            // $table->integer('tax')->nullable();
-            // $table->integer('sub_total')->nullable();
             $table->integer('total')->nullable();
-
-            // $table->string('type_process',10);
             $table->timestamps();
 
             

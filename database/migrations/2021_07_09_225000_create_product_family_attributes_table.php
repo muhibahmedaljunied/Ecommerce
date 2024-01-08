@@ -30,6 +30,8 @@ class CreateProductFamilyAttributesTable extends Migration
             $table->string('image')->nullable();
             $table->string('new')->default('no');
             $table->string('featured')->default('no');
+            $table->string('description');
+
 
             $table->timestamps();
         });

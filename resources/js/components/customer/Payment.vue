@@ -210,8 +210,6 @@ export default {
                     // this.$store.dispatch("countCart");
                 })
         },
-
-
         orderConfirm_stripe(e) {
             e.preventDefault();
 
@@ -314,7 +312,6 @@ export default {
             }
 
         },
-
         // stripe(data) {
 
         // console.log(data);

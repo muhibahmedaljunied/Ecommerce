@@ -84,7 +84,7 @@ export default {
 
     mounted() {
 
-        this.axios.post(`/get_attributes`).then((response) => {
+        this.axios.post(`/attribute_family/get_attributes`).then((response) => {
 
             this.attributes = response.data.attributes;
         })

@@ -6,20 +6,20 @@
     <section class="cat_product_area section_gap">
       <div class="container">
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-2">
             <div class="left_sidebar_area">
               <!-- ------------------------------------- -->
               <div id="accordion">
                 <div class="card">
                   <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
+                    <h1 class="mb-0">
                       <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                         aria-controls="collapseOne">
-                        Filter By Category
+                        <!-- Filter By Category -->
 
-
+                        بحسب الصنف
                       </button>
-                    </h5>
+                    </h1>
                   </div>
 
                   <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
@@ -57,38 +57,73 @@
                   </div>
                 </div>
 
-                <div class="card" v-for="attribute_filter in all_attribute_filter">
-                
-                                           
+                <div class="card" v-for="(attribute_filter, index)  in data_fliter">
 
-                  <div class="card-header" :id="'headingThree'+attribute_filter.id" >
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#collapseThree'+attribute_filter.id" 
-                        aria-expanded="false" :aria-controls="'collapseThree'+attribute_filter.id">
-                        بحسب   {{attribute_filter.attribute.name}}
+                  <div class="card-header" :id="'headingThree' + index">
+                    <h1 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse"
+                        :data-target="'#collapseThree' + index" aria-expanded="false"
+                        :aria-controls="'collapseThree' + index">
+                        بحسب {{ index }}
                       </button>
-                     
-                    </h5>
+
+                    </h1>
                   </div>
-                  <div :id="'collapseThree'+attribute_filter.id"   class="collapse" :aria-labelledby="'headingThree'+attribute_filter.id" data-parent="#accordion">
+                  <div :id="'collapseThree' + index" class="collapse" :aria-labelledby="'headingThree' + index"
+                    data-parent="#accordion">
                     <div class="card-body">
-                 
+
                       <ul class="list">
-                      
-                     <li v-for="(attribute_filter2, index) in attribute_filter.attribute.attribute_option">
-                          <input @change="onchange_country(attribute_filter2.id, index)" v-model="check_country[index]"
-                            type="checkbox" :id="attribute_filter2.id" :value="attribute_filter2.id">
-                          <label :for="attribute_filter2.id">     {{attribute_filter2.value}}</label>
+
+                        <li v-for="(attribute_filter2, index1) in attribute_filter">
+
+                          <input @change="onchange($event, index, index1)" type="checkbox" :id="index1">
+                          <label :for="index"> {{ index1 }}</label>
                         </li>
-                        <!-- <li>
-                          <input v-model="check_country[index]" type="checkbox" id="country_id" :value="0"
-                            @change="onchange_country(0, index)">
-                          <label>Show all</label>
-                        </li>  -->
+                        <li>
+                          <input type="checkbox">
+                          <label>الكل </label>
+                        </li>
                       </ul>
                     </div>
                   </div>
                 </div>
+
+                <!-- <div class="card" v-for="attribute_filter in all_attribute_filter">
+
+
+
+                  <div class="card-header" :id="'headingThree' + attribute_filter.id">
+                    <h1 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse"
+                        :data-target="'#collapseThree' + attribute_filter.id" aria-expanded="false"
+                        :aria-controls="'collapseThree' + attribute_filter.id">
+                        بحسب {{ attribute_filter.attribute.name }}
+                      </button>
+
+                    </h1>
+                  </div>
+                  <div :id="'collapseThree' + attribute_filter.id" class="collapse"
+                    :aria-labelledby="'headingThree' + attribute_filter.id" data-parent="#accordion">
+                    <div class="card-body">
+
+                      <ul class="list">
+
+                        <li v-for="(attribute_filter2, index) in data_fliter">
+{{ attribute_filter2 }}
+                          <input @change="onchange_country(attribute_filter2.id, index)" type="checkbox"
+                            :id="attribute_filter2.id">
+                          <label :for="attribute_filter2.id"> {{ attribute_filter2.value }}</label>
+                        </li>
+                        <li>
+                          <input v-model="data_fliter" type="checkbox" id="country_id" :value="0"
+                            @change="onchange_country(0, index)">
+                          <label>الكل </label>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div> -->
 
                 <!-- <div class="card">
                   <div class="card-header" id="headingTwo">
@@ -271,7 +306,7 @@
 
             </div>
           </div>
-          <div class="col-lg-9">
+          <div class="col-lg-10">
             <div class="product_top_bar">
 
               <div class="left_dorp">
@@ -295,17 +330,7 @@
 
                 <div class="col-lg-4 col-md-6" v-for="catProduct in showCatProduct">
 
-                  <!-- <div v-if="catProduct['product_attribute']" class="single-product">
-
-                    <div v-for="dd in catProduct['product_attribute']">
-                      {{ dd }}
-                    </div>
-                    <hr>
-
-                    <div>
-                      {{catProduct}}
-                    </div>
-                  </div> -->
+                 
                   <div v-if="catProduct['product_family_attribute']" class="single-product">
 
 
@@ -319,7 +344,7 @@
                           <a href="#">
                             <i class="ti-heart"></i>
                           </a>
-                          <button @click="addToCart(dd.product_id)">
+                          <button @click="addToCart(dd.id)">
                             <i class="ti-shopping-cart"></i>
                           </button>
 
@@ -337,21 +362,21 @@
                         <hr>
                         <!-- <div v-for="dd2 in dd.product_family_attribute "> -->
 
-                          <div class="mt-3" v-if="dd.discount">
-                            <span class="mr-4">$ {{ dd.price }}</span>
-                          </div>
-                          <div class="mt-3" v-else>
-                            <span class="mr-4">${{ dd.price }}</span>
-                          </div>
-                          <hr>
-                          <div class="mt-3">
-                            <span class="mr-4">{{ dd.description }}</span>
-                          </div>
+                        <div class="mt-3" v-if="dd.discount">
+                          <span class="mr-4">$ {{ dd.price }}</span>
+                        </div>
+                        <div class="mt-3" v-else>
+                          <span class="mr-4">${{ dd.price }}</span>
+                        </div>
+                        <hr>
+                        <div class="mt-3">
+                          <span class="mr-4">{{ dd.description }}</span>
+                        </div>
 
-                          <hr>
-                          <div class="mt-3">
-                            <h5>Sales </h5>
-                          </div>
+                        <hr>
+                        <div class="mt-3">
+                          <h5>Sales </h5>
+                        </div>
 
                         <!-- </div> -->
 
@@ -363,7 +388,7 @@
 
 
                   </div>
-                  <div v-else class="single-product">
+                  <!-- <div v-else class="single-product">
                     <div class="product-img">
                       <img class="card-img" :src="`/assets/upload/${catProduct.image}`" alt="Product Image"
                         height='50px' />
@@ -389,7 +414,7 @@
                         </router-link>
                       </div>
                       <hr>
-                   
+
                       <div class="mt-3" v-if="catProduct.discount">
                         <span class="mr-4">$ {{ catProduct.price }}</span>
                       </div>
@@ -407,7 +432,7 @@
 
 
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -445,14 +470,12 @@ export default {
       check_country: [],
       check_size: [],
       check_brand: [],
-      all_attribute_filter:'',
+      all_attribute_filter: '',
+      data_fliter: '',
+      check_value: [],
       array_id: {
 
-        'product_id': 0,
-        'country_id': 0,
-        'size_id': 0,
-        // 'brand_id': 0,
-
+        'product_id': Array(this.count),
       },
       jsonTreeData: '',
 
@@ -462,15 +485,6 @@ export default {
 
     this.$Progress.start();
     this.$store.dispatch("categoryByID", this.$route.params.id)
-    // this.$store.dispatch("category")
-    // this.$store.dispatch("size")
-    // this.$store.dispatch("country")
-
-    // this.$store.dispatch("brand")
-    // this.$store.dispatch("color")
-    // this.$store.dispatch("material")
-    // this.$store.dispatch("gender")
-
     this.$Progress.finish();
     this.showProduct();
     this.showtree();
@@ -480,22 +494,14 @@ export default {
 
       this.$Progress.start();
       this.$store.dispatch("categoryByID", this.$route.params.id)
-      // this.$store.dispatch("category")
-      // this.$store.dispatch("size")
-      // this.$store.dispatch("country")
-
-      // this.$store.dispatch("brand")
-      // this.$store.dispatch("color")
-      // this.$store.dispatch("material")
-      // this.$store.dispatch("gender")
-
       this.$Progress.finish();
       this.showProduct();
       this.showtree();
 
 
 
-    }
+    },
+
   },
 
   methods: {
@@ -609,9 +615,9 @@ export default {
           gf.array_id.product_id = data.node.id;
 
           // alert(data.node.id);
-          axios.post(`/category_filter/${data.node.id}`).then((response) => {
+          axios.post(`/category_filter/${data.node.id}`,{'type':'product'}).then((response) => {
 
-            gf.showCatProduct = response.data;
+            gf.showCatProduct = response.data.products;
             gf.array_id.product_id = data.node.id;
 
           });
@@ -633,131 +639,59 @@ export default {
         .then((response) => {
           console.log('sdddd', response.data);
           this.all_attribute_filter = response.data.product_filterable_attributes;
+
+          var studentsList = {};
+
+          this.all_attribute_filter.forEach(function (student) {
+
+
+            studentsList[student.attribute.name] = {};
+
+            student.attribute.attribute_option.forEach(function (student2) {
+
+              studentsList[student.attribute.name][student2.value] = 0;
+
+            });
+
+          });
+
+          this.data_fliter = studentsList;
+          // console.log('ddddd22222', this.data_fliter)
           this.showCatProduct = response.data.products;
         })
     },
 
-    onchange_country(id, index) {
-      console.log(index);
+    onchange(event, id, index) {
+      // console.log('---------',event.target.checked);
 
-      if (this.check_country[index] == true) {
+      if (event.target.checked == true) {
 
-        this.array_id.country_id = id;
-        for (let i = 0; i < this.check_country.length; i++) {
+        this.data_fliter[id][index] = true;
 
-          if (index != i) {
+      } else {
 
-            this.check_country[i] = false;
-
-          }
-
-        }
-        axios.post(`/country_filter`, { 'array_id': this.array_id })
-          .then((response) => {
-            console.log('country', response.data);
-
-            this.showCatProduct = response.data;
-          })
-      }
-
-      if (this.check_country[index] == false) {
-
-        this.array_id.country_id = 0;
+        this.data_fliter[id][index] = false;
 
       }
+
+
+      axios.post(`/filter`, {
+        'data_fliter': this.data_fliter,
+        'array_id': this.array_id,
+        'type': 'attribute'
+      })
+        .then((response) => {
+          // console.log('country', response.data);
+
+          this.showCatProduct = response.data.products;
+        })
+
+
+
 
     },
-    
-    // onchange_country(id, index) {
-    //   console.log(index);
 
-    //   if (this.check_country[index] == true) {
 
-    //     this.array_id.country_id = id;
-    //     for (let i = 0; i < this.check_country.length; i++) {
-
-    //       if (index != i) {
-
-    //         this.check_country[i] = false;
-
-    //       }
-
-    //     }
-    //     axios.post(`/country_filter`, { 'array_id': this.array_id })
-    //       .then((response) => {
-    //         console.log('country', response.data);
-
-    //         this.showCatProduct = response.data;
-    //       })
-    //   }
-
-    //   if (this.check_country[index] == false) {
-
-    //     this.array_id.country_id = 0;
-
-    //   }
-
-    // },
-    // onchange_brand(id, index) {
-    //   console.log(index);
-
-    //   if (this.check_brand[index] == true) {
-
-    //     this.array_id.brand_id = id;
-    //     for (let i = 0; i < this.check_brand.length; i++) {
-
-    //       if (index != i) {
-
-    //         this.check_brand[i] = false;
-
-    //       }
-
-    //     }
-    //     axios.post(`/brand_filter`, { 'array_id': this.array_id })
-    //       .then((response) => {
-    //         console.log('brand', response.data);
-
-    //         this.showCatProduct = response.data;
-    //       })
-    //   }
-
-    //   if (this.check_brand[index] == false) {
-
-    //     this.array_id.brand_id = 0;
-
-    //   }
-
-    // },
-    // onchange_size(id, index) {
-    //   console.log('array', this.array_id);
-
-    //   if (this.check_size[index] == true) {
-    //     this.array_id.size_id = id;
-
-    //     for (let i = 0; i < this.check_size.length; i++) {
-
-    //       if (index != i) {
-
-    //         this.check_size[i] = false;
-
-    //       }
-
-    //     }
-    //     axios.post(`/size_filter`, { 'array_id': this.array_id })
-    //       .then((response) => {
-    //         console.log('size', response.data);
-
-    //         this.showCatProduct = response.data;
-    //       })
-    //   }
-
-    //   if (this.check_size[index] == false) {
-
-    //     this.array_id.size_id = 0;
-
-    //   }
-
-    // },
     // get_by_price(e) {
 
 
@@ -778,23 +712,7 @@ export default {
         this.$Progress.finish();
       })
     }
-  },
-  computed: {
-    // showCatProduct() {
-    //   return this.$store.getters.getCatProduct
-    // },
-    // showAllCategory() {
-    //   return this.$store.getters.getCategory
-    // },
-    // showAllSize() {
-    //   return this.$store.getters.getSize
-    // },
-    // showAllCountry() {
-    //   return this.$store.getters.getCountry
   }
-
-
-  // },
 
 }
 

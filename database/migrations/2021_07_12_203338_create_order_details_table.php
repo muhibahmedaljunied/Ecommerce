@@ -16,14 +16,14 @@ class CreateOrderDetailsTable extends Migration
         Schema::create('order_details', function (Blueprint $table) {
             $table->Increments('id');
             $table->unsignedInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')
+            ->onDelete('cascade');
+            $table->unsignedInteger('product_family_attribute_id');
+            $table->foreign('product_family_attribute_id')->references('id')->on('product_family_attributes')
+            ->onDelete('cascade');
             $table->integer('quantity');
             $table->float('price')->nullable();
-             // $table->integer('tax')->nullable();
-            // $table->integer('sub_total')->nullable()
-            $table->float('total');
+            $table->float('total')->nullable();
             $table->timestamps();
         });
     }

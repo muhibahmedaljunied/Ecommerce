@@ -22,7 +22,7 @@
                                 <div class="col-md-6">
 
 
-                                    <div class="row">
+                                    <!-- <div class="row">
 
 
 
@@ -35,6 +35,65 @@
                                         </div>
 
 
+                                    </div> -->
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <fieldset class="border rounded-3 p-3">
+                                                <legend class="float-none w-auto px-3"></legend>
+                                                <div class="col-md-12">
+                                            <label for="pagoPrevio">المنتج</label>
+                                            <input v-model="product" type="text" name="Product" id="Product"
+                                                class="form-control">
+
+
+                                        </div>
+                                                <div class="col-md-12">
+                                                    <label for="pagoPrevio">مجموعه الخواص</label>
+
+                                                    <select @change="get_attribute()" v-model="family_attribute"
+                                                        name="Category" id="Category" class="form-control">
+                                                        <option v-for="families in attribute_families"
+                                                            v-bind:value="families.id">
+                                                            {{ families.name }}
+                                                        </option>
+
+
+
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="pagoPrevio">جديد</label>
+
+                                                    <select v-model="New" name="Category" id="Category"
+                                                        class="form-control">
+                                                        <option value="">select</option>
+                                                        <option value="yes">yes</option>
+                                                        <option value="no">no</option>
+
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="pagoPrevio">مميز</label>
+
+
+                                                    <select v-model="featured" name="Category" id="Category"
+                                                        class="form-control">
+                                                        <option value="">select</option>
+                                                        <option value="yes">yes</option>
+                                                        <option value="no">no</option>
+
+
+                                                    </select>
+
+                                                </div>
+
+
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -87,59 +146,15 @@
                                 </div>
 
 
+
                             </div>
 
 
                             <div class="row">
 
 
-                                <div class="col-md-4">
 
-                                    <fieldset class="border rounded-3 p-3">
-                                        <legend class="float-none w-auto px-3">الخواص</legend>
-                                        <div class="col-md-12">
-                                            <label for="pagoPrevio">مجموعه الخواص</label>
-
-                                            <select @change="get_attribute()" v-model="family_attribute" name="Category"
-                                                id="Category" class="form-control">
-                                                <option v-for="families in attribute_families" v-bind:value="families.id">
-                                                    {{ families.name }}
-                                                </option>
-
-
-
-                                            </select>
-
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="pagoPrevio">جديد</label>
-
-                                            <select v-model="New" name="Category" id="Category" class="form-control">
-                                                <option value="">select</option>
-                                                <option value="1">yes</option>
-                                                <option value="0">no</option>
-
-                                            </select>
-
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="pagoPrevio">مميز</label>
-
-
-                                            <select v-model="featured" name="Category" id="Category" class="form-control">
-                                                <option value="">select</option>
-                                                <option value="1">yes</option>
-                                                <option value="0">no</option>
-
-
-                                            </select>
-
-                                        </div>
-
-
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-8">
+                                <div class="col-md-12">
 
                                     <fieldset class="border rounded-3 p-3">
                                         <legend class="float-none w-auto px-3">الخواص</legend>
@@ -156,16 +171,12 @@
                                                             style="width: 100%; font-size: x-small">
                                                             <thead>
                                                                 <tr>
-
-
-
                                                                     <th>السعر</th>
+                                                                    <th>الخصم</th>
                                                                     <th>الكميه</th>
                                                                     <th>الخواص</th>
-
-
-
                                                                     <th>صوره المنتج</th>
+                                                                    <th>الوصف</th>
                                                                     <th>اضافه</th>
                                                                 </tr>
                                                             </thead>
@@ -175,6 +186,11 @@
 
                                                                     <td>
                                                                         <input v-model="price[index - 1]" type="text"
+                                                                            class="form-control" name="name" id="name"
+                                                                            required />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input v-model="discount[index - 1]" type="text"
                                                                             class="form-control" name="name" id="name"
                                                                             required />
                                                                     </td>
@@ -232,6 +248,11 @@
                                                                     </td>
 
 
+                                                                    <td>
+                                                                        <input v-model='description[index - 1]' type="text" class="form-control">
+
+
+                                                                    </td>
 
 
                                                                     <td v-if="index == 1">
@@ -306,7 +327,9 @@ export default {
             product: '',
             qty: [],
             price: [],
-            description: '',
+            description: [],
+            discount: [],
+
             New: '',
             featured: '',
             status: '',
@@ -326,7 +349,7 @@ export default {
             // filename: '',
             counts: [],
             count: 1,
-            count_attributes:1,
+            count_attributes: 1,
             file: [],
 
         }
@@ -374,13 +397,13 @@ export default {
 
 
             var gf = this;
-            this.axios.post('/get_attributes',
+            this.axios.post('/product/get_attributes',
                 {
                     id: this.family_attribute
                 }).then(function (response) {
 
-            
-                    console.log(response.data.count_attributes);
+
+                    console.log(response.data.attributes);
                     gf.count_attributes = response.data.count_attributes
                     gf.attributes = response.data.attributes;
 
@@ -397,8 +420,6 @@ export default {
             // console.log('in show tree', this.$route.params.id);
             var uri = `/tree_product`;
             var gf = this;
-
-
             // ------------هذا لاجل البحث في الشجره-----------------------------
             var to = false;
             $('#ricerca-enti').keyup(function () {
@@ -539,11 +560,12 @@ export default {
             formData.append("parent", this.product_id);
             formData.append("attribute", this.attr_array);
             formData.append("family_id", this.family_attribute);
-            // formData.append("attr_option_id", this.attr_array);
             formData.append("product_attr", JSON.stringify(this.att_family));
             formData.append("status", 'false');
             formData.append("qty", JSON.stringify(this.qty));
             formData.append("price", JSON.stringify(this.price));
+            formData.append("description", JSON.stringify(this.description));
+            formData.append("discount", JSON.stringify(this.discount));
             formData.append("featured", this.featured);
             formData.append("new", this.New);
 
@@ -560,16 +582,7 @@ export default {
             this.axios.post('/store_product',
                 formData,
                 config
-                //  {
-
-                //     product: this.product,
-                //     parent: this.product_id,
-                //     attribute: this.attr_array,
-                //     product_attr:this.att_family,
-                //     status: 'false',
-                //     image: this.file,
-
-                // }
+               
             )
                 .then(function (response) {
 

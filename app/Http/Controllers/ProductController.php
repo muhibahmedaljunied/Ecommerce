@@ -54,7 +54,7 @@ class ProductController extends Controller
             ->with([
                 'children' => function ($query) {
 
-                    $query->join('product_family_attributes', 'product_family_attributes.product_id', '=', 'products.id');
+                    // $query->join('product_family_attributes', 'product_family_attributes.product_id', '=', 'products.id');
                     $query->select('*');
                 },
                 'product_family_attribute' => function ($query) {
@@ -64,8 +64,10 @@ class ProductController extends Controller
    
             ->get();
 
-         
-        $filter->filter(collect($product)->toArray());
+         $filter->link = collect($product)->toArray();
+
+        
+        $filter->filter();
         return response()->json([
             'products' => $filter->data,
             'product_filterable_attributes' => $product_filterable_attributes
@@ -131,6 +133,8 @@ class ProductController extends Controller
     public function store_category(Request $request)
     {
 
+
+        // dd($request->all());
         $product = new Product();
         $product->text = $request->post('product');
         if ($request->post('parent') != 0) {
@@ -139,6 +143,18 @@ class ProductController extends Controller
         }
         $product->status = 'true';
         $product->save();
+
+        foreach ($request->post('items') as $value) {
+
+
+
+            $product_attribute = new ProductFilterableAttribute();
+            $product_attribute->product_id = $product->id;
+            $product_attribute->attribute_id = $value;
+            $product_attribute->save();
+
+
+        }
 
 
     }
@@ -191,15 +207,13 @@ class ProductController extends Controller
                     // ---------------------------------------------------------------------
                     $product_attribute = new ProductFamilyAttribute();
                     $product_attribute->product_id = $product->id;
-                    // $product_attribute->attribute_family_mapping_id = $arrayName['fam'][$value - 1][$value - 1];
                     $product_attribute->qty = json_decode($request['qty'])[$value - 1];
                     $product_attribute->price = json_decode($request['price'])[$value - 1];
+                    $product_attribute->description = json_decode($request['description'])[$value - 1];
+                    $product_attribute->discount = json_decode($request['description'])[$value - 1];
                     $product_attribute->image = $generated_new_name;
                     $product_attribute->save();
-
                     // ---------------------------------------------------------------------
-
-
                     foreach ($arrayName['att'][$value - 1] as $value2) {
 
 
