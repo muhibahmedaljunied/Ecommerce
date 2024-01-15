@@ -200,9 +200,6 @@
                                                                     </td>
                                                                     <td>
 
-
-
-
                                                                         <div v-for="(atta, index1) in attributes">
 
 
@@ -377,12 +374,21 @@ export default {
         addComponent(index) {
             // alert(index);
             this.count += 1;
-            this.counts[index] = this.count;
+            // this.counts[index] = this.count;
+            if (index == 0) {
+                
+                this.counts[index] = 0;
+            }else{
+                this.counts[index] = this.count;
+
+            }
+
             this.att_family = Array.from(Array(this.count), () => new Array(2))
         },
         disComponent(index) {
             this.count -= 1;
-            this.$delete(this.counts, index);
+            $this.counts.pop();
+            // this.$delete(this.counts, index);
         },
         addFind(index, index2, event, att) {
 

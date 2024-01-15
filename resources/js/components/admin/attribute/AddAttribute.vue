@@ -58,7 +58,6 @@
                                                 style="width: 100%; font-size: x-small">
                                                 <thead>
                                                     <tr>
-
                                                         <th> القيمه</th>
                                                         <th> الرمز</th>
 
@@ -143,11 +142,18 @@ export default {
         addComponent(index) {
             // alert(index);
             this.count += 1;
-            this.counts[index] = this.count;
+            if (index == 0) {
+                
+                this.counts[index] = 0;
+            }else{
+                this.counts[index] = this.count;
+
+            }
         },
         disComponent(index) {
             this.count -= 1;
-            this.$delete(this.counts, index);
+            this.counts.pop()
+            // this.$delete(this.counts, index);
         },
 
         add() {

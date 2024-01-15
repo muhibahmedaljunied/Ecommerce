@@ -22,14 +22,14 @@ class OrderController extends Controller
     // }
     public function index()
     {
-        $country = Country::all();
+      
 
         $order = DB::table('orders')
             ->join('shipping_addresses', 'orders.shipping_id', '=', 'shipping_addresses.id')
             ->select('orders.*', 'shipping_addresses.full_name as customer_name')
             ->get();
           
-        return response()->json(['country' => $country,'order'=>$order]);
+        return response()->json(['order'=>$order]);
     }
 
 

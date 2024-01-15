@@ -14,7 +14,8 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
  
-        $products = Product::where('status', 'true')->select('*')->get();
+        $products = Product::where('parent_id', null)->select('*')->get();
+
         return response()->json($products);  
     }
 

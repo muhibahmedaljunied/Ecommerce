@@ -108,9 +108,9 @@
                                         <tr>
                                             <th>رقم المنتج</th>
                                             <th>اسم المنتج </th>
-                                            <th>الصنف</th>
+                                            <!-- <th>الصنف</th>
                                             <th>المقاس</th>
-                                            <th>بلد الصنع</th>
+                                            <th>بلد الصنع</th> -->
 
                                             <th>السعر</th>
                                             <th>الكميه</th>
@@ -121,9 +121,9 @@
                                         <tr v-for="Product in showProductInformation">
                                             <td>{{ Product.id }}</td>
                                             <td>{{ Product.text }}</td>
-                                            <td>{{ Product.category }}</td>
+                                            <!-- <td>{{ Product.category }}</td>
                                             <td>{{ Product.size }}</td>
-                                            <td>{{ Product.country }}</td>
+                                            <td>{{ Product.country }}</td> -->
                                             <td> {{ Product.product_price }}</td>
                                             <td> {{ Product.quantity }}</td>
                                             <td> {{ Product.product_price * Product.quantity }}</td>

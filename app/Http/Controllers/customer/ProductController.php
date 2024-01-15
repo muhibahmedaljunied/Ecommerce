@@ -38,32 +38,34 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-    public function filter(Request $request, FilterService $filter)
+    public function filter(FilterService $filter)
     {
 
 
-        $filter->product_id =  $request->post('array_id');
-        $filter->array_data =  $request->post('data_fliter');
+        // dd($this->request->all());
+        $filter->product_id =  $this->request->post('array_id');
+        $filter->array_data =  $this->request->post('data_fliter');
 
-        $filter->wherefilter()
-            ->queryfilter($this->request['type'])
-            ->filter();
+        $filter->wherefilter()->queryfilter($this->request['type']);
+
+        // dd($filter->data);
         return response()->json([
             'products' => $filter->data,
         ]);
     }
-    public function category_filter(Request $request, FilterService $filter)
+    public function category_filter(FilterService $filter)
     {
 
-        $filter->product_id =  $request->id;
-
-        // dd($this->request['type']);
-        $filter->queryfilter($this->request['type'])->filter();
+        $filter->product_id =  $this->request->id;
+        $filter->queryfilter($this->request['type']);
+      
         return response()->json([
             'products' => $filter->data,
         ]);
 
     }
+
+   
 
   
 
@@ -115,7 +117,6 @@ class ProductController extends Controller
 
                         $query->select('attribute_options.*');
                     }]);
-                    // $query->with('attribute');
                     $query->select('family_attribute_options.*');
                 }]
 
@@ -128,39 +129,25 @@ class ProductController extends Controller
 
     public function getFeaturedProducts()
     {
-        // $featuredProduct = Product::where('status', 2)
-        //     ->limit(3)
-        //     ->get();
-
+    
         $featuredProduct = DB::table('products')
             ->join('product_family_attributes', 'product_family_attributes.product_id', '=', 'products.id')
             ->where('product_family_attributes.featured', '=', 'yes')
             ->select('products.*', 'product_family_attributes.*')
+            ->limit(6)
             ->get();
-        // ->limit(3);
-
-
-
         return response()->json($featuredProduct);
     }
 
     public function getNewProducts()
     {
-        // $newProduct = Product::where('status', 1)
-        //     ->orderBy('id', 'desc')
-        //     ->limit(8)
-        //     ->get();
-
-
+    
         $newProduct = DB::table('products')
             ->join('product_family_attributes', 'product_family_attributes.product_id', '=', 'products.id')
             ->where('product_family_attributes.new', '=', 'yes')
             ->select('products.*', 'product_family_attributes.*')
+            ->limit(6)
             ->get();
-        // ->limit(3);
-
-
-        //return $featuredProduct;
         return response()->json($newProduct);
     }
 }

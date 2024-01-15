@@ -10,111 +10,80 @@ use Illuminate\Support\Facades\DB;
 
 trait Store
 {
-
-    // public function store($request)
-    // {
-
-
-    //     $cart1 = Temporale::all();
-    //     $cart = Temporale::select('sum(total) as total')
-    //         ->select(DB::Raw('sum(total) as total'))
-    //         ->get();
-
-    //     $order = new Order();
-    //     // $order->customer_id = $customer;
-    //     $order->shipping_id = Session::get('shippingId');
-    //     $order->order_total = $cart[0]->total;
-    //     $order->save();
-
-    //     $payment = new Pay();
-    //     $payment->order_id = $order->id;
-    //     $payment->payment_info = $request->type;
-    //     $payment->save();
+    public $shipping_id;
+    public $request;
+    public $order_id;
+    public $cart;
+    public $cart1;
+    public $orderDetails;
+  
 
 
-    //     foreach ($cart1 as $cartProduct) {
-    //         // return response()->json($cartProduct->id);
-    //         $orderDetails = new OrderDetail();
-    //         $orderDetails->order_id = $order->id;
-    //         $orderDetails->product_id = $cartProduct->product_id;
-    //         $orderDetails->price = $cartProduct->price;
-    //         $orderDetails->quantity = $cartProduct->qty;
-    //         $orderDetails->total = $cartProduct->total;
-    //         $orderDetails->save();
-    //     }
-    //     $product = Temporale::truncate();
-
-    //     return $orderDetails;
-    // }
-
-
-
-    public function store($request)
+    public function store()
     {
     
-
-        $cart1 = Temporale::all();
-        $cart = Temporale::select('sum(total) as total')
+       
+        $this->cart1 = Temporale::all();
+        $this->cart = Temporale::select('sum(total) as total')
             ->select(DB::Raw('sum(total) as total'))
             ->get();
 
-        $id = $this->order_table($cart,$id);
+        $this->order_table();
     
-        $this->payment_table($id,$request);
+        $this->payment_table();
 
-        $orderDetails = $this->orderDetails_table($id,$cart1);
+        $this->orderDetails_table();
    
         Temporale::truncate();
 
-        return $orderDetails;
+        return $this->orderDetails;
        
     }
 
 
 
-    public function order_table($cart,$id)
+    public function order_table()
     {
 
 
 
         $order = new Order();
-        // $order->customer_id = $customer;
-        $order->shipping_id = $id;
-        $order->order_total = $cart[0]->total;
+        $order->shipping_id = $this->shipping_id;
+        $order->order_total = $this->cart[0]->total;
         $order->save();
 
-        return $order->id;
+        $this->order_id = $order->id;
+        // return $order->id;
 
     }
 
 
-    public function orderDetails_table($id,$cart1)
+    public function orderDetails_table()
     {
 
-
-        foreach ($cart1 as $cartProduct) {
-            // return response()->json($cartProduct->id);
+        // dd($this->cart1);
+        foreach ($this->cart1 as $cartProduct) {
             $orderDetails = new OrderDetail();
-            $orderDetails->order_id = $id;
-            $orderDetails->product_id = $cartProduct->product_id;
+            $orderDetails->order_id = $this->order_id;
+            $orderDetails->product_family_attribute_id = $cartProduct->product_family_attribute_id;
             $orderDetails->price = $cartProduct->price;
             $orderDetails->quantity = $cartProduct->qty;
             $orderDetails->total = $cartProduct->total;
             $orderDetails->save();
         }
 
-        return $orderDetails;
+        $this->orderDetails = $orderDetails;
 
     }
 
 
-    public function payment_table($id,$request)
+    public function payment_table()
     {
 
 
         $payment = new Pay();
-        $payment->order_id = $id;
-        $payment->payment_info = $request->type;
+        $payment->order_id = $this->order_id;
+        $payment->payment_info = $this->request['type'];
         $payment->save();
 
     }

@@ -108,7 +108,13 @@
               </div>
             </div>
           </div>
-          
+         
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <a style="font-size: x-large;text-align: center;padding-top: 9px;" href="#projects" class="my-work">Show More</a>
+
+          </div>
         </div>
       </div>
     </section>
@@ -319,7 +325,12 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <a style="font-size: x-large;text-align: center;padding-top: 9px;" href="#projects" class="my-work">Show More</a>
 
+          </div>
         </div>
       </div>
     </section>
@@ -372,3 +383,5 @@ export default {
   }
 }
 </script>
+
+

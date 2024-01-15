@@ -62,6 +62,7 @@ class PaypalPayment implements PaymentRepositoryInterface {
     public function success(Request $request)
     {
 
+        $this->request = $request->all();
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
@@ -69,7 +70,7 @@ class PaypalPayment implements PaymentRepositoryInterface {
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
 
      
-            $this->store($request);
+            $this->store();
 
             return redirect()
                 ->route('customer', ['page' => 'payment', 'status' => 'success', 'message' => 'Transaction complete.']);

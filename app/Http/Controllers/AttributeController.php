@@ -73,6 +73,10 @@ class AttributeController extends Controller
     {
 
         // dd($request->all());
+
+        try {
+            DB::beginTransaction(); // Tell Laravel all the code beneath this is a transaction
+
         $attribute = new Attribute();
         $attribute->name = $request->post('name');
         $attribute->code = $request->post('code');
@@ -81,16 +85,37 @@ class AttributeController extends Controller
 
         foreach ($request['count'] as $value) {
 
+            // dd($request->post('value')[$value]);
+
             $attribute_option = new AttributeOption();
             $attribute_option->attribute_id = $attribute->id;
-            $attribute_option->code = $request->post('code_value')[$value];
+            if (isset($request->post('code_value')[$value])) {
+
+                $attribute_option->code = $request->post('code_value')[$value];
+
+            }
             $attribute_option->value = $request->post('value')[$value];
             $attribute_option->save();
         }
 
 
 
+        DB::commit(); // Tell Laravel this transacion's all good and it can persist to DB
 
-        return response()->json();
+
+            return response([
+                'message' => "attribute created successfully",
+                'status' => "success"
+            ], 200);
+        } catch (\Exception $exp) {
+
+            DB::rollBack(); // Tell Laravel, "It's not you, it's me. Please don't persist to DB"
+
+
+            return response([
+                'message' => $exp->getMessage(),
+                'status' => 'failed'
+            ], 400);
+        }
     }
 }

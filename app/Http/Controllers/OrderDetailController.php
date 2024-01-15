@@ -28,17 +28,15 @@ class OrderDetailController extends Controller
     public function orderproduct($id)
     {
         $product = OrderDetail::where('order_id', $id)
-            ->join('products', 'products.id', '=', 'order_details.product_id')
-            ->join('product_attributes', 'product_attributes.product_id', '=', 'products.id')
-            ->join('sizes', 'sizes.id', '=', 'product_attributes.size_id')
-            ->join('countries', 'countries.id', '=', 'product_attributes.country_id')
+            ->join('product_family_attributes', 'product_family_attributes.id', '=', 'order_details.product_family_attribute_id')
+            ->join('products', 'products.id', '=', 'product_family_attributes.product_id')
+
             ->select(
                 'products.*',
-                'product_attributes.*',
-                'product_attributes.price as product_price',
+                'product_family_attributes.*',
+                'product_family_attributes.price as product_price',
                 'order_details.*',
-                'sizes.name as size',
-                'countries.name as country',
+               
             )
             ->get();
         return response()->json($product);

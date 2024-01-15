@@ -25,9 +25,10 @@
 					<div class="table-responsive">
 						<table class="table text-md-nowrap" id="example1">
 							<thead>
+
 								<tr>
-									<th class="wd-15p border-bottom-0">المنتج</th>
-									<th class="wd-15p border-bottom-0">الصنف</th>
+									<!--<th class="wd-15p border-bottom-0">المنتج</th>
+								 <th class="wd-15p border-bottom-0">الصنف</th>
 									<th class="wd-15p border-bottom-0">الصوره</th>
 
 
@@ -35,30 +36,110 @@
 									<th class="wd-15p border-bottom-0">السعر</th>
 									<th class="wd-15p border-bottom-0">الخواص</th>
 
-									<th class="wd-15p border-bottom-0"> العمليات</th>
+									<th class="wd-15p border-bottom-0"> العمليات</th> -->
 
 
 
 								</tr>
 							</thead>
-							<tbody v-if="product && product.length>0">
+							<tbody v-if="product && product.length > 0">
+
 								<tr v-for="products in product">
-									<td>{{ products.text }}</td>
-								
-									<td>{{ products.category_name }}</td>
+
+									<!-- <td> -->
+
+									<template>
+										<div class="row">
+
+											<div class="col-md-4">
+												{{ products.text }}
+
+											</div>
+											<!-- <div class="col-md-4">
+													{{ products.category_name }}
+
+												</div> -->
+											<div class="col-md-4">
+
+												<div class="row"
+													v-for="product_family in products.product_family_attribute ">
+
+													<div class="col-md-2">
+														<img class="card-img"
+															:src="`/assets/upload/${product_family.image}`"
+															alt="Product Image" height='100px' />
+
+													</div>
+											
+													<div class="col-md-2">
+														الكميه: {{ product_family.qty }}
+
+													</div>
+											
+													<div class="col-md-2">
+														السعر:{{ product_family.price }}
+
+													</div>
+												
 
 
-									<td>
+													<div class="col-md-6">
+
+														<div class="row">
+
+															<div class="col-md-6">
+																<span
+																	v-for="option in product_family.family_attribute_option ">
+																	<p>{{ option.name }}:{{ option.value }}</p>
+																</span>
+															</div>
+															<div class="col-md-6">
+																<button type='button' class="btn btn-danger btn-sm"><i
+																		class="fa fa-trash"></i></button>
+																<router-link
+																	:to="{ name: 'edit_product', params: { id: 1 } }"
+																	class="btn btn-success btn-sm"><i
+																		class="fa fa-edit"></i></router-link>
+															</div>
+
+														</div>
+														<hr>
+
+													</div>
+
+												</div>
+
+											</div>
+
+											<div class="col-md-4">
+
+
+											</div>
+
+
+										</div>
+										<hr>
+									</template>
+									<!-- </td> -->
+									<!-- <td>{{ products.text }}</td> -->
+
+									<!-- <td>{{ products.category_name }}</td> -->
+
+
+
+									<!-- <td>
 										<template v-for="product_family in products.product_family_attribute ">
 
 
 											<template>
 												<div>
-													{{ product_family.image }}
+
+													<img class="card-img" :src="`/assets/upload/${product_family.image}`"
+														alt="Product Image" height='100px' />
 												</div>
-												<hr>
+
 											</template>
-										
+
 
 										</template>
 									</td>
@@ -70,9 +151,9 @@
 												<div>
 													{{ product_family.qty }}
 												</div>
-												<hr>
+
 											</template>
-										
+
 
 										</template>
 									</td>
@@ -85,9 +166,9 @@
 												<div>
 													{{ product_family.price }}
 												</div>
-												<hr>
+
 											</template>
-										
+
 
 										</template>
 									</td>
@@ -97,35 +178,36 @@
 										<template v-for="product_family in products.product_family_attribute ">
 
 
-									
-										
-
-												<template v-for="option in product_family.family_attribute_option ">
-													{{ option.name }}:{{ option.value }}
-												</template>
 
 
-										
-								
-											<hr>
+
+											<template v-for="option in product_family.family_attribute_option ">
+
+												<p>{{ option.name }}:{{ option.value }}</p>
+											</template>
+
+
+
+
+
 
 										</template>
 									</td>
 
-
-
-								
-
+ -->
 
 
 
 
-									<td>
+
+
+
+									<!-- <td>
 										<button type='button' @click="delete_product(products.id)"
 											class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
 										<router-link :to="{ name: 'edit_product', params: { id: products.id } }"
 											class="btn btn-success btn-sm"><i class="fa fa-edit"></i></router-link>
-									</td>
+									</td> -->
 
 								</tr>
 

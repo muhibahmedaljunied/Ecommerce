@@ -6,7 +6,7 @@
     <section class="cat_product_area section_gap">
       <div class="container">
         <div class="row">
-          <div class="col-lg-2">
+          <div class="col-lg-3">
             <div class="left_sidebar_area">
               <!-- ------------------------------------- -->
               <div id="accordion">
@@ -56,20 +56,19 @@
 
                   </div>
                 </div>
-
                 <div class="card" v-for="(attribute_filter, index)  in data_fliter">
 
-                  <div class="card-header" :id="'headingThree' + index">
+                  <div class="card-header" :id=index>
                     <h1 class="mb-0">
                       <button class="btn btn-link collapsed" data-toggle="collapse"
-                        :data-target="'#collapseThree' + index" aria-expanded="false"
-                        :aria-controls="'collapseThree' + index">
+                        :data-target="'#'+index" aria-expanded="false"
+                        :aria-controls=index>
                         بحسب {{ index }}
                       </button>
 
                     </h1>
                   </div>
-                  <div :id="'collapseThree' + index" class="collapse" :aria-labelledby="'headingThree' + index"
+                  <div :id=index class="collapse" :aria-labelledby=index
                     data-parent="#accordion">
                     <div class="card-body">
 
@@ -77,6 +76,7 @@
 
                         <li v-for="(attribute_filter2, index1) in attribute_filter">
 
+                    
                           <input @change="onchange($event, index, index1)" type="checkbox" :id="index1">
                           <label :for="index"> {{ index1 }}</label>
                         </li>
@@ -306,7 +306,7 @@
 
             </div>
           </div>
-          <div class="col-lg-10">
+          <div class="col-lg-9">
             <div class="product_top_bar">
 
               <div class="left_dorp">
@@ -336,7 +336,7 @@
 
                     <div v-for="dd in catProduct['product_family_attribute']">
                       <div class="product-img">
-                        <img class="card-img" :src="`/assets/upload/${dd.image}`" alt="Product Image" height='50px' />
+                        <img class="card-img" :src="`/assets/upload/${dd.image}`" alt="Product Image" height='180px' />
                         <div class="p_icon">
                           <router-link :to="`/customer/single-product/${dd.id}`">
                             <i class="ti-eye"></i>
@@ -388,51 +388,7 @@
 
 
                   </div>
-                  <!-- <div v-else class="single-product">
-                    <div class="product-img">
-                      <img class="card-img" :src="`/assets/upload/${catProduct.image}`" alt="Product Image"
-                        height='50px' />
-                      <div class="p_icon">
-                        <router-link :to="`/customer/single-product/${catProduct.product_id}`">
-                          <i class="ti-eye"></i>
-                        </router-link>
-                        <a href="#">
-                          <i class="ti-heart"></i>
-                        </a>
-                        <button @click="addToCart(catProduct.product_id)">
-                          <i class="ti-shopping-cart"></i>
-                        </button>
-
-
-                      </div>
-                    </div>
-                    <div class="product-btm">
-                      <div class="mt-3">
-
-                        <router-link :to="`/customer/single-product/${catProduct.product_id}`">
-                          <h1>{{ catProduct.text }}</h1>
-                        </router-link>
-                      </div>
-                      <hr>
-
-                      <div class="mt-3" v-if="catProduct.discount">
-                        <span class="mr-4">$ {{ catProduct.price }}</span>
-                      </div>
-                      <div class="mt-3" v-else>
-                        <span class="mr-4">${{ catProduct.price }}</span>
-                      </div>
-                      <div class="mt-3">
-                        <span class="mr-4">{{ catProduct.description }}</span>
-                      </div>
-                      <div class="mt-3">
-                        <h5>Sales </h5>
-                      </div>
-
-
-
-
-                    </div>
-                  </div> -->
+                 
                 </div>
               </div>
 
@@ -484,7 +440,7 @@ export default {
   mounted() {
 
     this.$Progress.start();
-    this.$store.dispatch("categoryByID", this.$route.params.id)
+    // this.$store.dispatch("categoryByID", this.$route.params.id)
     this.$Progress.finish();
     this.showProduct();
     this.showtree();
@@ -635,7 +591,7 @@ export default {
     showProduct() {
       // console.log(this.$route.params.id);
       this.array_id.product_id = this.$route.params.id;
-      axios.post(`/category_c/${this.$route.params.id}`)
+      axios.post(`/category_c/${this.$route.params.id}`,{'type':'product'})
         .then((response) => {
           console.log('sdddd', response.data);
           this.all_attribute_filter = response.data.product_filterable_attributes;

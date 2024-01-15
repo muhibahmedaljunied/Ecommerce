@@ -1958,11 +1958,16 @@ __webpack_require__.r(__webpack_exports__);
     addComponent: function addComponent(index) {
       // alert(index);
       this.count += 1;
-      this.counts[index] = this.count;
+      if (index == 0) {
+        this.counts[index] = 0;
+      } else {
+        this.counts[index] = this.count;
+      }
     },
     disComponent: function disComponent(index) {
       this.count -= 1;
-      this.$delete(this.counts, index);
+      this.counts.pop();
+      // this.$delete(this.counts, index);
     },
     add: function add() {
       var currentObj = this;
@@ -2733,14 +2738,20 @@ __webpack_require__.r(__webpack_exports__);
     addComponent: function addComponent(index) {
       // alert(index);
       this.count += 1;
-      this.counts[index] = this.count;
+      // this.counts[index] = this.count;
+      if (index == 0) {
+        this.counts[index] = 0;
+      } else {
+        this.counts[index] = this.count;
+      }
       this.att_family = Array.from(Array(this.count), function () {
         return new Array(2);
       });
     },
     disComponent: function disComponent(index) {
       this.count -= 1;
-      this.$delete(this.counts, index);
+      $this.counts.pop();
+      // this.$delete(this.counts, index);
     },
     addFind: function addFind(index, index2, event, att) {
       index = index - 1;
@@ -3460,7 +3471,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$Progress.start();
-    this.$store.dispatch("categoryByID", this.$route.params.id);
+    // this.$store.dispatch("categoryByID", this.$route.params.id)
     this.$Progress.finish();
     this.showProduct();
     this.showtree();
@@ -3577,7 +3588,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
       // console.log(this.$route.params.id);
       this.array_id.product_id = this.$route.params.id;
-      axios.post("/category_c/".concat(this.$route.params.id)).then(function (response) {
+      axios.post("/category_c/".concat(this.$route.params.id), {
+        'type': 'product'
+      }).then(function (response) {
         console.log('sdddd', response.data);
         _this2.all_attribute_filter = response.data.product_filterable_attributes;
         var studentsList = {};
@@ -3707,7 +3720,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     orderConfirm: function orderConfirm() {
-      var _this = this;
       axios.post('/customer/confirm-order', {
         type: this.type,
         type_pay: 'cash',
@@ -3744,7 +3756,8 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         });
-        _this.$router.push('/customer/home');
+
+        // this.$router.push('/customer/home');
         // this.$store.dispatch("countCart");
       });
     },
@@ -7507,7 +7520,7 @@ var render = function render() {
   }, [_c("table", {
     staticClass: "table table-bordered"
   }, [_vm._m(7), _vm._v(" "), _c("tbody", _vm._l(_vm.showProductInformation, function (Product) {
-    return _c("tr", [_c("td", [_vm._v(_vm._s(Product.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(Product.text))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(Product.category))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(Product.size))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(Product.country))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.quantity))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price * Product.quantity))])]);
+    return _c("tr", [_c("td", [_vm._v(_vm._s(Product.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(Product.text))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.quantity))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price * Product.quantity))])]);
   }), 0)])])])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
@@ -7560,7 +7573,7 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("رقم المنتج")]), _vm._v(" "), _c("th", [_vm._v("اسم المنتج ")]), _vm._v(" "), _c("th", [_vm._v("الصنف")]), _vm._v(" "), _c("th", [_vm._v("المقاس")]), _vm._v(" "), _c("th", [_vm._v("بلد الصنع")]), _vm._v(" "), _c("th", [_vm._v("السعر")]), _vm._v(" "), _c("th", [_vm._v("الكميه")]), _vm._v(" "), _c("th", [_vm._v("الاجمالي")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("رقم المنتج")]), _vm._v(" "), _c("th", [_vm._v("اسم المنتج ")]), _vm._v(" "), _c("th", [_vm._v("السعر")]), _vm._v(" "), _c("th", [_vm._v("الكميه")]), _vm._v(" "), _c("th", [_vm._v("الاجمالي")])])]);
 }];
 render._withStripped = true;
 
@@ -8077,61 +8090,71 @@ var render = function render() {
       id: "example1"
     }
   }, [_vm._m(0), _vm._v(" "), _vm.product && _vm.product.length > 0 ? _c("tbody", _vm._l(_vm.product, function (products) {
-    return _c("tr", [_c("td", [_vm._v(_vm._s(products.text))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(products.category_name))]), _vm._v(" "), _c("td", [_vm._l(products.product_family_attribute, function (product_family) {
-      return [[_c("div", [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(product_family.image) + "\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("hr")]];
-    })], 2), _vm._v(" "), _c("td", [_vm._l(products.product_family_attribute, function (product_family) {
-      return [[_c("div", [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(product_family.qty) + "\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("hr")]];
-    })], 2), _vm._v(" "), _c("td", [_vm._l(products.product_family_attribute, function (product_family) {
-      return [[_c("div", [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(product_family.price) + "\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("hr")]];
-    })], 2), _vm._v(" "), _c("td", [_vm._l(products.product_family_attribute, function (product_family) {
-      return [_vm._l(product_family.family_attribute_option, function (option) {
-        return [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(option.name) + ":" + _vm._s(option.value) + "\n\t\t\t\t\t\t\t\t\t\t\t")];
-      }), _vm._v(" "), _c("hr")];
-    })], 2), _vm._v(" "), _c("td", [_c("button", {
-      staticClass: "btn btn-danger btn-sm",
-      attrs: {
-        type: "button"
-      },
-      on: {
-        click: function click($event) {
-          return _vm.delete_product(products.id);
+    return _c("tr", [[_c("div", {
+      staticClass: "row"
+    }, [_c("div", {
+      staticClass: "col-md-4"
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(products.text) + "\n\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+      staticClass: "col-md-4"
+    }, _vm._l(products.product_family_attribute, function (product_family) {
+      return _c("div", {
+        staticClass: "row"
+      }, [_c("div", {
+        staticClass: "col-md-2"
+      }, [_c("img", {
+        staticClass: "card-img",
+        attrs: {
+          src: "/assets/upload/".concat(product_family.image),
+          alt: "Product Image",
+          height: "100px"
         }
-      }
-    }, [_c("i", {
-      staticClass: "fa fa-trash"
-    })]), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-success btn-sm",
-      attrs: {
-        to: {
-          name: "edit_product",
-          params: {
-            id: products.id
+      })]), _vm._v(" "), _c("div", {
+        staticClass: "col-md-2"
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tالكميه: " + _vm._s(product_family.qty) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+        staticClass: "col-md-2"
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tالسعر:" + _vm._s(product_family.price) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+        staticClass: "col-md-6"
+      }, [_c("div", {
+        staticClass: "row"
+      }, [_c("div", {
+        staticClass: "col-md-6"
+      }, _vm._l(product_family.family_attribute_option, function (option) {
+        return _c("span", [_c("p", [_vm._v(_vm._s(option.name) + ":" + _vm._s(option.value))])]);
+      }), 0), _vm._v(" "), _c("div", {
+        staticClass: "col-md-6"
+      }, [_vm._m(1, true), _vm._v(" "), _c("router-link", {
+        staticClass: "btn btn-success btn-sm",
+        attrs: {
+          to: {
+            name: "edit_product",
+            params: {
+              id: 1
+            }
           }
         }
-      }
-    }, [_c("i", {
-      staticClass: "fa fa-edit"
-    })])], 1)]);
-  }), 0) : _vm._e(), _vm._v(" "), _vm._m(1)])])])])])]);
+      }, [_c("i", {
+        staticClass: "fa fa-edit"
+      })])], 1)]), _vm._v(" "), _c("hr")])]);
+    }), 0), _vm._v(" "), _c("div", {
+      staticClass: "col-md-4"
+    })]), _vm._v(" "), _c("hr")]], 2);
+  }), 0) : _vm._e(), _vm._v(" "), _vm._m(2)])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("المنتج")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الصنف")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الصوره")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الكميه")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("السعر")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الخواص")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v(" العمليات")])])]);
+  return _c("thead", [_c("tr")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("button", {
+    staticClass: "btn btn-danger btn-sm",
+    attrs: {
+      type: "button"
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-trash"
+  })]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -8142,7 +8165,7 @@ var staticRenderFns = [function () {
     attrs: {
       colspan: "7"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t")])])]);
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])])]);
 }];
 render._withStripped = true;
 
@@ -9356,7 +9379,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-lg-2"
+    staticClass: "col-lg-3"
   }, [_c("div", {
     staticClass: "left_sidebar_area"
   }, [_c("div", {
@@ -9369,7 +9392,7 @@ var render = function render() {
     }, [_c("div", {
       staticClass: "card-header",
       attrs: {
-        id: "headingThree" + index
+        id: index
       }
     }, [_c("h1", {
       staticClass: "mb-0"
@@ -9377,15 +9400,15 @@ var render = function render() {
       staticClass: "btn btn-link collapsed",
       attrs: {
         "data-toggle": "collapse",
-        "data-target": "#collapseThree" + index,
+        "data-target": "#" + index,
         "aria-expanded": "false",
-        "aria-controls": "collapseThree" + index
+        "aria-controls": index
       }
     }, [_vm._v("\n                        بحسب " + _vm._s(index) + "\n                      ")])])]), _vm._v(" "), _c("div", {
       staticClass: "collapse",
       attrs: {
-        id: "collapseThree" + index,
-        "aria-labelledby": "headingThree" + index,
+        id: index,
+        "aria-labelledby": index,
         "data-parent": "#accordion"
       }
     }, [_c("div", {
@@ -9410,7 +9433,7 @@ var render = function render() {
       }, [_vm._v(" " + _vm._s(index1))])]);
     }), _vm._v(" "), _vm._m(1, true)], 2)])])]);
   })], 2)])]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-10"
+    staticClass: "col-lg-9"
   }, [_vm._m(2), _vm._v(" "), _c("div", {
     staticClass: "latest_product_inner"
   }, [_vm.showCatProduct && _vm.showCatProduct.length > 0 ? _c("div", {
@@ -9428,7 +9451,7 @@ var render = function render() {
         attrs: {
           src: "/assets/upload/".concat(dd.image),
           alt: "Product Image",
-          height: "50px"
+          height: "180px"
         }
       }), _vm._v(" "), _c("div", {
         staticClass: "p_icon"
@@ -11375,11 +11398,11 @@ var render = function render() {
         color: "red"
       }
     }, [_vm._v("৳ " + _vm._s(f_Product.price))]) : _vm._e()]) : _vm._e()], 1)])]);
-  }), 0)])]), _vm._v(" "), _vm._m(4), _vm._v(" "), _c("section", {
+  }), 0), _vm._v(" "), _vm._m(4)])]), _vm._v(" "), _vm._m(5), _vm._v(" "), _c("section", {
     staticClass: "inspired_product_area section_gap_bottom_custom"
   }, [_c("div", {
     staticClass: "container"
-  }, [_vm._m(5), _vm._v(" "), _c("div", {
+  }, [_vm._m(6), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, _vm._l(_vm.showNewProduct, function (newProduct) {
     return _c("div", {
@@ -11402,7 +11425,7 @@ var render = function render() {
       }
     }, [_c("i", {
       staticClass: "ti-eye"
-    })]), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c("button", {
+    })]), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c("button", {
       on: {
         click: function click($event) {
           $event.preventDefault();
@@ -11427,7 +11450,7 @@ var render = function render() {
         color: "red"
       }
     }, [_vm._v("৳ " + _vm._s(newProduct.price))]) : _vm._e()]) : _vm._e()], 1)])]);
-  }), 0)])])]);
+  }), 0), _vm._v(" "), _vm._m(8)])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -11527,6 +11550,24 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("a", {
+    staticClass: "my-work",
+    staticStyle: {
+      "font-size": "x-large",
+      "text-align": "center",
+      "padding-top": "9px"
+    },
+    attrs: {
+      href: "#projects"
+    }
+  }, [_vm._v("Show More")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
   return _c("section", {
     staticClass: "offer_area"
   }, [_c("div", {
@@ -11567,6 +11608,24 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "ti-heart"
   })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("a", {
+    staticClass: "my-work",
+    staticStyle: {
+      "font-size": "x-large",
+      "text-align": "center",
+      "padding-top": "9px"
+    },
+    attrs: {
+      href: "#projects"
+    }
+  }, [_vm._v("Show More")])])]);
 }];
 render._withStripped = true;
 

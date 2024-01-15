@@ -43,10 +43,30 @@ class OrderController extends Controller
     {
  
         
-        // dd($request->all());
+
+        
+        // try {
+
         $link = $this->payment->payment($request);
 
            
+        DB::commit(); // Tell Laravel this transacion's all good and it can persist to DB
+        return response([
+            'message' => "purchase created successfully",
+            'data'=>$link,
+            'status' => "success"
+        ], 200);
+    // } catch (\Exception $exp) {
+
+    //     DB::rollBack(); // Tell Laravel, "It's not you, it's me. Please don't persist to DB"
+
+
+    //     return response([
+    //         'message' => $exp->getMessage(),
+    //         'data'=>'',
+    //         'status' => 'failed'
+    //     ], 400);
+    // }
         return response()->json($link);
 
     }

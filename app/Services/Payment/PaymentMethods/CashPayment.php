@@ -1,64 +1,61 @@
 <?php
 
 namespace App\Services\Payment\PaymentMethods;
+
 use App\Repository\PaymentRepositoryInterface;
 use App\Models\ShippingAddress;
 use App\Services\Payment\Traits\Store;
 use App\Models\Temporale;
 use Illuminate\Support\Facades\DB;
-class CashPayment implements PaymentRepositoryInterface {
+
+class CashPayment implements PaymentRepositoryInterface
+{
     use Store;
-  public function payment($request)
+    public function payment($request)
     {
-    
 
-        $cart1 = Temporale::all();
-        $cart = Temporale::select('sum(total) as total')
-            ->select(DB::Raw('sum(total) as total'))
-            ->get();
-
-        $shipping_id = $this->shipping($request);
-        $id = $this->order_table($cart,$shipping_id );
-    
-        $this->payment_table($id,$request);
-
-        $orderDetails = $this->orderDetails_table($id,$cart1);
    
-        Temporale::truncate();
+        // dd($request->all());
+        $this->request = $request->all();
 
-        return $orderDetails;
+   
+            DB::beginTransaction(); // Tell Laravel all the code beneath this is a transaction
+
+
+
+            $this->cart1 = Temporale::all();
+            $this->cart = Temporale::select('sum(total) as total')
+                ->select(DB::Raw('sum(total) as total'))
+                ->get();
+           
+                // dd($this->cart);
+            $this->shipping();
+    
+            $this->order_table();
+            // dd(1);
+            $this->payment_table();
+    
+            $this->orderDetails_table();
+            Temporale::truncate();
        
+      
+          
+
+
+        return $this->orderDetails;
     }
 
-    public function shipping($request)
+    public function shipping()
     {
 
 
 
         $shipping = new ShippingAddress();
-        // $order->customer_id = $customer;
-        $shipping->full_name = $request->post('full_name');
-        $shipping->email_address = $request->post('email');
-        $shipping->phone_no = $request->post('number');
-        $shipping->address = $request->post('address');
-
-
+        $shipping->full_name = $this->request['full_name'];
+        $shipping->email_address = $this->request['email'];
+        $shipping->phone_no = $this->request['number'];
+        $shipping->address = $this->request['address'];
         $shipping->save();
-
-        return $shipping->id;
-
+        $this->shipping_id = $shipping->id;
     }
-
-
-
 }
-
-
-
-
-
-
-
-
-
- 

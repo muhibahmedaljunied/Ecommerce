@@ -11,7 +11,7 @@ class StripePayment implements PaymentRepositoryInterface{
     use Store;
     public function payment($request)
     {
-
+        $this->request = $request->all();
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
                 "amount" => 100 * 150,
@@ -19,7 +19,7 @@ class StripePayment implements PaymentRepositoryInterface{
                 "source" => $request->stripeToken,
                 "description" => "Making test payment." 
         ]);
-        $this->store($request);
+        $this->store();
 
         return ['message'=>'Payment has been successfully processed.'];
      

@@ -206,7 +206,7 @@ export default {
                         }
                     })
 
-                    this.$router.push('/customer/home');
+                    // this.$router.push('/customer/home');
                     // this.$store.dispatch("countCart");
                 })
         },
