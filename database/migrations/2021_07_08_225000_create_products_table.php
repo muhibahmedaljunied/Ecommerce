@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
 
             $table->integer('rank')->nullable();
 
-            $table->string('status')->nullable();
+            $table->string('status')->default('yes');
             // ---------------------------------------------------------------------------
             $table->unsignedInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('products');

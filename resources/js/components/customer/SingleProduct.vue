@@ -7,7 +7,8 @@
         
           <div class="col-lg-6">
             <div class="s_product_img">
-              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <div class="product-card">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
                     <img :src="`/assets/upload/${single.image}`" alt="product image" class="w-100" />
@@ -31,6 +32,9 @@
                   </div>
                 </div>
               </div>
+
+              </div>
+             
             </div>
           </div>
           <div class="col-lg-5 offset-lg-1">

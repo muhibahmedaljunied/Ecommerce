@@ -70,6 +70,7 @@ class ProductService
         $product_attribute->qty = json_decode($this->request['qty'])[$value - 1];
         $product_attribute->price = json_decode($this->request['price'])[$value - 1];
         $product_attribute->description = json_decode($this->request['description'])[$value - 1];
+        $product_attribute->attribute_family_mapping_id = json_decode($this->request['family_id']);
         $product_attribute->discount = json_decode($this->request['discount'])[$value - 1];
         $product_attribute->new = $this->request['new'];
         $product_attribute->featured = $this->request['featured'];

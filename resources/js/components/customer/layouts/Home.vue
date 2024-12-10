@@ -25,9 +25,11 @@
             <div class="single-feature">
               <a href="#" class="title">
                 <i class="flaticon-money"></i>
-                <h3>Money back gurantee</h3>
+                <!-- <h3>Money back gurantee</h3> -->
+                <h3>ضمان استعادة الاموال</h3>
               </a>
-              <p>Shall open divide a one</p>
+              <!-- <p>Shall open divide a one</p> -->
+              <p>نعيد الأموال في غضون 30 يومًا</p>
             </div>
           </div>
 
@@ -35,9 +37,11 @@
             <div class="single-feature">
               <a href="#" class="title">
                 <i class="flaticon-truck"></i>
-                <h3>Free Delivery</h3>
+                <!-- <h3>Free Delivery</h3> -->
+                <h3>توصيل مجاني </h3>
               </a>
-              <p>Shall open divide a one</p>
+              <!-- <p>Shall open divide a one</p> -->
+              <p>توصيل اي طلب مجانا</p>
             </div>
           </div>
 
@@ -45,9 +49,12 @@
             <div class="single-feature">
               <a href="#" class="title">
                 <i class="flaticon-support"></i>
-                <h3>Alway support</h3>
+                <!-- <h3>Alway support</h3> -->
+                <h3>دعم مستمر</h3>
               </a>
-              <p>Shall open divide a one</p>
+              <!-- <p>Shall open divide a one</p> -->
+              <p>دعم عملاء ودود على مدار الساعة طوال أيام الأسبوع</p>
+
             </div>
           </div>
 
@@ -55,9 +62,11 @@
             <div class="single-feature">
               <a href="#" class="title">
                 <i class="flaticon-blockchain"></i>
-                <h3>Secure payment</h3>
+                <!-- <h3>Secure payment</h3> -->
+                <h3>دفع أمن</h3>
               </a>
-              <p>Shall open divide a one</p>
+              <!-- <p>Shall open divide a one</p> -->
+              <p>نحن نمتلك SSL / شهادة آمنة</p>
             </div>
           </div>
         </div>
@@ -71,70 +80,80 @@
         <div class="row justify-content-center">
           <div class="col-lg-12">
             <div class="main_title">
-              <h2><span>Featured product</span></h2>
-              <p>Bring called seed first of third give itself now ment</p>
+              <!-- <h2><span>Featured product</span></h2> -->
+              <h2><span>منتجات مميزة</span></h2>
+              <!-- <p>Bring called seed first of third give itself now ment</p> -->
             </div>
           </div>
-        </div>
-        <div class="row" >
-          
-          <div class="col-lg-4 col-md-6" v-for="f_Product in showFeaturedProduct" >
-            <div class="single-product">
-              <div class="product-img">
-                <img class="img-fluid w-100" :src="`/assets/upload/${f_Product.image}`" alt="" />
-                <div class="p_icon">
-                  <router-link :to="`/customer/single-product/${f_Product.id}`">
-                    <i class="ti-eye"></i>
-                  </router-link>
-                  <a href="#">
-                    <i class="ti-heart"></i>
-                  </a>
-                  <button @click.prevent="addToCart(f_Product.id)">
-                    <i class="ti-shopping-cart"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="product-btm">
-                <router-link :to="`/customer/single-product/${f_Product.id}`" class="d-block">
-                  <h4>{{ f_Product.text }}</h4>
-                </router-link>
-                <div class="mt-3" v-if="f_Product.price">
-                  <span class="mr-4">৳ {{ f_Product.price - f_Product.discount }}</span>
-                  <del style="color:red" v-if="f_Product.discount">৳ {{ f_Product.price }}</del>
-                </div>
-                <!-- <div class="mt-3" v-else>
-                  <span class="mr-4">৳ {{ f_Product.price }}</span>
-                </div> -->
-              </div>
-            </div>
-          </div>
-         
         </div>
         <div class="row">
-          <div class="col-md-12">
-            <a style="font-size: x-large;text-align: center;padding-top: 9px;" href="#projects" class="my-work">Show More</a>
+
+          <div class="col-lg-4 col-md-6" v-for="f_Product in showFeaturedProduct">
+
+            <div class="product-card">
+              <div class="single-product">
+                <div class="product-img">
+                  <img class="img-fluid w-100" :src="`/assets/upload/${f_Product.image}`" alt="" />
+                  <div class="p_icon">
+                    <router-link :to="`/customer/single-product/${f_Product.id}`">
+                      <i class="ti-eye"></i>
+                    </router-link>
+                    <a href="#">
+                      <i class="ti-heart"></i>
+                    </a>
+                    <button @click.prevent="addToCart(f_Product.id)">
+                      <i class="ti-shopping-cart"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-btm">
+                  <router-link :to="`/customer/single-product/${f_Product.id}`" class="d-block">
+                    <h4>{{ f_Product.text }}</h4>
+                  </router-link>
+                  <div class="mt-3" v-if="f_Product.price">
+                    <span class="mr-4">৳ {{ f_Product.price - f_Product.discount }}</span>
+                    <del style="color:red" v-if="f_Product.discount">৳ {{ f_Product.price }}</del>
+                  </div>
+                  <!-- <div class="mt-3" v-else>
+                  <span class="mr-4">৳ {{ f_Product.price }}</span>
+                </div> -->
+                </div>
+              </div>
+            </div>
 
           </div>
+
         </div>
+        <!-- <div class="row">
+          <div class="col-md-12">
+            <a style="font-size: x-large;text-align: center;padding-top: 9px;" href="#projects" class="my-work">عرض
+              المزيد</a>
+
+          </div>
+        </div> -->
       </div>
     </section>
     <!--================ End Feature Product Area =================-->
 
     <!--================ Offer Area =================-->
     <section class="offer_area">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="offset-lg-4 col-lg-6 text-center">
-          <div class="offer_content">
-            <h3 class="text-uppercase mb-40">all men’s collection</h3>
-            <h2 class="text-uppercase">50% off</h2>
-            <a href="#" class="main_btn mb-20 mt-5">Discover Now</a>
-            <p>Limited Time Offer</p>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="offset-lg-4 col-lg-6 text-center">
+            <div class="offer_content">
+              <!-- <h3 class="text-uppercase mb-40">all men’s collection</h3> -->
+              <h3 class="text-uppercase mb-40">جميع الملابس الرجاليه </h3>
+              <!-- <h2 class="text-uppercase">50% off</h2> -->
+              <h2 class="text-uppercase">50% تخفيض</h2>
+              <!-- <a href="#" class="main_btn mb-20 mt-5">Discover Now</a> -->
+              <a href="#" class="main_btn mb-20 mt-5">تسوق الان</a>
+              <!-- <p>Limited Time Offer</p>   -->
+              <p>عرض لفترة محدودة </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
     <!--================ End Offer Area =================-->
 
     <!--================ Inspired Product Area =================-->
@@ -288,50 +307,56 @@
         <div class="row justify-content-center">
           <div class="col-lg-12">
             <div class="main_title">
-              <h2><span>New products</span></h2>
-              <p>Bring called seed first of third give itself now ment</p>
+              <!-- <h2><span>New products</span></h2> -->
+              <h2><span>احدث المنتجات</span></h2>
+              <!-- <p>Bring called seed first of third give itself now ment</p> -->
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-lg-3 col-md-6" v-for="newProduct in showNewProduct">
-            <div class="single-product">
-              <div class="product-img">
-                <img class="img-fluid w-100" :src="`/assets/upload/${newProduct.image}`" alt="">
-                <div class="p_icon">
-                  <router-link :to="`/customer/single-product/${newProduct.id}`">
-                    <i class="ti-eye"></i>
+          <div class="col-lg-4 col-md-6" v-for="newProduct in showNewProduct">
+
+            <div class="product-card">
+              <div class="single-product">
+                <div class="product-img">
+                  <img class="img-fluid w-100" :src="`/assets/upload/${newProduct.image}`" alt="">
+                  <div class="p_icon">
+                    <router-link :to="`/customer/single-product/${newProduct.id}`">
+                      <i class="ti-eye"></i>
+                    </router-link>
+                    <a href="#">
+                      <i class="ti-heart"></i>
+                    </a>
+                    <button @click.prevent="addToCart(newProduct.id)">
+                      <i class="ti-shopping-cart"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-btm">
+                  <router-link :to="`/customer/single-product/${newProduct.id}`" class="d-block">
+                    <h4>{{ newProduct.text }}</h4>
                   </router-link>
-                  <a href="#">
-                    <i class="ti-heart"></i>
-                  </a>
-                  <button @click.prevent="addToCart(newProduct.id)">
-                    <i class="ti-shopping-cart"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="product-btm">
-                <router-link :to="`/customer/single-product/${newProduct.id}`" class="d-block">
-                  <h4>{{ newProduct.text }}</h4>
-                </router-link>
-                <div class="mt-3" v-if="newProduct.price">
-                  <span class="mr-4">৳ {{ newProduct.price - newProduct.discount  }}</span>
-                  <del v-if="newProduct.discount" style="color:red">৳ {{ newProduct.price }}</del>
-                </div>
-                <!-- <div class="mt-3" v-else>
+                  <div class="mt-3" v-if="newProduct.price">
+                    <span class="mr-4">৳ {{ newProduct.price - newProduct.discount }}</span>
+                    <del v-if="newProduct.discount" style="color:red">৳ {{ newProduct.price }}</del>
+                  </div>
+                  <!-- <div class="mt-3" v-else>
                   <span class="mr-4">৳ {{ newProduct.price }}</span>
                 </div> -->
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <a style="font-size: x-large;text-align: center;padding-top: 9px;" href="#projects" class="my-work">Show More</a>
 
           </div>
         </div>
+        <!-- <div class="row">
+          <div class="col-md-12">
+            <a style="font-size: x-large;text-align: center;padding-top: 9px;" href="#projects" class="my-work">عرض
+              المزيد </a>
+
+          </div>
+        </div> -->
       </div>
     </section>
     <!--================ End Inspired Product Area =================-->
@@ -383,5 +408,20 @@ export default {
   }
 }
 </script>
+<style>
+img {
 
+  border-radius: 7px;
+}
 
+.product-card {
+  padding: 241px;
+  padding-top: 21px;
+  padding-right: 21px;
+  padding-bottom: 21px;
+  padding-left: 21px;
+  border: 1px solid #e1e7ec;
+  border-radius: 7px;
+  background-color: #fff;
+}
+</style>

@@ -26,11 +26,11 @@ class CreateProductFamilyAttributesTable extends Migration
           
             $table->integer('qty');
             $table->decimal('price');
-            $table->decimal('discount');
+            $table->decimal('discount')->default(0);
             $table->string('image')->nullable();
-            $table->string('new')->default('no');
+            $table->string('new')->default('yes');
             $table->string('featured')->default('no');
-            $table->string('description');
+            $table->string('description')->nullable();
 
 
             $table->timestamps();

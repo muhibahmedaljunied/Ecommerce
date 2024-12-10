@@ -169,10 +169,12 @@ class ProductController extends Controller
             // --------------------------------------------------------------------------------------
             $product_service->get_attribute_option();
 
+
             foreach ($product_service->count as $value) {
 
                 // --------------------------------this save variant details of every product---------------
                 $product_service->save_product_family_attribute($this->request->file('image'), $value);
+                
                 // -----------------------------------this save attributes of every product------------------
                 $product_service->save_family_attribute_option($value);
 

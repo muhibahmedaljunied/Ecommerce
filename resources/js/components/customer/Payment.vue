@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="offset-3 col-md-6">
                 <div class="card mt-5">
@@ -124,9 +124,12 @@
                                 </div>
                                 <!-- <div class="m-t-20 col-md-4"> -->
 
-                                <button type="button" v-if="type == 'cash'" class="btn btn-primary"
+                                <!-- <button type="button" v-if="type == 'cash'" class="btn btn-primary"
                                     @click="orderConfirm">Confirm
-                                    Order</button>
+                                    Order</button> -->
+                                    <button type="button" v-if="type == 'cash'" class="btn btn-primary"
+                                    @click="orderConfirm">
+                                    تأكيد الطلب</button>
 
 
 

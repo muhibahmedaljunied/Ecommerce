@@ -1,15 +1,35 @@
 <template>
+  
   <header class="header_area">
     <div class="top_menu">
       <div class="container">
         <div class="row">
-          <div class="col-lg-7">
+          <div class="col-lg-2">
             <div class="float-left" v-if="showSession">
-              <p>Phone: +967 {{ showSession.phone }}</p>
-              <p>email:{{ showSession.email }} </p>
+             <i class="fa fa-phone"></i>: +967 {{ showSession.phone }}
+
             </div>
           </div>
-          <div class="col-lg-5">
+          <div class="col-lg-2">
+            <div class="float-left" v-if="showSession">
+
+             <i class="fa fa-mail-forward"></i>:{{ showSession.email }} 
+            </div>
+          </div>
+          <div class="col-lg-1">
+            <div class="float-left" v-if="showSession">
+    
+              <i class="fa fa-whatsapp"></i> 
+            </div>
+          </div>
+          <div class="col-lg-1">
+            <div class="float-left" v-if="showSession">
+    
+              <i class="fa fa-facebook"></i> 
+            </div>
+          </div>
+
+          <div class="col-lg-3">
             <div class="float-right">
               <ul class="right_side" v-if="showSession">
                 <li>
@@ -47,6 +67,7 @@
               </ul>
             </div>
           </div>
+     
         </div>
       </div>
     </div>
@@ -64,14 +85,14 @@
                 </div>
          
               <!-- responsive navbar toggle button -->
-              <input type="checkbox" id="nav-check">
+          <!--     <input type="checkbox" id="nav-check">
               <div class="nav-btn">
                   <label for="nav-check">
-                      <span></span>
+                    <span></span>
                       <span></span>
                       <span></span>
                     </label>
-                </div>
+                </div> -->
          
               <!-- Navbar items -->
               <div class="nav-links">

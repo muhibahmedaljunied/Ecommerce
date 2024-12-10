@@ -13,8 +13,8 @@
                 <div class="card">
                   <div class="card-header" id="headingOne">
                     <h1 class="mb-0">
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                        aria-controls="collapseOne">
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
                         <!-- Filter By Category -->
 
                         بحسب الصنف
@@ -60,23 +60,21 @@
 
                   <div class="card-header" :id=index>
                     <h1 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse"
-                        :data-target="'#'+index" aria-expanded="false"
-                        :aria-controls=index>
+                      <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#' + index"
+                        aria-expanded="false" :aria-controls=index>
                         بحسب {{ index }}
                       </button>
 
                     </h1>
                   </div>
-                  <div :id=index class="collapse" :aria-labelledby=index
-                    data-parent="#accordion">
+                  <div :id=index class="collapse" :aria-labelledby=index data-parent="#accordion">
                     <div class="card-body">
 
                       <ul class="list">
 
                         <li v-for="(attribute_filter2, index1) in attribute_filter">
 
-                    
+
                           <input @change="onchange($event, index, index1)" type="checkbox" :id="index1">
                           <label :for="index"> {{ index1 }}</label>
                         </li>
@@ -328,68 +326,72 @@
               <div class="row" v-if="showCatProduct && showCatProduct.length > 0">
 
 
-                <div class="col-lg-4 col-md-6" v-for="catProduct in showCatProduct">
 
-                 
-                  <div v-if="catProduct['product_family_attribute']" class="single-product">
+                <div class="col-lg-6 col-md-6" v-for="catProduct in showCatProduct">
+
+                  <div class="product-card">
+                    <div v-if="catProduct['product_family_attribute']" class="single-product">
 
 
-                    <div v-for="dd in catProduct['product_family_attribute']">
-                      <div class="product-img">
-                        <img class="card-img" :src="`/assets/upload/${dd.image}`" alt="Product Image" height='180px' />
-                        <div class="p_icon">
-                          <router-link :to="`/customer/single-product/${dd.id}`">
-                            <i class="ti-eye"></i>
-                          </router-link>
-                          <a href="#">
-                            <i class="ti-heart"></i>
-                          </a>
-                          <button @click="addToCart(dd.id)">
-                            <i class="ti-shopping-cart"></i>
-                          </button>
+                      <div v-for="dd in catProduct['product_family_attribute']">
+                        <div class="product-img">
+                          <img class="card-img" :src="`/assets/upload/${dd.image}`" alt="Product Image"
+                            height='180px' />
+                          <div class="p_icon">
+                            <router-link :to="`/customer/single-product/${dd.id}`">
+                              <i class="ti-eye"></i>
+                            </router-link>
+                            <a href="#">
+                              <i class="ti-heart"></i>
+                            </a>
+                            <button @click="addToCart(dd.id)">
+                              <i class="ti-shopping-cart"></i>
+                            </button>
+
+
+                          </div>
+                        </div>
+                        <div class="product-btm">
+                          <div class="mt-3">
+
+                            <router-link :to="`/customer/single-product/${dd.product_id}`">
+                              <h1 class="product-title">{{ catProduct.text }}</h1>
+                            </router-link>
+
+                          </div>
+
+                          <!-- <div v-for="dd2 in dd.product_family_attribute "> -->
+
+                          <div class="mt-3" v-if="dd.discount">
+                            <span class="mr-4">$ {{ dd.price }}</span>
+                          </div>
+                          <div class="mt-3" v-else>
+                            <span class="mr-4">${{ dd.price }}</span>
+                          </div>
+
+                          <!-- <div class="mt-3">
+                            <span class="mr-4">{{ dd.description }}</span>
+                          </div> -->
+
+                          <!-- <hr>
+                          <div class="mt-3">
+                            <h5>Sales </h5>
+                          </div> -->
+
+                          <!-- </div> -->
+
+
 
 
                         </div>
                       </div>
-                      <div class="product-btm">
-                        <div class="mt-3">
-
-                          <router-link :to="`/customer/single-product/${dd.product_id}`">
-                            <h1>{{ catProduct.text }}</h1>
-                          </router-link>
-
-                        </div>
-                        <hr>
-                        <!-- <div v-for="dd2 in dd.product_family_attribute "> -->
-
-                        <div class="mt-3" v-if="dd.discount">
-                          <span class="mr-4">$ {{ dd.price }}</span>
-                        </div>
-                        <div class="mt-3" v-else>
-                          <span class="mr-4">${{ dd.price }}</span>
-                        </div>
-                        <hr>
-                        <div class="mt-3">
-                          <span class="mr-4">{{ dd.description }}</span>
-                        </div>
-
-                        <hr>
-                        <div class="mt-3">
-                          <h5>Sales </h5>
-                        </div>
-
-                        <!-- </div> -->
 
 
-
-
-                      </div>
                     </div>
 
-
                   </div>
-                 
                 </div>
+
               </div>
 
               <div v-else class="row">
@@ -571,7 +573,7 @@ export default {
           gf.array_id.product_id = data.node.id;
 
           // alert(data.node.id);
-          axios.post(`/category_filter/${data.node.id}`,{'type':'product'}).then((response) => {
+          axios.post(`/category_filter/${data.node.id}`, { 'type': 'product' }).then((response) => {
 
             gf.showCatProduct = response.data.products;
             gf.array_id.product_id = data.node.id;
@@ -591,7 +593,7 @@ export default {
     showProduct() {
       // console.log(this.$route.params.id);
       this.array_id.product_id = this.$route.params.id;
-      axios.post(`/category_c/${this.$route.params.id}`,{'type':'product'})
+      axios.post(`/category_c/${this.$route.params.id}`, { 'type': 'product' })
         .then((response) => {
           console.log('sdddd', response.data);
           this.all_attribute_filter = response.data.product_filterable_attributes;
@@ -673,3 +675,30 @@ export default {
 }
 
 </script>
+
+<style>
+img {
+
+  border-radius: 7px;
+}
+
+.product-card {
+  padding: 241px;
+  padding-top: 21px;
+  padding-right: 21px;
+  padding-bottom: 21px;
+  padding-left: 21px;
+  border: 1px solid #e1e7ec;
+  border-radius: 7px;
+  background-color: #fff;
+}
+
+.product-card .product-title {
+
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+
+}
+</style>
