@@ -9,6 +9,8 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Eiser ecommerce</title>
   <!-- Bootstrap CSS -->
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
   <link rel="stylesheet" href="{{URL::asset('assets/front-end/css/bootstrap.css')}}" />
 
   <link rel="stylesheet" href="{{URL::asset('assets/front-end/vendors/linericon/style.css')}}" />
@@ -27,7 +29,6 @@
   <!-- <link rel="stylesheet" href="{{URL::asset('assets/css/jstree.css')}}" > -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <style type="text/css">
     .badge-notify {
       background: #4CD964;

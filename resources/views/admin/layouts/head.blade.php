@@ -2,6 +2,12 @@
 <title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
 <!-- Favicon -->
 
+<link href="{{URL::asset('css/app.css')}}" rel="stylesheet">  
+<link href="{{URL::asset('assets/font-awesome/css/fontawesome.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/font-awesome/css/fontawesome.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/font-awesome/css/solid.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/font-awesome/css/light.css')}}" rel="stylesheet">
+
 <link rel="icon" href="{{URL::asset('assets/img/brand/favicon.png')}}" type="image/x-icon"/>
 <!-- Icons css -->
 <link href="{{URL::asset('assets/css/icons.css')}}" rel="stylesheet">
@@ -21,12 +27,15 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-
-<!-- <link href="https://pixelwibes.com/template/ebazar/laravel/public/backend/ebazar.style.min.css" rel="stylesheet" />
-<link rel="dns-prefetch" href="//s3.envato.com" />
-<link rel="preload" href="https://public-assets.envato-static.com/assets/generated_sprites/logos-20f56d7ae7a08da2c6698db678490c591ce302aedb1fcd05d3ad1e1484d3caf9.png"/> -->
-
 <link rel="stylesheet" href="{{URL::asset('assets/css/jstree.css')}}" >
+
+
+
+
+
+
+
+
 
 <style>
     #invoice{
@@ -196,4 +205,3 @@
     }
 </style>
 
-<script src="{{ mix('css/app.css') }}" defer></script>

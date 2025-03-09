@@ -124,7 +124,7 @@
                
                   
             </div>
-               <a href="/">لوحه التحكم</a>
+               <a href="/Ecommerce/">لوحه التحكم</a>
                
                   <router-link to="/customer/cart"><i class="fa fa-shopping-cart"></i> <span class="badge badge-notify">{{
                     showCountCart }}</span></router-link>
