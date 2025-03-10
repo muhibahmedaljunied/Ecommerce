@@ -9099,7 +9099,7 @@ var render = function render() {
       }, [_c("img", {
         staticClass: "card-img",
         attrs: {
-          src: "/assets/upload/".concat(product_family.image),
+          src: "/Ecommerce/assets/upload/".concat(product_family.image),
           alt: "Product Image",
           height: "200px"
         }
@@ -10293,7 +10293,7 @@ var render = function render() {
       staticClass: "d-flex"
     }, [_c("img", {
       attrs: {
-        src: "/assets/upload/".concat(cart.image),
+        src: "/Ecommerce/assets/upload/".concat(cart.image),
         height: "100px",
         alt: "Product Image"
       }
@@ -11557,7 +11557,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "w-100",
       attrs: {
-        src: "/assets/upload/".concat(single.image),
+        src: "/Ecommerce/assets/upload/".concat(single.image),
         alt: "product image"
       }
     })]), _vm._v(" "), _c("li", {
@@ -11568,7 +11568,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "w-100",
       attrs: {
-        src: "/assets/upload/".concat(single.image),
+        src: "/Ecommerce/assets/upload/".concat(single.image),
         alt: "product image"
       }
     })]), _vm._v(" "), _c("li", {
@@ -11579,7 +11579,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "w-100",
       attrs: {
-        src: "/assets/upload/".concat(single.image),
+        src: "/Ecommerce/assets/upload/".concat(single.image),
         alt: "product image"
       }
     })])]), _vm._v(" "), _c("div", {
@@ -11589,7 +11589,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "d-block w-100",
       attrs: {
-        src: "/assets/upload/".concat(single.image),
+        src: "/Ecommerce/assets/upload/".concat(single.image),
         alt: "First slide"
       }
     })]), _vm._v(" "), _c("div", {
@@ -11597,7 +11597,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "d-block w-100",
       attrs: {
-        src: "/assets/upload/".concat(single.image),
+        src: "/Ecommerce/assets/upload/".concat(single.image),
         alt: "Second slide"
       }
     })]), _vm._v(" "), _c("div", {
@@ -11605,7 +11605,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "d-block w-100",
       attrs: {
-        src: "assets/upload/".concat(single.image),
+        src: "/Ecommerceassets/upload/".concat(single.image),
         alt: "Third slide"
       }
     })])])])])])]), _vm._v(" "), _c("div", {
@@ -12394,7 +12394,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "img-fluid w-100",
       attrs: {
-        src: "/assets/upload/".concat(f_Product.image),
+        src: "/Ecommerce//assets/upload/".concat(f_Product.image),
         alt: ""
       }
     }), _vm._v(" "), _c("div", {
@@ -12448,7 +12448,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "img-fluid w-100",
       attrs: {
-        src: "/assets/upload/".concat(newProduct.image),
+        src: "/Ecommerce/assets/upload/".concat(newProduct.image),
         alt: ""
       }
     }), _vm._v(" "), _c("div", {

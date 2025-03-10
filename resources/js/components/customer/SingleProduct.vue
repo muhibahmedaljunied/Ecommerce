@@ -11,24 +11,24 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
-                    <img :src="`/assets/upload/${single.image}`" alt="product image" class="w-100" />
+                    <img :src="`/Ecommerce/assets/upload/${single.image}`" alt="product image" class="w-100" />
                   </li>
                   <li data-target="#carouselExampleIndicators" data-slide-to="1">
-                    <img :src="`/assets/upload/${single.image}`" alt="product image" class="w-100" />
+                    <img :src="`/Ecommerce/assets/upload/${single.image}`" alt="product image" class="w-100" />
                   </li>
                   <li data-target="#carouselExampleIndicators" data-slide-to="2">
-                    <img :src="`/assets/upload/${single.image}`" alt="product image" class="w-100" />
+                    <img :src="`/Ecommerce/assets/upload/${single.image}`" alt="product image" class="w-100" />
                   </li>
                 </ol>
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img class="d-block w-100" :src="`/assets/upload/${single.image}`" alt="First slide" />
+                    <img class="d-block w-100" :src="`/Ecommerce/assets/upload/${single.image}`" alt="First slide" />
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" :src="`/assets/upload/${single.image}`" alt="Second slide" />
+                    <img class="d-block w-100" :src="`/Ecommerce/assets/upload/${single.image}`" alt="Second slide" />
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" v-bind:src="`assets/upload/${single.image}`" alt="Third slide" />
+                    <img class="d-block w-100" v-bind:src="`/Ecommerceassets/upload/${single.image}`" alt="Third slide" />
                   </div>
                 </div>
               </div>
