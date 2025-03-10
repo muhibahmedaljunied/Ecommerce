@@ -335,7 +335,7 @@
 
                       <div v-for="dd in catProduct['product_family_attribute']">
                         <div class="product-img">
-                          <img class="card-img" :src="`/assets/upload/${dd.image}`" alt="Product Image"
+                          <img class="card-img" :src="`/Ecommerce/assets/upload/${dd.image}`" alt="Product Image"
                             height='180px' />
                           <div class="p_icon">
                             <router-link :to="`/customer/single-product/${dd.id}`">

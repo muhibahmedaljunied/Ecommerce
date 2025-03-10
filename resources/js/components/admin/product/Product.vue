@@ -349,7 +349,7 @@
 															<div class="col-md-2">
 
 																<img class="card-img"
-																	:src="`/assets/upload/${product_family.image}`"
+																	:src="`/Ecommerce/assets/upload/${product_family.image}`"
 																	alt="Product Image" height='200px' />
 
 

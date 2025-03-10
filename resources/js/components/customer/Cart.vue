@@ -22,7 +22,7 @@
                   <td>
                     <div class="media">
                       <div class="d-flex">
-                        <img :src="`/assets/upload/${cart.image}`" height="100px" alt="Product Image"/>
+                        <img :src="`/Ecommerce/assets/upload/${cart.image}`" height="100px" alt="Product Image"/>
                       </div>
                       <div class="media-body">
                         <p>{{cart.text}}</p>
