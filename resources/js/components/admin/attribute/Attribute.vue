@@ -21,22 +21,22 @@
 
 								<div class="col-md-12">
 
-								
-
-										<fieldset class="border rounded-3 p-3">
-											<legend class="float-none w-auto px-3">الاسم</legend>
-
-											<input v-model="name" type="text" class="form-control">
-										</fieldset>
-
-										<fieldset class="border rounded-3 p-3">
-											<legend class="float-none w-auto px-3">الرمز</legend>
 
 
-											<input v-model="code" type="text" class="form-control">
-										</fieldset>
+									<fieldset class="border rounded-3 p-3">
+										<legend class="float-none w-auto px-3">الاسم</legend>
 
-										<!-- <fieldset class="border rounded-3 p-3">
+										<input v-model="name" type="text" class="form-control">
+									</fieldset>
+
+									<fieldset class="border rounded-3 p-3">
+										<legend class="float-none w-auto px-3">الرمز</legend>
+
+
+										<input v-model="code" type="text" class="form-control">
+									</fieldset>
+
+									<!-- <fieldset class="border rounded-3 p-3">
 											<legend class="float-none w-auto px-3">النوع</legend>
 								
 				
@@ -48,61 +48,61 @@
 										</fieldset> -->
 
 
-										<fieldset class="border rounded-3 p-3">
-											<legend class="float-none w-auto px-3">قيم الخاصيه</legend>
-											<form method="post">
+									<fieldset class="border rounded-3 p-3">
+										<legend class="float-none w-auto px-3">قيم الخاصيه</legend>
+										<form method="post">
 
-												<div class="table-responsive">
-													<table class="table table-bordered text-right m-t-30"
-														style="width: 100%; font-size: x-small">
-														<thead>
-															<tr>
-																<th> القيمه</th>
-																<th> الرمز</th>
+											<div class="table-responsive">
+												<table class="table table-bordered text-right m-t-30"
+													style="width: 100%; font-size: x-small">
+													<thead>
+														<tr>
+															<th> القيمه</th>
+															<th> الرمز</th>
 
-																<th>اضافه</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr v-for="index in count" :key="index">
-
-
-																<td>
-																	<input v-model="value[index]" type="text"
-																		class="form-control" name="name" id="name"
-																		required />
-																</td>
-																<td>
-																	<input v-model="code_value[index]" type="text"
-																		class="form-control" name="name" id="name" />
-																</td>
+															<th>اضافه</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr v-for="index in count" :key="index">
 
 
-																<td v-if="index == 1">
-																	<a class="tn btn-info btn-sm waves-effect btn-agregar"
-																		v-on:click="addComponent(count)">
-																		<i class="fa fa-plus-circle"></i></a>
-
-																	<a class="tn btn-info btn-sm waves-effect btn-agregar"
-																		v-on:click="disComponent(count)">
-																		<i class="fa fa-minus-circle"></i></a>
-																</td>
-
-
-
-															</tr>
-															<tr>
-																<td colspan="2"></td>
-																<td> <button @click="add()" type="button"
-																		class="btn btn-primary">حفظ</button></td>
-															</tr>
+															<td>
+																<input v-model="value[index]" type="text"
+																	class="form-control" name="name" id="name"
+																	required />
+															</td>
+															<td>
+																<input v-model="code_value[index]" type="text"
+																	class="form-control" name="name" id="name" />
+															</td>
 
 
-														</tbody>
-													</table>
-												</div>
-											</form>
-										</fieldset>
+															<td v-if="index == 1">
+																<a class="tn btn-info btn-sm waves-effect btn-agregar"
+																	v-on:click="addComponent(count)">
+																	<i class="fa fa-plus-circle"></i></a>
+
+																<a class="tn btn-info btn-sm waves-effect btn-agregar"
+																	v-on:click="disComponent(count)">
+																	<i class="fa fa-minus-circle"></i></a>
+															</td>
+
+
+
+														</tr>
+														<tr>
+															<td colspan="2"></td>
+															<td> <button @click="add()" type="button"
+																	class="btn btn-primary">حفظ</button></td>
+														</tr>
+
+
+													</tbody>
+												</table>
+											</div>
+										</form>
+									</fieldset>
 
 
 
@@ -121,19 +121,24 @@
 				<div class="col-xl-12">
 					<div class="card">
 
-						<div class="card-header pb-0">
-		
+						<div class="card-header">
 
 
 							<div style="display: flex;float: left; margin: 5px">
 
-				
+								<button @click="exports_excel()">
+
+									<i class="fa-solid fa-file-export " style="font-size: 24px; color: #63E6BE;"></i>
+								</button>
+
+								<button @click="imports_excel()">
+
+									<i class="fa-solid fa-file-import " style="font-size: 24px; color: #B197FC;"></i>
+								</button>
 
 								<input type="search" autocomplete="on" name="search" data-toggle="dropdown"
-									role="button" aria-haspopup="true" aria-expanded="true" placeholder="بحث"
+									role="button" aria-haspopup="true" aria-expanded="true" placeholder="بحث "
 									v-model="word_search" @input="get_search()" />
-
-								<div></div>
 							</div>
 						</div>
 						<div class="card-body">
@@ -157,23 +162,23 @@
 
 											<td>{{ attribute.name }}</td>
 											<td>{{ attribute.code }}</td>
-										
+
 
 											<td>
-												<template v-for="(attr,indexd) in attribute.attribute_option " >
+												<template v-for="(attr, indexd) in attribute.attribute_option">
 
-												
+
 													<template>
 														<div style="float: left;">
 
 
-													
+
 															<span style="color: blue;">
-																{{ attr.value }} 
+																{{ attr.value }}
 															</span>&ensp;
-															
+
 														</div>
-									
+
 													</template>
 
 
@@ -304,17 +309,49 @@ export default {
 
 			// this.$router.go(-1);
 
-		}
+		},
+
+		exports_excel() {
+
+			axios
+				.post(`/export_opening_inventuries`)
+				.then(function (response) {
+
+					toastMessage("تم اتمام عمليه التصدير");
+					this.$router.go(0);
+				})
+				.catch(error => {
+
+
+				});
+		},
+		imports_excel() {
+
+			axios
+				.post(`/import_opening_inventuries`)
+				.then(function (response) {
+					toastMessage("تم اتمام عمليه الاستيراد");
+					this.$router.go(0);
+
+					// this.list();
+
+
+
+
+				})
+				.catch(error => {
+
+				});
+		},
 	}
 
 }
 </script>
 
 <style>
-
 legend {
 
-font-weight: lighter;
-color: cadetblue;
+	font-weight: lighter;
+	color: cadetblue;
 }
 </style>

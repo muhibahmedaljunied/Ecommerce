@@ -79,7 +79,7 @@
               <div class="nav-header">
                   <div class="nav-logo">
                       <a href="#">
-                          <img src="/assets/img/logo_muhib.jpg" width="100px" alt="logo">
+                          <img src="/Ecommerce/assets/img/logo_muhib.jpg" width="100px" alt="logo">
                         </a>
                     </div>
                 </div>

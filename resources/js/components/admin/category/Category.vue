@@ -6,8 +6,10 @@
 
 
 
+		<div class="row">
 
-		<div class="card">
+			<div class="col-md-12">
+				<div class="card">
 			<div class="card-header pb-0">
 				<div class="d-flex justify-content-between">
 					<h4 class="card-title mg-b-0"> الاصناف</h4>
@@ -92,7 +94,7 @@
 									<input v-model="checkedItems" :value="item.id" id="checkedItems"
 										class="form-check-input" type="checkbox">
 									<label class="form-check-label" for="inlineCheckbox1">{{ item.name
-										}}</label>
+									}}</label>
 								</div>
 
 
@@ -125,27 +127,37 @@
 				</form>
 			</div>
 		</div>
+			</div>
+		</div>
+
+		
 
 
 
+		<div class="row">
 
+			<div class="col-md-12">
 
+				
 		<div class="card">
-
-			<div class="card-header pb-0">
+			<div class="card-header">
 
 
 				<div style="display: flex;float: left; margin: 5px">
 
-					<router-link to='create_category' class="tn btn-info btn-sm waves-effect btn-agregar"
-						data-toggle="modal" id="agregar_productos" data-target="#addAb">
-						<i class="fa fa-plus-circle"></i></router-link>
+					<button @click="exports_excel()">
+
+						<i class="fa-solid fa-file-export " style="font-size: 24px; color: #63E6BE;"></i>
+					</button>
+
+					<button @click="imports_excel()">
+
+						<i class="fa-solid fa-file-import " style="font-size: 24px; color: #B197FC;"></i>
+					</button>
 
 					<input type="search" autocomplete="on" name="search" data-toggle="dropdown" role="button"
-						aria-haspopup="true" aria-expanded="true" placeholder="بحث" v-model="word_search"
+						aria-haspopup="true" aria-expanded="true" placeholder="بحث " v-model="word_search"
 						@input="get_search()" />
-
-					<div></div>
 				</div>
 			</div>
 
@@ -201,6 +213,10 @@
 				</div>
 			</div>
 		</div>
+			</div>
+		</div>
+
+
 
 
 
@@ -413,7 +429,39 @@ export default {
 
 			// this.$router.go(-1);
 
-		}
+		},
+		exports_excel() {
+
+axios
+	.post(`/export_opening_inventuries`)
+	.then(function (response) {
+
+		toastMessage("تم اتمام عمليه التصدير");
+		this.$router.go(0);
+	})
+	.catch(error => {
+
+
+	});
+},
+imports_excel() {
+
+axios
+	.post(`/import_opening_inventuries`)
+	.then(function (response) {
+		toastMessage("تم اتمام عمليه الاستيراد");
+		this.$router.go(0);
+
+		// this.list();
+
+
+
+
+	})
+	.catch(error => {
+
+	});
+},
 	}
 }
 </script>

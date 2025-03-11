@@ -7,7 +7,7 @@
           <div class="banner_content row">
             <div class="col-lg-12">
               <p class="sub text-uppercase">men Collection</p>
-              <h3><span>Show</span> Your <br />Personal <span>Style</span></h3>
+              <h3><span>Show</span> Your <br />Personal <span>Taste</span></h3>
               <h4>Fowl saw dry which a above together place.</h4>
               <a class="main_btn mt-40" href="#">View Collection</a>
             </div>
@@ -111,11 +111,11 @@
                     <h4>{{ f_Product.text }}</h4>
                   </router-link>
                   <div class="mt-3" v-if="f_Product.price">
-                    <span class="mr-4">৳ {{ f_Product.price - f_Product.discount }}</span>
-                    <del style="color:red" v-if="f_Product.discount">৳ {{ f_Product.price }}</del>
+                    <span class="mr-4">$ {{ f_Product.price - f_Product.discount }}</span>
+                    <del style="color:red" v-if="f_Product.discount">$ {{ f_Product.price }}</del>
                   </div>
                   <!-- <div class="mt-3" v-else>
-                  <span class="mr-4">৳ {{ f_Product.price }}</span>
+                  <span class="mr-4">$ {{ f_Product.price }}</span>
                 </div> -->
                 </div>
               </div>
@@ -142,7 +142,7 @@
           <div class="offset-lg-4 col-lg-6 text-center">
             <div class="offer_content">
               <!-- <h3 class="text-uppercase mb-40">all men’s collection</h3> -->
-              <h3 class="text-uppercase mb-40">جميع الملابس الرجاليه </h3>
+              <h3 class="text-uppercase mb-40">جميع تورت حفلات التخرج </h3>
               <!-- <h2 class="text-uppercase">50% off</h2> -->
               <h2 class="text-uppercase">50% تخفيض</h2>
               <!-- <a href="#" class="main_btn mb-20 mt-5">Discover Now</a> -->
@@ -338,11 +338,11 @@
                     <h4>{{ newProduct.text }}</h4>
                   </router-link>
                   <div class="mt-3" v-if="newProduct.price">
-                    <span class="mr-4">৳ {{ newProduct.price - newProduct.discount }}</span>
-                    <del v-if="newProduct.discount" style="color:red">৳ {{ newProduct.price }}</del>
+                    <span class="mr-4">$ {{ newProduct.price - newProduct.discount }}</span>
+                    <del v-if="newProduct.discount" style="color:red">$ {{ newProduct.price }}</del>
                   </div>
                   <!-- <div class="mt-3" v-else>
-                  <span class="mr-4">৳ {{ newProduct.price }}</span>
+                  <span class="mr-4">$ {{ newProduct.price }}</span>
                 </div> -->
                 </div>
               </div>

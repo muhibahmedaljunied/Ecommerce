@@ -30,7 +30,7 @@
                     </div>
                   </td>
                   <td>
-                    <h5>৳ {{cart.price}}</h5>
+                    <h5>$ {{cart.price}}</h5>
                   </td>
                   <td>
                     <div class="product_count">
@@ -38,7 +38,7 @@
                     </div>
                   </td>
                   <td>
-                    <h5>৳{{cart.price*cart.qty_cart}} </h5>
+                    <h5>${{cart.price*cart.qty_cart}} </h5>
                   </td>
                   <td>
                     <button @click.prevent="removeCart(cart.id)" class="btn btn-danger">X</button>
@@ -52,7 +52,7 @@
                   <td><!-- {{checkItem}} --></td>
                   <td><h5>Subtotal</h5></td>
                   <td>
-                    <h5>৳ {{showSubtotal}}</h5>
+                    <h5>$ {{showSubtotal}}</h5>
                   </td>
                   <td></td>
                 </tr>

@@ -41,8 +41,8 @@
             <div class="s_product_text">
               <h3>{{ single.text }}</h3>
               <span>
-                <h2>৳{{ single.price - single.discount }} </h2>
-                <del style="color:red;" v-if="single.discount">৳{{ single.price }}</del>
+                <h2>${{ single.price - single.discount }} </h2>
+                <del style="color:red;" v-if="single.discount">${{ single.price }}</del>
               </span>
               <span>
                 <h2></h2>
