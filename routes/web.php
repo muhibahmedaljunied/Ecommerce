@@ -29,11 +29,9 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
 
 
-    require __dir__ . '/admin.php';
 
 
-    Route::get('/logout', 'HomeController@logout');
-    Route::post('/logout', 'HomeController@logout')->name('logout');
+
 
 
     Route::group(['prefix' => 'stripe'], function () {
@@ -43,16 +41,26 @@ Route::middleware('auth')->group(function () {
     });
 
 
-    Route::get('/', function () {
-
-        return view('admin/layouts/master');
-    });
 
     Route::get('/{page}', function () {
+        return view('admin/layouts/master');
+    });
+    Route::get('/{page}/{id}', function () {
+        return view('admin/layouts/master');
+    });
+    Route::get('/', function () {
+        // dd(12);
 
         return view('admin/layouts/master');
     });
 
+
+    Route::get('/logout', 'HomeController@logout');
+    Route::post('/logout', 'HomeController@logout')->name('logout');
+
+   
+
+    require __dir__ . '/admin.php';
 
 
 });

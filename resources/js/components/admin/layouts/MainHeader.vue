@@ -118,7 +118,7 @@
 							</div>-->
 							<div >
 								<a  href="customer/home">
-                                    <img src="assets/img/shopping-cart.png" alt="" style="max-width: 70%">
+                                    <img src="/Ecommerce/assets/img/shopping-cart.png" alt="" style="max-width: 70%">
 								</a>
 						
 							</div>

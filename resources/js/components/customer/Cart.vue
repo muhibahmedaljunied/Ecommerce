@@ -14,6 +14,11 @@
                   <th scope="col">Quantity</th>
                   <th scope="col">Total</th>
                   <th scope="col">Action</th>
+                  <!-- <th scope="col">المنتج</th>
+                  <th scope="col">السعر</th>
+                  <th scope="col">الكميه</th>
+                  <th scope="col">الاجمالي</th>
+                  <th scope="col">العمليات</th> -->
                 </tr>
               </thead>
               <tbody>

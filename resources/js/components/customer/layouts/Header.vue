@@ -52,13 +52,19 @@
               </ul>
               <ul class="right_side" v-else>
                 <li>
-                  <router-link to="/customer/login">
+                  <!-- <router-link to="/customer/login">
                     Login
+                  </router-link> -->
+                  <router-link to="/customer/login">
+                    تسجيل الدخول
                   </router-link>
                 </li>
                 <li>
-                  <router-link to="/customer/register">
+                  <!-- <router-link to="/customer/register">
                     Register
+                  </router-link> -->
+                  <router-link to="/customer/register">
+                    انشاء حساب
                   </router-link>
 
 

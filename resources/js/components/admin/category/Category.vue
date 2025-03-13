@@ -39,7 +39,7 @@
 
 
 							<input v-model="name" type="text" class="form-control" id="inputAddress"
-								placeholder="insert category">
+								>
 
 
 
@@ -202,7 +202,7 @@
 							</tr>
 
 						</tbody>
-						<tbody>
+						<tbody v-else>
 							<tr>
 								<td style="text-align: center;" colspan="5">
 									لايوجد اي بيانات

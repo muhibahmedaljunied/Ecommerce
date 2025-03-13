@@ -5348,7 +5348,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0) : _vm._e(), _vm._v(" "), _vm._m(4)])])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(4)])])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -5394,14 +5394,14 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("tbody", [_c("tr", [_c("td", {
+  return _c("tr", [_c("td", {
     staticStyle: {
       "text-align": "center"
     },
     attrs: {
       colspan: "5"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t\t")])])]);
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t\t")])]);
 }];
 render._withStripped = true;
 
@@ -5923,7 +5923,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0) : _vm._e(), _vm._v(" "), _vm._m(3)])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(3)])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -5965,14 +5965,14 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("tbody", [_c("tr", [_c("td", {
+  return _c("tr", [_c("td", {
     staticStyle: {
       "text-align": "center"
     },
     attrs: {
       colspan: "5"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])])]);
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])]);
 }];
 render._withStripped = true;
 
@@ -6326,8 +6326,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "text",
-      id: "inputAddress",
-      placeholder: "insert category"
+      id: "inputAddress"
     },
     domProps: {
       value: _vm.name
@@ -6502,7 +6501,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0) : _vm._e(), _vm._v(" "), _vm._m(3)])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(3)])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -6555,14 +6554,14 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("tbody", [_c("tr", [_c("td", {
+  return _c("tr", [_c("td", {
     staticStyle: {
       "text-align": "center"
     },
     attrs: {
       colspan: "5"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t")])])]);
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t")])]);
 }];
 render._withStripped = true;
 
@@ -6934,7 +6933,7 @@ var staticRenderFns = [function () {
       "max-width": "70%"
     },
     attrs: {
-      src: "assets/img/shopping-cart.png",
+      src: "/Ecommerce/assets/img/shopping-cart.png",
       alt: ""
     }
   })])]);
@@ -7060,7 +7059,7 @@ var render = function render() {
   }, [_c("router-link", {
     staticClass: "side-menu__item",
     attrs: {
-      to: "dashboard"
+      to: "/dashboard"
     }
   }, [_c("span", {
     staticClass: "side-menu__label"
@@ -7072,7 +7071,7 @@ var render = function render() {
     staticClass: "side-menu__item",
     attrs: {
       "data-toggle": "slide",
-      to: "/attribute/attribute"
+      to: "/attribute"
     }
   }, [_c("span", {
     staticClass: "side-menu__label"
@@ -7082,7 +7081,7 @@ var render = function render() {
     staticClass: "side-menu__item",
     attrs: {
       "data-toggle": "slide",
-      to: "/attribute/attribute_family"
+      to: "/attribute_family"
     }
   }, [_c("span", {
     staticClass: "side-menu__label"
@@ -7092,7 +7091,7 @@ var render = function render() {
     staticClass: "side-menu__item",
     attrs: {
       "data-toggle": "slide",
-      to: "/category/category"
+      to: "/category"
     }
   }, [_c("span", {
     staticClass: "side-menu__label"
@@ -7102,7 +7101,7 @@ var render = function render() {
     staticClass: "side-menu__item",
     attrs: {
       "data-toggle": "slide",
-      to: "/product/product"
+      to: "/product"
     }
   }, [_c("span", {
     staticClass: "side-menu__label"
@@ -7112,7 +7111,7 @@ var render = function render() {
     staticClass: "side-menu__item",
     attrs: {
       "data-toggle": "slide",
-      to: "/order/order"
+      to: "/order"
     }
   }, [_c("span", {
     staticClass: "side-menu__label"
@@ -7122,7 +7121,7 @@ var render = function render() {
     staticClass: "side-menu__item",
     attrs: {
       "data-toggle": "slide",
-      to: "/user/user"
+      to: "/user"
     }
   }, [_c("span", {
     staticClass: "side-menu__label"
@@ -7143,7 +7142,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "main-logo",
     attrs: {
-      src: "assets/img/logo_muhib.jpg",
+      src: "/Ecommerce/assets/img/logo_muhib.jpg",
       alt: "logo"
     }
   })]), _vm._v(" "), _c("a", {
@@ -7154,7 +7153,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "main-logo dark-theme",
     attrs: {
-      src: "assets/img/brand/logo-white.png",
+      src: "/Ecommerce/assets/img/brand/logo-white.png",
       alt: "logo"
     }
   })]), _vm._v(" "), _c("a", {
@@ -7165,7 +7164,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "logo-icon",
     attrs: {
-      src: "assets/img/brand/favicon.png",
+      src: "/Ecommerce/assets/img/brand/favicon.png",
       alt: "logo"
     }
   })]), _vm._v(" "), _c("a", {
@@ -7176,7 +7175,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "logo-icon dark-theme",
     attrs: {
-      src: "assets/img/brand/favicon-white.png",
+      src: "/Ecommerce/assets/img/brand/favicon-white.png",
       alt: "logo"
     }
   })])]);
@@ -7191,7 +7190,7 @@ var staticRenderFns = [function () {
     staticClass: "avatar avatar-xl brround",
     attrs: {
       alt: "user-img",
-      src: "assets/img/background.png"
+      src: "/Ecommerce/assets/img/background.png"
     }
   }), _c("span", {
     staticClass: "avatar-status profile-status bg-green"
@@ -7199,9 +7198,7 @@ var staticRenderFns = [function () {
     staticClass: "user-info"
   }, [_c("h4", {
     staticClass: "font-weight-semibold mt-3 mb-0"
-  }, [_vm._v("Petey Cruiser")]), _vm._v(" "), _c("span", {
-    staticClass: "mb-0 text-muted"
-  }, [_vm._v("Premium Member")])])])]);
+  }, [_vm._v("مهيب الجنيد ")])])])]);
 }];
 render._withStripped = true;
 
@@ -8014,7 +8011,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-search-plus"
     })])], 1)]);
-  }), 0) : _vm._e(), _vm._v(" "), _vm._m(2)])])])])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(2)])])])])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -8035,14 +8032,14 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("tbody", [_c("tr", [_c("td", {
+  return _c("tr", [_c("td", {
     staticStyle: {
       "text-align": "center"
     },
     attrs: {
       colspan: "5"
     }
-  }, [_vm._v("\n                                                    لايوجد اي بيانات\n                                                ")])])]);
+  }, [_vm._v("\n                                                    لايوجد اي بيانات\n                                                ")])]);
 }];
 render._withStripped = true;
 
@@ -9269,7 +9266,7 @@ var render = function render() {
         staticClass: "fa fa-edit"
       })])], 1)])])];
     })], 2)]), _vm._v(" "), _c("hr")]], 2);
-  }), 0) : _vm._e(), _vm._v(" "), _vm._m(6)])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(6)])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -9337,14 +9334,14 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("tbody", [_c("tr", [_c("td", {
+  return _c("tr", [_c("td", {
     staticStyle: {
       "text-align": "center"
     },
     attrs: {
       colspan: "7"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])])]);
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])]);
 }];
 render._withStripped = true;
 
@@ -11782,11 +11779,7 @@ var render = function render() {
       }
     }, [_c("div", {
       staticClass: "product_count"
-    }, [_c("label", {
-      attrs: {
-        "for": "qty"
-      }
-    }, [_vm._v("Quantity:")]), _vm._v(" "), _c("input", {
+    }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -11809,7 +11802,11 @@ var render = function render() {
           _vm.cartQty = $event.target.value;
         }
       }
-    })]), _vm._v(" "), _vm._m(1, true)])])])]);
+    }), _vm._v(" "), _c("label", {
+      attrs: {
+        "for": "qty"
+      }
+    }, [_vm._v(":الكميه")])]), _vm._v(" "), _vm._m(1, true)])])])]);
   }), 0)]), _vm._v(" "), _vm._m(2)]);
 };
 var staticRenderFns = [function () {
@@ -11825,7 +11822,7 @@ var staticRenderFns = [function () {
     staticClass: "main_btn",
     attrs: {
       type: "submit",
-      value: "Add to Cart"
+      value: "ضيق للسله"
     }
   })]);
 }, function () {
@@ -12434,11 +12431,11 @@ var render = function render() {
     attrs: {
       to: "/customer/login"
     }
-  }, [_vm._v("\n                  Login\n                ")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
+  }, [_vm._v("\n                  تسجيل الدخول\n                ")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
     attrs: {
       to: "/customer/register"
     }
-  }, [_vm._v("\n                  Register\n                ")])], 1)])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  انشاء حساب\n                ")])], 1)])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "main_menu"
   }, [_c("div", {
     staticClass: "container-fluid"
@@ -12651,7 +12648,7 @@ var staticRenderFns = [function () {
     staticClass: "col-lg-12"
   }, [_c("p", {
     staticClass: "sub text-uppercase"
-  }, [_vm._v("men Collection")]), _vm._v(" "), _c("h3", [_c("span", [_vm._v("Show")]), _vm._v(" Your "), _c("br"), _vm._v("Personal "), _c("span", [_vm._v("Taste")])]), _vm._v(" "), _c("h4", [_vm._v("Fowl saw dry which a above together place.")]), _vm._v(" "), _c("a", {
+  }, [_vm._v("men Collection")]), _vm._v(" "), _c("h3", [_c("span", [_vm._v("Show")]), _vm._v(" Your "), _c("br"), _vm._v("Personal "), _c("span", [_vm._v("Taste")])]), _vm._v(" "), _c("a", {
     staticClass: "main_btn mt-40",
     attrs: {
       href: "#"
@@ -72107,75 +72104,75 @@ var routes = [{
   path: '/customer/home',
   component: _components_customer_layouts_Home__WEBPACK_IMPORTED_MODULE_21__["default"]
 }, {
-  path: '/category/category',
+  path: '/category',
   name: 'category',
   component: _components_admin_category_Category__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
-  path: '/category/edit_category/:id',
+  path: '/edit_category/:id',
   name: 'edit_category',
   component: _components_admin_category_UpdateCategory__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
-  path: '/category/create_category',
+  path: '/create_category',
   name: 'create_category',
   component: _components_admin_category_AddCategory__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
-  path: '/user/user',
+  path: '/user',
   name: 'user',
   component: _components_admin_user_User__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
-  path: '/user/edit_user/:id',
+  path: '/edit_user/:id',
   name: 'edit_user',
   component: _components_admin_user_UpdateUser__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
-  path: '/user/create_user',
+  path: '/create_user',
   name: 'create_user',
   component: _components_admin_user_AddUser__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
-  path: '/product/product',
+  path: '/product',
   name: 'product',
   component: _components_admin_product_Product__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, {
-  path: '/product/edit_product/:id',
+  path: '/edit_product/:id',
   name: 'edit_product',
   component: _components_admin_product_UpdateProduct__WEBPACK_IMPORTED_MODULE_8__["default"]
 }, {
-  path: '/product/create_product',
+  path: '/create_product',
   name: 'create_product',
   component: _components_admin_product_AddProduct__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, {
-  path: '/attribute/attribute',
+  path: '/attribute',
   name: 'attribute',
   component: _components_admin_attribute_Attribute__WEBPACK_IMPORTED_MODULE_10__["default"]
 }, {
-  path: '/attribute/edit_attribute/:id',
+  path: '/edit_attribute/:id',
   name: 'edit_attribute',
   component: _components_admin_attribute_UpdateAttribute__WEBPACK_IMPORTED_MODULE_11__["default"]
 }, {
-  path: '/attribute/create_attribute',
+  path: '/create_attribute',
   name: 'create_attribute',
   component: _components_admin_attribute_AddAttribute__WEBPACK_IMPORTED_MODULE_12__["default"]
 }, {
-  path: '/attribute/attribute_family',
+  path: '/attribute_family',
   name: 'attribute_family',
   component: _components_admin_attribute_family_AttributeFamily__WEBPACK_IMPORTED_MODULE_13__["default"]
 }, {
-  path: '/attribute/edit_attribute_family/:id',
+  path: '/edit_attribute_family/:id',
   name: 'edit_attribute_family',
   component: _components_admin_attribute_family_UpdateAttributeFamily__WEBPACK_IMPORTED_MODULE_14__["default"]
 }, {
-  path: '/attribute/create_attribute_family',
+  path: '/create_attribute_family',
   name: 'create_attribute_family',
   component: _components_admin_attribute_family_AddAttributeFamily__WEBPACK_IMPORTED_MODULE_15__["default"]
 }, {
-  path: '/order/order',
+  path: '/order',
   name: 'order',
   component: _components_admin_order_Order__WEBPACK_IMPORTED_MODULE_16__["default"]
 }, {
-  path: '/order/order_details/:id',
+  path: '/order_details/:id',
   name: 'order_details',
   component: _components_admin_order_ViewOrder__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
-  path: '/order/order_invoice/:id',
+  path: '/order_invoice/:id',
   component: _components_admin_order_OrderInvoice__WEBPACK_IMPORTED_MODULE_18__["default"]
 },
 // --------------------------------------customer----------------------

@@ -79,11 +79,12 @@
               </p>
               <form method="post" @submit.prevent="addToCart(single.id)">
                 <div class="product_count">
-                  <label for="qty">Quantity:</label>
+                
                   <input type="number" name="qty" v-model="cartQty" value="1" title="Quantity" class="input-text qty" />
+                  <label for="qty">:الكميه</label>
                 </div>
                 <div class="card_area">
-                  <input type="submit" class="main_btn" value="Add to Cart">
+                  <input type="submit" class="main_btn" value="ضيق للسله">
                 </div>
               </form>
             </div>

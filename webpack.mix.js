@@ -14,8 +14,6 @@ const mix = require('laravel-mix');
 // mix.js('resources/js/app.js', 'public/js')
 //     .sass('resources/sass/app.scss', 'public/css');
 
-
-
 mix.js(
     [
         "resources/js/app.js",
@@ -27,17 +25,17 @@ mix.js(
     .styles(
         [
             // -----------------------------------------------------------------------------------------------------------------------------
-            // "assets/css/custom-search.css",
+            "assets/css/custom-search.css",
             "assets/css/jstree.css",
-            // "assets/css/jquery-ui.min.css",
-            // "assets/css/estilos_factura.css",
+            "assets/css/jquery-ui.min.css",
+            "assets/css/estilos_factura.css",
             "assets/plugins/mscrollbar/jquery.mCustomScrollbar.css",
             "assets/plugins/sidebar/sidebar.css",
             "assets/css-rtl/sidemenu.css",
             "assets/css-rtl/style.css",
             "assets/css-rtl/style-dark.css",
             "assets/css-rtl/skin-modes.css",
-            // "assets/bootstrap/css/bootstrap.min.css",
+            "assets/bootstrap/css/bootstrap.min.css",
         ],
         "css/app.css"
     );

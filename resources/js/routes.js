@@ -62,92 +62,92 @@ import ListApi from './components/api/ListApi'
     component: Home
   },
   { 
-    path: '/category/category', 
+    path: '/category', 
     name:'category',
     component: Category
   },
   { 
-    path: '/category/edit_category/:id', 
+    path: '/edit_category/:id', 
     name:'edit_category',
     component: UpdateCategory
   },
   { 
-    path: '/category/create_category', 
+    path: '/create_category', 
     name:'create_category',
     component: AddCategory
   },
   { 
-    path: '/user/user', 
+    path: '/user', 
     name:'user',
     component: User
   },
   { 
-    path: '/user/edit_user/:id', 
+    path: '/edit_user/:id', 
     name:'edit_user',
     component: UpdateUser
   },
   { 
-    path: '/user/create_user', 
+    path: '/create_user', 
     name:'create_user',
     component: AddUser
   },
   { 
-    path: '/product/product', 
+    path: '/product', 
     name:'product',
     component: Product
   },
    { 
-    path: '/product/edit_product/:id', 
+    path: '/edit_product/:id', 
     name:'edit_product',
     component: UpdateProduct
   },
   { 
-    path: '/product/create_product', 
+    path: '/create_product', 
     name:'create_product',
     component: AddProduct
   },
   { 
-    path: '/attribute/attribute', 
+    path: '/attribute', 
     name:'attribute',
     component: Attribute
   },
    { 
-    path: '/attribute/edit_attribute/:id', 
+    path: '/edit_attribute/:id', 
     name:'edit_attribute',
     component: UpdateAttribute
   },
   { 
-    path: '/attribute/create_attribute', 
+    path: '/create_attribute', 
     name:'create_attribute',
     component: AddAttribute
   },
   { 
-    path: '/attribute/attribute_family', 
+    path: '/attribute_family', 
     name:'attribute_family',
     component: AttributeFamily
   },
    { 
-    path: '/attribute/edit_attribute_family/:id', 
+    path: '/edit_attribute_family/:id', 
     name:'edit_attribute_family',
     component: UpdateAttributeFamily
   },
   { 
-    path: '/attribute/create_attribute_family', 
+    path: '/create_attribute_family', 
     name:'create_attribute_family',
     component: AddAttributeFamily
   },
    { 
-    path: '/order/order', 
+    path: '/order', 
     name:'order',
     component: Order
   },
   { 
-    path: '/order/order_details/:id', 
+    path: '/order_details/:id', 
     name:'order_details',
     component: ViewOrder
   },
   { 
-    path: '/order/order_invoice/:id', 
+    path: '/order_invoice/:id', 
     component: OrderInvoice
   },
   // --------------------------------------customer----------------------

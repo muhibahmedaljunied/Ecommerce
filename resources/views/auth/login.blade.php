@@ -88,20 +88,20 @@
                     <div class="row">
                         <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
                             <div class="card-sigin">
-                            <div class="card-header">{{ __('Login') }}</div>
+                            <div class="card-header">تسجيل الدخول</div>
 
-                                <div class="mb-5 d-flex"> <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}" class="sign-favicon ht-40" alt="logo"></a>
-                                    <h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Va<span>le</span>x</h1>
+                                <div class="mb-5 d-flex"> <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('assets/img/logo_muhib.jpg')}}" class="sign-favicon ht-40" alt="logo"></a>
+                                    <!-- <h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Va<span>le</span>x</h1> -->
                                 </div>
                                 <div class="card-sigin">
                                     <div class="main-signup-header">
-                                        <h2>Welcome back!</h2>
-                                        <h5 class="font-weight-semibold mb-4">Please sign in to continue.</h5>
+                                        <!-- <h2>Welcome back!</h2> -->
+                                        <!-- <h5 class="font-weight-semibold mb-4">Please sign in to continue.</h5> -->
                                         <form method="POST" action="{{ route('login') }}">
                                             @csrf
 
                                             <div class="form-group row">
-                                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                                <label for="email" class="col-md-4 col-form-label text-md-right">البريد الالكتروني</label>
 
                                                 <div class="col-md-10">
                                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -111,7 +111,7 @@
                                             </div>
 
                                             <div class="form-group row">
-                                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                                <label for="password" class="col-md-4 col-form-label text-md-right">كلمه السر</label>
 
                                                 <div class="col-md-10">
                                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -126,7 +126,7 @@
                                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                                         <label class="form-check-label" for="remember">
-                                                            {{ __('Remember Me') }}
+                                                           تذكر
                                                         </label>
                                                     </div>
                                                 </div>
@@ -135,20 +135,20 @@
                                             <div class="form-group row mb-0">
                                                 <div class="col-md-8 ">
                                                     <button type="submit" class="btn btn-primary">
-                                                        {{ __('Login') }}
+                                                      تسجيل الدخول
                                                     </button>
 
                                                     @if (Route::has('password.request'))
                                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                        {{ __('Forgot Your Password?') }}
+                                                    هل نسيت كلمه السر؟
                                                     </a>
                                                     @endif
                                                 </div>
                                             </div>
                                         </form>
                                         <div class="main-signin-footer mt-5">
-                                            <p><a href="">Forgot password?</a></p>
-                                            <p>Don't have an account? <a href="{{ url('/' . $page='signup') }}">Create an Account</a></p>
+                     
+                                            <p>هل لديك حساب؟ <a href="{{ url('/' . $page='signup') }}">انشاء حساب</a></p>
                                         </div>
                                     </div>
                                 </div>
