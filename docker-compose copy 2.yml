@@ -1,0 +1,73 @@
+version: '3.8'
+
+networks:
+  app-network:
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: app  
+    restart: unless-stopped
+    ports:
+      - "8088:8006"
+    tty: true
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    depends_on:
+      - webserver
+      - db
+    networks:
+      - app-network
+
+  webserver:
+    image: nginx:alpine
+    container_name: nginx-webserver
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www
+    networks:
+      - app-network
+
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+        - MYSQL_ROOT_PASSWORD=  # Set MySQL root password
+        - MYSQL_DATABASE=ecommerce  # Create a database named "todos"
+        
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    depends_on:
+        - db  # Depend on the db service
+    ports:
+        - 8001:8004  # Expose port 8001 for PhpMyAdmin
+    environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST=mysql
+
+  npm:
+    image: node
+    container_name: npm
+    volumes:
+      - .:/var/www
+    ports:
+      - "8003:8005"
+    working_dir: /var/www
+    entrypoint: [ 'npm' ]
+    networks:
+      - app-network    
+
+
+
