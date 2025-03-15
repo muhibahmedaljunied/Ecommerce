@@ -1,19 +1,19 @@
 import Dashboard from './components/Dashboard'
-import Category from './components/admin/category/Category'
+import Categories from './components/admin/Categories'
 import UpdateCategory from './components/admin/category/UpdateCategory'
-import AddCategory from './components/admin/category/AddCategory'
+// import AddCategory from './components/admin/category/AddCategory'
 import User from './components/admin/user/User'
 import UpdateUser from './components/admin/user/UpdateUser'
 import AddUser from './components/admin/user/AddUser'
-import Product from './components/admin/product/Product'
+import Products from './components/admin/Products'
 import UpdateProduct from './components/admin/product/UpdateProduct'
-import AddProduct from './components/admin/product/AddProduct'
-import Attribute from './components/admin/attribute/Attribute'
+// import AddProduct from './components/admin/product/AddProduct'
+import Attributes from './components/admin/Attributes'
 import UpdateAttribute from './components/admin/attribute/UpdateAttribute'
-import AddAttribute from './components/admin/attribute/AddAttribute'
-import AttributeFamily from './components/admin/attribute_family/AttributeFamily'
+// import AddAttribute from './components/admin/attribute/AddAttribute'
+import AttributeFamilies from './components/admin/AttributeFamilies'
 import UpdateAttributeFamily from './components/admin/attribute_family/UpdateAttributeFamily'
-import AddAttributeFamily from './components/admin/attribute_family/AddAttributeFamily'
+// import AddAttributeFamily from './components/admin/attribute_family/AddAttributeFamily'
 import Order from './components/admin/order/Order'
 import ViewOrder from './components/admin/order/ViewOrder'
 import OrderInvoice from './components/admin/order/OrderInvoice'
@@ -64,18 +64,18 @@ import ListApi from './components/api/ListApi'
   { 
     path: '/category', 
     name:'category',
-    component: Category
+    component: Categories
   },
   { 
     path: '/edit_category/:id', 
     name:'edit_category',
     component: UpdateCategory
   },
-  { 
-    path: '/create_category', 
-    name:'create_category',
-    component: AddCategory
-  },
+  // { 
+  //   path: '/create_category', 
+  //   name:'create_category',
+  //   component: AddCategory
+  // },
   { 
     path: '/user', 
     name:'user',
@@ -94,48 +94,48 @@ import ListApi from './components/api/ListApi'
   { 
     path: '/product', 
     name:'product',
-    component: Product
+    component: Products
   },
    { 
     path: '/edit_product/:id', 
     name:'edit_product',
     component: UpdateProduct
   },
-  { 
-    path: '/create_product', 
-    name:'create_product',
-    component: AddProduct
-  },
+  // { 
+  //   path: '/create_product', 
+  //   name:'create_product',
+  //   component: AddProduct
+  // },
   { 
     path: '/attribute', 
     name:'attribute',
-    component: Attribute
+    component: Attributes
   },
    { 
     path: '/edit_attribute/:id', 
     name:'edit_attribute',
     component: UpdateAttribute
   },
-  { 
-    path: '/create_attribute', 
-    name:'create_attribute',
-    component: AddAttribute
-  },
+  // { 
+  //   path: '/create_attribute', 
+  //   name:'create_attribute',
+  //   component: AddAttribute
+  // },
   { 
     path: '/attribute_family', 
     name:'attribute_family',
-    component: AttributeFamily
+    component: AttributeFamilies
   },
    { 
     path: '/edit_attribute_family/:id', 
     name:'edit_attribute_family',
     component: UpdateAttributeFamily
   },
-  { 
-    path: '/create_attribute_family', 
-    name:'create_attribute_family',
-    component: AddAttributeFamily
-  },
+  // { 
+  //   path: '/create_attribute_family', 
+  //   name:'create_attribute_family',
+  //   component: AddAttributeFamily
+  // },
    { 
     path: '/order', 
     name:'order',

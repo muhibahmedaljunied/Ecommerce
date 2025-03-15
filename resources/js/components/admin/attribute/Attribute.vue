@@ -8,119 +8,6 @@
 			<div class="row row-sm">
 				<div class="col-xl-12">
 					<div class="card">
-						<div class="card-header pb-0">
-							<div class="d-flex justify-content-between">
-								<h4 class="card-title mg-b-0"> الخواص</h4>
-								<i class="mdi mdi-dots-horizontal text-gray"></i>
-							</div>
-						</div>
-						<div class="card-body">
-
-
-							<form class="row g-3">
-
-
-								<div class="col-md-12">
-
-
-
-									<fieldset class="border rounded-3 p-3">
-										<legend class="float-none w-auto px-3">الاسم</legend>
-
-										<input v-model="name" type="text" class="form-control">
-									</fieldset>
-
-									<fieldset class="border rounded-3 p-3">
-										<legend class="float-none w-auto px-3">الرمز</legend>
-
-
-										<input v-model="code" type="text" class="form-control">
-									</fieldset>
-
-									<!-- <fieldset class="border rounded-3 p-3">
-											<legend class="float-none w-auto px-3">النوع</legend>
-								
-				
-				
-											<select name="Category" class="form-control">
-												<option value="">select</option>
-
-											</select>
-										</fieldset> -->
-
-
-									<fieldset class="border rounded-3 p-3">
-										<legend class="float-none w-auto px-3">قيم الخاصيه</legend>
-										<form method="post">
-
-											<div class="table-responsive">
-												<table class="table table-bordered text-right m-t-30"
-													style="width: 100%; font-size: x-small">
-													<thead>
-														<tr>
-															<th> القيمه</th>
-															<th> الرمز</th>
-
-															<th>اضافه</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr v-for="index in count" :key="index">
-
-
-															<td>
-																<input v-model="value[index]" type="text"
-																	class="form-control" name="name" id="name"
-																	required />
-															</td>
-															<td>
-																<input v-model="code_value[index]" type="text"
-																	class="form-control" name="name" id="name" />
-															</td>
-
-
-															<td v-if="index == 1">
-																<a class="tn btn-info btn-sm waves-effect btn-agregar"
-																	v-on:click="addComponent(count)">
-																	<i class="fa fa-plus-circle"></i></a>
-
-																<a class="tn btn-info btn-sm waves-effect btn-agregar"
-																	v-on:click="disComponent(count)">
-																	<i class="fa fa-minus-circle"></i></a>
-															</td>
-
-
-
-														</tr>
-														<tr>
-															<td colspan="2"></td>
-															<td> <button @click="add()" type="button"
-																	class="btn btn-primary">حفظ</button></td>
-														</tr>
-
-
-													</tbody>
-												</table>
-											</div>
-										</form>
-									</fieldset>
-
-
-
-
-
-								</div>
-
-
-							</form>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="row row-sm">
-				<div class="col-xl-12">
-					<div class="card">
 
 						<div class="card-header">
 
@@ -147,17 +34,17 @@
 							<div class="row">
 
 								<div class="col-md-12">
-										<label for="pagoPrevio">المجموعه</label>
+									<label for="pagoPrevio">المجموعه</label>
 
-										<select v-model="New" name="Category" id="Category" class="form-control">
-											<option value="">select</option>
-											<option value="yes">yes</option>
-											<option value="no">no</option>
+									<select v-model="New" name="Category" id="Category" class="form-control">
+										<option value="">select</option>
+										<option value="yes">yes</option>
+										<option value="no">no</option>
 
-										</select>
+									</select>
 
-									</div>
-								
+								</div>
+
 
 
 							</div>
@@ -264,22 +151,7 @@ export default {
 		})
 	},
 	methods: {
-		addComponent(index) {
-			// alert(index);
-			this.count += 1;
-			if (index == 0) {
-
-				this.counts[index] = 0;
-			} else {
-				this.counts[index] = this.count;
-
-			}
-		},
-		disComponent(index) {
-			this.count -= 1;
-			this.counts.pop()
-			// this.$delete(this.counts, index);
-		},
+	
 		delete_Attribute(id) {
 
 			this.axios.post(`delete_Attribute/${id}`).then(response => {
@@ -312,29 +184,7 @@ export default {
 			})
 		},
 
-		add() {
 
-			let currentObj = this;
-
-
-			this.axios.post('/store_attribute', {
-				count: this.counts,
-				code: this.code,
-				name: this.name,
-				value: this.value,
-				code_value: this.code_value,
-
-			})
-				.then(function (response) {
-
-				})
-				.catch(function (error) {
-					currentObj.output = error;
-				});
-
-			// this.$router.go(-1);
-
-		},
 
 		exports_excel() {
 

@@ -1,4 +1,8 @@
 <template>
+
+<div class="wrapper">
+    <div class="container-fluid">
+
     <div class="row row-sm">
         <div class="col-xl-12">
             <div class="card">
@@ -10,110 +14,109 @@
                 </div>
                 <div class="card-body">
 
+
                     <form class="row g-3">
 
 
-                        <div class="col-md-8">
-
-                            <div class="row">
-
-                                <div class="col-md-4">
-                                    <label for="inputPassword4" class="form-label">الاسم</label>
-                                    <input v-model="name" type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="inputEmail4" class="form-label">الرمز</label>
-                                    <input v-model="code" type="text" class="form-control">
-                                </div>
-                              
-                                <div class="col-md-3">
-                                    <label for="Category">النوع</label>
-                                    <select name="Category"  class="form-control">
-                                        <option value="">select</option>
-
-                                    </select>
-                                </div>
-
-
-
-                            </div>
-                        </div>
-
-
-
-
-                        <br>
-                        <hr>
                         <div class="col-md-12">
 
-                            <div class="card">
 
 
-                                <div class="card-body">
-                                    <form method="post"  >
+                            <fieldset class="border rounded-3 p-3">
+                                <legend class="float-none w-auto px-3">الاسم</legend>
 
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered text-right m-t-30"
-                                                style="width: 100%; font-size: x-small">
-                                                <thead>
-                                                    <tr>
-                                                        <th> القيمه</th>
-                                                        <th> الرمز</th>
+                                <input v-model="name" type="text" class="form-control">
+                            </fieldset>
 
-                                                        <th>اضافه</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-for="index in count" :key="index">
+                            <fieldset class="border rounded-3 p-3">
+                                <legend class="float-none w-auto px-3">الرمز</legend>
 
 
-                                                        <td>
-                                                            <input v-model="value[index]" type="text" class="form-control"
-                                                                name="name" id="name" required />
-                                                        </td>
-                                                        <td>
-                                                            <input v-model="code_value[index]" type="text" class="form-control"
-                                                                name="name" id="name" />
-                                                        </td>
+                                <input v-model="code" type="text" class="form-control">
+                            </fieldset>
+
+                            <!-- <fieldset class="border rounded-3 p-3">
+											<legend class="float-none w-auto px-3">النوع</legend>
+								
+				
+				
+											<select name="Category" class="form-control">
+												<option value="">select</option>
+
+											</select>
+										</fieldset> -->
 
 
-                                                        <td v-if="index == 1">
-                                                            <a class="tn btn-info btn-sm waves-effect btn-agregar"
-                                                                v-on:click="addComponent(count)">
-                                                                <i class="fa fa-plus-circle"></i></a>
+                            <fieldset class="border rounded-3 p-3">
+                                <legend class="float-none w-auto px-3">قيم الخاصيه</legend>
+                                <form method="post">
 
-                                                            <a class="tn btn-info btn-sm waves-effect btn-agregar"
-                                                                v-on:click="disComponent(count)">
-                                                                <i class="fa fa-minus-circle"></i></a>
-                                                        </td>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered text-right m-t-30"
+                                            style="width: 100%; font-size: x-small">
+                                            <thead>
+                                                <tr>
+                                                    <th> القيمه</th>
+                                                    <th> الرمز</th>
 
-
-
-                                                    </tr>
-
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </form>
+                                                    <th>اضافه</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="index in count" :key="index">
 
 
+                                                    <td>
+                                                        <input v-model="value[index]" type="text" class="form-control"
+                                                            name="name" id="name" required />
+                                                    </td>
+                                                    <td>
+                                                        <input v-model="code_value[index]" type="text"
+                                                            class="form-control" name="name" id="name" />
+                                                    </td>
 
-                                    <button @click="add()" type="button" class="btn btn-primary">حفظ</button>
 
-                                </div>
+                                                    <td v-if="index == 1">
+                                                        <a class="tn btn-info btn-sm waves-effect btn-agregar"
+                                                            v-on:click="addComponent(count)">
+                                                            <i class="fa fa-plus-circle"></i></a>
+
+                                                        <a class="tn btn-info btn-sm waves-effect btn-agregar"
+                                                            v-on:click="disComponent(count)">
+                                                            <i class="fa fa-minus-circle"></i></a>
+                                                    </td>
 
 
-                            </div>
+
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"></td>
+                                                    <td> <button @click="add()" type="button"
+                                                            class="btn btn-primary">حفظ</button></td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                            </fieldset>
+
+
+
 
 
                         </div>
+
 
                     </form>
                 </div>
             </div>
         </div>
+
+    </div>
+
+</div>
 
     </div>
 </template>
@@ -140,47 +143,46 @@ export default {
     methods: {
 
         addComponent(index) {
-            // alert(index);
-            this.count += 1;
-            if (index == 0) {
-                
-                this.counts[index] = 0;
-            }else{
-                this.counts[index] = this.count;
+			// alert(index);
+			this.count += 1;
+			if (index == 0) {
 
-            }
-        },
-        disComponent(index) {
-            this.count -= 1;
-            this.counts.pop()
-            // this.$delete(this.counts, index);
-        },
+				this.counts[index] = 0;
+			} else {
+				this.counts[index] = this.count;
 
-        add() {
+			}
+		},
+		disComponent(index) {
+			this.count -= 1;
+			this.counts.pop()
+			// this.$delete(this.counts, index);
+		},
+		add() {
 
-            let currentObj = this;
+			let currentObj = this;
 
 
-            this.axios.post('/store_attribute', {
-                count: this.counts,
-                code: this.code,
-                name:this.name,
-                value: this.value,
-                code_value: this.code_value,
-                
-            })
-                .then(function (response) {
+			this.axios.post('/store_attribute', {
+				count: this.counts,
+				code: this.code,
+				name: this.name,
+				value: this.value,
+				code_value: this.code_value,
 
-                })
-                .catch(function (error) {
-                    currentObj.output = error;
-                });
+			})
+				.then(function (response) {
 
-            // this.$router.go(-1);
+				})
+				.catch(function (error) {
+					currentObj.output = error;
+				});
 
-        }
+			// this.$router.go(-1);
 
-        
+		},
+
+
     }
 }
 </script>

@@ -1,30 +1,22 @@
 <template>
     <div class="wrapper">
         <div class="container-fluid">
-            <div class="row">
+            <div class="row row-sm">
 
-                <div class="card text-right">
-                    <div class="card-header">
+                <div class="col-md-12">
+                    <div class="card">
 
+                        <div class="card-header">
+                            <h2 class="card-title mg-b-0">المنتجات</h2>
+                        </div>
 
-                        <h2 class="card-title mg-b-0">المنتجات</h2>
-                    </div>
-
-                    <div class="card-body">
-
-                        <form @submit.prevent="formSubmit" enctype="multipart/form-data">
+                        <div class="card-body">
 
 
-
-                            <div class="row">
-
-
-                                <div class="col-md-6">
-
-
-                                    <!-- <div class="row">
-
-
+                            <fieldset class="border rounded-3 p-3">
+                                <legend class="float-none w-auto px-3">بياتات المنتج</legend>
+                                <form @submit.prevent="formSubmit" enctype="multipart/form-data">
+                                    <div class="row">
 
                                         <div class="col-md-12">
                                             <label for="pagoPrevio">المنتج</label>
@@ -33,277 +25,239 @@
 
 
                                         </div>
-
-
-                                    </div> -->
-
-                                    <div class="row">
                                         <div class="col-md-12">
+                                            <label for="pagoPrevio">مجموعه الخواص</label>
 
-                                            <fieldset class="border rounded-3 p-3">
-                                                <legend class="float-none w-auto px-3"></legend>
-                                                <div class="col-md-12">
-                                            <label for="pagoPrevio">المنتج</label>
-                                            <input v-model="product" type="text" name="Product" id="Product"
+                                            <select @change="get_attribute()" v-model="family_attribute" name="Category"
+                                                id="Category" class="form-control">
+                                                <option v-for="families in attribute_families"
+                                                    v-bind:value="families.id">
+                                                    {{ families.name }}
+                                                </option>
+
+
+
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="pagoPrevio">جديد</label>
+
+                                            <select v-model="New" name="Category" id="Category" class="form-control">
+                                                <option value="">select</option>
+                                                <option value="yes">yes</option>
+                                                <option value="no">no</option>
+
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="pagoPrevio">مميز</label>
+
+
+                                            <select v-model="featured" name="Category" id="Category"
                                                 class="form-control">
+                                                <option value="">select</option>
+                                                <option value="yes">yes</option>
+                                                <option value="no">no</option>
 
+
+                                            </select>
 
                                         </div>
-                                                <div class="col-md-12">
-                                                    <label for="pagoPrevio">مجموعه الخواص</label>
-
-                                                    <select @change="get_attribute()" v-model="family_attribute"
-                                                        name="Category" id="Category" class="form-control">
-                                                        <option v-for="families in attribute_families"
-                                                            v-bind:value="families.id">
-                                                            {{ families.name }}
-                                                        </option>
 
 
-
-                                                    </select>
-
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="pagoPrevio">جديد</label>
-
-                                                    <select v-model="New" name="Category" id="Category"
-                                                        class="form-control">
-                                                        <option value="">select</option>
-                                                        <option value="yes">yes</option>
-                                                        <option value="no">no</option>
-
-                                                    </select>
-
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="pagoPrevio">مميز</label>
-
-
-                                                    <select v-model="featured" name="Category" id="Category"
-                                                        class="form-control">
-                                                        <option value="">select</option>
-                                                        <option value="yes">yes</option>
-                                                        <option value="no">no</option>
-
-
-                                                    </select>
-
-                                                </div>
-
-
-                                            </fieldset>
-                                        </div>
                                     </div>
+                                </form>
+                            </fieldset>
+
+
+                            <fieldset class="border rounded-3 p-3">
+                                <legend class="float-none w-auto px-3">شحره الاصناف </legend>
+
+
+
+
+
+
+
+
+                                <div class="input-group">
+
+
+                                    <input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
+                                        aria-describedby="search-addon">
+
+
                                 </div>
 
-
-                                <div class="col-md-6">
-
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <label for="Category"> الصنف</label>
-                                            <div class="card">
-
-
-                                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                                                    data-parent="#accordion">
-
-                                                    <!-- ////////////////////////////////////////////////////////////// -->
-                                                    <div class="card-body">
-
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-xs-12">
-                                                                    <div class="input-group">
-
-                                                                        <input type="text" id="ricerca-enti"
-                                                                            class="form-control" placeholder="بحث..."
-                                                                            aria-describedby="search-addon">
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-xs-12" id="treeview_json_product">
-                                                                    <div id="test">
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- ------------------------ -->
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-
+                                <div id="treeview_json_product">
+                                    <div id="test">
 
                                     </div>
                                 </div>
 
 
 
-                            </div>
-
-
-                            <div class="row">
 
 
 
+
+
+                            </fieldset>
+
+
+
+                            <fieldset class="border rounded-3 p-3">
+                                <legend class="float-none w-auto px-3">الخواص</legend>
                                 <div class="col-md-12">
 
-                                    <fieldset class="border rounded-3 p-3">
-                                        <legend class="float-none w-auto px-3">الخواص</legend>
-                                        <div class="col-md-12">
 
-                                            <div class="card">
+                                    <form @submit.prevent="formSubmit" enctype="multipart/form-data">
 
+                                        <!-- <form action="post" @submit.prevent="submitForm" enctype="multipart/form-data"> -->
 
-                                                <div class="card-body">
-                                                    <!-- <form action="post" @submit.prevent="submitForm" enctype="multipart/form-data"> -->
-
-                                                    <div class="table-responsive">
-                                                        <table class="table table-bordered text-right m-t-30"
-                                                            style="width: 100%; font-size: x-small">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>السعر</th>
-                                                                    <th>الخصم</th>
-                                                                    <th>الكميه</th>
-                                                                    <th>الخواص</th>
-                                                                    <th>صوره المنتج</th>
-                                                                    <th>الوصف</th>
-                                                                    <th>اضافه</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr v-for="index in count" :key="index">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered text-right m-t-30"
+                                                style="width: 100%; font-size: x-small">
+                                                <thead>
+                                                    <tr>
+                                                        <th>السعر</th>
+                                                        <th>الخصم</th>
+                                                        <th>الكميه</th>
+                                                        <th>الخواص</th>
+                                                        <th>صوره المنتج</th>
+                                                        <th>الوصف</th>
+                                                        <th>اضافه</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="index in count" :key="index">
 
 
-                                                                    <td>
-                                                                        <input v-model="price[index - 1]" type="text"
-                                                                            class="form-control" name="name" id="name"
-                                                                            required />
-                                                                    </td>
-                                                                    <td>
-                                                                        <input v-model="discount[index - 1]" type="text"
-                                                                            class="form-control" name="name" id="name"
-                                                                            required />
-                                                                    </td>
-                                                                    <td>
-                                                                        <input v-model="qty[index - 1]" type="text"
-                                                                            class="form-control" name="name" id="name" />
-                                                                    </td>
-                                                                    <td>
+                                                        <td>
+                                                            <input v-model="price[index - 1]" type="text"
+                                                                class="form-control" name="name" id="name" required />
+                                                        </td>
+                                                        <td>
+                                                            <input v-model="discount[index - 1]" type="text"
+                                                                class="form-control" name="name" id="name" required />
+                                                        </td>
+                                                        <td>
+                                                            <input v-model="qty[index - 1]" type="text"
+                                                                class="form-control" name="name" id="name" />
+                                                        </td>
+                                                        <td>
 
-                                                                        <div v-for="(atta, index1) in attributes">
+                                                            <div v-for="(atta, index1) in attributes">
 
 
-                                                                            <div v-for="(atta2, index2) in atta.attribute_family_mapping"
-                                                                                class="col-md-12">
-                                                                                <label for="pagoPrevio"> {{
-                                                                                    atta2.attribute.name }}</label>
+                                                                <div v-for="(atta2, index2) in atta.attribute_family_mapping"
+                                                                    class="col-md-12">
+                                                                    <label for="pagoPrevio"> {{
+                                                                        atta2.attribute.name
+                                                                        }}</label>
 
-                                                                                <select
-                                                                                    @change="addFind(index, index2, $event, atta2.id)"
-                                                                                    class="form-control">
-                                                                                    <option
-                                                                                        v-for="(atta3, index3) in atta2.attribute.attribute_option"
-                                                                                        :value="atta3.id">
-                                                                                        {{
-                                                                                            atta3.value
-                                                                                        }}
-                                                                                    </option>
+                                                                    <select
+                                                                        @change="addFind(index, index2, $event, atta2.id)"
+                                                                        class="form-control">
+                                                                        <option
+                                                                            v-for="(atta3, index3) in atta2.attribute.attribute_option"
+                                                                            :value="atta3.id">
+                                                                            {{
+                                                                                atta3.value
+                                                                            }}
+                                                                        </option>
 
 
 
-                                                                                </select>
-                                                                            </div>
+                                                                    </select>
+                                                                </div>
 
 
 
-                                                                        </div>
+                                                            </div>
 
 
 
 
-                                                                    </td>
+                                                        </td>
 
-                                                                    <td>
-                                                                        <input type="file" class="form-control"
-                                                                            v-on:change="onFileChange($event, index)">
-
-
-                                                                        <!-- <input v-on:change="onFileChange(index)"
-                                                                                type="file" name="image"
-                                                                                class="form-control-file" id="filePhoto">
-                                                                            <img src="" id="previewHolder" width="150px"> -->
-                                                                    </td>
+                                                        <td>
+                                                            <input type="file" class="form-control"
+                                                                v-on:change="onFileChange($event, index)">
 
 
-                                                                    <td>
-                                                                        <input v-model='description[index - 1]' type="text" class="form-control">
+                                                            <!-- <input v-on:change="onFileChange(index)"
+            type="file" name="image"
+            class="form-control-file" id="filePhoto">
+        <img src="" id="previewHolder" width="150px"> -->
+                                                        </td>
 
 
-                                                                    </td>
+                                                        <td>
+                                                            <input v-model='description[index - 1]' type="text"
+                                                                class="form-control">
 
 
-                                                                    <td v-if="index == 1">
-                                                                        <a class="tn btn-info btn-sm waves-effect btn-agregar"
-                                                                            @click="addComponent(count)">
-                                                                            <i class="fa fa-plus-circle"></i></a>
-
-                                                                        <a class="tn btn-info btn-sm waves-effect btn-agregar"
-                                                                            @click="disComponent(count)">
-                                                                            <i class="fa fa-minus-circle"></i></a>
-                                                                    </td>
+                                                        </td>
 
 
+                                                        <td v-if="index == 1">
+                                                            <a class="tn btn-info btn-sm waves-effect btn-agregar"
+                                                                @click="addComponent(count)">
+                                                                <i class="fa fa-plus-circle"></i></a>
 
-                                                                </tr>
-
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <!-- </form> -->
+                                                            <a class="tn btn-info btn-sm waves-effect btn-agregar"
+                                                                @click="disComponent(count)">
+                                                                <i class="fa fa-minus-circle"></i></a>
+                                                        </td>
 
 
 
+                                                    </tr>
+                                                    <tr>
 
-                                                </div>
+                                                        <td colspan="6"></td>
+                                                        <td>
+                                                            <button
+                                                                class="btn btn-primary btn-lg btn-block">حفظ</button>
+                                                        </td>
+                                                    </tr>
 
 
-                                            </div>
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        <!-- </form> -->
 
 
-                                    </fieldset>
+
+                                    </form>
+
+
+
+
                                 </div>
 
 
-
-
-                            </div>
-
-
-                            <br />
-                            <hr>
+                            </fieldset>
 
 
 
-                            <button class="btn btn-primary btn-lg btn-block">حفظ</button>
-                        </form>
 
+
+
+
+
+
+
+
+
+                        </div>
                     </div>
 
                 </div>
-
-
 
             </div>
 
@@ -376,9 +330,9 @@ export default {
             this.count += 1;
             // this.counts[index] = this.count;
             if (index == 0) {
-                
+
                 this.counts[index] = 0;
-            }else{
+            } else {
                 this.counts[index] = this.count;
 
             }
@@ -588,7 +542,7 @@ export default {
             this.axios.post('/store_product',
                 formData,
                 config
-               
+
             )
                 .then(function (response) {
 
