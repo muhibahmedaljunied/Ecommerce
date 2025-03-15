@@ -5180,7 +5180,7 @@ var render = function render() {
     staticClass: "col-md-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "card-body"
   }, [_c("fieldset", {
     staticClass: "border rounded-3 p-3"
@@ -5345,7 +5345,7 @@ var render = function render() {
     attrs: {
       value: "no"
     }
-  }, [_vm._v("no")])])])])])]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("fieldset", {
+  }, [_vm._v("no")])])])])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
@@ -5369,7 +5369,7 @@ var render = function render() {
       width: "100%",
       "font-size": "x-small"
     }
-  }, [_vm._m(2), _vm._v(" "), _c("tbody", [_vm._l(_vm.count, function (index) {
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", [_vm._l(_vm.count, function (index) {
     return _c("tr", {
       key: index
     }, [_c("td", [_c("input", {
@@ -5512,17 +5512,9 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-minus-circle"
     })])]) : _vm._e()]);
-  }), _vm._v(" "), _vm._m(3)], 2)])])])])])])])])])])]);
+  }), _vm._v(" "), _vm._m(2)], 2)])])])])])])])])])])]);
 };
 var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header"
-  }, [_c("h2", {
-    staticClass: "card-title mg-b-0"
-  }, [_vm._v("المنتجات")])]);
-}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("fieldset", {
@@ -5892,7 +5884,7 @@ var render = function render() {
     staticClass: "col-xl-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     staticClass: "row g-3"
@@ -5962,7 +5954,7 @@ var render = function render() {
       width: "100%",
       "font-size": "x-small"
     }
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", [_vm._l(_vm.count, function (index) {
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm._l(_vm.count, function (index) {
     return _c("tr", {
       key: index
     }, [_c("td", [_c("input", {
@@ -6046,18 +6038,6 @@ var render = function render() {
   }, [_vm._v("حفظ")])])])], 2)])])])])])])])])])])])]);
 };
 var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header pb-0"
-  }, [_c("div", {
-    staticClass: "d-flex justify-content-between"
-  }, [_c("h4", {
-    staticClass: "card-title mg-b-0"
-  }, [_vm._v(" الخواص")]), _vm._v(" "), _c("i", {
-    staticClass: "mdi mdi-dots-horizontal text-gray"
-  })])]);
-}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("thead", [_c("tr", [_c("th", [_vm._v(" القيمه")]), _vm._v(" "), _c("th", [_vm._v(" الرمز")]), _vm._v(" "), _c("th", [_vm._v("اضافه")])])]);
@@ -6433,7 +6413,7 @@ var render = function render() {
     staticClass: "col-xl-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     staticClass: "row g-3"
@@ -6536,19 +6516,7 @@ var render = function render() {
     staticClass: "card-footer"
   })])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header pb-0"
-  }, [_c("div", {
-    staticClass: "d-flex justify-content-between"
-  }, [_c("h4", {
-    staticClass: "card-title mg-b-0"
-  }, [_vm._v("مجموعه الخواص ")]), _vm._v(" "), _c("i", {
-    staticClass: "mdi mdi-dots-horizontal text-gray"
-  })])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -6869,7 +6837,7 @@ var render = function render() {
     staticClass: "col-md-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     staticClass: "row g-3"
@@ -6900,7 +6868,7 @@ var render = function render() {
         _vm.name = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("fieldset", {
+  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
@@ -6966,18 +6934,6 @@ var render = function render() {
   }, [_vm._v("حفظ")])], 2)])])])])])])])])]);
 };
 var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header pb-0"
-  }, [_c("div", {
-    staticClass: "d-flex justify-content-between"
-  }, [_c("h4", {
-    staticClass: "card-title mg-b-0"
-  }, [_vm._v(" الاصناف")]), _vm._v(" "), _c("i", {
-    staticClass: "mdi mdi-dots-horizontal text-gray"
-  })])]);
-}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("fieldset", {
