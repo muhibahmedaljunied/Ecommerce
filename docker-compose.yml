@@ -4,7 +4,7 @@ services:
     container_name: laravel-docker
     build: .
     volumes:
-      - .:/var/www/html
+      - .:/var/www/html/Ecommerce
     ports:
       - 9000:80
   mysql_db:

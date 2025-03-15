@@ -5,7 +5,7 @@ window.Vue = require("vue"); //import vue same as(import Vue from 'vue')
 import VueRouter from "vue-router"; //import vue router
 import VueAxios from "vue-axios";
 import axios from "axios";
-window.axios.defaults.baseURL = "http://localhost/Ecommerce";
+window.axios.defaults.baseURL = "http://localhost:9000/Ecommerce";
 // ---------------------------- sweetalert ---------------------------------------------------------
 import swal from "sweetalert2";
 

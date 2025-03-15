@@ -142,7 +142,9 @@
           <div class="offset-lg-4 col-lg-6 text-center">
             <div class="offer_content">
               <!-- <h3 class="text-uppercase mb-40">all men’s collection</h3> -->
-              <h3 class="text-uppercase mb-40">جميع تورت حفلات التخرج </h3>
+              <!-- <h3 class="text-uppercase mb-40">جميع تورت حفلات التخرج </h3> -->
+              <h3 class="text-uppercase mb-40">جميع  الملابس الرجاليه  </h3>
+
               <!-- <h2 class="text-uppercase">50% off</h2> -->
               <h2 class="text-uppercase">50% تخفيض</h2>
               <!-- <a href="#" class="main_btn mb-20 mt-5">Discover Now</a> -->

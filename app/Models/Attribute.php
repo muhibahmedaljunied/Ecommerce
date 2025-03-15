@@ -9,6 +9,11 @@ class Attribute extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'code',
+        'name',
+    ];
+
 
     public function attribute_family_mapping()
     {

@@ -11,7 +11,11 @@ class AttributeOption extends Model
 
     
     
-
+    protected $fillable = [
+        'code',
+        'value',
+        'attribute_id',
+    ];
 
     public function attribute()
     {

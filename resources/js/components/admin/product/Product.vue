@@ -286,7 +286,29 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="table-responsive">
+
+						
+						<div class="row">
+
+<div class="col-md-12">
+		<label for="pagoPrevio">الصنف</label>
+
+		<select v-model="New" name="Category" id="Category" class="form-control">
+			<option value="">select</option>
+			<option value="yes">yes</option>
+			<option value="no">no</option>
+
+		</select>
+
+	</div>
+
+
+
+</div>
+
+<div class="row">
+
+	<div class="table-responsive">
 							<table class="table text-md-nowrap" id="example1">
 								<thead>
 
@@ -399,6 +421,8 @@
 								</tbody>
 							</table>
 						</div>
+</div>
+					
 					</div>
 				</div>
 			</div>

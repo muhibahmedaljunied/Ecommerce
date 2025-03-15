@@ -74,6 +74,9 @@ class AttributeController extends Controller
 
         // dd($request->all());
 
+        // dd($request['count']);
+
+
         try {
             DB::beginTransaction(); // Tell Laravel all the code beneath this is a transaction
 

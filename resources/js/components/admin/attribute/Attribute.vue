@@ -16,6 +16,7 @@
 						</div>
 						<div class="card-body">
 
+
 							<form class="row g-3">
 
 
@@ -142,70 +143,93 @@
 							</div>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive">
-								<table class="table text-md-nowrap" id="example1">
-									<thead>
-										<tr>
-											<th class="wd-15p border-bottom-0">الرقم</th>
 
-											<th class="wd-15p border-bottom-0">الاسم</th>
-											<th class="wd-15p border-bottom-0">الرمز</th>
+							<div class="row">
 
-											<th class="wd-15p border-bottom-0">القيم</th>
-											<th class="wd-15p border-bottom-0"> العمليات</th>
+								<div class="col-md-12">
+										<label for="pagoPrevio">المجموعه</label>
 
-										</tr>
-									</thead>
-									<tbody v-if="attributes && attributes.length > 0">
-										<tr v-for="attribute in attributes">
-											<td>{{ attribute.id }}</td>
+										<select v-model="New" name="Category" id="Category" class="form-control">
+											<option value="">select</option>
+											<option value="yes">yes</option>
+											<option value="no">no</option>
 
-											<td>{{ attribute.name }}</td>
-											<td>{{ attribute.code }}</td>
+										</select>
+
+									</div>
+								
 
 
-											<td>
-												<template v-for="(attr, indexd) in attribute.attribute_option">
+							</div>
+
+							<div class="row">
+
+								<div class="table-responsive">
+									<table class="table text-md-nowrap" id="example1">
+										<thead>
+											<tr>
+												<th class="wd-15p border-bottom-0">الرقم</th>
+
+												<th class="wd-15p border-bottom-0">الاسم</th>
+												<th class="wd-15p border-bottom-0">الرمز</th>
+
+												<th class="wd-15p border-bottom-0">القيم</th>
+												<th class="wd-15p border-bottom-0"> العمليات</th>
+
+											</tr>
+										</thead>
+										<tbody v-if="attributes && attributes.length > 0">
+											<tr v-for="attribute in attributes">
+												<td>{{ attribute.id }}</td>
+
+												<td>{{ attribute.name }}</td>
+												<td>{{ attribute.code }}</td>
 
 
-													<template>
-														<div style="float: left;">
+												<td>
+													<template v-for="(attr, indexd) in attribute.attribute_option">
+
+
+														<template>
+															<div style="float: left;">
 
 
 
-															<span style="color: blue;">
-																{{ attr.value }}
-															</span>&ensp;
+																<span style="color: blue;">
+																	{{ attr.value }}
+																</span>&ensp;
 
-														</div>
+															</div>
+
+														</template>
+
 
 													</template>
+												</td>
 
+												<td>
+													<button type='button' class="btn btn-danger btn-sm"><i
+															class="fa fa-trash"></i></button>
+													<router-link
+														:to="{ name: 'edit_Attribute', params: { id: attribute.id } }"
+														class="btn btn-success btn-sm"><i
+															class="fa fa-edit"></i></router-link>
+												</td>
 
-												</template>
-											</td>
+											</tr>
 
-											<td>
-												<button type='button' class="btn btn-danger btn-sm"><i
-														class="fa fa-trash"></i></button>
-												<router-link
-													:to="{ name: 'edit_Attribute', params: { id: attribute.id } }"
-													class="btn btn-success btn-sm"><i
-														class="fa fa-edit"></i></router-link>
-											</td>
-
-										</tr>
-
-									</tbody>
-									<tbody v-else>
-										<tr>
-											<td style="text-align: center;" colspan="5">
-												لايوجد اي بيانات
-											</td>
-										</tr>
-									</tbody>
-								</table>
+										</tbody>
+										<tbody v-else>
+											<tr>
+												<td style="text-align: center;" colspan="5">
+													لايوجد اي بيانات
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -233,6 +257,7 @@ export default {
 		}
 	},
 	mounted() {
+		console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
 		this.counts[0] = 1;
 		this.axios.post('/attribute').then(response => {
 			this.attributes = response.data.attributes;

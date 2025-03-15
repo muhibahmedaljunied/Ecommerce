@@ -2012,6 +2012,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var _this = this;
+    console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
     this.counts[0] = 1;
     this.axios.post('/attribute').then(function (response) {
       _this.attributes = response.data.attributes;
@@ -5318,6 +5319,51 @@ var render = function render() {
   })])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("label", {
+    attrs: {
+      "for": "pagoPrevio"
+    }
+  }, [_vm._v("المجموعه")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.New,
+      expression: "New"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "Category",
+      id: "Category"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.New = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("select")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "yes"
+    }
+  }, [_vm._v("yes")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "no"
+    }
+  }, [_vm._v("no")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "table text-md-nowrap",
@@ -5334,7 +5380,7 @@ var render = function render() {
         staticStyle: {
           color: "blue"
         }
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(attr.value) + "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" \n\n\t\t\t\t\t\t\t\t\t\t\t\t\t")])]];
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(attr.value) + "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" \n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t")])]];
     })], 2), _vm._v(" "), _c("td", [_vm._m(3, true), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-success btn-sm",
       attrs: {
@@ -5348,7 +5394,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0) : _c("tbody", [_vm._m(4)])])])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(4)])])])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -5401,7 +5447,7 @@ var staticRenderFns = [function () {
     attrs: {
       colspan: "5"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t\t")])]);
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t\t\t")])]);
 }];
 render._withStripped = true;
 
@@ -6856,7 +6902,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "logo-1",
     attrs: {
-      src: "assets/img/brand/logo.png",
+      src: "/Ecommerce/assets/img/brand/logo.png",
       alt: "logo"
     }
   })]), _vm._v(" "), _c("a", {
@@ -6866,7 +6912,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "dark-logo-1",
     attrs: {
-      src: "assets/img/brand/logo-white.png",
+      src: "/Ecommerce/assets/img/brand/logo-white.png",
       alt: "logo"
     }
   })]), _vm._v(" "), _c("a", {
@@ -6876,7 +6922,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "logo-2",
     attrs: {
-      src: "assets/img/brand/favicon.png",
+      src: "/Ecommerce/assets/img/brand/favicon.png",
       alt: "logo"
     }
   })]), _vm._v(" "), _c("a", {
@@ -6886,7 +6932,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "dark-logo-2",
     attrs: {
-      src: "assets/img/brand/favicon.png",
+      src: "/Ecommerce/assets/img/brand/favicon.png",
       alt: "logo"
     }
   })])]), _vm._v(" "), _c("div", {
@@ -6948,7 +6994,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     attrs: {
       alt: "",
-      src: "assets/img/background.png"
+      src: "/Ecommerce/assets/img/background.png"
     }
   })]);
 }, function () {
@@ -6963,7 +7009,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     attrs: {
       alt: "",
-      src: "assets/img/background.png"
+      src: "/Ecommerce/assets/img/background.png"
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "mr-3 my-auto"
@@ -8894,7 +8940,7 @@ var render = function render() {
       domProps: {
         value: families.id
       }
-    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(families.name) + "\n\t\t\t\t\t\t\t\t\t\t")]);
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(families.name) + "\n\t\t\t\t\t\t\t\t\t\t\t")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "col-md-12"
   }, [_c("label", {
@@ -9092,7 +9138,7 @@ var render = function render() {
             domProps: {
               value: atta3.id
             }
-          }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(atta3.value) + "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]);
+          }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(atta3.value) + "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]);
         }), 0)]);
       }), 0);
     }), 0), _vm._v(" "), _c("td", [_c("input", {
@@ -9213,6 +9259,51 @@ var render = function render() {
   })])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("label", {
+    attrs: {
+      "for": "pagoPrevio"
+    }
+  }, [_vm._v("الصنف")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.New,
+      expression: "New"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "Category",
+      id: "Category"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.New = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("select")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "yes"
+    }
+  }, [_vm._v("yes")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "no"
+    }
+  }, [_vm._v("no")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "table text-md-nowrap",
@@ -9224,7 +9315,7 @@ var render = function render() {
       staticClass: "row"
     }, [_c("div", {
       staticClass: "col-md-2"
-    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(productss.text) + "\n\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(productss.text) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
       staticClass: "col-md-10"
     }, [_vm._l(productss.product_family_attribute, function (product_family) {
       return [_c("div", {
@@ -9235,9 +9326,9 @@ var render = function render() {
         staticClass: "col-md-4"
       }, [_c("div", {
         staticClass: "col-md-12"
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالكميه: " + _vm._s(product_family.qty) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالكميه: " + _vm._s(product_family.qty) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
         staticClass: "col-md-12"
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالسعر:" + _vm._s(product_family.price) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _vm._l(product_family.family_attribute_option, function (option) {
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالسعر:" + _vm._s(product_family.price) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _vm._l(product_family.family_attribute_option, function (option) {
         return _c("div", {
           staticClass: "col-md-12"
         }, [_c("p", [_vm._v(_vm._s(option.name) + ":" + _vm._s(option.value))])]);
@@ -9266,7 +9357,7 @@ var render = function render() {
         staticClass: "fa fa-edit"
       })])], 1)])])];
     })], 2)]), _vm._v(" "), _c("hr")]], 2);
-  }), 0) : _c("tbody", [_vm._m(6)])])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(6)])])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -9341,7 +9432,7 @@ var staticRenderFns = [function () {
     attrs: {
       colspan: "7"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])]);
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t\t")])]);
 }];
 render._withStripped = true;
 
@@ -12743,7 +12834,7 @@ var staticRenderFns = [function () {
     staticClass: "offer_content"
   }, [_c("h3", {
     staticClass: "text-uppercase mb-40"
-  }, [_vm._v("جميع تورت حفلات التخرج ")]), _vm._v(" "), _c("h2", {
+  }, [_vm._v("جميع  الملابس الرجاليه  ")]), _vm._v(" "), _c("h2", {
     staticClass: "text-uppercase"
   }, [_vm._v("50% تخفيض")]), _vm._v(" "), _c("a", {
     staticClass: "main_btn mb-20 mt-5",
@@ -69159,7 +69250,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  //import vue router
 
 
-window.axios.defaults.baseURL = "http://localhost/Ecommerce";
+window.axios.defaults.baseURL = "http://localhost:9000/Ecommerce";
 // ---------------------------- sweetalert ---------------------------------------------------------
 
 
@@ -72435,7 +72526,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\Ecommerce\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })
