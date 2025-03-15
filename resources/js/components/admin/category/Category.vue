@@ -6,213 +6,92 @@
 
 
 
-		<div class="row">
-
-			<div class="col-md-12">
-				<div class="card">
-			<div class="card-header pb-0">
-				<div class="d-flex justify-content-between">
-					<h4 class="card-title mg-b-0"> الاصناف</h4>
-					<i class="mdi mdi-dots-horizontal text-gray"></i>
-				</div>
-			</div>
-			<div class="card-body">
-
-				<form class="row g-3">
-
-
-					<div class="row">
-
-
-						<fieldset class="border rounded-3 p-3">
-
-
-
-							<legend class="float-none w-auto px-3"> الاسم </legend>
-
-
-
-
-
-
-
-
-
-							<input v-model="name" type="text" class="form-control" id="inputAddress"
-								>
-
-
-
-						</fieldset>
-						<fieldset class="border rounded-3 p-3">
-
-
-
-							<legend class="float-none w-auto px-3">شجره الاصناف</legend>
-
-
-
-							<div class="input-group">
-
-								<input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
-									aria-describedby="search-addon">
-
-							</div>
-
-
-
-							<div id="treeview_json_product">
-								<div id="test">
-
-								</div>
-							</div>
-
-
-
-
-
-
-
-
-						</fieldset>
-
-						<fieldset class="border rounded-3 p-3">
-
-
-
-							<legend class="float-none w-auto px-3">الخواص</legend>
-
-
-
-
-							<div>
-
-
-
-								<div style="float: right;" v-for="(item) in attributes"
-									class="form-check form-check-inline">
-									<input v-model="checkedItems" :value="item.id" id="checkedItems"
-										class="form-check-input" type="checkbox">
-									<label class="form-check-label" for="inlineCheckbox1">{{ item.name
-									}}</label>
-								</div>
-
-
-								<button style="float: left;" @click="add()" type="button"
-									class="btn btn-primary">حفظ</button>
-
-
-							</div>
-
-						</fieldset>
-
-
-
-
-
-
-
-					</div>
-
-
-
-
-
-
-
-
-
-
-
-				</form>
-			</div>
-		</div>
-			</div>
-		</div>
-
 		
 
 
 
+
+
 		<div class="row">
 
 			<div class="col-md-12">
 
-				
-		<div class="card">
-			<div class="card-header">
+
+				<div class="card">
+					<div class="card-header">
 
 
-				<div style="display: flex;float: left; margin: 5px">
+						<div style="display: flex;float: left; margin: 5px">
 
-					<button @click="exports_excel()">
+							<button @click="exports_excel()">
 
-						<i class="fa-solid fa-file-export " style="font-size: 24px; color: #63E6BE;"></i>
-					</button>
+								<i class="fa-solid fa-file-export " style="font-size: 24px; color: #63E6BE;"></i>
+							</button>
 
-					<button @click="imports_excel()">
+							<button @click="imports_excel()">
 
-						<i class="fa-solid fa-file-import " style="font-size: 24px; color: #B197FC;"></i>
-					</button>
+								<i class="fa-solid fa-file-import " style="font-size: 24px; color: #B197FC;"></i>
+							</button>
 
-					<input type="search" autocomplete="on" name="search" data-toggle="dropdown" role="button"
-						aria-haspopup="true" aria-expanded="true" placeholder="بحث " v-model="word_search"
-						@input="get_search()" />
-				</div>
-			</div>
+							<input type="search" autocomplete="on" name="search" data-toggle="dropdown" role="button"
+								aria-haspopup="true" aria-expanded="true" placeholder="بحث " v-model="word_search"
+								@input="get_search()" />
+						</div>
+					</div>
 
-			<div class="card-body">
-				<div class="table-responsive">
-					<table class="table text-md-nowrap" id="example1">
-						<thead>
-							<tr>
-								<th class="wd-15p border-bottom-0">الرقم</th>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table text-md-nowrap" id="example1">
+								<thead>
+									<tr>
+										<th class="wd-15p border-bottom-0">الرقم</th>
 
-								<th class="wd-15p border-bottom-0">الاسم</th>
+										<th class="wd-15p border-bottom-0">الاسم</th>
 
-								<th class="wd-15p border-bottom-0"> العمليات</th>
+										<th class="wd-15p border-bottom-0"> العمليات</th>
 
 
 
-							</tr>
-						</thead>
-						<tbody v-if="category && category.length > 0">
-							<tr v-for="categorys in category">
-								<td>{{ categorys.id }}</td>
+									</tr>
+								</thead>
+								<tbody v-if="category && category.length > 0">
+									<tr v-for="categorys in category">
+										<td>{{ categorys.id }}</td>
 
-								<td>{{ categorys.text }}</td>
-								<!-- <td>
+										<td>{{ categorys.text }}</td>
+										<!-- <td>
                                                 <img :src="`assets/img/20191214045454_41TxNIo3cQL.jpg`" height="50px" alt="category image">
                                                 </td> -->
-								<!-- <td>{{categorys.status}}</td>
+										<!-- <td>{{categorys.status}}</td>
 												<td> {{categorys.created_at}}</td>
 												<td>{{categorys.updated_at}}</td> -->
-								<td>
-									<button type='button' @click="delete_category(categorys.id)"
-										class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-									<router-link :to="{ name: 'edit_category', params: { id: categorys.id } }"
-										class="edit btn btn-success btn-sm"> <i class="fa fa-edit"></i></router-link>
-								</td>
+										<td>
+											<button type='button' @click="delete_category(categorys.id)"
+												class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+											<router-link :to="{ name: 'edit_category', params: { id: categorys.id } }"
+												class="edit btn btn-success btn-sm"> <i
+													class="fa fa-edit"></i></router-link>
+										</td>
 
 
-								<!-- <a href="{{route('admin.brand.delete', $brand->id)}}" class="btn btn-danger">
+										<!-- <a href="{{route('admin.brand.delete', $brand->id)}}" class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </a> -->
 
-							</tr>
+									</tr>
 
-						</tbody>
-						<tbody v-else>
-							<tr>
-								<td style="text-align: center;" colspan="5">
-									لايوجد اي بيانات
-								</td>
-							</tr>
-						</tbody>
-					</table>
+								</tbody>
+								<tbody v-else>
+									<tr>
+										<td style="text-align: center;" colspan="5">
+											لايوجد اي بيانات
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
 			</div>
 		</div>
 
@@ -432,36 +311,36 @@ export default {
 		},
 		exports_excel() {
 
-axios
-	.post(`/export_opening_inventuries`)
-	.then(function (response) {
+			axios
+				.post(`/export_opening_inventuries`)
+				.then(function (response) {
 
-		toastMessage("تم اتمام عمليه التصدير");
-		this.$router.go(0);
-	})
-	.catch(error => {
-
-
-	});
-},
-imports_excel() {
-
-axios
-	.post(`/import_opening_inventuries`)
-	.then(function (response) {
-		toastMessage("تم اتمام عمليه الاستيراد");
-		this.$router.go(0);
-
-		// this.list();
+					toastMessage("تم اتمام عمليه التصدير");
+					this.$router.go(0);
+				})
+				.catch(error => {
 
 
+				});
+		},
+		imports_excel() {
+
+			axios
+				.post(`/import_opening_inventuries`)
+				.then(function (response) {
+					toastMessage("تم اتمام عمليه الاستيراد");
+					this.$router.go(0);
+
+					// this.list();
 
 
-	})
-	.catch(error => {
 
-	});
-},
+
+				})
+				.catch(error => {
+
+				});
+		},
 	}
 }
 </script>

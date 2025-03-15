@@ -1,6 +1,11 @@
 <template>
-    <div class="row row-sm">
-        <div class="col-xl-12">
+
+<div class="wrapper">
+    <div class="container-fluid">
+
+    <div class="row sow-sm">
+
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
@@ -13,112 +18,115 @@
                     <form class="row g-3">
 
 
-                        <div class="col-md-6">
-
-                            <div class="row">
+                        <div class="row">
 
 
+                            <fieldset class="border rounded-3 p-3">
 
-                                <div class="col-12">
-                                    <label for="inputAddress" class="form-label">الاسم</label>
-                                    <input v-model="name" type="text" class="form-control" id="inputAddress"
-                                        placeholder="insert category">
+
+
+                                <legend class="float-none w-auto px-3"> الاسم </legend>
+
+
+
+
+
+
+
+
+
+                                <input v-model="name" type="text" class="form-control" id="inputAddress">
+
+
+
+                            </fieldset>
+                            <fieldset class="border rounded-3 p-3">
+
+
+
+                                <legend class="float-none w-auto px-3">شجره الاصناف</legend>
+
+
+
+                                <div class="input-group">
+
+                                    <input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
+                                        aria-describedby="search-addon">
+
                                 </div>
-                            </div>
-                        </div>
 
 
-                        <div class="col-md-6">
-                            <div class="card-body">
-                                <!-- <div class="container">
-                        <div class="well" id="treeview_json_product"></div>
 
-                      </div> -->
+                                <div id="treeview_json_product">
+                                    <div id="test">
 
-                                <!-- ----------------- -->
-
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-
-                                            <div class="input-group">
-
-                                                <input type="text" id="ricerca-enti" class="form-control"
-                                                    placeholder="بحث..." aria-describedby="search-addon">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12" id="treeview_json_product">
-                                            <div id="test">
-
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
-                                <!-- ------------------------ -->
-                            </div>
+
+
+
+
+
+
+
+
+                            </fieldset>
+
+                            <fieldset class="border rounded-3 p-3">
+
+
+
+                                <legend class="float-none w-auto px-3">الخواص</legend>
+
+
+
+
+                                <div>
+
+
+
+                                    <div style="float: right;" v-for="(item) in attributes"
+                                        class="form-check form-check-inline">
+                                        <input v-model="checkedItems" :value="item.id" id="checkedItems"
+                                            class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" for="inlineCheckbox1">{{ item.name
+                                            }}</label>
+                                    </div>
+
+
+                                    <button style="float: left;" @click="add()" type="button"
+                                        class="btn btn-primary">حفظ</button>
+
+
+                                </div>
+
+                            </fieldset>
+
+
+
+
+
+
+
                         </div>
 
 
 
 
-                        <br>
-
-
-                        <div class="col-md-12">
-
-                            <p>الخواص</p>
-
-                            <!-- <div v-for="(item, index) in items">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" v-model="checkedItems[index]"
-                                        :value="item.id">{{ item.text }}
-                                </label>
-                            </div> -->
-
-                            <div v-for="(item) in attributes" class="form-check form-check-inline">
-                                <input v-model="checkedItems" :value="item.id" id="checkedItems" class="form-check-input"
-                                    type="checkbox">
-                                <label class="form-check-label" for="inlineCheckbox1">{{ item.name }}</label>
-                            </div>
-
-                            <!--     <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">اللون</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">العلامه التجاريه</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">العرض</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">الطول</label>
-                            </div> -->
 
 
 
-                        </div>
 
 
-                        <div class="col-md-12">
 
-
-                            <button @click="add()" type="button" class="btn btn-primary">حفظ</button>
-                        </div>
 
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+
+</div>
 
     </div>
 </template>
@@ -276,7 +284,7 @@ export default {
             let currentObj = this;
 
 
-            this.axios.post('/store_category', {parent:this.parent, product: this.name, items: this.checkedItems })
+            this.axios.post('/store_category', { parent: this.parent, product: this.name, items: this.checkedItems })
                 .then(function (response) {
 
                 })
