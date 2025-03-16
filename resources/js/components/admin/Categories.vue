@@ -19,7 +19,7 @@
                         <!-- Tabs -->
                         <ul class="nav panel-tabs main-nav-line">
                             <li class="nav-item">
-                            <a href="#tabq" class="nav-link" data-toggle="tab"> عرض</a>
+                            <a href="#tab1" class="nav-link" data-toggle="tab"> عرض</a>
                           </li>
                             <li class="nav-item">
                             <a href="#tab2" class="nav-link" data-toggle="tab">اضافه</a>

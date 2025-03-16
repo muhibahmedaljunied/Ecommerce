@@ -32,6 +32,8 @@ Route::post('/delete_user/{id}', [UserController::class, 'destroy']);
 // Route::group(['prefix' => 'product'], function () {
 
 Route::post('/product', 'ProductController@index')->name('product');
+Route::post('/get_product_status/{id}', 'ProductController@get_product_status');
+
 Route::post('/create_product', 'ProductController@create');
 Route::post('/store_product', 'ProductController@store');
 Route::post('/store_product_as_category', 'ProductController@store_as_category');

@@ -2016,6 +2016,7 @@ __webpack_require__.r(__webpack_exports__);
       New: '',
       featured: '',
       status: '',
+      status_product: 'true',
       image: '',
       categoryselected: '',
       parentselected: 0,
@@ -2065,8 +2066,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     disComponent: function disComponent(index) {
-      this.count -= 1;
-      $this.counts.pop();
+      if (this.count > 1) {
+        this.count -= 1;
+        $this.counts.pop();
+      }
+
       // this.$delete(this.counts, index);
     },
     addFind: function addFind(index, index2, event, att) {
@@ -2172,13 +2176,11 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         }).on('rename_node.jstree', function (e, data) {}).on("changed.jstree", function (e, data) {
-          gf.product_id = data.node.id;
-          // axios.post(`/category_filter/${data.node.id}`).then((response) => {
-
-          //     gf.showCatProduct = response.data;
-          //     gf.array_id.product_id = data.node.id;
-
-          // });
+          axios.post("/get_product_status/".concat(data.node.id)).then(function (response) {
+            console.log('muhibbbbbbbbb', response.data.product);
+            gf.status_product = response.data.product.status;
+            // gf.array_id.product_id = data.node.id;
+          });
         });
       });
 
@@ -2207,6 +2209,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("family_id", this.family_attribute);
       formData.append("product_attr", JSON.stringify(this.att_family));
       formData.append("status", 'false');
+      formData.append("status_product", this.status_product);
       formData.append("qty", JSON.stringify(this.qty));
       formData.append("price", JSON.stringify(this.price));
       formData.append("description", JSON.stringify(this.description));
@@ -2248,6 +2251,7 @@ __webpack_require__.r(__webpack_exports__);
       price: [],
       description: [],
       discount: [],
+      word_search: '',
       New: '',
       featured: '',
       status: '',
@@ -2567,8 +2571,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     disComponent: function disComponent(index) {
-      this.count -= 1;
-      this.counts.pop();
+      if (this.count > 1) {
+        this.count -= 1;
+        $this.counts.pop();
+      }
       // this.$delete(this.counts, index);
     },
     add: function add() {
@@ -3097,7 +3103,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var _this = this;
-    this.showtree();
     this.axios.post('/category').then(function (response) {
       _this.category = response.data;
       // this.$root.logo = 'Category'
@@ -3135,117 +3140,6 @@ __webpack_require__.r(__webpack_exports__);
 
         // this.$router.push('category')
       });
-    },
-    showtree: function showtree() {
-      var _this2 = this;
-      // console.log('in show tree', this.$route.params.id);
-      var uri = "/tree_product";
-      var gf = this;
-
-      // ------------هذا لاجل البحث في الشجره-----------------------------
-      var to = false;
-      $('#ricerca-enti').keyup(function () {
-        if (to) {
-          clearTimeout(to);
-        }
-        to = setTimeout(function () {
-          var v = $('#ricerca-enti').val();
-          $('#treeview_json_product').jstree(true).search(v);
-        }, 250);
-      });
-
-      // -------------------------------------------------
-
-      this.axios.post(uri).then(function (response) {
-        //   this.trees = response.data.trees;
-
-        _this2.jsonTreeData = response.data.trees;
-        _this2.attributes = response.data.attributes;
-        $("#treeview_json_product").jstree({
-          core: {
-            themes: {
-              responsive: false
-            },
-            // so that create works
-            check_callback: true,
-            data: _this2.jsonTreeData
-          },
-          // types: {
-          // default: {
-          //   icon: "fa fa-plus text-primary",
-          // },
-          // file: {
-          //   icon: "fa fa-file  text-primary",
-          // },
-          // },
-          // checkbox: {
-          //   three_state: false,
-
-          // },
-          state: {
-            key: "demo2"
-          },
-          search: {
-            case_insensitive: true,
-            show_only_matches: true
-          },
-          plugins: [
-          // "checkbox",
-          "contextmenu", "dnd", "massload", "search",
-          // "sort",
-          "state",
-          // "types",
-          "unique", "wholerow", "changed", "conditionalselect"],
-          contextmenu: {
-            items: {
-              renameItem: {
-                // The "rename" menu item
-                label: "تحرير",
-                action: function action(data) {
-                  console.log('تحرير');
-                }
-              },
-              deleteItem: {
-                // The "delete" menu item
-                label: "حذف",
-                action: function action(data) {
-                  console.log('حذف');
-                }
-              },
-              addItem: {
-                // The "delete" menu item
-                label: "اضافه",
-                action: function action(data) {
-                  console.log('اضافه');
-                }
-              }
-            }
-          }
-        }).on('rename_node.jstree', function (e, data) {}).on("changed.jstree", function (e, data) {
-          gf.parent = data.node.id;
-
-          // axios.post(`/category_filter/${data.node.id}`).then((response) => {
-
-          //     gf.showCatProduct = response.data;
-          //     gf.array_id.product_id = data.node.id;
-
-          // });
-        });
-      });
-
-      // $('#treeview_json_product').jstree(true).destroy();
-    },
-    add: function add() {
-      var currentObj = this;
-      this.axios.post('/store_category', {
-        parent: this.parent,
-        product: this.name,
-        items: this.checkedItems
-      }).then(function (response) {})["catch"](function (error) {
-        currentObj.output = error;
-      });
-
-      // this.$router.go(-1);
     },
     exports_excel: function exports_excel() {
       axios.post("/export_opening_inventuries").then(function (response) {
@@ -5138,7 +5032,7 @@ var staticRenderFns = [function () {
   }, [_c("a", {
     staticClass: "nav-link",
     attrs: {
-      href: "#tabq",
+      href: "#tab1",
       "data-toggle": "tab"
     }
   }, [_vm._v(" عرض")])]), _vm._v(" "), _c("li", {
@@ -5182,7 +5076,7 @@ var render = function render() {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-body"
-  }, [_c("fieldset", {
+  }, [_vm._m(0), _vm._v(" "), _c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
@@ -5198,8 +5092,8 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-md-12"
+  }, [_vm.status_product == "true" ? _c("div", {
+    staticClass: "col-md-6"
   }, [_c("label", {
     attrs: {
       "for": "pagoPrevio"
@@ -5226,8 +5120,36 @@ var render = function render() {
         _vm.product = $event.target.value;
       }
     }
+  })]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("label", {
+    attrs: {
+      "for": "pagoPrevio"
+    }
+  }, [_vm._v("الباركود")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.barcode,
+      expression: "barcode"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "number",
+      name: "barcode",
+      id: "barcode"
+    },
+    domProps: {
+      value: _vm.barcode
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.barcode = $event.target.value;
+      }
+    }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-12"
+    staticClass: "col-md-6"
   }, [_c("label", {
     attrs: {
       "for": "pagoPrevio"
@@ -5345,7 +5267,7 @@ var render = function render() {
     attrs: {
       value: "no"
     }
-  }, [_vm._v("no")])])])])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("fieldset", {
+  }, [_vm._v("no")])])])])])]), _vm._v(" "), _c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"

@@ -64,16 +64,25 @@ class ProductController extends Controller
             ->get();
         // -----------------------------------------------------------------------------------------------
         $filter->queryfilter($request['type']);
-       
+
         // $filter->queryfilter($request['type'])->filter();
 
-        
+
         return response()->json([
             'products' => $filter->data,
             'product_filterable_attributes' => $product_filterable_attributes
         ]);
 
         // return response()->json($filter->data);
+    }
+
+    public function get_product_status(Request $request)
+    {
+
+
+
+        $products = Product::where('id', $request->id)->get();
+        return response()->json(['product' => $products]);
     }
 
 
@@ -159,7 +168,7 @@ class ProductController extends Controller
 
 
 
-        // dd($this->request->all());
+        dd($this->request->all());
         $this->init_data($product_service);
         try {
             DB::beginTransaction(); // Tell Laravel all the code beneath this is a transaction
@@ -174,15 +183,14 @@ class ProductController extends Controller
 
                 // --------------------------------this save variant details of every product---------------
                 $product_service->save_product_family_attribute($this->request->file('image'), $value);
-                
+
                 // -----------------------------------this save attributes of every product------------------
                 $product_service->save_family_attribute_option($value);
-
-         
             }
 
 
-        // dd($product_service->arr_p);
+
+            // dd(Product::all());
             // ------------------------------------------------------------------------------------------------------
             DB::commit(); // Tell Laravel this transacion's all good and it can persist to DB
 
@@ -209,18 +217,18 @@ class ProductController extends Controller
 
 
 
-    // public function edit($id)
-    // {
+    public function edit($id)
+    {
 
-    //     $product = Product::find($id);
-
-
-    //     return response()->json([
-    //         'product' => $product,
+        $product = Product::find($id);
 
 
-    //     ]);
-    // }
+        return response()->json([
+            'product' => $product,
+
+
+        ]);
+    }
 
 
     public function update(Request $request)

@@ -127,7 +127,6 @@ export default {
 	},
 	mounted() {
 
-		this.showtree();
 		this.axios.post('/category').then(response => {
 			this.category = response.data;
 			// this.$root.logo = 'Category'
@@ -167,148 +166,11 @@ export default {
 
 			})
 		},
-		showtree() {
-
-			// console.log('in show tree', this.$route.params.id);
-			var uri = `/tree_product`;
-			var gf = this;
-
-
-			// ------------هذا لاجل البحث في الشجره-----------------------------
-			var to = false;
-			$('#ricerca-enti').keyup(function () {
-				if (to) {
-					clearTimeout(to);
-				}
-				to = setTimeout(function () {
-					var v = $('#ricerca-enti').val();
-					$('#treeview_json_product').jstree(true).search(v);
-				}, 250);
-			});
-
-			// -------------------------------------------------
-
-			this.axios.post(uri).then((response) => {
-				//   this.trees = response.data.trees;
-
-				this.jsonTreeData = response.data.trees;
-				this.attributes = response.data.attributes;
-				$(`#treeview_json_product`).jstree({
-					core: {
-						themes: {
-							responsive: false,
-						},
-						// so that create works
-						check_callback: true,
-						data: this.jsonTreeData,
-					},
-					// types: {
-					// default: {
-					//   icon: "fa fa-plus text-primary",
-					// },
-					// file: {
-					//   icon: "fa fa-file  text-primary",
-					// },
-					// },
-					// checkbox: {
-					//   three_state: false,
-
-					// },
-					state: {
-						key: "demo2"
-					},
-					search: {
-						case_insensitive: true,
-						show_only_matches: true
-					},
-					plugins: [
-						// "checkbox",
-						"contextmenu",
-						"dnd",
-						"massload",
-						"search",
-						// "sort",
-						"state",
-						// "types",
-						"unique",
-						"wholerow",
-						"changed",
-						"conditionalselect"],
-					contextmenu: {
-						items: {
-
-							renameItem: {
-								// The "rename" menu item
-								label: "تحرير",
-								action: function (data) {
-
-									console.log('تحرير');
-								},
-							},
-							deleteItem: {
-								// The "delete" menu item
-								label: "حذف",
-								action: function (data) {
-
-									console.log('حذف');
-
-								},
-							},
-							addItem: {
-								// The "delete" menu item
-								label: "اضافه",
-								action: function (data) {
-
-
-									console.log('اضافه');
-
-
-								},
-							},
-
-						}
-					},
-
-				}).on('rename_node.jstree', function (e, data) {
-
-				}).on("changed.jstree", function (e, data) {
-
-					gf.parent = data.node.id;
-
-
-					// axios.post(`/category_filter/${data.node.id}`).then((response) => {
-
-					//     gf.showCatProduct = response.data;
-					//     gf.array_id.product_id = data.node.id;
-
-					// });
-
-				});
-
-			});
-
-			// $('#treeview_json_product').jstree(true).destroy();
-
-		},
+	
 
 
 
-		add() {
 
-			let currentObj = this;
-
-
-			this.axios.post('/store_category', { parent: this.parent, product: this.name, items: this.checkedItems })
-				.then(function (response) {
-
-				})
-				.catch(function (error) {
-					currentObj.output = error;
-				});
-
-			// this.$router.go(-1);
-
-		},
 		exports_excel() {
 
 			axios

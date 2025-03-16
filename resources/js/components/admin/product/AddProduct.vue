@@ -6,24 +6,87 @@
                 <div class="col-md-12">
                     <div class="card">
 
-                    
+
 
                         <div class="card-body">
 
 
                             <fieldset class="border rounded-3 p-3">
+                                <legend class="float-none w-auto px-3">شحره الاصناف </legend>
+
+
+
+
+
+
+
+
+                                <div class="input-group">
+
+
+                                    <input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
+                                        aria-describedby="search-addon">
+
+
+                                </div>
+
+                                <div id="treeview_json_product">
+                                    <div id="test">
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+                            </fieldset>
+                            <fieldset class="border rounded-3 p-3">
                                 <legend class="float-none w-auto px-3">بياتات المنتج</legend>
                                 <form @submit.prevent="formSubmit" enctype="multipart/form-data">
                                     <div class="row">
 
-                                        <div class="col-md-12">
+                                        <div v-if="status_product == 'true'" class="col-md-6">
                                             <label for="pagoPrevio">المنتج</label>
                                             <input v-model="product" type="text" name="Product" id="Product"
                                                 class="form-control">
 
 
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label for="pagoPrevio">الباركود</label>
+                                            <input v-model="barcode" type="number" name="barcode" id="barcode"
+                                                class="form-control">
+
+
+                                        </div>
+
+                                        <!-- <div class="col-md-6">
+                                            <label for="pagoPrevio">نوع المنتج</label>
+
+                                            <select v-model="product_type" name="product_type" id="Category"
+                                                class="form-control">
+                                                <option v-bind:value="1">
+                                                    فردي
+                                                </option>
+                                                <option v-bind:value="2">
+                                                    تجميعي
+                                                </option>
+                                                <option v-bind:value="3">
+                                                    متباين
+                                                </option>
+
+
+
+                                            </select>
+
+
+                                        </div> -->
+
+                                        <div class="col-md-6">
                                             <label for="pagoPrevio">مجموعه الخواص</label>
 
                                             <select @change="get_attribute()" v-model="family_attribute" name="Category"
@@ -70,39 +133,7 @@
                             </fieldset>
 
 
-                            <fieldset class="border rounded-3 p-3">
-                                <legend class="float-none w-auto px-3">شحره الاصناف </legend>
 
-
-
-
-
-
-
-
-                                <div class="input-group">
-
-
-                                    <input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
-                                        aria-describedby="search-addon">
-
-
-                                </div>
-
-                                <div id="treeview_json_product">
-                                    <div id="test">
-
-                                    </div>
-                                </div>
-
-
-
-
-
-
-
-
-                            </fieldset>
 
 
 
@@ -154,7 +185,7 @@
                                                                     class="col-md-12">
                                                                     <label for="pagoPrevio"> {{
                                                                         atta2.attribute.name
-                                                                        }}</label>
+                                                                    }}</label>
 
                                                                     <select
                                                                         @change="addFind(index, index2, $event, atta2.id)"
@@ -282,6 +313,8 @@ export default {
             New: '',
             featured: '',
             status: '',
+            status_product: 'true',
+
             image: '',
             categoryselected: '',
             parentselected: 0,
@@ -338,8 +371,12 @@ export default {
             this.att_family = Array.from(Array(this.count), () => new Array(2))
         },
         disComponent(index) {
-            this.count -= 1;
-            $this.counts.pop();
+            if(this.count>1){
+
+                this.count -= 1;
+                $this.counts.pop();
+            }
+        
             // this.$delete(this.counts, index);
         },
         addFind(index, index2, event, att) {
@@ -477,14 +514,17 @@ export default {
                 }).on('rename_node.jstree', function (e, data) {
 
                 }).on("changed.jstree", function (e, data) {
+                 
 
-                    gf.product_id = data.node.id;
-                    // axios.post(`/category_filter/${data.node.id}`).then((response) => {
 
-                    //     gf.showCatProduct = response.data;
-                    //     gf.array_id.product_id = data.node.id;
+                    axios.post(`/get_product_status/${data.node.id}`).then((response) => {
 
-                    // });
+                        console.log('muhibbbbbbbbb',response.data.product);
+
+                        gf.status_product = response.data.product.status;
+                        // gf.array_id.product_id = data.node.id;
+
+                    });
 
                 });
 
@@ -520,6 +560,7 @@ export default {
             formData.append("family_id", this.family_attribute);
             formData.append("product_attr", JSON.stringify(this.att_family));
             formData.append("status", 'false');
+            formData.append("status_product", this.status_product);
             formData.append("qty", JSON.stringify(this.qty));
             formData.append("price", JSON.stringify(this.price));
             formData.append("description", JSON.stringify(this.description));

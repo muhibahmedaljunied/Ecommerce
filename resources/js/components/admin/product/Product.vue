@@ -191,7 +191,7 @@ export default {
 			price: [],
 			description: [],
 			discount: [],
-
+			word_search:'',
 			New: '',
 			featured: '',
 			status: '',
