@@ -7,7 +7,9 @@
                     <div class="card">
 
 
-
+                        <div class="card-header">
+                        تعديل المنتجات
+                    </div>
                         <div class="card-body">
 
 

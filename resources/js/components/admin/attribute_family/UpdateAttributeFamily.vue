@@ -6,7 +6,9 @@
         <div class="row row-sm">
             <div class="col-xl-12">
                 <div class="card">
-                   
+                    <div class="card-header">
+                            تعديل مجموعه الاصناف
+                        </div>
                     <div class="card-body">
 
                         <form class="row g-3">

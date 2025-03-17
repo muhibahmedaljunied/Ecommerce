@@ -6379,6 +6379,8 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card"
   }, [_c("div", {
+    staticClass: "card-header"
+  }, [_vm._v("\n                        تعديل الخواص\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     staticClass: "row g-3"
@@ -6456,7 +6458,7 @@ var render = function render() {
         name: "model",
         rawName: "v-model",
         value: _vm.data.attribute_option[index - 1].value,
-        expression: "data.attribute_option[index-1].value"
+        expression: "data.attribute_option[index - 1].value"
       }],
       staticClass: "form-control",
       attrs: {
@@ -6479,7 +6481,7 @@ var render = function render() {
         name: "model",
         rawName: "v-model",
         value: _vm.data.attribute_option[index - 1].code,
-        expression: "data.attribute_option[index-1].code"
+        expression: "data.attribute_option[index - 1].code"
       }],
       staticClass: "form-control",
       attrs: {
@@ -6854,6 +6856,8 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card"
   }, [_c("div", {
+    staticClass: "card-header"
+  }, [_vm._v("\n                        تعديل مجموعه الاصناف\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     staticClass: "row g-3"
@@ -7285,6 +7289,8 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card"
   }, [_c("div", {
+    staticClass: "card-header"
+  }, [_vm._v("\n                        تعديل الاصناف\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     staticClass: "row g-3"
@@ -9091,6 +9097,8 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card"
   }, [_c("div", {
+    staticClass: "card-header"
+  }, [_vm._v("\n                    تعديل المنتجات\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_vm._m(0), _vm._v(" "), _c("fieldset", {
     staticClass: "border rounded-3 p-3"
@@ -9631,7 +9639,9 @@ var render = function render() {
     staticClass: "col-xl-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_vm._v("\n                        تعديل المستخدمين\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "form"
@@ -9706,19 +9716,7 @@ var render = function render() {
     }
   }, [_vm._v("حفظ")])])])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header pb-0"
-  }, [_c("div", {
-    staticClass: "d-flex justify-content-between"
-  }, [_c("h4", {
-    staticClass: "card-title mg-b-0"
-  }, [_vm._v("المستخدمين")]), _vm._v(" "), _c("i", {
-    staticClass: "mdi mdi-dots-horizontal text-gray"
-  })])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 

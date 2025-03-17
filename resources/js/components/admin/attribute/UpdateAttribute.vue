@@ -6,7 +6,9 @@
             <div class="row row-sm">
                 <div class="col-xl-12">
                     <div class="card">
-
+                        <div class="card-header">
+                            تعديل الخواص
+                        </div>
                         <div class="card-body">
 
 
@@ -52,13 +54,14 @@
 
 
                                                             <td>
-                                                                <input v-model="data.attribute_option[index-1].value" type="text"
-                                                                    class="form-control" name="name" id="name"
-                                                                    required />
+                                                                <input v-model="data.attribute_option[index - 1].value"
+                                                                    type="text" class="form-control" name="name"
+                                                                    id="name" required />
                                                             </td>
                                                             <td>
-                                                                <input v-model="data.attribute_option[index-1].code" type="text"
-                                                                    class="form-control" name="name" id="name" />
+                                                                <input v-model="data.attribute_option[index - 1].code"
+                                                                    type="text" class="form-control" name="name"
+                                                                    id="name" />
                                                             </td>
 
 

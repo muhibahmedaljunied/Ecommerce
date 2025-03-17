@@ -7,7 +7,9 @@
 
                 <div class="col-md-12">
                     <div class="card">
-
+                        <div class="card-header">
+                            تعديل الاصناف
+                        </div>
                         <div class="card-body">
 
                             <form class="row g-3">
@@ -85,7 +87,7 @@
                                                 <input v-model="checkedItems" :value="item.id" id="checkedItems"
                                                     class="form-check-input" type="checkbox">
                                                 <label class="form-check-label" for="inlineCheckbox1">{{ item.name
-                                                    }}</label>
+                                                }}</label>
                                             </div>
 
 
