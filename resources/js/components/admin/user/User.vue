@@ -34,7 +34,7 @@
 									<th class="wd-15p border-bottom-0">الحاله</th>
 									<!-- <th class="wd-20p border-bottom-0">Created At</th>
 												<th class="wd-15p border-bottom-0">Updated At</th> -->
-									<!-- <th class="wd-15p border-bottom-0"> العمليات</th> -->
+									<th class="wd-15p border-bottom-0"> العمليات</th>
 
 
 
@@ -50,21 +50,18 @@
 									<td>{{ users.status }}</td>
 									<!-- <td> {{users.created_at}}</td>
 												<td>{{users.updated_at}}</td> -->
-									<td>
-										<!-- <button type = 'button' @click ="delete_user(users.id)"  class="btn btn-danger"><i class="mdi mdi-account-minus"></i></button>
-							                  	    <router-link  :to ="{name: 'edit_user', params: { id: users.id }}"  class="btn btn-success"><i class="mdi mdi-account-minus"></i></router-link> -->
-									</td>
+												<td>
+											<button type='button'
+												class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+											<router-link :to="{ name: 'edit_user', params: { data: users } }"
+												class="edit btn btn-success btn-sm"> <i
+													class="fa fa-edit"></i></router-link>
+										</td>
 
 								</tr>
 
 							</tbody>
-							<tbody>
-								<tr>
-									<td style="text-align: center;" colspan="5">
-										لايوجد اي بيانات
-									</td>
-								</tr>
-							</tbody>
+					
 						</table>
 					</div>
 				</div>

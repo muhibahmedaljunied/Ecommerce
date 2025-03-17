@@ -3683,31 +3683,15 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
-      user: {
-        id: '',
-        name: '',
-        status: ''
-      }
-    };
+    return {};
   },
   props: ['data'],
-  created: function created() {
-    var _this = this;
-    var uri = "/user/".concat(this.$route.params.id);
-    this.axios.get(uri).then(function (response) {
-      _this.user.id = response.data.id;
-      _this.user.name = response.data.name;
-      _this.user.status = response.data.status;
-    });
-  },
   methods: {
-    updateuser: function updateuser(event) {
-      var _this2 = this;
-      var uri = "/update_user/".concat(this.$route.params.id);
-      axios.post(uri).then(function (response) {
+    adduser: function adduser(event) {
+      var _this = this;
+      this.axios.post("/store_user").then(function (response) {
         event.preventDefault();
-        _this2.$router.push('user');
+        _this.$router.push('user');
       });
     }
   }
@@ -9651,40 +9635,17 @@ var render = function render() {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "form"
-  }, [_c("h3", {
-    staticClass: "text-center"
-  }, [_vm._v("Update user")]), _vm._v(" "), _c("form", {
+  }, [_c("form", {
     attrs: {
       method: "post"
     },
     on: {
       submit: function submit($event) {
         $event.preventDefault();
-        return _vm.updateuser.apply(null, arguments);
+        return _vm.adduser.apply(null, arguments);
       }
     }
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.user.id,
-      expression: "user.id"
-    }],
-    attrs: {
-      type: "hidden",
-      name: "id_name",
-      id: "id_name"
-    },
-    domProps: {
-      value: _vm.user.id
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.user, "id", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "form-group"
   }, [_c("label", {
     attrs: {
@@ -9694,8 +9655,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.user.name,
-      expression: "user.name"
+      value: _vm.data.name,
+      expression: "data.name"
     }],
     attrs: {
       type: "text",
@@ -9703,12 +9664,12 @@ var render = function render() {
       id: "name"
     },
     domProps: {
-      value: _vm.user.name
+      value: _vm.data.name
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.user, "name", $event.target.value);
+        _vm.$set(_vm.data, "name", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("div", {
@@ -9721,8 +9682,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.user.status,
-      expression: "user.status"
+      value: _vm.data.status,
+      expression: "data.status"
     }],
     attrs: {
       type: "text",
@@ -9730,12 +9691,12 @@ var render = function render() {
       id: "status"
     },
     domProps: {
-      value: _vm.user.status
+      value: _vm.data.status
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.user, "status", $event.target.value);
+        _vm.$set(_vm.data, "status", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("button", {
@@ -9754,15 +9715,9 @@ var staticRenderFns = [function () {
     staticClass: "d-flex justify-content-between"
   }, [_c("h4", {
     staticClass: "card-title mg-b-0"
-  }, [_vm._v("SIMPLE TABLE")]), _vm._v(" "), _c("i", {
+  }, [_vm._v("المستخدمين")]), _vm._v(" "), _c("i", {
     staticClass: "mdi mdi-dots-horizontal text-gray"
-  })]), _vm._v(" "), _c("p", {
-    staticClass: "tx-12 tx-gray-500 mb-2"
-  }, [_vm._v("Example of Valex Simple Table. "), _c("a", {
-    attrs: {
-      href: ""
-    }
-  }, [_vm._v("Learn more")])])]);
+  })])]);
 }];
 render._withStripped = true;
 
@@ -9847,8 +9802,20 @@ var render = function render() {
       id: "example1"
     }
   }, [_vm._m(0), _vm._v(" "), _vm.user && _vm.user.length > 0 ? _c("tbody", _vm._l(_vm.user, function (users) {
-    return _c("tr", [_c("td", [_vm._v(_vm._s(users.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.phone))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.address))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.status))]), _vm._v(" "), _c("td")]);
-  }), 0) : _vm._e(), _vm._v(" "), _vm._m(1)])])])])])]);
+    return _c("tr", [_c("td", [_vm._v(_vm._s(users.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.phone))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.address))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.status))]), _vm._v(" "), _c("td", [_vm._m(1, true), _vm._v(" "), _c("router-link", {
+      staticClass: "edit btn btn-success btn-sm",
+      attrs: {
+        to: {
+          name: "edit_user",
+          params: {
+            data: users
+          }
+        }
+      }
+    }, [_c("i", {
+      staticClass: "fa fa-edit"
+    })])], 1)]);
+  }), 0) : _vm._e()])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -9863,18 +9830,20 @@ var staticRenderFns = [function () {
     staticClass: "wd-15p border-bottom-0"
   }, [_vm._v("العنوان")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الحاله")])])]);
+  }, [_vm._v("الحاله")]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(" العمليات")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("tbody", [_c("tr", [_c("td", {
-    staticStyle: {
-      "text-align": "center"
-    },
+  return _c("button", {
+    staticClass: "btn btn-danger btn-sm",
     attrs: {
-      colspan: "5"
+      type: "button"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t")])])]);
+  }, [_c("i", {
+    staticClass: "fa fa-trash"
+  })]);
 }];
 render._withStripped = true;
 
