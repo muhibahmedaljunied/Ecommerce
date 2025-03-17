@@ -3,7 +3,7 @@
 
 	<div class="container-fluid">
 
-	
+
 
 
 		<div class="row row-sm">
@@ -76,7 +76,8 @@
 										<td>
 											<button type='button' class="btn btn-danger btn-sm"><i
 													class="fa fa-trash"></i></button>
-											<router-link :to="{ name: 'edit_size', params: { id: family.id } }"
+											<router-link
+												:to="{ name: 'edit_attribute_family', params: { id: family.id } }"
 												class="btn btn-success btn-sm"><i class="fa fa-edit"></i></router-link>
 
 
@@ -108,7 +109,9 @@
 	<!-- /row -->
 </template>
 <script>
+
 export default {
+	
 	data() {
 		return {
 
@@ -169,7 +172,7 @@ export default {
 		// 	})
 		// },
 
-	
+
 		exports_excel() {
 
 			axios

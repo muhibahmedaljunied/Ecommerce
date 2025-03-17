@@ -114,6 +114,7 @@ import ListApi from './components/api/ListApi'
    { 
     path: '/edit_attribute/:id', 
     name:'edit_attribute',
+    props: true,
     component: UpdateAttribute
   },
   // { 

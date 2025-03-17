@@ -121,4 +121,25 @@ class AttributeController extends Controller
             ], 400);
         }
     }
+
+    public function edit(Request $request)
+    {
+
+        // dd($request->id);
+
+       
+
+
+
+    }
+    public function update(Request $request)
+    {
+
+        // dd($request->all());
+
+       
+
+
+
+    }
 }

@@ -98,9 +98,10 @@
 													<button type='button' class="btn btn-danger btn-sm"><i
 															class="fa fa-trash"></i></button>
 													<router-link
-														:to="{ name: 'edit_Attribute', params: { id: attribute.id } }"
+														:to="{ name: 'edit_attribute', params: { data: attribute.id } }"
 														class="btn btn-success btn-sm"><i
 															class="fa fa-edit"></i></router-link>
+												
 												</td>
 
 											</tr>
@@ -127,7 +128,9 @@
 	<!-- /row -->
 </template>
 <script>
+
 export default {
+	
 	data() {
 		return {
 			attributes: '',
@@ -139,6 +142,7 @@ export default {
 			counts: {},
 			count: 1,
 			value: [],
+			msg:'',
 
 
 		}

@@ -51,6 +51,8 @@
                   }
             }
         },
+        props: ['data'],
+
       created() {
             let uri = `/user/${this.$route.params.id }`;
             this.axios.get(uri).then(response => {

@@ -1,95 +1,134 @@
 <template>
-    	<!-- row opened -->
-				<div class="row row-sm">
-					<div class="col-xl-12">
-						<div class="card">
-							<div class="card-header pb-0">
-								<div class="d-flex justify-content-between">
-                                    <h4 class="card-title mg-b-0">مقاسات المنتج</h4>
-									<i class="mdi mdi-dots-horizontal text-gray"></i>
-								</div>
-							</div>
-							<div class="card-body">
-                                 <div class="form">
-                    <form method="post" @submit.prevent="updateattribute_family">
+    <div class="wrapper">
+        <div class="container-fluid">
 
-                     <input v-model ='attribute_family.id' type="hidden"  name="id_name" id="id_name">
-                    <div class="form-group">
-                        <label for="name">الاسم</label>
-                        <input v-model='attribute_family.name' type="text"  name="name" id="name" class="form-control">
-                       
+        </div>
+        <div class="row row-sm">
+            <div class="col-xl-12">
+                <div class="card">
+                   
+                    <div class="card-body">
+
+                        <form class="row g-3">
+
+
+
+
+
+
+
+
+                            <fieldset>
+
+                                <legend>الاسم</legend>
+
+                                <input v-model="name" type="text" class="form-control" id="inputZip">
+
+                            </fieldset>
+
+
+
+
+                            <fieldset>
+                                <legend>الرمز</legend>
+
+                                <input v-model="code" type="text" class="form-control" id="inputZip">
+                            </fieldset>
+
+
+                            <fieldset>
+                                <legend>الخواص</legend>
+
+                                <div v-for="item in attributes" class="form-check form-check-inline">
+                                    <!-- <label class="form-check-label" for="inlineCheckbox1">الخواص</label> -->
+                                    <input v-model="checkedItems" :value="item.id" id="checkedItems"
+                                        class="form-check-input" type="checkbox">
+                                    <label class="form-check-label" for="inlineCheckbox1">{{ item.name
+                                        }}</label>
+                                </div>
+                            </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+                            <fieldset>
+
+                                <button @click="add()" type="button" class="btn btn-primary">حفظ</button>
+
+                            </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </form>
                     </div>
 
-                    <div class="form-group">
-                        <label for="status">الحاله</label>
-                        <input v-model='attribute_family.status' type="text"  name="status" id="status" class="form-control">
-                       
-                    </div>
+                    <div class="card-footer">
 
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">حفظ</button>
-                </form>
+
+                    </div>
+                </div>
             </div>
-								
-							</div>
-						</div>
-					</div>
-					<!--/div-->
-				</div>
-				<!-- /row -->
-			
+
+        </div>
+
+    </div>
+
 </template>
 <script>
-    export default {
-        data(){
-          return{
-            attribute_family:{
-                  id:'',
-                  name:'',
-                  status:''
-                  }
-            }
-        },
-      created() {
-            let uri = `/attribute_family/${this.$route.params.id}`;
-            this.axios.post(uri).then(response => {
+export default {
+    data() {
+        return {
+            name: '',
+            code: '',
+            message: [],
 
-                this.attribute_family.id = response.data.id;
-                this.attribute_family.name = response.data.name;
-                this.attribute_family.status = response.data.status;
-
-            });
-        },
-        methods:{
-            updateattribute_family(event){
-            let uri = `/update_attribute_family/${this.$route.params.id}`;
-            axios.post(uri,{name: this.attribute_family.name, status:this.attribute_family.status}).then(response => {
-                    event.preventDefault();
-                    toast.fire({
-                                title: "Updated!",
-                                text: "Your category has been updated.",
-                                button: "Close", // Text on button
-                                icon: "success", //built in icons: success, warning, error, info
-                                timer: 3000, //timeOut for auto-close
-                                buttons: {
-                                    confirm: {
-                                    text: "OK",
-                                    value: true,
-                                    visible: true,
-                                    className: "",
-                                    closeModal: true
-                                    },
-                                    cancel: {
-                                    text: "Cancel",
-                                    value: false,
-                                    visible: true,
-                                    className: "",
-                                    closeModal: true,
-                                    }
-                                }
-                            })
-                    // this.$router.push('attribute_family')
-            })
-            }
+            attributes: '',
+            checkedItems: [],
         }
+    },
+    props: ['data'],
+
+    mounted() {
+		// console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
+		this.counts[0] = 1;
+		this.axios.post(`/edit_attribute_family/${id}`).then(response => {
+			this.attributes = response.data.attribute_family;
+		})
+	},
+    methods: {
+
+
+        add() {
+
+            this.axios.post(`/store_attribute_family_mapping`, {
+                name: this.name,
+                code: this.code,
+                item: this.checkedItems
+
+            }).then((response) => {
+
+            })
+            // this.$router.go(-1);
+
+        },
     }
+}
 </script>
