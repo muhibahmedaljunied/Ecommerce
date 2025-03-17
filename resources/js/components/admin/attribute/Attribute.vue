@@ -98,7 +98,7 @@
 													<button type='button' class="btn btn-danger btn-sm"><i
 															class="fa fa-trash"></i></button>
 													<router-link
-														:to="{ name: 'edit_attribute', params: { data: attribute.id } }"
+														:to="{ name: 'edit_attribute', params: { data: attribute } }"
 														class="btn btn-success btn-sm"><i
 															class="fa fa-edit"></i></router-link>
 												

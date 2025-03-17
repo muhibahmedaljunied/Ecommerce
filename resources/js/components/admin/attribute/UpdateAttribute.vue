@@ -17,18 +17,17 @@
 
 
 
-                                    {{ data }}
                                     <fieldset class="border rounded-3 p-3">
                                         <legend class="float-none w-auto px-3">الاسم</legend>
 
-                                        <input v-model="name" type="text" class="form-control">
+                                        <input v-model="data.name" type="text" class="form-control">
                                     </fieldset>
 
                                     <fieldset class="border rounded-3 p-3">
                                         <legend class="float-none w-auto px-3">الرمز</legend>
 
 
-                                        <input v-model="code" type="text" class="form-control">
+                                        <input v-model="data.code" type="text" class="form-control">
                                     </fieldset>
 
 
@@ -53,12 +52,12 @@
 
 
                                                             <td>
-                                                                <input v-model="value[index]" type="text"
+                                                                <input v-model="data.attribute_option[index].value" type="text"
                                                                     class="form-control" name="name" id="name"
                                                                     required />
                                                             </td>
                                                             <td>
-                                                                <input v-model="code_value[index]" type="text"
+                                                                <input v-model="data.attribute_option[index].code" type="text"
                                                                     class="form-control" name="name" id="name" />
                                                             </td>
 
@@ -127,7 +126,8 @@ export default {
 
     mounted() {
         // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.$route.params.data.id);
-        console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data);
+        // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data);
+        // this.count = data.attribute_option.length;
         this.counts[0] = 1;
         // this.axios.post(`/edit_attribute/${this.$route.params.data.id}`).then(response => {
         //     this.attributes = response.data.attributes;

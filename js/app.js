@@ -2703,7 +2703,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ['data'],
   mounted: function mounted() {
     // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.$route.params.data.id);
-    console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data);
+    // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data);
+    // this.count = data.attribute_option.length;
     this.counts[0] = 1;
     // this.axios.post(`/edit_attribute/${this.$route.params.data.id}`).then(response => {
     //     this.attributes = response.data.attributes;
@@ -6315,7 +6316,7 @@ var render = function render() {
         to: {
           name: "edit_attribute",
           params: {
-            data: attribute.id
+            data: attribute
           }
         }
       }
@@ -6396,7 +6397,7 @@ var render = function render() {
     staticClass: "row g-3"
   }, [_c("div", {
     staticClass: "col-md-12"
-  }, [_vm._v("\n\n\n\n                                " + _vm._s(_vm.data) + "\n                                "), _c("fieldset", {
+  }, [_c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
@@ -6404,20 +6405,20 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.name,
-      expression: "name"
+      value: _vm.data.name,
+      expression: "data.name"
     }],
     staticClass: "form-control",
     attrs: {
       type: "text"
     },
     domProps: {
-      value: _vm.name
+      value: _vm.data.name
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.name = $event.target.value;
+        _vm.$set(_vm.data, "name", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("fieldset", {
@@ -6428,20 +6429,20 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.code,
-      expression: "code"
+      value: _vm.data.code,
+      expression: "data.code"
     }],
     staticClass: "form-control",
     attrs: {
       type: "text"
     },
     domProps: {
-      value: _vm.code
+      value: _vm.data.code
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.code = $event.target.value;
+        _vm.$set(_vm.data, "code", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("fieldset", {
@@ -6467,8 +6468,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.value[index],
-        expression: "value[index]"
+        value: _vm.data.attribute_option[index].value,
+        expression: "data.attribute_option[index].value"
       }],
       staticClass: "form-control",
       attrs: {
@@ -6478,20 +6479,20 @@ var render = function render() {
         required: ""
       },
       domProps: {
-        value: _vm.value[index]
+        value: _vm.data.attribute_option[index].value
       },
       on: {
         input: function input($event) {
           if ($event.target.composing) return;
-          _vm.$set(_vm.value, index, $event.target.value);
+          _vm.$set(_vm.data.attribute_option[index], "value", $event.target.value);
         }
       }
     })]), _vm._v(" "), _c("td", [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.code_value[index],
-        expression: "code_value[index]"
+        value: _vm.data.attribute_option[index].code,
+        expression: "data.attribute_option[index].code"
       }],
       staticClass: "form-control",
       attrs: {
@@ -6500,12 +6501,12 @@ var render = function render() {
         id: "name"
       },
       domProps: {
-        value: _vm.code_value[index]
+        value: _vm.data.attribute_option[index].code
       },
       on: {
         input: function input($event) {
           if ($event.target.composing) return;
-          _vm.$set(_vm.code_value, index, $event.target.value);
+          _vm.$set(_vm.data.attribute_option[index], "code", $event.target.value);
         }
       }
     })]), _vm._v(" "), index == 1 ? _c("td", [_c("a", {
