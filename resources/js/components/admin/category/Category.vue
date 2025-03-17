@@ -68,7 +68,7 @@
 										<td>
 											<button type='button' @click="delete_category(categorys.id)"
 												class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-											<router-link :to="{ name: 'edit_category', params: { id: categorys.id } }"
+											<router-link :to="{ name: 'edit_category', params: { data: categorys } }"
 												class="edit btn btn-success btn-sm"> <i
 													class="fa fa-edit"></i></router-link>
 										</td>

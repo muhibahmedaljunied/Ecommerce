@@ -125,7 +125,7 @@
 																			class="btn btn-danger btn-sm"><i
 																				class="fa fa-trash"></i></button>
 																		<router-link
-																			:to="{ name: 'edit_product', params: { id: 1 } }"
+																			:to="{ name: 'edit_product', params: { data: productss } }"
 																			class="btn btn-success btn-sm"><i
 																				class="fa fa-edit"></i></router-link>
 

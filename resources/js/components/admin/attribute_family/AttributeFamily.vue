@@ -77,7 +77,7 @@
 											<button type='button' class="btn btn-danger btn-sm"><i
 													class="fa fa-trash"></i></button>
 											<router-link
-												:to="{ name: 'edit_attribute_family', params: { id: family.id } }"
+												:to="{ name: 'edit_attribute_family', params: { data: family } }"
 												class="btn btn-success btn-sm"><i class="fa fa-edit"></i></router-link>
 
 

@@ -69,6 +69,7 @@ import ListApi from './components/api/ListApi'
   { 
     path: '/edit_category/:id', 
     name:'edit_category',
+    props: true,
     component: UpdateCategory
   },
   // { 
@@ -84,6 +85,7 @@ import ListApi from './components/api/ListApi'
   { 
     path: '/edit_user/:id', 
     name:'edit_user',
+    props: true,
     component: UpdateUser
   },
   { 
@@ -99,6 +101,7 @@ import ListApi from './components/api/ListApi'
    { 
     path: '/edit_product/:id', 
     name:'edit_product',
+    props: true,
     component: UpdateProduct
   },
   // { 
@@ -130,6 +133,7 @@ import ListApi from './components/api/ListApi'
    { 
     path: '/edit_attribute_family/:id', 
     name:'edit_attribute_family',
+    props: true,
     component: UpdateAttributeFamily
   },
   // { 

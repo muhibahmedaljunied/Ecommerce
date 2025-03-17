@@ -52,12 +52,12 @@
 
 
                                                             <td>
-                                                                <input v-model="data.attribute_option[index].value" type="text"
+                                                                <input v-model="data.attribute_option[index-1].value" type="text"
                                                                     class="form-control" name="name" id="name"
                                                                     required />
                                                             </td>
                                                             <td>
-                                                                <input v-model="data.attribute_option[index].code" type="text"
+                                                                <input v-model="data.attribute_option[index-1].code" type="text"
                                                                     class="form-control" name="name" id="name" />
                                                             </td>
 

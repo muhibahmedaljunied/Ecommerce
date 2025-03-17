@@ -300,6 +300,8 @@
     </div>
 </template>
 <script>
+import { data } from 'jquery';
+
 export default {
     data() {
         return {
@@ -342,9 +344,9 @@ export default {
     mounted() {
         // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
         this.counts[0] = 1;
-        this.axios.post(`/edit_product/${id}`).then(response => {
-            this.attributes = response.data.attribute_family;
-        })
+        // this.axios.post(`/edit_product/${id}`).then(response => {
+        //     this.attributes = response.data.attribute_family;
+        // })
 
         this.showtree();
         this.att_family = Array.from(Array(this.count), () => new Array(this.count_attributes))

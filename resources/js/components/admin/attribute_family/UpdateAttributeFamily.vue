@@ -22,7 +22,7 @@
 
                                 <legend>الاسم</legend>
 
-                                <input v-model="name" type="text" class="form-control" id="inputZip">
+                                <input v-model="data.name" type="text" class="form-control" id="inputZip">
 
                             </fieldset>
 
@@ -32,18 +32,19 @@
                             <fieldset>
                                 <legend>الرمز</legend>
 
-                                <input v-model="code" type="text" class="form-control" id="inputZip">
+                                <input v-model="data.code" type="text" class="form-control" id="inputZip">
                             </fieldset>
 
 
                             <fieldset>
                                 <legend>الخواص</legend>
 
-                                <div v-for="item in attributes" class="form-check form-check-inline">
+                                <div v-for="item in data.attribute_family_mapping" class="form-check form-check-inline">
+
                                     <!-- <label class="form-check-label" for="inlineCheckbox1">الخواص</label> -->
-                                    <input v-model="checkedItems" :value="item.id" id="checkedItems"
-                                        class="form-check-input" type="checkbox">
-                                    <label class="form-check-label" for="inlineCheckbox1">{{ item.name
+                                    <input v-model="checkedItems" :value="item.attribute.code" id="checkedItems"
+                                        class="form-check-input" type="checkbox" >
+                                    <label class="form-check-label" for="inlineCheckbox1">{{ item.attribute.name
                                         }}</label>
                                 </div>
                             </fieldset>
@@ -108,10 +109,10 @@ export default {
 
     mounted() {
 		// console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
-		this.counts[0] = 1;
-		this.axios.post(`/edit_attribute_family/${id}`).then(response => {
-			this.attributes = response.data.attribute_family;
-		})
+
+		// this.axios.post(`/edit_attribute_family/${id}`).then(response => {
+		// 	this.attributes = response.data.attribute_family;
+		// })
 	},
     methods: {
 

@@ -30,7 +30,7 @@
 
 
 
-                                        <input v-model="name" type="text" class="form-control" id="inputAddress">
+                                        <input v-model="data.text" type="text" class="form-control" id="inputAddress">
 
 
 
@@ -146,9 +146,9 @@ export default {
 
     mounted() {
         // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
-        this.axios.post(`/edit_category/${id}`).then(response => {
-            this.attributes = response.data.attribute_family;
-        })
+        // this.axios.post(`/edit_category/${id}`).then(response => {
+        //     this.attributes = response.data.attribute_family;
+        // })
 
         this.showtree();
     },

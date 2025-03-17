@@ -2883,12 +2883,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['data'],
   mounted: function mounted() {
-    var _this = this;
     // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
-    this.counts[0] = 1;
-    this.axios.post("/edit_attribute_family/".concat(id)).then(function (response) {
-      _this.attributes = response.data.attribute_family;
-    });
+
+    // this.axios.post(`/edit_attribute_family/${id}`).then(response => {
+    // 	this.attributes = response.data.attribute_family;
+    // })
   },
   methods: {
     add: function add() {
@@ -3155,16 +3154,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['data'],
   mounted: function mounted() {
-    var _this = this;
     // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
-    this.axios.post("/edit_category/".concat(id)).then(function (response) {
-      _this.attributes = response.data.attribute_family;
-    });
+    // this.axios.post(`/edit_category/${id}`).then(response => {
+    //     this.attributes = response.data.attribute_family;
+    // })
+
     this.showtree();
   },
   methods: {
     showtree: function showtree() {
-      var _this2 = this;
+      var _this = this;
       // console.log('in show tree', this.$route.params.id);
       var uri = "/tree_product";
       var gf = this;
@@ -3186,8 +3185,8 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.post(uri).then(function (response) {
         //   this.trees = response.data.trees;
 
-        _this2.jsonTreeData = response.data.trees;
-        _this2.attributes = response.data.attributes;
+        _this.jsonTreeData = response.data.trees;
+        _this.attributes = response.data.attributes;
         $("#treeview_json_product").jstree({
           core: {
             themes: {
@@ -3195,7 +3194,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             // so that create works
             check_callback: true,
-            data: _this2.jsonTreeData
+            data: _this.jsonTreeData
           },
           // types: {
           // default: {
@@ -3416,6 +3415,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3453,9 +3455,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
     // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
     this.counts[0] = 1;
-    this.axios.post("/edit_product/".concat(id)).then(function (response) {
-      _this.attributes = response.data.attribute_family;
-    });
+    // this.axios.post(`/edit_product/${id}`).then(response => {
+    //     this.attributes = response.data.attribute_family;
+    // })
+
     this.showtree();
     this.att_family = Array.from(Array(this.count), function () {
       return new Array(_this.count_attributes);
@@ -5849,7 +5852,7 @@ var render = function render() {
           to: {
             name: "edit_product",
             params: {
-              id: 1
+              data: productss
             }
           }
         }
@@ -6468,8 +6471,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.data.attribute_option[index].value,
-        expression: "data.attribute_option[index].value"
+        value: _vm.data.attribute_option[index - 1].value,
+        expression: "data.attribute_option[index-1].value"
       }],
       staticClass: "form-control",
       attrs: {
@@ -6479,20 +6482,20 @@ var render = function render() {
         required: ""
       },
       domProps: {
-        value: _vm.data.attribute_option[index].value
+        value: _vm.data.attribute_option[index - 1].value
       },
       on: {
         input: function input($event) {
           if ($event.target.composing) return;
-          _vm.$set(_vm.data.attribute_option[index], "value", $event.target.value);
+          _vm.$set(_vm.data.attribute_option[index - 1], "value", $event.target.value);
         }
       }
     })]), _vm._v(" "), _c("td", [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.data.attribute_option[index].code,
-        expression: "data.attribute_option[index].code"
+        value: _vm.data.attribute_option[index - 1].code,
+        expression: "data.attribute_option[index-1].code"
       }],
       staticClass: "form-control",
       attrs: {
@@ -6501,12 +6504,12 @@ var render = function render() {
         id: "name"
       },
       domProps: {
-        value: _vm.data.attribute_option[index].code
+        value: _vm.data.attribute_option[index - 1].code
       },
       on: {
         input: function input($event) {
           if ($event.target.composing) return;
-          _vm.$set(_vm.data.attribute_option[index], "code", $event.target.value);
+          _vm.$set(_vm.data.attribute_option[index - 1], "code", $event.target.value);
         }
       }
     })]), _vm._v(" "), index == 1 ? _c("td", [_c("a", {
@@ -6791,7 +6794,7 @@ var render = function render() {
         to: {
           name: "edit_attribute_family",
           params: {
-            id: family.id
+            data: family
           }
         }
       }
@@ -6874,8 +6877,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.name,
-      expression: "name"
+      value: _vm.data.name,
+      expression: "data.name"
     }],
     staticClass: "form-control",
     attrs: {
@@ -6883,20 +6886,20 @@ var render = function render() {
       id: "inputZip"
     },
     domProps: {
-      value: _vm.name
+      value: _vm.data.name
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.name = $event.target.value;
+        _vm.$set(_vm.data, "name", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v("الرمز")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.code,
-      expression: "code"
+      value: _vm.data.code,
+      expression: "data.code"
     }],
     staticClass: "form-control",
     attrs: {
@@ -6904,15 +6907,15 @@ var render = function render() {
       id: "inputZip"
     },
     domProps: {
-      value: _vm.code
+      value: _vm.data.code
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.code = $event.target.value;
+        _vm.$set(_vm.data, "code", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v("الخواص")]), _vm._v(" "), _vm._l(_vm.attributes, function (item) {
+  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v("الخواص")]), _vm._v(" "), _vm._l(_vm.data.attribute_family_mapping, function (item) {
     return _c("div", {
       staticClass: "form-check form-check-inline"
     }, [_c("input", {
@@ -6928,8 +6931,8 @@ var render = function render() {
         type: "checkbox"
       },
       domProps: {
-        value: item.id,
-        checked: Array.isArray(_vm.checkedItems) ? _vm._i(_vm.checkedItems, item.id) > -1 : _vm.checkedItems
+        value: item.attribute.code,
+        checked: Array.isArray(_vm.checkedItems) ? _vm._i(_vm.checkedItems, item.attribute.code) > -1 : _vm.checkedItems
       },
       on: {
         change: function change($event) {
@@ -6937,7 +6940,7 @@ var render = function render() {
             $$el = $event.target,
             $$c = $$el.checked ? true : false;
           if (Array.isArray($$a)) {
-            var $$v = item.id,
+            var $$v = item.attribute.code,
               $$i = _vm._i($$a, $$v);
             if ($$el.checked) {
               $$i < 0 && (_vm.checkedItems = $$a.concat([$$v]));
@@ -6954,7 +6957,7 @@ var render = function render() {
       attrs: {
         "for": "inlineCheckbox1"
       }
-    }, [_vm._v(_vm._s(item.name))])]);
+    }, [_vm._v(_vm._s(item.attribute.name))])]);
   })], 2), _vm._v(" "), _c("fieldset", [_c("button", {
     staticClass: "btn btn-primary",
     attrs: {
@@ -7237,7 +7240,7 @@ var render = function render() {
         to: {
           name: "edit_category",
           params: {
-            id: categorys.id
+            data: categorys
           }
         }
       }
@@ -7311,8 +7314,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.name,
-      expression: "name"
+      value: _vm.data.text,
+      expression: "data.text"
     }],
     staticClass: "form-control",
     attrs: {
@@ -7320,12 +7323,12 @@ var render = function render() {
       id: "inputAddress"
     },
     domProps: {
-      value: _vm.name
+      value: _vm.data.text
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.name = $event.target.value;
+        _vm.$set(_vm.data, "text", $event.target.value);
       }
     }
   })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("fieldset", {
@@ -72230,6 +72233,7 @@ var routes = [{
 }, {
   path: '/edit_category/:id',
   name: 'edit_category',
+  props: true,
   component: _components_admin_category_UpdateCategory__WEBPACK_IMPORTED_MODULE_2__["default"]
 },
 // { 
@@ -72244,6 +72248,7 @@ var routes = [{
 }, {
   path: '/edit_user/:id',
   name: 'edit_user',
+  props: true,
   component: _components_admin_user_UpdateUser__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
   path: '/create_user',
@@ -72256,6 +72261,7 @@ var routes = [{
 }, {
   path: '/edit_product/:id',
   name: 'edit_product',
+  props: true,
   component: _components_admin_product_UpdateProduct__WEBPACK_IMPORTED_MODULE_7__["default"]
 },
 // { 
@@ -72285,6 +72291,7 @@ var routes = [{
 }, {
   path: '/edit_attribute_family/:id',
   name: 'edit_attribute_family',
+  props: true,
   component: _components_admin_attribute_family_UpdateAttributeFamily__WEBPACK_IMPORTED_MODULE_11__["default"]
 },
 // { 
