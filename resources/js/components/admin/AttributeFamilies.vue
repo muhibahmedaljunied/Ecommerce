@@ -23,9 +23,13 @@
                                                     <a href="#tab1" class="nav-link" data-toggle="tab"> عرض</a>
                                                 </li>
 
+
                                                 <li class="nav-item">
                                                     <a href="#tab2" class="nav-link" data-toggle="tab">اضافه</a>
                                                 </li>
+
+
+
 
 
 
@@ -44,13 +48,10 @@
                         border-top-0 border
                       ">
                                         <div class="tab-content">
-
-
-
-
-                                            <div class="tab-pane" id="tab1">
+                                            <div class="tab-pane active" id="tab1">
                                                 <attribute-family></attribute-family>
                                             </div>
+
 
                                             <div class="tab-pane" id="tab2">
                                                 <add-attribute-family></add-attribute-family>
@@ -76,7 +77,6 @@
 <script>
 import AttributeFamily from "./attribute_family/AttributeFamily";
 import AddAttributeFamily from "./attribute_family/AddAttributeFamily";
-
 
 
 

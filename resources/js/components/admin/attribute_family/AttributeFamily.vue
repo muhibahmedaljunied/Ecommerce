@@ -7,7 +7,7 @@
 
 
 		<div class="row row-sm">
-			<div class="col-xl-12">
+	
 				<div class="card">
 					<div class="card-header">
 
@@ -98,8 +98,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<!--/div-->
+		
+
 		</div>
 
 
@@ -173,38 +173,38 @@ export default {
 		// },
 
 
-		exports_excel() {
+		// exports_excel() {
 
-			axios
-				.post(`/export_opening_inventuries`)
-				.then(function (response) {
+		// 	axios
+		// 		.post(`/export_opening_inventuries`)
+		// 		.then(function (response) {
 
-					toastMessage("تم اتمام عمليه التصدير");
-					this.$router.go(0);
-				})
-				.catch(error => {
-
-
-				});
-		},
-		imports_excel() {
-
-			axios
-				.post(`/import_opening_inventuries`)
-				.then(function (response) {
-					toastMessage("تم اتمام عمليه الاستيراد");
-					this.$router.go(0);
-
-					// this.list();
+		// 			toastMessage("تم اتمام عمليه التصدير");
+		// 			this.$router.go(0);
+		// 		})
+		// 		.catch(error => {
 
 
+		// 		});
+		// },
+		// imports_excel() {
+
+		// 	axios
+		// 		.post(`/import_opening_inventuries`)
+		// 		.then(function (response) {
+		// 			toastMessage("تم اتمام عمليه الاستيراد");
+		// 			this.$router.go(0);
+
+		// 			// this.list();
 
 
-				})
-				.catch(error => {
 
-				});
-		},
+
+		// 		})
+		// 		.catch(error => {
+
+		// 		});
+		// },
 	}
 
 }

@@ -2816,6 +2816,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     // delete_size(id) {
+
     // 	this.axios.post(`delete_size/${id}`).then(response => {
     // 		toast.fire({
     // 			title: "Deleted!",
@@ -2840,23 +2841,40 @@ __webpack_require__.r(__webpack_exports__);
     // 				}
     // 			}
     // 		})
+
     // 		// this.$router.push('size')
+
     // 	})
     // },
-    exports_excel: function exports_excel() {
-      axios.post("/export_opening_inventuries").then(function (response) {
-        toastMessage("تم اتمام عمليه التصدير");
-        this.$router.go(0);
-      })["catch"](function (error) {});
-    },
-    imports_excel: function imports_excel() {
-      axios.post("/import_opening_inventuries").then(function (response) {
-        toastMessage("تم اتمام عمليه الاستيراد");
-        this.$router.go(0);
 
-        // this.list();
-      })["catch"](function (error) {});
-    }
+    // exports_excel() {
+
+    // 	axios
+    // 		.post(`/export_opening_inventuries`)
+    // 		.then(function (response) {
+
+    // 			toastMessage("تم اتمام عمليه التصدير");
+    // 			this.$router.go(0);
+    // 		})
+    // 		.catch(error => {
+
+    // 		});
+    // },
+    // imports_excel() {
+
+    // 	axios
+    // 		.post(`/import_opening_inventuries`)
+    // 		.then(function (response) {
+    // 			toastMessage("تم اتمام عمليه الاستيراد");
+    // 			this.$router.go(0);
+
+    // 			// this.list();
+
+    // 		})
+    // 		.catch(error => {
+
+    // 		});
+    // },
   }
 });
 
@@ -5020,7 +5038,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "tab-content"
   }, [_c("div", {
-    staticClass: "tab-pane",
+    staticClass: "tab-pane active",
     attrs: {
       id: "tab1"
     }
@@ -6695,8 +6713,6 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row row-sm"
   }, [_c("div", {
-    staticClass: "col-xl-12"
-  }, [_c("div", {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-header"
@@ -6787,7 +6803,7 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0) : _c("tbody", [_vm._m(2)])])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(2)])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
