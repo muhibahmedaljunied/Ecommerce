@@ -9,6 +9,13 @@ class AttributeFamily extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'code',
+        'name',
+    ];
+
+
     public function attribute_family_mapping()
     {
         return $this->hasMany(AttributeFamilyMapping::class);

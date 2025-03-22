@@ -17,6 +17,25 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="name">الهاتف</label>
+                                <input v-model="data.phone" type="text" name="name" id="name">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name">البريد الالكتروني</label>
+                                <input v-model="data.email" type="text" name="name" id="name">
+
+                            </div>
+
+                            
+                            <div class="form-group">
+                                <label for="name">العنوان</label>
+                                <input v-model="data.address" type="text" name="name" id="name">
+
+                            </div>
+
+                            <div class="form-group">
                                 <label for="status">الحاله</label>
                                 <input v-model='data.status' type="text" name="status" id="status">
 

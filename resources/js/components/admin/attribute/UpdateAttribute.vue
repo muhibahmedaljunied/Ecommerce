@@ -22,14 +22,14 @@
                                     <fieldset class="border rounded-3 p-3">
                                         <legend class="float-none w-auto px-3">الاسم</legend>
 
-                                        <input v-model="data.name" type="text" class="form-control">
+                                        <input v-model="name" type="text" class="form-control">
                                     </fieldset>
 
                                     <fieldset class="border rounded-3 p-3">
                                         <legend class="float-none w-auto px-3">الرمز</legend>
 
 
-                                        <input v-model="data.code" type="text" class="form-control">
+                                        <input v-model="code" type="text" class="form-control">
                                     </fieldset>
 
 
@@ -54,14 +54,17 @@
 
 
                                                             <td>
-                                                                <input v-model="data.attribute_option[index - 1].value"
-                                                                    type="text" class="form-control" name="name"
-                                                                    id="name" required />
+
+
+                                                                <input v-model="value[index]" type="text"
+                                                                    class="form-control" name="name" id="name"
+                                                                    required />
                                                             </td>
                                                             <td>
-                                                                <input v-model="data.attribute_option[index - 1].code"
-                                                                    type="text" class="form-control" name="name"
-                                                                    id="name" />
+
+
+                                                                <input v-model="code_value[index]" type="text"
+                                                                    class="form-control" name="name" id="name" />
                                                             </td>
 
 
@@ -80,7 +83,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2"></td>
-                                                            <td> <button @click="add()" type="button"
+                                                            <td> <button @click="update(data.id)" type="button"
                                                                     class="btn btn-primary">حفظ</button></td>
                                                         </tr>
 
@@ -110,6 +113,9 @@
     </div>
 </template>
 <script>
+import { forEach } from 'lodash';
+import { forEachRight } from 'lodash';
+
 export default {
     data() {
         return {
@@ -127,11 +133,38 @@ export default {
 
     props: ['data'],
 
+    created() {
+
+        // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data.attribute_option.length);
+
+
+        this.name = this.data.name;
+        this.code = this.data.code;
+
+        //     console.log('almuhiiiiiiiiiiiiiiiiiiiiii', i);
+
+        var count = 1;
+        this.data.attribute_option.forEach(element => {
+
+
+            this.value[count] = element.value;
+            this.code_value[count] = element.code;
+
+
+            count = count + 1;
+
+        });
+    
+    },
+
     mounted() {
         // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.$route.params.data.id);
         // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data);
         // this.count = data.attribute_option.length;
         this.counts[0] = 1;
+
+
+
         // this.axios.post(`/edit_attribute/${this.$route.params.data.id}`).then(response => {
         //     this.attributes = response.data.attributes;
         // })
@@ -159,12 +192,12 @@ export default {
             }
             // this.$delete(this.counts, index);
         },
-        add() {
+        update(id) {
 
             let currentObj = this;
 
 
-            this.axios.post('/store_attribute', {
+            this.axios.post(`/update_attribute/${id}`, {
                 count: this.counts,
                 code: this.code,
                 name: this.name,

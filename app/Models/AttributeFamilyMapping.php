@@ -9,6 +9,12 @@ class AttributeFamilyMapping extends Model
 {
     use HasFactory;
 
+
+    protected $fillable = [
+        'attribute_family_id',
+        'attribute_id',
+    ];
+
     public function attribute()
     {
         return $this->belongsTo(Attribute::class);

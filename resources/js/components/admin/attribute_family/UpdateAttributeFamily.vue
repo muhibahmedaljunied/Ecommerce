@@ -7,13 +7,26 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                            تعديل مجموعه الاصناف
-                        </div>
+                        تعديل مجموعه الاصناف
+                    </div>
+
                     <div class="card-body">
 
                         <form class="row g-3">
 
-
+                            <!-- <div>
+                                <h1>Pets I like: {{ arr }}</h1>
+                                <div>
+                                    <input type="checkbox" :value="arr.includes('cats')" id="cats"
+                                        @input="updateArr('cats', $event.target.checked)">
+                                    <label for="cats">Cats</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" :value="arr.includes('dogs')" id="dogs"
+                                        @input="updateArr('dogs', $event.target.checked)">
+                                    <label for="dogs">Dogs</label>
+                                </div>
+                            </div> -->
 
 
 
@@ -24,7 +37,7 @@
 
                                 <legend>الاسم</legend>
 
-                                <input v-model="data.name" type="text" class="form-control" id="inputZip">
+                                <input v-model="name" type="text" class="form-control" id="inputZip">
 
                             </fieldset>
 
@@ -34,7 +47,7 @@
                             <fieldset>
                                 <legend>الرمز</legend>
 
-                                <input v-model="data.code" type="text" class="form-control" id="inputZip">
+                                <input v-model="code" type="text" class="form-control" id="inputZip">
                             </fieldset>
 
 
@@ -44,8 +57,9 @@
                                 <div v-for="item in data.attribute_family_mapping" class="form-check form-check-inline">
 
                                     <!-- <label class="form-check-label" for="inlineCheckbox1">الخواص</label> -->
-                                    <input v-model="checkedItems" :value="item.attribute.code" id="checkedItems"
-                                        class="form-check-input" type="checkbox" >
+
+                                    <input @input="update_data(item.attribute.id, $event.target.checked)"
+                                        id='checkedItems' class="form-check-input" type="checkbox" :checked=true>
                                     <label class="form-check-label" for="inlineCheckbox1">{{ item.attribute.name
                                         }}</label>
                                 </div>
@@ -63,7 +77,7 @@
 
                             <fieldset>
 
-                                <button @click="add()" type="button" class="btn btn-primary">حفظ</button>
+                                <button @click="update(data.id)" type="button" class="btn btn-primary">حفظ</button>
 
                             </fieldset>
 
@@ -105,23 +119,74 @@ export default {
 
             attributes: '',
             checkedItems: [],
+
+            arr: ['cats', 'dogs']
+
         }
     },
     props: ['data'],
 
-    mounted() {
-		// console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
+    created() {
 
-		// this.axios.post(`/edit_attribute_family/${id}`).then(response => {
-		// 	this.attributes = response.data.attribute_family;
-		// })
-	},
+        // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data.attribute_option.length);
+
+
+        this.name = this.data.name;
+        this.code = this.data.code;
+
+        //     console.log('almuhiiiiiiiiiiiiiiiiiiiiii', i);
+
+        this.data.attribute_family_mapping.forEach(element => {
+
+
+            this.checkedItems.push(element.attribute.id);
+
+            // this.checkedItems = element.attribute.id;
+
+        });
+
+        // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.checkedItems);
+
+
+
+    },
+    mounted() {
+        // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
+
+        // this.axios.post(`/edit_attribute_family/${id}`).then(response => {
+        // 	this.attributes = response.data.attribute_family;
+        // })
+    },
     methods: {
 
+        updateArr(element, includeElement) {
+            if (includeElement && !this.arr.includes(element)) {
+                this.arr.push(element);
+            } else {
+                this.arr = this.arr.filter(el => el !== element);
+            }
 
-        add() {
+            console.log('newwwwwwww', this.arr, this.arr.includes(element), includeElement);
+        },
+        update_data(element, includeElement) {
+       
 
-            this.axios.post(`/store_attribute_family_mapping`, {
+            if (includeElement == true) {
+
+                this.checkedItems.push(element);
+
+            } else {
+
+                this.checkedItems = this.checkedItems.filter(el => el !== element);
+
+            }
+
+        },
+
+
+        update(id) {
+
+            this.axios.post(`/update_attribute_family_mapping/${id}`, {
                 name: this.name,
                 code: this.code,
                 item: this.checkedItems

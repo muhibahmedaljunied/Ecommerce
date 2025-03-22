@@ -40,6 +40,7 @@ class AttributeFamilyController extends Controller
     public function store(Request $request)
     {
 
+        // dd($request->all());
         $family = new AttributeFamily();
         $family->name = $request->post('name');
         $family->code = $request->post('code');

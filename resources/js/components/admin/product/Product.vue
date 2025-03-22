@@ -2,138 +2,151 @@
 
 	<div class="container-fluid">
 
+		<fieldset class="border rounded-3 p-3">
 
-	
-		<div class="row row-sm">
+
+
+			<legend class="float-none w-auto px-3">شجره الاصناف</legend>
+
+
+
+			<div class="input-group">
+
+				<input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
+					aria-describedby="search-addon">
+
+			</div>
+
+
+
+			<div id="treeview_json_product">
+				<div id="test">
+
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+		</fieldset>
+
+		<div class="row">
 
 			<div class="col-md-12">
 
-				<div class="card">
+			<div class="card">
 
-					<div class="card-header">
+				<div class="card-header">
 
 
-						<div style="display: flex;float: left; margin: 5px">
+					<div style="display: flex;float: left; margin: 5px">
 
-							<button @click="exports_excel()">
+						<button @click="exports_excel()">
 
-								<i class="fa-solid fa-file-export " style="font-size: 24px; color: #63E6BE;"></i>
-							</button>
+							<i class="fa-solid fa-file-export " style="font-size: 24px; color: #63E6BE;"></i>
+						</button>
 
-							<button @click="imports_excel()">
+						<button @click="imports_excel()">
 
-								<i class="fa-solid fa-file-import " style="font-size: 24px; color: #B197FC;"></i>
-							</button>
+							<i class="fa-solid fa-file-import " style="font-size: 24px; color: #B197FC;"></i>
+						</button>
 
-							<input type="search" autocomplete="on" name="search" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="true" placeholder="بحث " v-model="word_search"
-								@input="get_search()" />
-						</div>
+						<input type="search" autocomplete="on" name="search" data-toggle="dropdown" role="button"
+							aria-haspopup="true" aria-expanded="true" placeholder="بحث " v-model="word_search"
+							@input="get_search()" />
 					</div>
-					<div class="card-body">
-
-
-						<div class="row">
-
-							<div class="col-md-12">
-								<label for="pagoPrevio">الصنف</label>
-
-								<select v-model="New" name="Category" id="Category" class="form-control">
-									<option value="">select</option>
-									<option value="yes">yes</option>
-									<option value="no">no</option>
-
-								</select>
-
-							</div>
-
-
-
-						</div>
-
-						<div class="row">
-
-							<div class="table-responsive">
-								<table class="table text-md-nowrap" id="example1">
-									<thead>
-
-										<tr>
+				</div>
+				<div class="card-body">
 
 
 
 
-										</tr>
-									</thead>
-									<tbody v-if="products && products.length > 0">
-
-										<tr v-for="productss in products">
 
 
+					<div class="row">
 
-											<template>
-												<div class="row">
+						<div class="table-responsive">
+							<table class="table text-md-nowrap" id="example1">
+								<thead>
 
-													<div class="col-md-2">
-														{{ productss.text }}
+									<tr>
 
-													</div>
 
-													<div class="col-md-10">
 
-														<template
-															v-for="product_family in productss.product_family_attribute">
+
+									</tr>
+								</thead>
+								<tbody v-if="products && products.length > 0">
+
+									<tr v-for="productss in products">
+
+
+
+										<template>
+											<div class="row">
+
+												<div class="col-md-2">
+													{{ productss.text }}
+
+												</div>
+
+												<div class="col-md-10">
+
+													<template
+														v-for="product_family in productss.product_family_attribute">
+
+														<div class="row">
 
 															<div class="row">
 
-																<div class="row">
+																<div class="col-md-4">
 
-																	<div class="col-md-4">
-
-																		<div class="col-md-12">
-																			الكميه: {{ product_family.qty }}
-
-																		</div>
-
-																		<div class="col-md-12">
-																			السعر:{{ product_family.price }}
-
-																		</div>
-
-
-																		<div class="col-md-12"
-																			v-for="option in product_family.family_attribute_option">
-																			<p>{{ option.name }}:{{ option.value
-																			}}</p>
-																		</div>
-																	</div>
-
-																	<div class="col-md-2">
-
-																		<img class="card-img"
-																			:src="`/Ecommerce/assets/upload/${product_family.image}`"
-																			alt="Product Image" height='200px' />
-
-
+																	<div class="col-md-12">
+																		الكميه: {{ product_family.qty }}
 
 																	</div>
 
-																	<div class="col-md-6">
-
-
-
-																		<button type='button'
-																			class="btn btn-danger btn-sm"><i
-																				class="fa fa-trash"></i></button>
-																		<router-link
-																			:to="{ name: 'edit_product', params: { data: productss } }"
-																			class="btn btn-success btn-sm"><i
-																				class="fa fa-edit"></i></router-link>
-
-
-
-
+																	<div class="col-md-12">
+																		السعر:{{ product_family.price }}
 
 																	</div>
+
+
+																	<div class="col-md-12"
+																		v-for="option in product_family.family_attribute_option">
+																		<p>{{ option.name }}:{{ option.value
+																		}}</p>
+																	</div>
+																</div>
+
+																<div class="col-md-2">
+
+																	<img class="card-img"
+																		:src="`/Ecommerce/assets/upload/${product_family.image}`"
+																		alt="Product Image" height='200px' />
+
+
+
+																</div>
+
+																<div class="col-md-6">
+
+
+
+																	<button type='button'
+																		class="btn btn-danger btn-sm"><i
+																			class="fa fa-trash"></i></button>
+																	<router-link
+																		:to="{ name: 'edit_product', params: { data: productss } }"
+																		class="btn btn-success btn-sm"><i
+																			class="fa fa-edit"></i></router-link>
+
+
+
 
 
 																</div>
@@ -142,34 +155,38 @@
 															</div>
 
 
-
-														</template>
-
-													</div>
+														</div>
 
 
 
+													</template>
 
 												</div>
-												<hr>
-											</template>
 
-										</tr>
 
-									</tbody>
-									<tbody v-else>
-										<tr>
-											<td style="text-align: center;" colspan="7">
-												لايوجد اي بيانات
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+
+
+											</div>
+											<hr>
+										</template>
+
+									</tr>
+
+								</tbody>
+								<tbody v-else>
+									<tr>
+										<td style="text-align: center;" colspan="7">
+											لايوجد اي بيانات
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-
 					</div>
+
 				</div>
+			</div>
+
 			</div>
 
 
@@ -191,7 +208,7 @@ export default {
 			price: [],
 			description: [],
 			discount: [],
-			word_search:'',
+			word_search: '',
 			New: '',
 			featured: '',
 			status: '',

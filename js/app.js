@@ -2688,6 +2688,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2701,11 +2705,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: ['data'],
+  created: function created() {
+    var _this = this;
+    // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data.attribute_option.length);
+
+    this.name = this.data.name;
+    this.code = this.data.code;
+
+    //     console.log('almuhiiiiiiiiiiiiiiiiiiiiii', i);
+
+    var count = 1;
+    this.data.attribute_option.forEach(function (element) {
+      _this.value[count] = element.value;
+      _this.code_value[count] = element.code;
+      count = count + 1;
+    });
+  },
   mounted: function mounted() {
     // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.$route.params.data.id);
     // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data);
     // this.count = data.attribute_option.length;
     this.counts[0] = 1;
+
     // this.axios.post(`/edit_attribute/${this.$route.params.data.id}`).then(response => {
     //     this.attributes = response.data.attributes;
     // })
@@ -2727,9 +2748,9 @@ __webpack_require__.r(__webpack_exports__);
       }
       // this.$delete(this.counts, index);
     },
-    add: function add() {
+    update: function update(id) {
       var currentObj = this;
-      this.axios.post('/store_attribute', {
+      this.axios.post("/update_attribute/".concat(id), {
         count: this.counts,
         code: this.code,
         name: this.name,
@@ -2896,10 +2917,28 @@ __webpack_require__.r(__webpack_exports__);
       code: '',
       message: [],
       attributes: '',
-      checkedItems: []
+      checkedItems: [],
+      arr: ['cats', 'dogs']
     };
   },
   props: ['data'],
+  created: function created() {
+    var _this = this;
+    // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.data.attribute_option.length);
+
+    this.name = this.data.name;
+    this.code = this.data.code;
+
+    //     console.log('almuhiiiiiiiiiiiiiiiiiiiiii', i);
+
+    this.data.attribute_family_mapping.forEach(function (element) {
+      _this.checkedItems.push(element.attribute.id);
+
+      // this.checkedItems = element.attribute.id;
+    });
+
+    // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', this.checkedItems);
+  },
   mounted: function mounted() {
     // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
 
@@ -2908,8 +2947,27 @@ __webpack_require__.r(__webpack_exports__);
     // })
   },
   methods: {
-    add: function add() {
-      this.axios.post("/store_attribute_family_mapping", {
+    updateArr: function updateArr(element, includeElement) {
+      if (includeElement && !this.arr.includes(element)) {
+        this.arr.push(element);
+      } else {
+        this.arr = this.arr.filter(function (el) {
+          return el !== element;
+        });
+      }
+      console.log('newwwwwwww', this.arr, this.arr.includes(element), includeElement);
+    },
+    update_data: function update_data(element, includeElement) {
+      if (includeElement == true) {
+        this.checkedItems.push(element);
+      } else {
+        this.checkedItems = this.checkedItems.filter(function (el) {
+          return el !== element;
+        });
+      }
+    },
+    update: function update(id) {
+      this.axios.post("/update_attribute_family_mapping/".concat(id), {
         name: this.name,
         code: this.code,
         item: this.checkedItems
@@ -3094,8 +3152,108 @@ __webpack_require__.r(__webpack_exports__);
       _this.category = response.data;
       // this.$root.logo = 'Category'
     });
+    this.showtree();
   },
   methods: {
+    showtree: function showtree() {
+      var _this2 = this;
+      // console.log('in show tree', this.$route.params.id);
+      var uri = "/tree_product";
+      var gf = this;
+
+      // ------------هذا لاجل البحث في الشجره-----------------------------
+      var to = false;
+      $('#ricerca-enti').keyup(function () {
+        if (to) {
+          clearTimeout(to);
+        }
+        to = setTimeout(function () {
+          var v = $('#ricerca-enti').val();
+          $('#treeview_json_product').jstree(true).search(v);
+        }, 250);
+      });
+
+      // -------------------------------------------------
+
+      this.axios.post(uri).then(function (response) {
+        //   this.trees = response.data.trees;
+
+        _this2.jsonTreeData = response.data.trees;
+        _this2.attributes = response.data.attributes;
+        $("#treeview_json_product").jstree({
+          core: {
+            themes: {
+              responsive: false
+            },
+            // so that create works
+            check_callback: true,
+            data: _this2.jsonTreeData
+          },
+          // types: {
+          // default: {
+          //   icon: "fa fa-plus text-primary",
+          // },
+          // file: {
+          //   icon: "fa fa-file  text-primary",
+          // },
+          // },
+          // checkbox: {
+          //   three_state: false,
+
+          // },
+          state: {
+            key: "demo2"
+          },
+          search: {
+            case_insensitive: true,
+            show_only_matches: true
+          },
+          plugins: [
+          // "checkbox",
+          "contextmenu", "dnd", "massload", "search",
+          // "sort",
+          "state",
+          // "types",
+          "unique", "wholerow", "changed", "conditionalselect"],
+          contextmenu: {
+            items: {
+              renameItem: {
+                // The "rename" menu item
+                label: "تحرير",
+                action: function action(data) {
+                  console.log('تحرير');
+                }
+              },
+              deleteItem: {
+                // The "delete" menu item
+                label: "حذف",
+                action: function action(data) {
+                  console.log('حذف');
+                }
+              },
+              addItem: {
+                // The "delete" menu item
+                label: "اضافه",
+                action: function action(data) {
+                  console.log('اضافه');
+                }
+              }
+            }
+          }
+        }).on('rename_node.jstree', function (e, data) {}).on("changed.jstree", function (e, data) {
+          gf.parent = data.node.id;
+
+          // axios.post(`/category_filter/${data.node.id}`).then((response) => {
+
+          //     gf.showCatProduct = response.data;
+          //     gf.array_id.product_id = data.node.id;
+
+          // });
+        });
+      });
+
+      // $('#treeview_json_product').jstree(true).destroy();
+    },
     delete_category: function delete_category(id) {
       this.axios.post("delete_category/".concat(id)).then(function (response) {
         toast.fire({
@@ -5695,8 +5853,8 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "container-fluid"
-  }, [_c("div", {
-    staticClass: "row row-sm"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-12"
   }, [_c("div", {
@@ -5766,61 +5924,18 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-md-12"
-  }, [_c("label", {
-    attrs: {
-      "for": "pagoPrevio"
-    }
-  }, [_vm._v("الصنف")]), _vm._v(" "), _c("select", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.New,
-      expression: "New"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      name: "Category",
-      id: "Category"
-    },
-    on: {
-      change: function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.New = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }
-    }
-  }, [_c("option", {
-    attrs: {
-      value: ""
-    }
-  }, [_vm._v("select")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "yes"
-    }
-  }, [_vm._v("yes")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "no"
-    }
-  }, [_vm._v("no")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "table text-md-nowrap",
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm.products && _vm.products.length > 0 ? _c("tbody", _vm._l(_vm.products, function (productss) {
+  }, [_vm._m(1), _vm._v(" "), _vm.products && _vm.products.length > 0 ? _c("tbody", _vm._l(_vm.products, function (productss) {
     return _c("tr", [[_c("div", {
       staticClass: "row"
     }, [_c("div", {
       staticClass: "col-md-2"
-    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(productss.text) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(productss.text) + "\n\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
       staticClass: "col-md-10"
     }, [_vm._l(productss.product_family_attribute, function (product_family) {
       return [_c("div", {
@@ -5831,9 +5946,9 @@ var render = function render() {
         staticClass: "col-md-4"
       }, [_c("div", {
         staticClass: "col-md-12"
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالكميه: " + _vm._s(product_family.qty) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالكميه: " + _vm._s(product_family.qty) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
         staticClass: "col-md-12"
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالسعر:" + _vm._s(product_family.price) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _vm._l(product_family.family_attribute_option, function (option) {
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالسعر:" + _vm._s(product_family.price) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _vm._l(product_family.family_attribute_option, function (option) {
         return _c("div", {
           staticClass: "col-md-12"
         }, [_c("p", [_vm._v(_vm._s(option.name) + ":" + _vm._s(option.value))])]);
@@ -5848,7 +5963,7 @@ var render = function render() {
         }
       })]), _vm._v(" "), _c("div", {
         staticClass: "col-md-6"
-      }, [_vm._m(1, true), _vm._v(" "), _c("router-link", {
+      }, [_vm._m(2, true), _vm._v(" "), _c("router-link", {
         staticClass: "btn btn-success btn-sm",
         attrs: {
           to: {
@@ -5862,9 +5977,35 @@ var render = function render() {
         staticClass: "fa fa-edit"
       })])], 1)])])];
     })], 2)]), _vm._v(" "), _c("hr")]], 2);
-  }), 0) : _c("tbody", [_vm._m(2)])])])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(3)])])])])])])])])]);
 };
 var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("fieldset", {
+    staticClass: "border rounded-3 p-3"
+  }, [_c("legend", {
+    staticClass: "float-none w-auto px-3"
+  }, [_vm._v("شجره الاصناف")]), _vm._v(" "), _c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "ricerca-enti",
+      placeholder: "بحث...",
+      "aria-describedby": "search-addon"
+    }
+  })]), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "treeview_json_product"
+    }
+  }, [_c("div", {
+    attrs: {
+      id: "test"
+    }
+  })])]);
+}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("thead", [_c("tr")]);
@@ -5889,7 +6030,7 @@ var staticRenderFns = [function () {
     attrs: {
       colspan: "7"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t\t")])]);
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])]);
 }];
 render._withStripped = true;
 
@@ -6412,20 +6553,20 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.data.name,
-      expression: "data.name"
+      value: _vm.name,
+      expression: "name"
     }],
     staticClass: "form-control",
     attrs: {
       type: "text"
     },
     domProps: {
-      value: _vm.data.name
+      value: _vm.name
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.data, "name", $event.target.value);
+        _vm.name = $event.target.value;
       }
     }
   })]), _vm._v(" "), _c("fieldset", {
@@ -6436,20 +6577,20 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.data.code,
-      expression: "data.code"
+      value: _vm.code,
+      expression: "code"
     }],
     staticClass: "form-control",
     attrs: {
       type: "text"
     },
     domProps: {
-      value: _vm.data.code
+      value: _vm.code
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.data, "code", $event.target.value);
+        _vm.code = $event.target.value;
       }
     }
   })]), _vm._v(" "), _c("fieldset", {
@@ -6475,8 +6616,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.data.attribute_option[index - 1].value,
-        expression: "data.attribute_option[index - 1].value"
+        value: _vm.value[index],
+        expression: "value[index]"
       }],
       staticClass: "form-control",
       attrs: {
@@ -6486,20 +6627,20 @@ var render = function render() {
         required: ""
       },
       domProps: {
-        value: _vm.data.attribute_option[index - 1].value
+        value: _vm.value[index]
       },
       on: {
         input: function input($event) {
           if ($event.target.composing) return;
-          _vm.$set(_vm.data.attribute_option[index - 1], "value", $event.target.value);
+          _vm.$set(_vm.value, index, $event.target.value);
         }
       }
     })]), _vm._v(" "), _c("td", [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.data.attribute_option[index - 1].code,
-        expression: "data.attribute_option[index - 1].code"
+        value: _vm.code_value[index],
+        expression: "code_value[index]"
       }],
       staticClass: "form-control",
       attrs: {
@@ -6508,12 +6649,12 @@ var render = function render() {
         id: "name"
       },
       domProps: {
-        value: _vm.data.attribute_option[index - 1].code
+        value: _vm.code_value[index]
       },
       on: {
         input: function input($event) {
           if ($event.target.composing) return;
-          _vm.$set(_vm.data.attribute_option[index - 1], "code", $event.target.value);
+          _vm.$set(_vm.code_value, index, $event.target.value);
         }
       }
     })]), _vm._v(" "), index == 1 ? _c("td", [_c("a", {
@@ -6546,7 +6687,7 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
-        return _vm.add();
+        return _vm.update(_vm.data.id);
       }
     }
   }, [_vm._v("حفظ")])])])], 2)])])])])])])])])])])])]);
@@ -6873,7 +7014,7 @@ var render = function render() {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v("\n                        تعديل مجموعه الاصناف\n                    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    تعديل مجموعه الاصناف\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     staticClass: "row g-3"
@@ -6881,8 +7022,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.data.name,
-      expression: "data.name"
+      value: _vm.name,
+      expression: "name"
     }],
     staticClass: "form-control",
     attrs: {
@@ -6890,20 +7031,20 @@ var render = function render() {
       id: "inputZip"
     },
     domProps: {
-      value: _vm.data.name
+      value: _vm.name
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.data, "name", $event.target.value);
+        _vm.name = $event.target.value;
       }
     }
   })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v("الرمز")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.data.code,
-      expression: "data.code"
+      value: _vm.code,
+      expression: "code"
     }],
     staticClass: "form-control",
     attrs: {
@@ -6911,49 +7052,29 @@ var render = function render() {
       id: "inputZip"
     },
     domProps: {
-      value: _vm.data.code
+      value: _vm.code
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.data, "code", $event.target.value);
+        _vm.code = $event.target.value;
       }
     }
   })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v("الخواص")]), _vm._v(" "), _vm._l(_vm.data.attribute_family_mapping, function (item) {
     return _c("div", {
       staticClass: "form-check form-check-inline"
     }, [_c("input", {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: _vm.checkedItems,
-        expression: "checkedItems"
-      }],
       staticClass: "form-check-input",
       attrs: {
         id: "checkedItems",
         type: "checkbox"
       },
       domProps: {
-        value: item.attribute.code,
-        checked: Array.isArray(_vm.checkedItems) ? _vm._i(_vm.checkedItems, item.attribute.code) > -1 : _vm.checkedItems
+        checked: true
       },
       on: {
-        change: function change($event) {
-          var $$a = _vm.checkedItems,
-            $$el = $event.target,
-            $$c = $$el.checked ? true : false;
-          if (Array.isArray($$a)) {
-            var $$v = item.attribute.code,
-              $$i = _vm._i($$a, $$v);
-            if ($$el.checked) {
-              $$i < 0 && (_vm.checkedItems = $$a.concat([$$v]));
-            } else {
-              $$i > -1 && (_vm.checkedItems = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-            }
-          } else {
-            _vm.checkedItems = $$c;
-          }
+        input: function input($event) {
+          return _vm.update_data(item.attribute.id, $event.target.checked);
         }
       }
     }), _vm._v(" "), _c("label", {
@@ -6969,7 +7090,7 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
-        return _vm.add();
+        return _vm.update(_vm.data.id);
       }
     }
   }, [_vm._v("حفظ")])])])]), _vm._v(" "), _c("div", {
@@ -7150,7 +7271,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "container-fluid"
-  }, [_c("div", {
+  }, [_vm._m(0), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-12"
@@ -7225,7 +7346,7 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm.category && _vm.category.length > 0 ? _c("tbody", _vm._l(_vm.category, function (categorys) {
+  }, [_vm._m(1), _vm._v(" "), _vm.category && _vm.category.length > 0 ? _c("tbody", _vm._l(_vm.category, function (categorys) {
     return _c("tr", [_c("td", [_vm._v(_vm._s(categorys.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(categorys.text))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-danger btn-sm",
       attrs: {
@@ -7251,9 +7372,35 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0) : _c("tbody", [_vm._m(1)])])])])])])])]);
+  }), 0) : _c("tbody", [_vm._m(2)])])])])])])])]);
 };
 var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("fieldset", {
+    staticClass: "border rounded-3 p-3"
+  }, [_c("legend", {
+    staticClass: "float-none w-auto px-3"
+  }, [_vm._v("شجره الاصناف")]), _vm._v(" "), _c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "ricerca-enti",
+      placeholder: "بحث...",
+      "aria-describedby": "search-addon"
+    }
+  })]), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "treeview_json_product"
+    }
+  }, [_c("div", {
+    attrs: {
+      id: "test"
+    }
+  })])]);
+}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("thead", [_c("tr", [_c("th", {
@@ -9696,6 +9843,87 @@ var render = function render() {
       input: function input($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.data, "name", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("الهاتف")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.data.phone,
+      expression: "data.phone"
+    }],
+    attrs: {
+      type: "text",
+      name: "name",
+      id: "name"
+    },
+    domProps: {
+      value: _vm.data.phone
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.data, "phone", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("البريد الالكتروني")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.data.email,
+      expression: "data.email"
+    }],
+    attrs: {
+      type: "text",
+      name: "name",
+      id: "name"
+    },
+    domProps: {
+      value: _vm.data.email
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.data, "email", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("العنوان")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.data.address,
+      expression: "data.address"
+    }],
+    attrs: {
+      type: "text",
+      name: "name",
+      id: "name"
+    },
+    domProps: {
+      value: _vm.data.address
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.data, "address", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("div", {
@@ -68992,8 +69220,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  //import vue router
 
 
-// window.axios.defaults.baseURL = "http://localhost:9000/Ecommerce";
-window.axios.defaults.baseURL = "http://localhost/Ecommerce";
+window.axios.defaults.baseURL = "http://localhost:9000/Ecommerce";
+// window.axios.defaults.baseURL = "http://localhost/Ecommerce";
 // ---------------------------- sweetalert ---------------------------------------------------------
 
 
