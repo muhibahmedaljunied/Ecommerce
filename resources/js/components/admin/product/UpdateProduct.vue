@@ -32,7 +32,7 @@
 
                                 </div>
 
-                                <div id="treeview_json_product">
+                                <div id="treeview_json_product_update">
                                     <div id="test">
 
                                     </div>
@@ -429,7 +429,7 @@ export default {
                 }
                 to = setTimeout(function () {
                     var v = $('#ricerca-enti').val();
-                    $('#treeview_json_product').jstree(true).search(v);
+                    $('#treeview_json_product_update').jstree(true).search(v);
                 }, 250);
             });
 
@@ -441,7 +441,7 @@ export default {
                 this.jsonTreeData = response.data.trees;
                 this.attribute_families = response.data.attribute_families;
 
-                $(`#treeview_json_product`).jstree({
+                $(`#treeview_json_product_update`).jstree({
                     core: {
                         themes: {
                             responsive: false,
@@ -536,7 +536,7 @@ export default {
 
             });
 
-            // $('#treeview_json_product').jstree(true).destroy();
+            // $('#treeview_json_product_update').jstree(true).destroy();
 
         },
         onFileChange(e, index) {

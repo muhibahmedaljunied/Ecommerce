@@ -2,76 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use App\category;
+use App\Models\Attribute;
 use App\Models\Product;
+use App\Models\ProductFilterableAttribute;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
 
-   
+
     public function index(Request $request)
     {
- 
+
         $products = Product::where('parent_id', null)->select('*')->get();
 
-        return response()->json($products);  
+        return response()->json($products);
     }
 
-  
-   
+
+
     public function create()
     {
         return response()->json('asd');
-        
     }
 
 
-    public function store(Request $request)
+
+
+
+    public function edit(Request $request)
     {
 
-        $category = new Category();
-        $category->name = $request->post('name');
-        $category->status = 'true';
-        $category->save();
-        return response()->json();
-        
+
+
+        $attributes = Product::with('product_filterable_attribute.attribute')
+            ->Where('id', $request->id)
+            ->select('products.*')
+            ->get();
+
+
+        return response()->json([
+            'attributes' => $attributes,
+            'all_attributes' => Attribute::all(),
+
+        ]);
     }
 
 
-    public function show(category $category)
-    {
-
-    }
-
- 
-    public function edit($id)
-    {   
-
-        $category = Category::find($id);
-        return response()->json($category);
-
-    }
-
- 
     public function update(Request $request)
     {
-        
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
-            'status' => '',
-        ]);
-        $category = Category::find($request->id);
-        $category->update($request->post());
-        return response()->json($request);
+
+        // $request->validate([
+        //     'name' => 'required|unique:categories|max:255',
+        //     'status' => '',
+        // ]);
 
     }
 
-   
+
     public function destroy($id)
     {
-        $Category = Category::find($id);
+        $Category = Product::find($id);
 
         $Category->delete();
 

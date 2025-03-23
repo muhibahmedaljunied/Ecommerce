@@ -1,28 +1,26 @@
 <template>
 
-<div class="wrapper">
-    <div class="container-fluid">
+    <div class="wrapper">
+        <div class="container-fluid">
 
-    <div class="row sow-sm">
+            <div class="row sow-sm">
 
-        <div class="col-md-12">
-            <div class="card">
-          
-                <div class="card-body">
+                <div class="col-md-12">
+                    <div class="card">
 
-                    <form class="row g-3">
+                        <div class="card-body">
 
-
-                        <div class="row">
+                            <form class="row g-3">
 
 
-                            <fieldset class="border rounded-3 p-3">
+                                <div class="row">
+
+
+                                    <fieldset class="border rounded-3 p-3">
 
 
 
-                                <legend class="float-none w-auto px-3"> الاسم </legend>
-
-
+                                        <legend class="float-none w-auto px-3"> الاسم </legend>
 
 
 
@@ -30,33 +28,85 @@
 
 
 
-                                <input v-model="name" type="text" class="form-control" id="inputAddress">
+
+
+                                        <input v-model="name" type="text" class="form-control" id="inputAddress">
 
 
 
-                            </fieldset>
-                            <fieldset class="border rounded-3 p-3">
+                                    </fieldset>
+                                    <fieldset class="border rounded-3 p-3">
 
 
 
-                                <legend class="float-none w-auto px-3">شجره الاصناف</legend>
+                                        <legend class="float-none w-auto px-3">شجره الاصناف</legend>
 
 
 
-                                <div class="input-group">
+                                        <div class="input-group">
 
-                                    <input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
-                                        aria-describedby="search-addon">
+                                            <input type="text" id="ricerca-enti" class="form-control"
+                                                placeholder="بحث..." aria-describedby="search-addon">
+
+                                        </div>
+
+
+
+                                        <div id="treeview_json_product_add">
+                                            <div id="test">
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+                                    </fieldset>
+
+                                    <fieldset class="border rounded-3 p-3">
+
+
+
+                                        <legend class="float-none w-auto px-3">الخواص</legend>
+
+
+
+
+                                        <div>
+
+
+
+                                            <div style="float: right;" v-for="(item) in attributes"
+                                                class="form-check form-check-inline">
+                                                <input v-model="checkedItems" :value="item.id" id="checkedItems"
+                                                    class="form-check-input" type="checkbox">
+                                                <label class="form-check-label" for="inlineCheckbox1">{{ item.name
+                                                }}</label>
+                                            </div>
+
+
+                                            <button style="float: left;" @click="add()" type="button"
+                                                class="btn btn-primary">حفظ</button>
+
+
+                                        </div>
+
+                                    </fieldset>
+
+
+
+
+
+
 
                                 </div>
 
 
 
-                                <div id="treeview_json_product">
-                                    <div id="test">
-
-                                    </div>
-                                </div>
 
 
 
@@ -65,63 +115,13 @@
 
 
 
-                            </fieldset>
-
-                            <fieldset class="border rounded-3 p-3">
-
-
-
-                                <legend class="float-none w-auto px-3">الخواص</legend>
-
-
-
-
-                                <div>
-
-
-
-                                    <div style="float: right;" v-for="(item) in attributes"
-                                        class="form-check form-check-inline">
-                                        <input v-model="checkedItems" :value="item.id" id="checkedItems"
-                                            class="form-check-input" type="checkbox">
-                                        <label class="form-check-label" for="inlineCheckbox1">{{ item.name
-                                            }}</label>
-                                    </div>
-
-
-                                    <button style="float: left;" @click="add()" type="button"
-                                        class="btn btn-primary">حفظ</button>
-
-
-                                </div>
-
-                            </fieldset>
-
-
-
-
-
-
-
+                            </form>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-</div>
+        </div>
 
     </div>
 </template>
@@ -144,6 +144,12 @@ export default {
     },
     mounted() {
 
+        this.axios.post('/get_attribute').then(response => {
+
+            this.attributes = response.data.attributes;
+
+        })
+
         this.showtree();
     },
     methods: {
@@ -163,7 +169,7 @@ export default {
                 }
                 to = setTimeout(function () {
                     var v = $('#ricerca-enti').val();
-                    $('#treeview_json_product').jstree(true).search(v);
+                    $('#treeview_json_product_add').jstree(true).search(v);
                 }, 250);
             });
 
@@ -173,8 +179,7 @@ export default {
                 //   this.trees = response.data.trees;
 
                 this.jsonTreeData = response.data.trees;
-                this.attributes = response.data.attributes;
-                $(`#treeview_json_product`).jstree({
+                $(`#treeview_json_product_add`).jstree({
                     core: {
                         themes: {
                             responsive: false,
@@ -268,7 +273,7 @@ export default {
 
             });
 
-            // $('#treeview_json_product').jstree(true).destroy();
+            // $('#treeview_json_product_add').jstree(true).destroy();
 
         },
 

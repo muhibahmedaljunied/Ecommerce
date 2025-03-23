@@ -117,10 +117,21 @@ class ProductController extends Controller
         return response()->json([
             'trees' => $products,
             'last_nodes' => $last_nodes,
-            'attributes' => Attribute::all(),
             'attribute_families' => AttributeFamily::all()
 
         ]);
+    }
+
+
+    public function get_attribute(){
+
+
+        return response()->json([
+            'attributes' => Attribute::all(),
+
+        ]);
+
+
     }
 
 

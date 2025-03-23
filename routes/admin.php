@@ -14,7 +14,7 @@ Route::post('/tree_product', [ProductController::class, 'tree_product_admin']);
 Route::post('/category', [CategoryController::class, 'index']);
 Route::get('/create_category', [ProductController::class, 'create']);
 Route::post('/store_category', [ProductController::class, 'store_category']);
-Route::post('/edit_category/{id}', [ProductController::class, 'edit']);
+Route::post('/edit_category/{id}', [CategoryController::class, 'edit']);
 Route::post('/update_category/{id}', [ProductController::class, 'update']);
 Route::post('/delete_category/{id}', [ProductController::class, 'destroy']);
 // });
@@ -33,6 +33,9 @@ Route::post('/delete_user/{id}', [UserController::class, 'destroy']);
 
 Route::post('/product', 'ProductController@index')->name('product');
 Route::post('/get_product_status/{id}', 'ProductController@get_product_status');
+
+Route::post('/get_attribute', 'ProductController@get_attribute');
+
 
 Route::post('/create_product', 'ProductController@create');
 Route::post('/store_product', 'ProductController@store');

@@ -2104,7 +2104,7 @@ __webpack_require__.r(__webpack_exports__);
         }
         to = setTimeout(function () {
           var v = $('#ricerca-enti').val();
-          $('#treeview_json_product').jstree(true).search(v);
+          $('#treeview_json_product_add').jstree(true).search(v);
         }, 250);
       });
 
@@ -2115,7 +2115,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.jsonTreeData = response.data.trees;
         _this2.attribute_families = response.data.attribute_families;
-        $("#treeview_json_product").jstree({
+        $("#treeview_json_product_add").jstree({
           core: {
             themes: {
               responsive: false
@@ -2184,7 +2184,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
 
-      // $('#treeview_json_product').jstree(true).destroy();
+      // $('#treeview_json_product_add').jstree(true).destroy();
     },
     onFileChange: function onFileChange(e, index) {
       this.file[index] = e.target.files[0];
@@ -3003,11 +3003,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+    this.axios.post('/get_attribute').then(function (response) {
+      _this.attributes = response.data.attributes;
+    });
     this.showtree();
   },
   methods: {
     showtree: function showtree() {
-      var _this = this;
+      var _this2 = this;
       // console.log('in show tree', this.$route.params.id);
       var uri = "/tree_product";
       var gf = this;
@@ -3020,7 +3024,7 @@ __webpack_require__.r(__webpack_exports__);
         }
         to = setTimeout(function () {
           var v = $('#ricerca-enti').val();
-          $('#treeview_json_product').jstree(true).search(v);
+          $('#treeview_json_product_add').jstree(true).search(v);
         }, 250);
       });
 
@@ -3029,16 +3033,15 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.post(uri).then(function (response) {
         //   this.trees = response.data.trees;
 
-        _this.jsonTreeData = response.data.trees;
-        _this.attributes = response.data.attributes;
-        $("#treeview_json_product").jstree({
+        _this2.jsonTreeData = response.data.trees;
+        $("#treeview_json_product_add").jstree({
           core: {
             themes: {
               responsive: false
             },
             // so that create works
             check_callback: true,
-            data: _this.jsonTreeData
+            data: _this2.jsonTreeData
           },
           // types: {
           // default: {
@@ -3103,7 +3106,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
 
-      // $('#treeview_json_product').jstree(true).destroy();
+      // $('#treeview_json_product_add').jstree(true).destroy();
     },
     add: function add() {
       var currentObj = this;
@@ -3152,6 +3155,9 @@ __webpack_require__.r(__webpack_exports__);
       _this.category = response.data;
       // this.$root.logo = 'Category'
     });
+    this.axios.post('/get_attribute').then(function (response) {
+      _this.attributes = response.data.attributes;
+    });
     this.showtree();
   },
   methods: {
@@ -3179,7 +3185,6 @@ __webpack_require__.r(__webpack_exports__);
         //   this.trees = response.data.trees;
 
         _this2.jsonTreeData = response.data.trees;
-        _this2.attributes = response.data.attributes;
         $("#treeview_json_product").jstree({
           core: {
             themes: {
@@ -3319,6 +3324,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       name: '',
       attributes: '',
+      all_attributes: '',
       file: '',
       errors: '',
       filename: '',
@@ -3330,16 +3336,38 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['data'],
   mounted: function mounted() {
+    var _this = this;
     // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
     // this.axios.post(`/edit_category/${id}`).then(response => {
     //     this.attributes = response.data.attribute_family;
     // })
 
+    this.axios.post("/edit_category/".concat(this.$route.params.id)).then(function (response) {
+      _this.attributes = response.data.attributes[0].product_filterable_attribute;
+      _this.all_attributes = response.data.all_attributes;
+      _this.name = response.data.attributes[0].text;
+      _this.attributes.forEach(function (element) {
+        _this.checkedItems.push(element.attribute.id);
+
+        // this.checkedItems = element.attribute.id;
+      });
+      console.log('allllllllllll', _this.all_attributes);
+      console.log('fffffffffffff', _this.attributes);
+    });
     this.showtree();
   },
   methods: {
+    update_data: function update_data(element, includeElement) {
+      if (includeElement == true) {
+        this.checkedItems.push(element);
+      } else {
+        this.checkedItems = this.checkedItems.filter(function (el) {
+          return el !== element;
+        });
+      }
+    },
     showtree: function showtree() {
-      var _this = this;
+      var _this2 = this;
       // console.log('in show tree', this.$route.params.id);
       var uri = "/tree_product";
       var gf = this;
@@ -3352,7 +3380,7 @@ __webpack_require__.r(__webpack_exports__);
         }
         to = setTimeout(function () {
           var v = $('#ricerca-enti').val();
-          $('#treeview_json_product').jstree(true).search(v);
+          $('#treeview_json_product_update').jstree(true).search(v);
         }, 250);
       });
 
@@ -3361,16 +3389,15 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.post(uri).then(function (response) {
         //   this.trees = response.data.trees;
 
-        _this.jsonTreeData = response.data.trees;
-        _this.attributes = response.data.attributes;
-        $("#treeview_json_product").jstree({
+        _this2.jsonTreeData = response.data.trees;
+        $("#treeview_json_product_update").jstree({
           core: {
             themes: {
               responsive: false
             },
             // so that create works
             check_callback: true,
-            data: _this.jsonTreeData
+            data: _this2.jsonTreeData
           },
           // types: {
           // default: {
@@ -3435,11 +3462,11 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
 
-      // $('#treeview_json_product').jstree(true).destroy();
+      // $('#treeview_json_product_update').jstree(true).destroy();
     },
-    add: function add() {
+    update: function update() {
       var currentObj = this;
-      this.axios.post('/store_category', {
+      this.axios.post('/update_category', {
         parent: this.parent,
         product: this.name,
         items: this.checkedItems
@@ -3693,7 +3720,7 @@ __webpack_require__.r(__webpack_exports__);
         }
         to = setTimeout(function () {
           var v = $('#ricerca-enti').val();
-          $('#treeview_json_product').jstree(true).search(v);
+          $('#treeview_json_product_update').jstree(true).search(v);
         }, 250);
       });
 
@@ -3704,7 +3731,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.jsonTreeData = response.data.trees;
         _this2.attribute_families = response.data.attribute_families;
-        $("#treeview_json_product").jstree({
+        $("#treeview_json_product_update").jstree({
           core: {
             themes: {
               responsive: false
@@ -3773,7 +3800,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
 
-      // $('#treeview_json_product').jstree(true).destroy();
+      // $('#treeview_json_product_update').jstree(true).destroy();
     },
     onFileChange: function onFileChange(e, index) {
       this.file[index] = e.target.files[0];
@@ -5810,7 +5837,7 @@ var staticRenderFns = [function () {
     }
   })]), _vm._v(" "), _c("div", {
     attrs: {
-      id: "treeview_json_product"
+      id: "treeview_json_product_add"
     }
   }, [_c("div", {
     attrs: {
@@ -7242,7 +7269,7 @@ var staticRenderFns = [function () {
     }
   })]), _vm._v(" "), _c("div", {
     attrs: {
-      id: "treeview_json_product"
+      id: "treeview_json_product_add"
     }
   }, [_c("div", {
     attrs: {
@@ -7365,7 +7392,7 @@ var render = function render() {
         to: {
           name: "edit_category",
           params: {
-            data: categorys
+            id: categorys.id
           }
         }
       }
@@ -7467,8 +7494,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.data.text,
-      expression: "data.text"
+      value: _vm.name,
+      expression: "name"
     }],
     staticClass: "form-control",
     attrs: {
@@ -7476,78 +7503,66 @@ var render = function render() {
       id: "inputAddress"
     },
     domProps: {
-      value: _vm.data.text
+      value: _vm.name
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.data, "text", $event.target.value);
+        _vm.name = $event.target.value;
       }
     }
   })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
-  }, [_vm._v("الخواص")]), _vm._v(" "), _c("div", [_vm._l(_vm.attributes, function (item) {
-    return _c("div", {
-      staticClass: "form-check form-check-inline",
-      staticStyle: {
-        "float": "right"
-      }
-    }, [_c("input", {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: _vm.checkedItems,
-        expression: "checkedItems"
-      }],
-      staticClass: "form-check-input",
-      attrs: {
-        id: "checkedItems",
-        type: "checkbox"
-      },
-      domProps: {
-        value: item.id,
-        checked: Array.isArray(_vm.checkedItems) ? _vm._i(_vm.checkedItems, item.id) > -1 : _vm.checkedItems
-      },
-      on: {
-        change: function change($event) {
-          var $$a = _vm.checkedItems,
-            $$el = $event.target,
-            $$c = $$el.checked ? true : false;
-          if (Array.isArray($$a)) {
-            var $$v = item.id,
-              $$i = _vm._i($$a, $$v);
-            if ($$el.checked) {
-              $$i < 0 && (_vm.checkedItems = $$a.concat([$$v]));
-            } else {
-              $$i > -1 && (_vm.checkedItems = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-            }
-          } else {
-            _vm.checkedItems = $$c;
+  }, [_vm._v("الخواص")]), _vm._v(" "), _c("div", [_vm._l(_vm.all_attributes, function (all) {
+    return _vm._l(_vm.attributes, function (attr) {
+      return _c("div", {
+        staticClass: "form-check form-check-inline",
+        staticStyle: {
+          "float": "right"
+        }
+      }, [all.code == attr.attribute.code ? [_c("input", {
+        staticClass: "form-check-input",
+        attrs: {
+          id: "checkedItems",
+          type: "checkbox"
+        },
+        domProps: {
+          checked: true
+        },
+        on: {
+          input: function input($event) {
+            return _vm.update_data(attr.attribute.id, $event.target.checked);
           }
         }
-      }
-    }), _vm._v(" "), _c("label", {
-      staticClass: "form-check-label",
-      attrs: {
-        "for": "inlineCheckbox1"
-      }
-    }, [_vm._v(_vm._s(item.name))])]);
-  }), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary",
-    staticStyle: {
-      "float": "left"
-    },
-    attrs: {
-      type: "button"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.add();
-      }
-    }
-  }, [_vm._v("حفظ")])], 2)])])])])])])])])]);
+      }), _vm._v(" "), _c("label", {
+        staticClass: "form-check-label",
+        attrs: {
+          "for": "inlineCheckbox1"
+        }
+      }, [_vm._v(_vm._s(attr.attribute.name))])] : [_c("input", {
+        staticClass: "form-check-input",
+        attrs: {
+          id: "checkedItems",
+          type: "checkbox"
+        },
+        domProps: {
+          checked: false
+        },
+        on: {
+          input: function input($event) {
+            return _vm.update_data(attr.attribute.id, $event.target.checked);
+          }
+        }
+      }), _vm._v(" "), _c("label", {
+        staticClass: "form-check-label",
+        attrs: {
+          "for": "inlineCheckbox1"
+        }
+      }, [_vm._v(_vm._s(attr.attribute.name))])]], 2);
+    });
+  })], 2)])])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -7568,7 +7583,7 @@ var staticRenderFns = [function () {
     }
   })]), _vm._v(" "), _c("div", {
     attrs: {
-      id: "treeview_json_product"
+      id: "treeview_json_product_update"
     }
   }, [_c("div", {
     attrs: {
@@ -9642,7 +9657,7 @@ var staticRenderFns = [function () {
     }
   })]), _vm._v(" "), _c("div", {
     attrs: {
-      id: "treeview_json_product"
+      id: "treeview_json_product_update"
     }
   }, [_c("div", {
     attrs: {

@@ -100,7 +100,7 @@
 										<td>
 											<button type='button' @click="delete_category(categorys.id)"
 												class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-											<router-link :to="{ name: 'edit_category', params: { data: categorys } }"
+											<router-link :to="{ name: 'edit_category', params: { id: categorys.id } }"
 												class="edit btn btn-success btn-sm"> <i
 													class="fa fa-edit"></i></router-link>
 										</td>
@@ -159,11 +159,20 @@ export default {
 	},
 	mounted() {
 
+
+
 		this.axios.post('/category').then(response => {
 			this.category = response.data;
 			// this.$root.logo = 'Category'
 
 		})
+
+		this.axios.post('/get_attribute').then(response => {
+
+			this.attributes = response.data.attributes;
+
+		})
+
 
 		this.showtree();
 
@@ -194,7 +203,6 @@ export default {
 				//   this.trees = response.data.trees;
 
 				this.jsonTreeData = response.data.trees;
-				this.attributes = response.data.attributes;
 				$(`#treeview_json_product`).jstree({
 					core: {
 						themes: {

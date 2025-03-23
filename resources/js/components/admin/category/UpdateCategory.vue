@@ -32,7 +32,9 @@
 
 
 
-                                        <input v-model="data.text" type="text" class="form-control" id="inputAddress">
+                                        <input v-model="name" type="text" class="form-control" id="inputAddress">
+
+
 
 
 
@@ -54,7 +56,7 @@
 
 
 
-                                        <div id="treeview_json_product">
+                                        <div id="treeview_json_product_update">
                                             <div id="test">
 
                                             </div>
@@ -80,25 +82,64 @@
 
                                         <div>
 
+                                            <template v-for="all in all_attributes">
+
+                                                <div style="float: right;" class="form-check form-check-inline"
+                                                    v-for="attr in attributes">
 
 
-                                            <div style="float: right;" v-for="(item) in attributes"
-                                                class="form-check form-check-inline">
-                                                <input v-model="checkedItems" :value="item.id" id="checkedItems"
-                                                    class="form-check-input" type="checkbox">
-                                                <label class="form-check-label" for="inlineCheckbox1">{{ item.name
-                                                }}</label>
-                                            </div>
 
 
-                                            <button style="float: left;" @click="add()" type="button"
-                                                class="btn btn-primary">حفظ</button>
 
+                                                    <template v-if="all.code == attr.attribute.code">
+
+                                                        <input :checked=true
+                                                            @input="update_data(attr.attribute.id, $event.target.checked)"
+                                                            id="checkedItems" class="form-check-input" type="checkbox">
+
+                                                        <label class="form-check-label" for="inlineCheckbox1">{{
+                                                            attr.attribute.name
+                                                            }}</label>
+
+
+
+
+
+                                                    </template>
+
+
+                                                    <template v-else>
+
+                                                        <input :checked=false
+                                                            @input="update_data(attr.attribute.id, $event.target.checked)"
+                                                            id="checkedItems" class="form-check-input" type="checkbox">
+
+                                                        <label class="form-check-label" for="inlineCheckbox1">{{
+                                                            attr.attribute.name
+                                                            }}</label>
+
+
+
+
+
+                                                    </template>
+
+
+
+
+
+
+                                                </div>
+
+                                            </template>
 
                                         </div>
 
                                     </fieldset>
 
+                                    <!-- 
+                                    <button style="float: left;" @click="update(item.product_id)" type="button"
+                                                class="btn btn-primary">حفظ</button> -->
 
 
 
@@ -134,6 +175,7 @@ export default {
 
             name: '',
             attributes: '',
+            all_attributes: '',
             file: '',
             errors: '',
             filename: '',
@@ -146,17 +188,66 @@ export default {
     },
     props: ['data'],
 
+
+
     mounted() {
         // console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
         // this.axios.post(`/edit_category/${id}`).then(response => {
         //     this.attributes = response.data.attribute_family;
         // })
 
+        this.axios.post(`/edit_category/${this.$route.params.id}`).then(response => {
+
+            this.attributes = response.data.attributes[0].product_filterable_attribute;
+            this.all_attributes = response.data.all_attributes;
+
+            this.name = response.data.attributes[0].text;
+
+
+
+            this.attributes.forEach(element => {
+
+
+                this.checkedItems.push(element.attribute.id);
+
+                // this.checkedItems = element.attribute.id;
+
+            });
+
+
+
+            console.log('allllllllllll', this.all_attributes);
+            console.log('fffffffffffff', this.attributes);
+
+
+
+
+
+        })
+
+
+
         this.showtree();
     },
 
 
     methods: {
+
+        update_data(element, includeElement) {
+
+
+            if (includeElement == true) {
+
+                this.checkedItems.push(element);
+
+            } else {
+
+                this.checkedItems = this.checkedItems.filter(el => el !== element);
+
+            }
+
+        },
+
 
         showtree() {
 
@@ -173,7 +264,7 @@ export default {
                 }
                 to = setTimeout(function () {
                     var v = $('#ricerca-enti').val();
-                    $('#treeview_json_product').jstree(true).search(v);
+                    $('#treeview_json_product_update').jstree(true).search(v);
                 }, 250);
             });
 
@@ -183,8 +274,8 @@ export default {
                 //   this.trees = response.data.trees;
 
                 this.jsonTreeData = response.data.trees;
-                this.attributes = response.data.attributes;
-                $(`#treeview_json_product`).jstree({
+
+                $(`#treeview_json_product_update`).jstree({
                     core: {
                         themes: {
                             responsive: false,
@@ -278,18 +369,22 @@ export default {
 
             });
 
-            // $('#treeview_json_product').jstree(true).destroy();
+            // $('#treeview_json_product_update').jstree(true).destroy();
 
         },
 
 
 
-        add() {
+        update() {
 
             let currentObj = this;
 
 
-            this.axios.post('/store_category', { parent: this.parent, product: this.name, items: this.checkedItems })
+            this.axios.post('/update_category', {
+                parent: this.parent,
+                product: this.name,
+                items: this.checkedItems
+            })
                 .then(function (response) {
 
                 })
