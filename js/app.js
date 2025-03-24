@@ -2026,6 +2026,7 @@ __webpack_require__.r(__webpack_exports__);
       attributes: '',
       attr_array: [],
       att_family: '',
+      barcode: '',
       // att_all_family: [],
       product_id: '',
       errors: '',
@@ -3365,6 +3366,7 @@ __webpack_require__.r(__webpack_exports__);
           return el !== element;
         });
       }
+      console.log('kkkkkkkkkkkk', this.checkedItems);
     },
     showtree: function showtree() {
       var _this2 = this;
@@ -5508,34 +5510,6 @@ var render = function render() {
     attrs: {
       "for": "pagoPrevio"
     }
-  }, [_vm._v("الباركود")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.barcode,
-      expression: "barcode"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "number",
-      name: "barcode",
-      id: "barcode"
-    },
-    domProps: {
-      value: _vm.barcode
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.barcode = $event.target.value;
-      }
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-6"
-  }, [_c("label", {
-    attrs: {
-      "for": "pagoPrevio"
-    }
   }, [_vm._v("مجموعه الخواص")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
@@ -5566,7 +5540,7 @@ var render = function render() {
       domProps: {
         value: families.id
       }
-    }, [_vm._v("\n                                                " + _vm._s(families.name) + "\n                                            ")]);
+    }, [_vm._v("\n                                                    " + _vm._s(families.name) + "\n                                                ")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "col-md-12"
   }, [_c("label", {
@@ -5653,7 +5627,7 @@ var render = function render() {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
-  }, [_vm._v("الخواص")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("تباينات المنتج")]), _vm._v(" "), _c("div", {
     staticClass: "col-md-12"
   }, [_c("form", {
     attrs: {
@@ -5764,7 +5738,7 @@ var render = function render() {
             domProps: {
               value: atta3.id
             }
-          }, [_vm._v("\n                                                                        " + _vm._s(atta3.value) + "\n                                                                    ")]);
+          }, [_vm._v("\n                                                                            " + _vm._s(atta3.value) + "\n                                                                        ")]);
         }), 0)]);
       }), 0);
     }), 0), _vm._v(" "), _c("td", [_c("input", {
@@ -7515,53 +7489,56 @@ var render = function render() {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
-  }, [_vm._v("الخواص")]), _vm._v(" "), _c("div", [_vm._l(_vm.all_attributes, function (all) {
-    return _vm._l(_vm.attributes, function (attr) {
-      return _c("div", {
-        staticClass: "form-check form-check-inline",
-        staticStyle: {
-          "float": "right"
+  }, [_vm._v("الخواص")]), _vm._v(" "), _c("div", [_vm._l(_vm.all_attributes, function (all, index) {
+    return [_vm.attributes[index] ? _c("div", {
+      staticClass: "form-check form-check-inline",
+      staticStyle: {
+        "float": "right"
+      }
+    }, [_vm.all_attributes[index].code == _vm.attributes[index].attribute.code ? [_c("input", {
+      staticClass: "form-check-input",
+      attrs: {
+        id: "checkedItems",
+        type: "checkbox"
+      },
+      domProps: {
+        checked: true
+      },
+      on: {
+        input: function input($event) {
+          return _vm.update_data(_vm.attributes[index].attribute.id, $event.target.checked);
         }
-      }, [all.code == attr.attribute.code ? [_c("input", {
-        staticClass: "form-check-input",
-        attrs: {
-          id: "checkedItems",
-          type: "checkbox"
-        },
-        domProps: {
-          checked: true
-        },
-        on: {
-          input: function input($event) {
-            return _vm.update_data(attr.attribute.id, $event.target.checked);
-          }
+      }
+    }), _vm._v(" "), _c("label", {
+      staticClass: "form-check-label",
+      attrs: {
+        "for": "inlineCheckbox1"
+      }
+    }, [_vm._v(_vm._s(_vm.attributes[index].attribute.name))])] : _vm._e()], 2) : _c("div", {
+      staticClass: "form-check form-check-inline",
+      staticStyle: {
+        "float": "right"
+      }
+    }, [_c("input", {
+      staticClass: "form-check-input",
+      attrs: {
+        id: "checkedItems",
+        type: "checkbox"
+      },
+      domProps: {
+        checked: false
+      },
+      on: {
+        input: function input($event) {
+          return _vm.update_data(_vm.all_attributes[index].id, $event.target.checked);
         }
-      }), _vm._v(" "), _c("label", {
-        staticClass: "form-check-label",
-        attrs: {
-          "for": "inlineCheckbox1"
-        }
-      }, [_vm._v(_vm._s(attr.attribute.name))])] : [_c("input", {
-        staticClass: "form-check-input",
-        attrs: {
-          id: "checkedItems",
-          type: "checkbox"
-        },
-        domProps: {
-          checked: false
-        },
-        on: {
-          input: function input($event) {
-            return _vm.update_data(attr.attribute.id, $event.target.checked);
-          }
-        }
-      }), _vm._v(" "), _c("label", {
-        staticClass: "form-check-label",
-        attrs: {
-          "for": "inlineCheckbox1"
-        }
-      }, [_vm._v(_vm._s(attr.attribute.name))])]], 2);
-    });
+      }
+    }), _vm._v(" "), _c("label", {
+      staticClass: "form-check-label",
+      attrs: {
+        "for": "inlineCheckbox1"
+      }
+    }, [_vm._v(_vm._s(_vm.all_attributes[index].name))])])];
   })], 2)])])])])])])])])]);
 };
 var staticRenderFns = [function () {
@@ -9323,34 +9300,6 @@ var render = function render() {
       }
     }
   })]) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "col-md-6"
-  }, [_c("label", {
-    attrs: {
-      "for": "pagoPrevio"
-    }
-  }, [_vm._v("الباركود")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.barcode,
-      expression: "barcode"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "number",
-      name: "barcode",
-      id: "barcode"
-    },
-    domProps: {
-      value: _vm.barcode
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.barcode = $event.target.value;
-      }
-    }
-  })]), _vm._v(" "), _c("div", {
     staticClass: "col-md-6"
   }, [_c("label", {
     attrs: {

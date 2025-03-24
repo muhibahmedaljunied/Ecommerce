@@ -56,13 +56,13 @@
 
 
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label for="pagoPrevio">الباركود</label>
                                             <input v-model="barcode" type="number" name="barcode" id="barcode"
                                                 class="form-control">
 
 
-                                        </div>
+                                        </div> -->
 
                                         <!-- <div class="col-md-6">
                                             <label for="pagoPrevio">نوع المنتج</label>
@@ -134,11 +134,15 @@
 
 
 
+<!-- 
+                            <div v-if="attributes[0]">
 
+                                {{ attributes[0].attribute_family_mapping[0].attribute.name }}
 
+                            </div> -->
 
                             <fieldset class="border rounded-3 p-3">
-                                <legend class="float-none w-auto px-3">الخواص</legend>
+                                <legend class="float-none w-auto px-3">تباينات المنتج</legend>
                                 <div class="col-md-12">
 
 
@@ -163,7 +167,7 @@
                                                 <tbody>
                                                     <tr v-for="index in count" :key="index">
 
-
+                                                        
                                                         <td>
                                                             <input v-model="price[index - 1]" type="text"
                                                                 class="form-control" name="name" id="name" required />
@@ -324,6 +328,7 @@ export default {
             attributes: '',
             attr_array: [],
             att_family: '',
+            barcode: '',
             // att_all_family: [],
             product_id: '',
             errors: '',
@@ -371,12 +376,12 @@ export default {
             this.att_family = Array.from(Array(this.count), () => new Array(2))
         },
         disComponent(index) {
-            if(this.count>1){
+            if (this.count > 1) {
 
                 this.count -= 1;
                 $this.counts.pop();
             }
-        
+
             // this.$delete(this.counts, index);
         },
         addFind(index, index2, event, att) {
@@ -514,12 +519,12 @@ export default {
                 }).on('rename_node.jstree', function (e, data) {
 
                 }).on("changed.jstree", function (e, data) {
-                 
+
 
 
                     axios.post(`/get_product_status/${data.node.id}`).then((response) => {
 
-                        console.log('muhibbbbbbbbb',response.data.product);
+                        console.log('muhibbbbbbbbb', response.data.product);
 
                         gf.status_product = response.data.product.status;
                         // gf.array_id.product_id = data.node.id;

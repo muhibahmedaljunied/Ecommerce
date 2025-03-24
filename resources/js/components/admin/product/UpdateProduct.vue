@@ -58,13 +58,13 @@
 
 
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label for="pagoPrevio">الباركود</label>
                                             <input v-model="barcode" type="number" name="barcode" id="barcode"
                                                 class="form-control">
 
 
-                                        </div>
+                                        </div> -->
 
                                         <!-- <div class="col-md-6">
                                             <label for="pagoPrevio">نوع المنتج</label>

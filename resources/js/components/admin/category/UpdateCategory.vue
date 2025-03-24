@@ -82,23 +82,25 @@
 
                                         <div>
 
-                                            <template v-for="all in all_attributes">
+
+
+                                            <template v-for="(all, index) in all_attributes" :key="">
 
                                                 <div style="float: right;" class="form-check form-check-inline"
-                                                    v-for="attr in attributes">
+                                                    v-if="attributes[index]">
 
 
 
 
-
-                                                    <template v-if="all.code == attr.attribute.code">
+                                                    <template
+                                                        v-if="all_attributes[index].code == attributes[index].attribute.code">
 
                                                         <input :checked=true
-                                                            @input="update_data(attr.attribute.id, $event.target.checked)"
+                                                            @input="update_data(attributes[index].attribute.id, $event.target.checked)"
                                                             id="checkedItems" class="form-check-input" type="checkbox">
 
                                                         <label class="form-check-label" for="inlineCheckbox1">{{
-                                                            attr.attribute.name
+                                                            attributes[index].attribute.name
                                                             }}</label>
 
 
@@ -108,28 +110,29 @@
                                                     </template>
 
 
-                                                    <template v-else>
 
-                                                        <input :checked=false
-                                                            @input="update_data(attr.attribute.id, $event.target.checked)"
-                                                            id="checkedItems" class="form-check-input" type="checkbox">
 
-                                                        <label class="form-check-label" for="inlineCheckbox1">{{
-                                                            attr.attribute.name
-                                                            }}</label>
+                                                </div>
 
 
 
+                                                <div v-else  style="float: right;" class="form-check form-check-inline">
 
+                                                    <input :checked=false
+                                                        @input="update_data(all_attributes[index].id, $event.target.checked)"
+                                                        id="checkedItems" class="form-check-input" type="checkbox">
 
-                                                    </template>
-
+                                                    <label class="form-check-label" for="inlineCheckbox1">{{
+                                                        all_attributes[index].name
+                                                    }}</label>
 
 
 
 
 
                                                 </div>
+
+
 
                                             </template>
 
@@ -245,6 +248,8 @@ export default {
                 this.checkedItems = this.checkedItems.filter(el => el !== element);
 
             }
+
+            console.log('kkkkkkkkkkkk',this.checkedItems);
 
         },
 
