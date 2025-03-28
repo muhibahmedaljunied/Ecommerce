@@ -26,6 +26,8 @@
 						<table class="table text-md-nowrap" id="example1">
 							<thead>
 								<tr>
+									<th class="wd-15p border-bottom-0">الرقم التسلسلي</th>
+
 									<th class="wd-15p border-bottom-0">الاسم</th>
 									<th class="wd-15p border-bottom-0">الهاتف</th>
 									<th class="wd-15p border-bottom-0">البريد الالكتروني</th>
@@ -41,7 +43,9 @@
 								</tr>
 							</thead>
 							<tbody v-if="user && user.length>0">
-								<tr v-for="users in user">
+								<tr v-for="(users,index) in user" :key="index">
+									<td>{{ index+1 }}</td>
+
 									<td>{{ users.name }}</td>
 									<td>{{ users.phone }}</td>
 									<td>{{ users.email }}</td>

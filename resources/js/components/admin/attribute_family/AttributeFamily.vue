@@ -34,7 +34,7 @@
 							<table class="table text-md-nowrap" id="example1">
 								<thead>
 									<tr>
-										<th class="wd-15p border-bottom-0">الرقم</th>
+										<th class="wd-15p border-bottom-0">الرقم التسلسلي</th>
 
 										<th class="wd-15p border-bottom-0">الاسم</th>
 										<th class="wd-15p border-bottom-0">الرمز</th>
@@ -47,8 +47,8 @@
 									</tr>
 								</thead>
 								<tbody v-if="attribute_families && attribute_families.length > 0">
-									<tr v-for="family in attribute_families">
-										<td>{{ family.id }}</td>
+									<tr v-for="(family,index) in attribute_families" :key="index">
+										<td>{{ index+1 }}</td>
 
 										<td>{{ family.name }}</td>
 										<td>{{ family.code }}</td>

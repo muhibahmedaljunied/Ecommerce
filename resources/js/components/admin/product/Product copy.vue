@@ -28,6 +28,7 @@
 
 
 
+{{ showCatProduct }}
 
 
 
@@ -79,9 +80,9 @@
 
 										</tr>
 									</thead>
-									<tbody v-if="showCatProduct && showCatProduct.length > 0">
+									<tbody v-if="products && products.length > 0">
 
-										<tr v-for="(productss,index) in showCatProduct" :key="index">
+										<tr v-for="productss in products">
 
 
 
@@ -89,19 +90,14 @@
 												<div class="row">
 
 													<div class="col-md-2">
-
-														{{ index + 1 }}
-
-													</div>
-													<div class="col-md-2">
 														{{ productss.text }}
 
 													</div>
 
-													<div class="col-md-8">
+													<div class="col-md-10">
 
 														<template
-															v-for="product_family in productss['product_family_attribute']">
+															v-for="product_family in productss.product_family_attribute">
 
 															<div class="row">
 
@@ -118,6 +114,7 @@
 																			السعر:{{ product_family.price }}
 
 																		</div>
+
 
 																		<div class="col-md-12"
 																			v-for="option in product_family.family_attribute_option">
@@ -246,7 +243,7 @@ export default {
 		this.axios.post('/product').then(response => {
 
 			console.log(response.data.product);
-			this.showCatProduct = response.data.product;
+			this.products = response.data.product;
 			// this.$root.logo = 'Product'
 
 		})

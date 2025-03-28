@@ -2247,6 +2247,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       products: '',
+      showCatProduct: '',
       product: '',
       qty: [],
       price: [],
@@ -2285,7 +2286,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     this.axios.post('/product').then(function (response) {
       console.log(response.data.product);
-      _this.products = response.data.product;
+      _this.showCatProduct = response.data.product;
       // this.$root.logo = 'Product'
     });
   },
@@ -2443,13 +2444,15 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         }).on('rename_node.jstree', function (e, data) {}).on("changed.jstree", function (e, data) {
-          gf.product_id = data.node.id;
-          // axios.post(`/category_filter/${data.node.id}`).then((response) => {
+          // gf.array_id.product_id = data.node.id;
 
-          //     gf.showCatProduct = response.data;
-          //     gf.array_id.product_id = data.node.id;
-
-          // });
+          // alert(data.node.id);
+          axios.post("/category_filter/".concat(data.node.id), {
+            'type': 'product'
+          }).then(function (response) {
+            gf.showCatProduct = response.data.products;
+            // gf.array_id.product_id = data.node.id;
+          });
         });
       });
 
@@ -2610,6 +2613,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       attributes: '',
+      attribute_families: '',
+      family_attribute: '',
       name: '',
       code: '',
       code_value: [],
@@ -2626,6 +2631,7 @@ __webpack_require__.r(__webpack_exports__);
     this.counts[0] = 1;
     this.axios.post('/attribute').then(function (response) {
       _this.attributes = response.data.attributes;
+      _this.attribute_families = response.data.attribute_families;
     });
   },
   methods: {
@@ -3154,7 +3160,6 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
     this.axios.post('/category').then(function (response) {
       _this.category = response.data;
-      // this.$root.logo = 'Category'
     });
     this.axios.post('/get_attribute').then(function (response) {
       _this.attributes = response.data.attributes;
@@ -3164,7 +3169,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     showtree: function showtree() {
       var _this2 = this;
-      // console.log('in show tree', this.$route.params.id);
       var uri = "/tree_product";
       var gf = this;
 
@@ -3248,13 +3252,11 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).on('rename_node.jstree', function (e, data) {}).on("changed.jstree", function (e, data) {
           gf.parent = data.node.id;
-
-          // axios.post(`/category_filter/${data.node.id}`).then((response) => {
-
-          //     gf.showCatProduct = response.data;
-          //     gf.array_id.product_id = data.node.id;
-
-          // });
+          axios.post("/admin_category_filter/".concat(data.node.id), {
+            'type': 'product'
+          }).then(function (response) {
+            gf.category = response.data.products;
+          });
         });
       });
 
@@ -4359,7 +4361,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
       // console.log(this.$route.params.id);
       this.array_id.product_id = this.$route.params.id;
-      axios.post("/category_c/".concat(this.$route.params.id), {
+      axios.post("/category_group_filter/".concat(this.$route.params.id), {
         'type': 'product'
       }).then(function (response) {
         console.log('sdddd', response.data);
@@ -5931,14 +5933,18 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(1), _vm._v(" "), _vm.products && _vm.products.length > 0 ? _c("tbody", _vm._l(_vm.products, function (productss) {
-    return _c("tr", [[_c("div", {
+  }, [_vm._m(1), _vm._v(" "), _vm.showCatProduct && _vm.showCatProduct.length > 0 ? _c("tbody", _vm._l(_vm.showCatProduct, function (productss, index) {
+    return _c("tr", {
+      key: index
+    }, [[_c("div", {
       staticClass: "row"
     }, [_c("div", {
       staticClass: "col-md-2"
-    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(productss.text) + "\n\n\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
-      staticClass: "col-md-10"
-    }, [_vm._l(productss.product_family_attribute, function (product_family) {
+    }, [_vm._v("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(index + 1) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+      staticClass: "col-md-2"
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(productss.text) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+      staticClass: "col-md-8"
+    }, [_vm._l(productss["product_family_attribute"], function (product_family) {
       return [_c("div", {
         staticClass: "row"
       }, [_c("div", {
@@ -5947,9 +5953,9 @@ var render = function render() {
         staticClass: "col-md-4"
       }, [_c("div", {
         staticClass: "col-md-12"
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالكميه: " + _vm._s(product_family.qty) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالكميه: " + _vm._s(product_family.qty) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
         staticClass: "col-md-12"
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالسعر:" + _vm._s(product_family.price) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _vm._l(product_family.family_attribute_option, function (option) {
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالسعر:" + _vm._s(product_family.price) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _vm._l(product_family.family_attribute_option, function (option) {
         return _c("div", {
           staticClass: "col-md-12"
         }, [_c("p", [_vm._v(_vm._s(option.name) + ":" + _vm._s(option.value))])]);
@@ -6031,7 +6037,7 @@ var staticRenderFns = [function () {
     attrs: {
       colspan: "7"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])]);
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t\t")])]);
 }];
 render._withStripped = true;
 
@@ -6402,12 +6408,12 @@ var render = function render() {
     attrs: {
       "for": "pagoPrevio"
     }
-  }, [_vm._v("المجموعه")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("مجموعه الخواص")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.New,
-      expression: "New"
+      value: _vm.family_attribute,
+      expression: "family_attribute"
     }],
     staticClass: "form-control",
     attrs: {
@@ -6422,22 +6428,16 @@ var render = function render() {
           var val = "_value" in o ? o._value : o.value;
           return val;
         });
-        _vm.New = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+        _vm.family_attribute = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
       }
     }
-  }, [_c("option", {
-    attrs: {
-      value: ""
-    }
-  }, [_vm._v("select")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "yes"
-    }
-  }, [_vm._v("yes")]), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "no"
-    }
-  }, [_vm._v("no")])])])]), _vm._v(" "), _c("div", {
+  }, _vm._l(_vm.attribute_families, function (families) {
+    return _c("option", {
+      domProps: {
+        value: families.id
+      }
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t" + _vm._s(families.name) + "\n\t\t\t\t\t\t\t\t\t")]);
+  }), 0)])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "table-responsive"
@@ -6446,8 +6446,10 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm.attributes && _vm.attributes.length > 0 ? _c("tbody", _vm._l(_vm.attributes, function (attribute) {
-    return _c("tr", [_c("td", [_vm._v(_vm._s(attribute.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(attribute.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(attribute.code))]), _vm._v(" "), _c("td", [_vm._l(attribute.attribute_option, function (attr, indexd) {
+  }, [_vm._m(0), _vm._v(" "), _vm.attributes && _vm.attributes.length > 0 ? _c("tbody", _vm._l(_vm.attributes, function (attribute, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(attribute.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(attribute.code))]), _vm._v(" "), _c("td", [_vm._l(attribute.attribute_option, function (attr, indexd) {
       return [[_c("div", {
         staticStyle: {
           "float": "left"
@@ -6477,7 +6479,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("thead", [_c("tr", [_c("th", {
     staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الرقم")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("الرقم التسلسلي")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
   }, [_vm._v("الاسم")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
@@ -6925,8 +6927,10 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm.attribute_families && _vm.attribute_families.length > 0 ? _c("tbody", _vm._l(_vm.attribute_families, function (family) {
-    return _c("tr", [_c("td", [_vm._v(_vm._s(family.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.code))]), _vm._v(" "), _c("td", [_vm._l(family.attribute_family_mapping, function (attr) {
+  }, [_vm._m(0), _vm._v(" "), _vm.attribute_families && _vm.attribute_families.length > 0 ? _c("tbody", _vm._l(_vm.attribute_families, function (family, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.code))]), _vm._v(" "), _c("td", [_vm._l(family.attribute_family_mapping, function (attr) {
       return [[_c("span", {
         staticStyle: {
           color: "blue"
@@ -6952,7 +6956,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("thead", [_c("tr", [_c("th", {
     staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الرقم")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("الرقم التسلسلي")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
   }, [_vm._v("الاسم")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
@@ -7347,8 +7351,10 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(1), _vm._v(" "), _vm.category && _vm.category.length > 0 ? _c("tbody", _vm._l(_vm.category, function (categorys) {
-    return _c("tr", [_c("td", [_vm._v(_vm._s(categorys.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(categorys.text))]), _vm._v(" "), _c("td", [_c("button", {
+  }, [_vm._m(1), _vm._v(" "), _vm.category && _vm.category.length > 0 ? _c("tbody", _vm._l(_vm.category, function (categorys, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(categorys.text))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-danger btn-sm",
       attrs: {
         type: "button"
@@ -7406,7 +7412,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("thead", [_c("tr", [_c("th", {
     staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الرقم")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("الرقم التسلسلي")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
   }, [_vm._v("الاسم")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
@@ -10007,8 +10013,10 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm.user && _vm.user.length > 0 ? _c("tbody", _vm._l(_vm.user, function (users) {
-    return _c("tr", [_c("td", [_vm._v(_vm._s(users.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.phone))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.address))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.status))]), _vm._v(" "), _c("td", [_vm._m(1, true), _vm._v(" "), _c("router-link", {
+  }, [_vm._m(0), _vm._v(" "), _vm.user && _vm.user.length > 0 ? _c("tbody", _vm._l(_vm.user, function (users, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.phone))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.address))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.status))]), _vm._v(" "), _c("td", [_vm._m(1, true), _vm._v(" "), _c("router-link", {
       staticClass: "edit btn btn-success btn-sm",
       attrs: {
         to: {
@@ -10027,6 +10035,8 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("thead", [_c("tr", [_c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v("الرقم التسلسلي")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
   }, [_vm._v("الاسم")]), _vm._v(" "), _c("th", {
     staticClass: "wd-15p border-bottom-0"
@@ -72629,7 +72639,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     categoryByID: function categoryByID(context, payload) {
-      axios.post('/category_c/' + payload).then(function (response) {
+      axios.post('/category_group_filter/' + payload).then(function (response) {
         // console.log(response.data)
         context.commit("getProductbyId", response.data);
       });

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class AttributeController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
 
 
@@ -25,6 +25,8 @@ class AttributeController extends Controller
 
         return response()->json([
             'attributes' => $attributes,
+            'attribute_families' => AttributeFamily::all()
+
 
         ]);
     }

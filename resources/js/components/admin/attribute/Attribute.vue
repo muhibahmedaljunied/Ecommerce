@@ -34,20 +34,24 @@
 							<div class="row">
 
 								<div class="col-md-12">
-									<label for="pagoPrevio">المجموعه</label>
+									<label for="pagoPrevio">مجموعه الخواص</label>
+									<select v-model="family_attribute" name="Category" id="Category"
+										class="form-control">
+										<option v-for="families in attribute_families" v-bind:value="families.id">
+											{{ families.name }}
+										</option>
 
-									<select v-model="New" name="Category" id="Category" class="form-control">
-										<option value="">select</option>
-										<option value="yes">yes</option>
-										<option value="no">no</option>
+
 
 									</select>
+
 
 								</div>
 
 
 
 							</div>
+							<hr>
 
 							<div class="row">
 
@@ -55,7 +59,7 @@
 									<table class="table text-md-nowrap" id="example1">
 										<thead>
 											<tr>
-												<th class="wd-15p border-bottom-0">الرقم</th>
+												<th class="wd-15p border-bottom-0">الرقم التسلسلي</th>
 
 												<th class="wd-15p border-bottom-0">الاسم</th>
 												<th class="wd-15p border-bottom-0">الرمز</th>
@@ -66,8 +70,8 @@
 											</tr>
 										</thead>
 										<tbody v-if="attributes && attributes.length > 0">
-											<tr v-for="attribute in attributes">
-												<td>{{ attribute.id }}</td>
+											<tr v-for="(attribute, index) in attributes" :key="index">
+												<td>{{ index + 1 }}</td>
 
 												<td>{{ attribute.name }}</td>
 												<td>{{ attribute.code }}</td>
@@ -101,7 +105,7 @@
 														:to="{ name: 'edit_attribute', params: { data: attribute } }"
 														class="btn btn-success btn-sm"><i
 															class="fa fa-edit"></i></router-link>
-												
+
 												</td>
 
 											</tr>
@@ -130,10 +134,13 @@
 <script>
 
 export default {
-	
+
 	data() {
 		return {
 			attributes: '',
+
+			attribute_families: '',
+			family_attribute: '',
 
 			name: '',
 			code: '',
@@ -142,7 +149,7 @@ export default {
 			counts: {},
 			count: 1,
 			value: [],
-			msg:'',
+			msg: '',
 
 
 		}
@@ -152,10 +159,12 @@ export default {
 		this.counts[0] = 1;
 		this.axios.post('/attribute').then(response => {
 			this.attributes = response.data.attributes;
+			this.attribute_families = response.data.attribute_families;
+
 		})
 	},
 	methods: {
-	
+
 		delete_Attribute(id) {
 
 			this.axios.post(`delete_Attribute/${id}`).then(response => {

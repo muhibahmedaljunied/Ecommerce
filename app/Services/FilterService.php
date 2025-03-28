@@ -14,8 +14,8 @@ class FilterService
     public $array_data;
     public $root;
     public $link;
-   
-  
+
+
     public $data = [
         [
             "id" => 0,
@@ -38,12 +38,12 @@ class FilterService
         // dd($this->array_data['الحجم']);
         foreach ($this->array_data as $key => $value) {
 
-         
+
             foreach ($value as $key2 => $value2) {
 
 
 
-             
+
                 if ($value2 == 'true') {
 
                     $this->array_where[$i1] = $key2;
@@ -66,9 +66,6 @@ class FilterService
 
             $this->filter($value);
         }
-
-
-        
     }
 
     function filter($value)
@@ -81,15 +78,14 @@ class FilterService
         } else {
             $this->foreach_root($value['children']);
         }
-      
     }
 
     function queryfilter()
     {
 
 
-        // dd($this->array_where);
         $product = Product::where(function ($query) {
+
             return $query->where('parent_id', '=', $this->product_id)
                 ->orWhere('id', '=', $this->product_id)->where('status', '=', 'false');
         })
@@ -121,8 +117,6 @@ class FilterService
 
                 $this->data[$this->count] = $product[0];
                 $this->count = $this->count + 1;
-
-               
             } else {
 
 
@@ -137,7 +131,6 @@ class FilterService
 
 
                 $this->filter_by_attribute($product);
-              
             }
         }
     }
@@ -149,16 +142,16 @@ class FilterService
         foreach ($value1 as $value) {
 
 
-            
-        
+
+
             foreach ($value['product_family_attribute'] as $key3 => $value3) {
 
                 $count = 0;
-            
+
                 foreach ($value3['family_attribute_option'] as $value4) {
 
-                  
-              
+
+
                     // dd($value3['family_attribute_option']);
                     if ($value4['attribute_option'] == null) {
 
@@ -166,36 +159,28 @@ class FilterService
                     } else {
                         $this->array_attribute[$count] = $value4['attribute_option']['value'];
                         $this->group_array_attribute[$key3] = $value4['attribute_option']['value'];
-
                     }
 
 
 
-                 
+
                     $count = $count + 1;
                 }
-                $diff = array_diff($this->array_where,$this->array_attribute);
+                $diff = array_diff($this->array_where, $this->array_attribute);
 
                 // dd($this->group_array_attribute);
-       
+
                 if (!empty($diff)) {
-                    
+
                     unset($value['product_family_attribute'][$key3]);
-                
-                } 
+                }
 
 
                 $this->array_attribute = [];
-
-               
             }
 
             $this->data[$this->count] = $value;
             $this->count = $this->count + 1;
-
-          
-
         }
-
     }
 }

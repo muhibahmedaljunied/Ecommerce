@@ -21,6 +21,26 @@ class CategoryController extends Controller
 
 
 
+    function category_filter(Request $request)
+    {
+
+
+        $product = Product::where(function ($query) use ($request) {
+
+            return $query->where('parent_id', '=', $request->id)
+                ->where('status', '=', 'true');
+        })
+            ->get();
+
+
+        return response()->json([
+            'products' => $product,
+
+        ]);
+    }
+
+
+
     public function create()
     {
         return response()->json('asd');

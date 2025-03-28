@@ -56,7 +56,7 @@
 
                   </div>
                 </div>
-                <div class="card" v-for="(attribute_filter, index)  in data_fliter">
+                <div class="card" v-for="(attribute_filter, index) in data_fliter">
 
                   <div class="card-header" :id=index>
                     <h1 class="mb-0">
@@ -593,7 +593,7 @@ export default {
     showProduct() {
       // console.log(this.$route.params.id);
       this.array_id.product_id = this.$route.params.id;
-      axios.post(`/category_c/${this.$route.params.id}`, { 'type': 'product' })
+      axios.post(`/category_group_filter/${this.$route.params.id}`, { 'type': 'product' })
         .then((response) => {
           console.log('sdddd', response.data);
           this.all_attribute_filter = response.data.product_filterable_attributes;

@@ -105,7 +105,7 @@ export default {
           })
     },
     categoryByID(context, payload){
-      axios.post('/category_c/'+ payload)
+      axios.post('/category_group_filter/'+ payload)
           .then((response) =>{
             // console.log(response.data)
             context.commit("getProductbyId", response.data)

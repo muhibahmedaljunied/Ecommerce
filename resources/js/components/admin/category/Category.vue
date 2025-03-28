@@ -1,5 +1,4 @@
 <template>
-	<!-- row opened -->
 
 	<div class="container-fluid">
 
@@ -76,7 +75,7 @@
 							<table class="table text-md-nowrap" id="example1">
 								<thead>
 									<tr>
-										<th class="wd-15p border-bottom-0">الرقم</th>
+										<th class="wd-15p border-bottom-0">الرقم التسلسلي</th>
 
 										<th class="wd-15p border-bottom-0">الاسم</th>
 
@@ -87,8 +86,8 @@
 									</tr>
 								</thead>
 								<tbody v-if="category && category.length > 0">
-									<tr v-for="categorys in category">
-										<td>{{ categorys.id }}</td>
+									<tr v-for="(categorys,index) in category" :key="index">
+										<td>{{ index+1 }}</td>
 
 										<td>{{ categorys.text }}</td>
 										<!-- <td>
@@ -96,7 +95,7 @@
                                                 </td> -->
 										<!-- <td>{{categorys.status}}</td>
 												<td> {{categorys.created_at}}</td>
-												<td>{{categorys.updated_at}}</td> -->
+												<td>{{categorys.updated_at}}</td>-->
 										<td>
 											<button type='button' @click="delete_category(categorys.id)"
 												class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
@@ -134,7 +133,6 @@
 
 	</div>
 
-	<!-- /row -->
 </template>
 
 <script>
@@ -163,7 +161,6 @@ export default {
 
 		this.axios.post('/category').then(response => {
 			this.category = response.data;
-			// this.$root.logo = 'Category'
 
 		})
 
@@ -180,7 +177,6 @@ export default {
 	methods: {
 		showtree() {
 
-			// console.log('in show tree', this.$route.params.id);
 			var uri = `/tree_product`;
 			var gf = this;
 
@@ -285,13 +281,13 @@ export default {
 
 					gf.parent = data.node.id;
 
+					axios.post(`/admin_category_filter/${data.node.id}`, {
+						'type': 'product'
+					}).then((response) => {
 
-					// axios.post(`/category_filter/${data.node.id}`).then((response) => {
+						gf.category = response.data.products;
 
-					//     gf.showCatProduct = response.data;
-					//     gf.array_id.product_id = data.node.id;
-
-					// });
+					});
 
 				});
 

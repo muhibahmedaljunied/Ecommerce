@@ -17,6 +17,9 @@ Route::post('/store_category', [ProductController::class, 'store_category']);
 Route::post('/edit_category/{id}', [CategoryController::class, 'edit']);
 Route::post('/update_category/{id}', [ProductController::class, 'update']);
 Route::post('/delete_category/{id}', [ProductController::class, 'destroy']);
+Route::post('/admin_category_filter/{id}', [CategoryController::class, 'category_filter']);
+
+
 // });
 
 // Route::group(['prefix' => 'user'], function () {

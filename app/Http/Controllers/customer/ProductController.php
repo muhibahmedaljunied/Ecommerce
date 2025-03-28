@@ -17,8 +17,10 @@ class ProductController extends Controller
     public $request;
     public function __construct(Request $request, FilterService $filter)
     {
+
         $this->request = $request;
         $this->filter = $filter;
+
     }
     public function index(Request $request)
     {
@@ -55,10 +57,13 @@ class ProductController extends Controller
     }
     public function category_filter(FilterService $filter)
     {
+        
+
 
         $filter->product_id =  $this->request->id;
         $filter->queryfilter($this->request['type']);
       
+
         return response()->json([
             'products' => $filter->data,
         ]);
