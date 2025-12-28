@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('customer/{page}', function () {
+
     return view('customer/layouts/master', ['name' => 'James']);
 })->name('customer');
 

@@ -81,7 +81,7 @@
 									</thead>
 									<tbody v-if="showCatProduct && showCatProduct.length > 0">
 
-										<tr v-for="(productss,index) in showCatProduct" :key="index">
+										<tr v-for="(productss, index) in showCatProduct" :key="index">
 
 
 
@@ -95,6 +95,17 @@
 													</div>
 													<div class="col-md-2">
 														{{ productss.text }}
+
+														<div class="col-md-12"
+															v-for="produc_option in productss['product_family_attribute']">
+
+
+															<span 
+																v-for="option in produc_option.family_attribute_option">
+															{{ option.value }}
+															</span>
+
+														</div>
 
 													</div>
 
@@ -119,11 +130,11 @@
 
 																		</div>
 
-																		<div class="col-md-12"
+																		<!-- <div class="col-md-12"
 																			v-for="option in product_family.family_attribute_option">
 																			<p>{{ option.name }}:{{ option.value
 																			}}</p>
-																		</div>
+																		</div> -->
 																	</div>
 
 																	<div class="col-md-2">

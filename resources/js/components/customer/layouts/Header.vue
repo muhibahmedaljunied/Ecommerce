@@ -1,5 +1,5 @@
 <template>
-  
+
   <header class="header_area">
     <div class="top_menu">
       <div class="container">
@@ -13,19 +13,19 @@
           <div class="col-lg-2">
             <div class="float-left" v-if="showSession">
 
-             <i class="fa fa-mail-forward"></i>:{{ showSession.email }} 
+             <i class="fa fa-mail-forward"></i>:{{ showSession.email }}
             </div>
           </div>
           <div class="col-lg-1">
             <div class="float-left" v-if="showSession">
-    
-              <i class="fa fa-whatsapp"></i> 
+
+              <i class="fa fa-whatsapp"></i>
             </div>
           </div>
           <div class="col-lg-1">
             <div class="float-left" v-if="showSession">
-    
-              <i class="fa fa-facebook"></i> 
+
+              <i class="fa fa-facebook"></i>
             </div>
           </div>
 
@@ -45,7 +45,7 @@
                 </li>
 
                 <!-- <li>
-                  
+
                   <button type = 'button' @click ="logout"  class="btn ">Logout</button>
 
                 </li>  -->
@@ -73,7 +73,7 @@
               </ul>
             </div>
           </div>
-     
+
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@
               <div class="nav-header">
                   <div class="nav-logo">
                       <a href="#">
-                          <img src="/Ecommerce/assets/img/logo_muhib.jpg" width="100px" alt="logo">
+                          <img src="/assets/img/logo_muhib.jpg" width="100px" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                
                   
             </div>
-               <a href="/Ecommerce/">لوحه التحكم</a>
+               <a href="/">لوحه التحكم</a>
                
                   <router-link to="/customer/cart"><i class="fa fa-shopping-cart"></i> <span class="badge badge-notify">{{
                     showCountCart }}</span></router-link>
@@ -161,7 +161,7 @@
                   <li class="nav-item submenu dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                       aria-expanded="false">Category</a>
-                      
+
                     <ul class="dropdown-menu">
                       <li class="nav-item" v-for="category in categories">
                         <router-link class="nav-link" :to ="`/customer/category/${category.id }`">{{category.name}}</router-link>
@@ -176,14 +176,14 @@
 
               <div class="col-lg-5 pr-0">
                 <ul class="nav navbar-nav navbar-right right_nav pull-right">
-                 
+
 
                 <li class="nav-item">
                     <router-link to="/customer/cart" class="icons">
                       <i class="fa fa-shopping-cart"></i>
                       <span class="badge badge-notify"  >{{showCountCart}}</span>
                     </router-link>
-                    
+
                   </li>
                   <li class="nav-item">
                     <router-link to="/customer/login" class="icons">
@@ -191,7 +191,7 @@
                     </router-link>
                   </li>
 
-           
+
                 </ul>
               </div>
             </div>

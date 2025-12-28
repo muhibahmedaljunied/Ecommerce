@@ -1,5 +1,5 @@
 <template>
-    <!-- Sidebar-right-->
+<!-- Sidebar-right-->
 		<div class="sidebar sidebar-left sidebar-animate">
 			<div class="panel panel-primary card mb-0 box-shadow">
 				<div class="tab-menu-heading border-0 p-3">
@@ -160,7 +160,7 @@
 							<div class="list-group list-group-flush ">
 								<div class="list-group-item d-flex  align-items-center">
 									<div class="ml-3">
-										<span class="avatar avatar-lg brround cover-image" data-image-src='assets/img/background2.jpg'><span class="avatar-status bg-success"></span></span>
+										<span class="avatar avatar-lg brround cover-image" data-image-src=""><span class="avatar-status bg-success"></span></span>
 									</div>
 									<div>
 										<strong>Madeleine</strong> Hey! there I' am available....
@@ -171,7 +171,7 @@
 								</div>
 								<div class="list-group-item d-flex  align-items-center">
 									<div class="ml-3">
-										<span class="avatar avatar-lg brround cover-image" data-image-src='assets/img/faces/1.jpg'></span>
+										<span class="avatar avatar-lg brround cover-image" data-image-src=""></span>
 									</div>
 									<div>
 										<strong>Anthony</strong> New product Launching...
@@ -182,7 +182,7 @@
 								</div>
 								<div class="list-group-item d-flex  align-items-center">
 									<div class="ml-3">
-										<span class="avatar avatar-lg brround cover-image" data-image-src='assets/img/faces/2.jpg'><span class="avatar-status bg-success"></span></span>
+										<span class="avatar avatar-lg brround cover-image" data-image-src=""><span class="avatar-status bg-success"></span></span>
 									</div>
 									<div>
 										<strong>Olivia</strong> New Schedule Realease......
@@ -193,7 +193,7 @@
 								</div>
 								<div class="list-group-item d-flex  align-items-center">
 									<div class="ml-3">
-										<span class="avatar avatar-lg brround cover-image" data-image-src='assets/img/faces/8.jpg'><span class="avatar-status bg-success"></span></span>
+										<span class="avatar avatar-lg brround cover-image" data-image-src=""><span class="avatar-status bg-success"></span></span>
 									</div>
 									<div>
 										<strong>Madeleine</strong> Hey! there I' am available....
@@ -204,7 +204,7 @@
 								</div>
 								<div class="list-group-item d-flex  align-items-center">
 									<div class="ml-3">
-										<span class="avatar avatar-lg brround cover-image" data-image-src='assets/img/faces/11.jpg'></span>
+										<span class="avatar avatar-lg brround cover-image" data-image-src=""></span>
 									</div>
 									<div>
 										<strong>Anthony</strong> New product Launching...
@@ -215,7 +215,7 @@
 								</div>
 								<div class="list-group-item d-flex  align-items-center">
 									<div class="ml-3">
-										<span class="avatar avatar-lg brround cover-image" data-image-src='assets/img/faces/6.jpg'><span class="avatar-status bg-success"></span></span>
+										<span class="avatar avatar-lg brround cover-image" data-image-src=""><span class="avatar-status bg-success"></span></span>
 									</div>
 									<div>
 										<strong>Olivia</strong> New Schedule Realease......
@@ -226,7 +226,7 @@
 								</div>
 								<div class="list-group-item d-flex  align-items-center">
 									<div class="ml-3">
-										<span class="avatar avatar-lg brround cover-image" data-image-src='assets/img/faces/9.jpg'><span class="avatar-status bg-success"></span></span>
+										<span class="avatar avatar-lg brround cover-image" data-image-src=""><span class="avatar-status bg-success"></span></span>
 									</div>
 									<div>
 										<strong>Olivia</strong> Hey! there I' am available....
@@ -237,168 +237,10 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane  " id="side3">
-							<div class="list-group list-group-flush ">
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/9.jpg'><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Mozelle Belt</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/11.jpg'></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Florinda Carasco</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/10.jpg'><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Alina Bernier</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/2.jpg'><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Zula Mclaughin</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/13.jpg'></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Isidro Heide</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/12.jpg'><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Mozelle Belt</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/4.jpg'></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Florinda Carasco</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/7.jpg'></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Alina Bernier</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/2.jpg'></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Zula Mclaughin</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/14.jpg'><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Isidro Heide</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/11.jpg'></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Florinda Carasco</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/9.jpg'></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Alina Bernier</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/15.jpg'><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Zula Mclaughin</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src='assets/img/faces/4.jpg'></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Isidro Heide</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>
 		</div>
 <!--/Sidebar-right-->
-
 </template>

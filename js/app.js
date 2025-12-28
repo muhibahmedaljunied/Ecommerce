@@ -5942,7 +5942,13 @@ var render = function render() {
       staticClass: "col-md-2"
     }, [_vm._v("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(index + 1) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
       staticClass: "col-md-2"
-    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(productss.text) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(productss.text) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t"), _vm._l(productss["product_family_attribute"], function (produc_option) {
+      return _c("div", {
+        staticClass: "col-md-12"
+      }, _vm._l(produc_option.family_attribute_option, function (option) {
+        return _c("span", [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(option.value) + "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]);
+      }), 0);
+    })], 2), _vm._v(" "), _c("div", {
       staticClass: "col-md-8"
     }, [_vm._l(productss["product_family_attribute"], function (product_family) {
       return [_c("div", {
@@ -5955,11 +5961,7 @@ var render = function render() {
         staticClass: "col-md-12"
       }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالكميه: " + _vm._s(product_family.qty) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
         staticClass: "col-md-12"
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالسعر:" + _vm._s(product_family.price) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _vm._l(product_family.family_attribute_option, function (option) {
-        return _c("div", {
-          staticClass: "col-md-12"
-        }, [_c("p", [_vm._v(_vm._s(option.name) + ":" + _vm._s(option.value))])]);
-      })], 2), _vm._v(" "), _c("div", {
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tالسعر:" + _vm._s(product_family.price) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")])]), _vm._v(" "), _c("div", {
         staticClass: "col-md-2"
       }, [_c("img", {
         staticClass: "card-img",
@@ -69194,8 +69196,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  //import vue router
 
 
-window.axios.defaults.baseURL = "http://localhost:9000/Ecommerce";
-// window.axios.defaults.baseURL = "http://localhost/Ecommerce";
+// window.axios.defaults.baseURL = "http://localhost:9000/Ecommerce";
+window.axios.defaults.baseURL = "http://localhost/Ecommerce";
 // ---------------------------- sweetalert ---------------------------------------------------------
 
 

@@ -2,8 +2,8 @@
 <title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
 <!-- Favicon -->
 
-<link href="{{URL::asset('css/app.css')}}" rel="stylesheet">  
-<link href="{{URL::asset('css/app.css')}}" rel="stylesheet">  
+{{-- <link href="{{URL::asset('css/app.css')}}" rel="stylesheet"> --}}
+<link href="{{URL::asset('css/app.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/font-awesome/css/fontawesome.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/font-awesome/css/fontawesome.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/font-awesome/css/solid.css')}}" rel="stylesheet">
