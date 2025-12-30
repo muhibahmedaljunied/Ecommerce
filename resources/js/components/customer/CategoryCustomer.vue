@@ -187,7 +187,7 @@
                   </div>
                   <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                     <div class="card-body">
-                  
+
                       <div class="widgets_inner">
                         <div class="range_item">
                           <div id="slider-range"></div>
@@ -197,7 +197,7 @@
                           </div>
                         </div>
                       </div>
-              
+
                     </div>
                   </div>
                 </div>
@@ -276,7 +276,7 @@
                   </div>
                 </div>
 
-                
+
                 <div class="card">
                   <div class="card-header" id="headingEight">
                     <h5 class="mb-0">
@@ -338,7 +338,7 @@
                           <img class="card-img" :src="`/Ecommerce/assets/upload/${dd.image}`" alt="Product Image"
                             height='180px' />
                           <div class="p_icon">
-                            <router-link :to="`/customer/single-product/${dd.id}`">
+                            <router-link :to="`/Ecommerce/customer/single-product/${dd.id}`">
                               <i class="ti-eye"></i>
                             </router-link>
                             <a href="#">

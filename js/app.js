@@ -4939,7 +4939,10 @@ __webpack_require__.r(__webpack_exports__);
   // name: "header_area",
   data: function data() {
     return {
-      categories: []
+      categories: [],
+      navOpen: false,
+      selectedLanguage: localStorage.getItem('lang') || 'ar',
+      searchQuery: ''
     };
   },
   created: function created() {
@@ -4976,6 +4979,26 @@ __webpack_require__.r(__webpack_exports__);
         // console.log(response.data)
         _this2.$store.dispatch("customerSession");
       });
+    },
+    changeLang: function changeLang() {
+      // persist choice and notify parent / other parts of the app
+      localStorage.setItem('lang', this.selectedLanguage);
+      // set document language attribute (helpful for accessibility / direction)
+      document.documentElement.lang = this.selectedLanguage;
+      this.$emit('language-changed', this.selectedLanguage);
+    },
+    performSearch: function performSearch() {
+      if (!this.searchQuery || !this.searchQuery.trim()) return;
+      // close mobile nav if open
+      this.navOpen = false;
+      // push to search route (adjust route/path as needed)
+      this.$router.push({
+        path: '/customer/search',
+        query: {
+          q: this.searchQuery.trim()
+        }
+      });
+      // clear input if you want: this.searchQuery = '';
     } // search(){
     //   axios.post('/search-product',{
     //     searchKey: this.searchKey
@@ -5011,7 +5034,7 @@ __webpack_require__.r(__webpack_exports__);
     //     axios.post('/add-cart',{
     //         id: id
     //     })
-    //         .then((response)=>{            
+    //         .then((response)=>{
     //             this.$store.dispatch("countCart");
     //             this.$Progress.finish()
     //         })
@@ -7733,7 +7756,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "logo-1",
     attrs: {
-      src: "/Ecommerce/assets/img/brand/logo.png",
+      src: "/assets/img/brand/logo.png",
       alt: "logo"
     }
   })]), _vm._v(" "), _c("a", {
@@ -7743,7 +7766,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "dark-logo-1",
     attrs: {
-      src: "/Ecommerce/assets/img/brand/logo-white.png",
+      src: "/assets/img/brand/logo-white.png",
       alt: "logo"
     }
   })]), _vm._v(" "), _c("a", {
@@ -7753,7 +7776,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "logo-2",
     attrs: {
-      src: "/Ecommerce/assets/img/brand/favicon.png",
+      src: "/assets/img/brand/favicon.png",
       alt: "logo"
     }
   })]), _vm._v(" "), _c("a", {
@@ -7763,7 +7786,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "dark-logo-2",
     attrs: {
-      src: "/Ecommerce/assets/img/brand/favicon.png",
+      src: "/assets/img/brand/favicon.png",
       alt: "logo"
     }
   })])]), _vm._v(" "), _c("div", {
@@ -7803,7 +7826,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("div", [_c("a", {
     attrs: {
-      href: "customer/home"
+      href: "/Ecommerce/customer/home"
     }
   }, [_c("img", {
     staticStyle: {
@@ -7840,7 +7863,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     attrs: {
       alt: "",
-      src: "/Ecommerce/assets/img/background.png"
+      src: "/assets/img/background.png"
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "mr-3 my-auto"
@@ -8367,470 +8390,87 @@ var staticRenderFns = [function () {
   }, [_c("span", {
     staticClass: "avatar avatar-lg brround cover-image",
     attrs: {
-      "data-image-src": "assets/img/background2.jpg"
+      "data-image-src": ""
     }
   }, [_c("span", {
     staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Madeleine")]), _vm._v(" Hey! there I' am available....\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Madeleine")]), _vm._v(" Hey! there I' am available....\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t3 hours ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t3 hours ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
   }, [_c("span", {
     staticClass: "avatar avatar-lg brround cover-image",
     attrs: {
-      "data-image-src": "assets/img/faces/1.jpg"
+      "data-image-src": ""
     }
-  })]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Anthony")]), _vm._v(" New product Launching...\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Anthony")]), _vm._v(" New product Launching...\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t5 hour ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t5 hour ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
   }, [_c("span", {
     staticClass: "avatar avatar-lg brround cover-image",
     attrs: {
-      "data-image-src": "assets/img/faces/2.jpg"
+      "data-image-src": ""
     }
   }, [_c("span", {
     staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" New Schedule Realease......\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" New Schedule Realease......\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t45 mintues ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t45 mintues ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
   }, [_c("span", {
     staticClass: "avatar avatar-lg brround cover-image",
     attrs: {
-      "data-image-src": "assets/img/faces/8.jpg"
+      "data-image-src": ""
     }
   }, [_c("span", {
     staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Madeleine")]), _vm._v(" Hey! there I' am available....\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Madeleine")]), _vm._v(" Hey! there I' am available....\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t3 hours ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t3 hours ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
   }, [_c("span", {
     staticClass: "avatar avatar-lg brround cover-image",
     attrs: {
-      "data-image-src": "assets/img/faces/11.jpg"
+      "data-image-src": ""
     }
-  })]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Anthony")]), _vm._v(" New product Launching...\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Anthony")]), _vm._v(" New product Launching...\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t5 hour ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t5 hour ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
   }, [_c("span", {
     staticClass: "avatar avatar-lg brround cover-image",
     attrs: {
-      "data-image-src": "assets/img/faces/6.jpg"
+      "data-image-src": ""
     }
   }, [_c("span", {
     staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" New Schedule Realease......\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" New Schedule Realease......\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t45 mintues ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t45 mintues ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
   }, [_c("span", {
     staticClass: "avatar avatar-lg brround cover-image",
     attrs: {
-      "data-image-src": "assets/img/faces/9.jpg"
+      "data-image-src": ""
     }
   }, [_c("span", {
     staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" Hey! there I' am available....\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" Hey! there I' am available....\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t12 mintues ago\n\t\t\t\t\t\t\t\t\t\t")])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "tab-pane",
-    attrs: {
-      id: "side3"
-    }
-  }, [_c("div", {
-    staticClass: "list-group list-group-flush"
-  }, [_c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/9.jpg"
-    }
-  }, [_c("span", {
-    staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Mozelle Belt")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/11.jpg"
-    }
-  })]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Florinda Carasco")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/10.jpg"
-    }
-  }, [_c("span", {
-    staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Alina Bernier")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/2.jpg"
-    }
-  }, [_c("span", {
-    staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Zula Mclaughin")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/13.jpg"
-    }
-  })]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Isidro Heide")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/12.jpg"
-    }
-  }, [_c("span", {
-    staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Mozelle Belt")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/4.jpg"
-    }
-  })]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Florinda Carasco")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/7.jpg"
-    }
-  })]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Alina Bernier")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/2.jpg"
-    }
-  })]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Zula Mclaughin")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/14.jpg"
-    }
-  }, [_c("span", {
-    staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Isidro Heide")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/11.jpg"
-    }
-  })]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Florinda Carasco")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/9.jpg"
-    }
-  })]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Alina Bernier")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/15.jpg"
-    }
-  }, [_c("span", {
-    staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Zula Mclaughin")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-2"
-  }, [_c("span", {
-    staticClass: "avatar avatar-md brround cover-image",
-    attrs: {
-      "data-image-src": "assets/img/faces/4.jpg"
-    }
-  })]), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "font-weight-semibold",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_vm._v("Isidro Heide")])]), _vm._v(" "), _c("div", {
-    staticClass: "mr-auto"
-  }, [_c("a", {
-    staticClass: "btn btn-sm btn-light",
-    attrs: {
-      href: "#",
-      "data-toggle": "modal",
-      "data-target": "#chatmodel"
-    }
-  }, [_c("i", {
-    staticClass: "fab fa-facebook-messenger"
-  })])])])])])])])])]);
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t12 mintues ago\r\n\t\t\t\t\t\t\t\t\t\t")])])])])])])])])]);
 }];
 render._withStripped = true;
 
@@ -10672,7 +10312,7 @@ var render = function render() {
         staticClass: "p_icon"
       }, [_c("router-link", {
         attrs: {
-          to: "/customer/single-product/".concat(dd.id)
+          to: "/Ecommerce/customer/single-product/".concat(dd.id)
         }
       }, [_c("i", {
         staticClass: "ti-eye"
@@ -11789,7 +11429,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "d-block w-100",
       attrs: {
-        src: "/Ecommerceassets/upload/".concat(single.image),
+        src: "/Ecommerce/assets/upload/".concat(single.image),
         alt: "Third slide"
       }
     })])])])])])]), _vm._v(" "), _c("div", {
@@ -11802,8 +11442,8 @@ var render = function render() {
       }
     }, [_vm._v("$" + _vm._s(single.price))]) : _vm._e()]), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _c("ul", {
       staticClass: "list"
-    }, [_c("li", [_c("span", [_vm._v("المنتج")]), _vm._v(" : " + _vm._s(single.product.text) + "\n             \n              ")]), _vm._v(" "), _vm._l(single.family_attribute_option, function (single2) {
-      return _c("li", [_c("span", [_vm._v(_vm._s(single2.attribute_option.attribute.name))]), _vm._v(" : " + _vm._s(single2.attribute_option.value) + "   \n\n              ")]);
+    }, [_c("li", [_c("span", [_vm._v("المنتج")]), _vm._v(" : " + _vm._s(single.product.text) + "\n\n              ")]), _vm._v(" "), _vm._l(single.family_attribute_option, function (single2) {
+      return _c("li", [_c("span", [_vm._v(_vm._s(single2.attribute_option.attribute.name))]), _vm._v(" : " + _vm._s(single2.attribute_option.value) + "\n\n              ")]);
     }), _vm._v(" "), _c("li", [_c("span", [_vm._v("المتوفر")]), _vm._v("في المخزن :" + _vm._s(_vm.singleProduct.qty) + "\n              ")]), _vm._v(" "), _c("li", [_c("span", [_vm._v("المبيعات")]), _vm._v(":" + _vm._s(_vm.singleProduct.qty) + "\n              ")])], 2), _vm._v(" "), _c("p"), _vm._v(" "), _c("form", {
       attrs: {
         method: "post"
@@ -12418,35 +12058,33 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "top_menu"
   }, [_c("div", {
-    staticClass: "container"
+    staticClass: "container-fluid"
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-lg-2"
+    staticClass: "col-lg-6 top-left"
   }, [_vm.showSession ? _c("div", {
-    staticClass: "float-left"
+    staticClass: "top-icons"
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("span", {
+    staticClass: "top-icon"
   }, [_c("i", {
-    staticClass: "fa fa-phone"
-  }), _vm._v(": +967 " + _vm._s(_vm.showSession.phone) + "\n\n          ")]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-2"
-  }, [_vm.showSession ? _c("div", {
-    staticClass: "float-left"
+    staticClass: "fa fa-mail-forward",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "contact-text"
+  }, [_vm._v(_vm._s(_vm.showSession.email))])]), _vm._v(" "), _c("span", {
+    staticClass: "top-icon"
   }, [_c("i", {
-    staticClass: "fa fa-mail-forward"
-  }), _vm._v(":" + _vm._s(_vm.showSession.email) + " \n          ")]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-1"
-  }, [_vm.showSession ? _c("div", {
-    staticClass: "float-left"
-  }, [_c("i", {
-    staticClass: "fa fa-whatsapp"
-  })]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-1"
-  }, [_vm.showSession ? _c("div", {
-    staticClass: "float-left"
-  }, [_c("i", {
-    staticClass: "fa fa-facebook"
-  })]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-3"
+    staticClass: "fa fa-phone",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "contact-text"
+  }, [_vm._v("+967 " + _vm._s(_vm.showSession.phone))])])]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-3 top-right"
   }, [_c("div", {
     staticClass: "float-right"
   }, [_vm.showSession ? _c("ul", {
@@ -12455,32 +12093,154 @@ var render = function render() {
     attrs: {
       href: "#"
     }
-  }, [_vm._v("\n                  " + _vm._s(_vm.showSession.name) + "\n                ")])]), _vm._v(" "), _c("li", [_c("a", {
+  }, [_vm._v("\n                                    " + _vm._s(_vm.showSession.name) + "\n                                ")])]), _vm._v(" "), _c("li", [_c("a", {
     attrs: {
       href: "#"
     },
     on: {
       click: _vm.logout
     }
-  }, [_vm._v("\n                  logout\n                ")])])]) : _c("ul", {
+  }, [_vm._v("\n                                    تسجيل خروج\n                                ")])]), _vm._v(" "), _c("li", {
+    staticClass: "lang-item"
+  }, [_c("div", {
+    staticClass: "lang-wrap"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.selectedLanguage,
+      expression: "selectedLanguage"
+    }],
+    staticClass: "lang-select",
+    attrs: {
+      "aria-label": "Select language"
+    },
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.selectedLanguage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.changeLang]
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "ar"
+    }
+  }, [_vm._v("العربية")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "en"
+    }
+  }, [_vm._v("English")])])])])]) : _c("ul", {
     staticClass: "right_side"
   }, [_c("li", [_c("router-link", {
     attrs: {
       to: "/customer/login"
     }
-  }, [_vm._v("\n                  تسجيل الدخول\n                ")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
+  }, [_vm._v("\n                                    تسجيل الدخول\n                                ")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
     attrs: {
       to: "/customer/register"
     }
-  }, [_vm._v("\n                  انشاء حساب\n                ")])], 1)])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                    انشاء حساب\n                                ")])], 1), _vm._v(" "), _c("li", {
+    staticClass: "lang-item"
+  }, [_c("div", {
+    staticClass: "lang-wrap"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.selectedLanguage,
+      expression: "selectedLanguage"
+    }],
+    staticClass: "lang-select",
+    attrs: {
+      "aria-label": "Select language"
+    },
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.selectedLanguage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.changeLang]
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "ar"
+    }
+  }, [_vm._v("العربية")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "en"
+    }
+  }, [_vm._v("English")])])])])])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "main_menu"
   }, [_c("div", {
     staticClass: "container-fluid"
   }, [_c("div", {
     staticClass: "navbar"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
-    staticClass: "nav-links"
-  }, [_c("router-link", {
+  }, [_vm._m(2), _vm._v(" "), _c("div", {
+    staticClass: "nav-btn",
+    attrs: {
+      role: "button",
+      "aria-label": "Toggle navigation",
+      "aria-expanded": _vm.navOpen
+    },
+    on: {
+      click: function click($event) {
+        _vm.navOpen = !_vm.navOpen;
+      }
+    }
+  }, [_vm._m(3)]), _vm._v(" "), _c("div", {
+    staticClass: "nav-links",
+    "class": {
+      open: _vm.navOpen
+    },
+    on: {
+      click: function click($event) {
+        _vm.navOpen = false;
+      }
+    }
+  }, [_c("form", {
+    staticClass: "search-form",
+    attrs: {
+      role: "search",
+      "aria-label": "Site search"
+    },
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.performSearch.apply(null, arguments);
+      }
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.searchQuery,
+      expression: "searchQuery"
+    }],
+    staticClass: "search-input",
+    attrs: {
+      type: "search",
+      placeholder: "Search products...",
+      "aria-label": "Search products"
+    },
+    domProps: {
+      value: _vm.searchQuery
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.searchQuery = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c("router-link", {
     attrs: {
       to: "/customer/home"
     }
@@ -12501,7 +12261,7 @@ var render = function render() {
     }, [_vm._v(_vm._s(category.text))])], 1);
   }), _vm._v(" "), _c("a", {
     attrs: {
-      href: "/Ecommerce/"
+      href: "/Ecommerce"
     }
   }, [_vm._v("لوحه التحكم")]), _vm._v(" "), _c("router-link", {
     attrs: {
@@ -12511,18 +12271,31 @@ var render = function render() {
     staticClass: "fa fa-shopping-cart"
   }), _vm._v(" "), _c("span", {
     staticClass: "badge badge-notify"
-  }, [_vm._v(_vm._s(_vm.showCountCart))])]), _vm._v(" "), _c("router-link", {
-    attrs: {
-      to: "/customer/login"
-    }
+  }, [_vm._v(_vm._s(_vm.showCountCart))])])], 2)])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("span", {
+    staticClass: "top-icon"
   }, [_c("i", {
-    staticClass: "ti-user",
+    staticClass: "fa fa-facebook",
     attrs: {
       "aria-hidden": "true"
     }
-  })])], 2)])])])]);
-};
-var staticRenderFns = [function () {
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("span", {
+    staticClass: "top-icon"
+  }, [_c("i", {
+    staticClass: "fa fa-whatsapp",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]);
+}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
@@ -12540,6 +12313,22 @@ var staticRenderFns = [function () {
       alt: "logo"
     }
   })])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", [_c("span"), _vm._v(" "), _c("span"), _vm._v(" "), _c("span")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("button", {
+    staticClass: "search-btn",
+    attrs: {
+      type: "submit",
+      "aria-label": "Search"
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-search"
+  })]);
 }];
 render._withStripped = true;
 
@@ -17268,7 +17057,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nimg {\r\n\r\n  border-radius: 7px;\n}\n.product-card {\r\n  padding: 241px;\r\n  padding-top: 21px;\r\n  padding-right: 21px;\r\n  padding-bottom: 21px;\r\n  padding-left: 21px;\r\n  border: 1px solid #e1e7ec;\r\n  border-radius: 7px;\r\n  background-color: #fff;\n}\n.product-card .product-title {\r\n\r\n  margin-bottom: 10px;\r\n  font-size: 16px;\r\n  font-weight: normal;\r\n  text-align: center;\n}\r\n", ""]);
+exports.push([module.i, "\nimg {\n\n  border-radius: 7px;\n}\n.product-card {\n  padding: 241px;\n  padding-top: 21px;\n  padding-right: 21px;\n  padding-bottom: 21px;\n  padding-left: 21px;\n  border: 1px solid #e1e7ec;\n  border-radius: 7px;\n  background-color: #fff;\n}\n.product-card .product-title {\n\n  margin-bottom: 10px;\n  font-size: 16px;\n  font-weight: normal;\n  text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -17306,7 +17095,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\r\n/* ------------------- */\n*[data-v-096658c9] {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\n}\nbody[data-v-096658c9] {\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n  /* background-image: url(background-img.jpg); */\r\n  background-size: cover;\r\n  background-attachment: fixed;\n}\n.navbar[data-v-096658c9] {\r\n  height: 70px;\r\n  width: 100%;\r\n  padding: 19px 30px;\r\n  background-color: #244976;\r\n  position: relative;\n}\n.navbar .nav-header[data-v-096658c9] {\r\n  display: inline;\n}\n.navbar .nav-header .nav-logo[data-v-096658c9] {\r\n  display: inline-block;\r\n  margin-top: -7px;\n}\n.navbar .nav-links[data-v-096658c9] {\r\n  display: inline;\r\n  float: right;\r\n  font-size: 18px;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\r\n  display: inline-block;\r\n  padding: 5px 15px;\r\n  margin-left: 20px;\r\n  font-size: 17px;\r\n  color: rgb(9, 14, 90);\n}\n.navbar .nav-links a[data-v-096658c9] {\r\n  padding: 10px 12px;\r\n  text-decoration: none;\r\n  font-weight: 550;\r\n  color: white;\n}\r\n\r\n/* Hover effects */\n.navbar .nav-links a[data-v-096658c9]:hover {\r\n  background-color: rgba(0, 0, 0, 0.3);\n}\r\n\r\n/* responsive navbar toggle button */\n.navbar #nav-check[data-v-096658c9],\r\n.navbar .nav-btn[data-v-096658c9] {\r\n  display: none;\n}\n@media (max-width:700px) {\n.navbar .nav-btn[data-v-096658c9] {\r\n    display: inline-block;\r\n    position: absolute;\r\n    top: 0px;\r\n    right: 0px;\n}\n.navbar .nav-btn label[data-v-096658c9] {\r\n    display: inline-block;\r\n    width: 80px;\r\n    height: 70px;\r\n    padding: 25px;\n}\n.navbar .nav-btn label span[data-v-096658c9] {\r\n    display: block;\r\n    height: 10px;\r\n    width: 25px;\r\n    border-top: 3px solid #eee;\n}\n.navbar .nav-btn label[data-v-096658c9]:hover,\r\n  .navbar #nav-check:checked~.nav-btn label[data-v-096658c9] {\r\n    background-color: rgb(9, 14, 90);\r\n    transition: all 0.5s ease;\n}\n.navbar .nav-links[data-v-096658c9] {\r\n    position: absolute;\r\n    display: block;\r\n    text-align: center;\r\n    width: 50%;\r\n    background-color: rgb(9, 14, 90);\r\n    transition: all 0.3s ease-in;\r\n    overflow-y: hidden;\r\n    top: 70px;\r\n    right: 0px;\n}\n.navbar .nav-links a[data-v-096658c9] {\r\n    display: block;\n}\r\n\r\n  /* when nav toggle button not checked */\n.navbar #nav-check:not(:checked)~.nav-links[data-v-096658c9] {\r\n    height: 0px;\n}\r\n\r\n  /* when nav toggle button is checked */\n.navbar #nav-check:checked~.nav-links[data-v-096658c9] {\r\n    height: calc(100vh - 70px);\r\n    overflow-y: auto;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\r\n    padding: 10px 40px;\r\n    margin: 20px;\r\n    font-size: 18px;\r\n    font-weight: bold;\r\n    color: rgb(9, 14, 90);\n}\r\n\r\n  /* Responsive dropdown code */\n.navbar .nav-links .dropdown[data-v-096658c9],\r\n  .navbar .nav-links .dropdown2[data-v-096658c9] {\r\n    float: none;\r\n    width: 100%;\n}\n.navbar .nav-links .drop-content[data-v-096658c9],\r\n  .navbar .nav-links .drop-content2[data-v-096658c9] {\r\n    position: relative;\r\n    background-color: rgb(220, 220, 250);\r\n    top: 0px;\r\n    left: 0px;\n}\r\n\r\n  /* Text color */\n.navbar .nav-links .drop-content a[data-v-096658c9] {\r\n    color: rgb(9, 14, 90);\n}\n}\r\n\r\n/* Dropdown menu CSS code */\n.dropdown[data-v-096658c9] {\r\n  position: relative;\r\n  display: inline-block;\n}\n.drop-content[data-v-096658c9],\r\n.drop-content2[data-v-096658c9] {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #1b4cd3;\r\n  min-width: 120px;\r\n  font-size: 16px;\r\n  top: 34px;\r\n  z-index: 1;\r\n  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);\n}\r\n\r\n/* on hover show dropdown */\n.dropdown:hover .drop-content[data-v-096658c9],\r\n.dropdown2:hover .drop-content2[data-v-096658c9] {\r\n  display: block;\n}\r\n\r\n/* drondown links */\n.drop-content a[data-v-096658c9] {\r\n  padding: 12px 10px;\r\n  border-bottom: 1px solid rgb(197, 197, 250);\r\n  display: block;\r\n  transition: all 0.5s ease !important;\n}\n.dropBtn .drop-content a[data-v-096658c9]:hover {\r\n  background-color: rgb(230, 230, 230);\n}\n.dropdown:hover .dropBtn[data-v-096658c9],\r\n.dropdown2:hover .dropBtn2[data-v-096658c9] {\r\n  background-color: rgba(0, 0, 0, 0.3);\n}\n.dropdown2 .drop-content2[data-v-096658c9] {\r\n  position: absolute;\r\n  left: 120px;\r\n  top: 126px;\n}\n.dropBtn2 i[data-v-096658c9] {\r\n  margin-left: 15px;\n}\n.badge-notify[data-v-096658c9] {\r\n  background: #2CC701;\r\n  position: relative;\r\n  top: -15px;\r\n  left: -7px;\r\n  color: black;\n}\r\n", ""]);
+exports.push([module.i, "\n/* ------------------- */\n*[data-v-096658c9] {\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n}\nbody[data-v-096658c9] {\n    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    /* background-image: url(background-img.jpg); */\n    background-size: cover;\n    background-attachment: fixed;\n}\n.navbar[data-v-096658c9] {\n    height: 70px;\n    width: 100%;\n    padding: 19px 30px;\n    background-color: #244976;\n    position: relative;\n}\n.navbar .nav-header[data-v-096658c9] {\n    display: inline;\n}\n.navbar .nav-header .nav-logo[data-v-096658c9] {\n    display: inline-block;\n    margin-top: -7px;\n}\n.navbar .nav-links[data-v-096658c9] {\n    display: inline;\n    float: right;\n    font-size: 18px;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\n    display: inline-block;\n    padding: 5px 15px;\n    margin-left: 20px;\n    font-size: 17px;\n    color: rgb(9, 14, 90);\n}\n.navbar .nav-links a[data-v-096658c9] {\n    padding: 10px 12px;\n    text-decoration: none;\n    font-weight: 550;\n    color: white;\n}\n\n/* Hover effects */\n.navbar .nav-links a[data-v-096658c9]:hover {\n    background-color: rgba(0, 0, 0, 0.3);\n}\n\n/* Search form in main menu */\n.navbar .search-form[data-v-096658c9] { display: inline-block; margin-right: 300px; vertical-align: middle;\n}\n.navbar .search-form .search-input[data-v-096658c9] { padding: 8px 83px; border-radius: 30px; border: none; min-width: 220px;\n}\n.navbar .search-form .search-btn[data-v-096658c9] { background: transparent; border: none; color: #fff; padding: 8px; cursor: pointer;\n}\n@media (max-width:700px) {\n.navbar .search-form[data-v-096658c9] { display: block; margin: 12px auto; width: calc(100% - 40px); padding: 0 20px; text-align: center;\n}\n.navbar .search-form .search-input[data-v-096658c9] { width: calc(100% - 44px); min-width: auto;\n}\n.navbar .search-form .search-btn[data-v-096658c9] { position: relative; right: 0;\n}\n}\n\n/* responsive navbar toggle button */\n.navbar #nav-check[data-v-096658c9],\n.navbar .nav-btn[data-v-096658c9] {\n    display: none;\n}\n@media (max-width:700px) {\n.navbar .nav-btn[data-v-096658c9] {\n        display: inline-block;\n        position: absolute;\n        top: 0px;\n        right: 0px;\n}\n.navbar .nav-btn label[data-v-096658c9] {\n        display: inline-block;\n        width: 80px;\n        height: 70px;\n        padding: 25px;\n        cursor: pointer;\n}\n.navbar .nav-btn label span[data-v-096658c9] {\n        display: block;\n        height: 3px;\n        width: 25px;\n        background: #fff;\n        margin: 6px 0;\n}\n.navbar .nav-btn label[data-v-096658c9]:hover {\n        background-color: rgb(9, 14, 90);\n        transition: all 0.5s ease;\n}\n.navbar .nav-links[data-v-096658c9] {\n        position: absolute;\n        display: block;\n        text-align: center;\n        width: 100%;\n        background-color: rgb(9, 14, 90);\n        z-index: 9999;\n        transition: height 0.3s ease-in;\n        overflow-y: hidden;\n        top: 70px;\n        right: 0px;\n        height: 0px;\n}\n.navbar .nav-links a[data-v-096658c9] {\n        display: block;\n}\n\n    /* when nav toggle button is open */\n.navbar .nav-links.open[data-v-096658c9] {\n        height: calc(100vh - 70px);\n        overflow-y: auto;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\n        padding: 10px 40px;\n        margin: 20px;\n        font-size: 18px;\n        font-weight: bold;\n        color: rgb(9, 14, 90);\n}\n\n    /* Responsive dropdown code */\n.navbar .nav-links .dropdown[data-v-096658c9],\n    .navbar .nav-links .dropdown2[data-v-096658c9] {\n        float: none;\n        width: 100%;\n}\n.navbar .nav-links .drop-content[data-v-096658c9],\n    .navbar .nav-links .drop-content2[data-v-096658c9] {\n        position: relative;\n        background-color: rgb(220, 220, 250);\n        top: 0px;\n        left: 0px;\n}\n\n    /* Text color */\n.navbar .nav-links .drop-content a[data-v-096658c9] {\n        color: rgb(9, 14, 90);\n}\n\n    /* Stack the top menu items */\n.top_menu .container .row>div[data-v-096658c9] {\n        flex: 0 0 100%;\n        max-width: 100%;\n        text-align: center;\n        margin-bottom: 5px;\n}\n.top_menu .float-left[data-v-096658c9],\n    .top_menu .float-right[data-v-096658c9] {\n        float: none;\n        display: inline-block;\n}\n.navbar .nav-header .nav-logo img[data-v-096658c9] {\n        width: 80px;\n}\n.badge-notify[data-v-096658c9] {\n        top: -10px;\n        left: -3px;\n}\n}\n\n/* Top menu improvements */\n.top_menu[data-v-096658c9] {\n    background: #f7fbff;\n    padding: 6px 0;\n    border-bottom: 1px solid rgba(36, 73, 118, 0.08);\n    font-size: 14px;\n    color: #244976;\n    margin-bottom: 10px;\n    /* space between top menu and main menu */\n}\n.top_menu .row>div[data-v-096658c9] {\n    display: flex;\n    align-items: center;\n}\n.top_menu .container .row[data-v-096658c9] {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    justify-content: space-between;\n}\n@media (max-width:700px) {\n.top_menu .container .row[data-v-096658c9] {\n        display: block;\n}\n.top_menu .row>div[data-v-096658c9] {\n        display: block;\n        width: 100%;\n        text-align: center;\n        margin-bottom: 6px;\n}\n}\n\n/* Left and right alignment */\n.top_menu .top-left[data-v-096658c9] { justify-content: center;}\n.top_menu .top-left .top-icons[data-v-096658c9] { display: flex; gap: 14px; align-items: center;\n}\n.top_menu .top-left .top-icon[data-v-096658c9] { color: #244976; display: inline-flex; align-items: center; gap: 8px; font-weight: 600;\n}\n.top_menu .top-left .top-icon i[data-v-096658c9] { color: #244976;\n}\n.top_menu .top-left .contact-text[data-v-096658c9] { font-weight: 500; color: #244976;\n}\n.top_menu .top-right[data-v-096658c9] { justify-content: flex-end; padding-right: 12px;\n}\n.top_menu .top-right .float-right[data-v-096658c9] { margin-left: 0; display: flex; align-items: center;\n}\n.top_menu .top-right .right_side[data-v-096658c9] { margin: 0;\n}\n@media (max-width:700px) {\n.top_menu .top-left[data-v-096658c9] { margin-right: 0; padding-left: 0;\n}\n.top_menu .top-right[data-v-096658c9] { padding-right: 0;\n}\n}\n@media (max-width:700px) {\n.top_menu .top-left .top-icons[data-v-096658c9] { justify-content: center; gap: 8px;\n}\n.top_menu .top-right[data-v-096658c9] { text-align: center;\n}\n.top_menu .top-right .float-right[data-v-096658c9] { justify-content: center;\n}\n}\n.top_menu .float-left[data-v-096658c9] {\n    margin-right: 8px;\n    color: #244976;\n}\n.top_menu .float-right[data-v-096658c9] {\n    margin-left: auto;\n}\n.top_menu .right_side[data-v-096658c9] {\n    list-style: none;\n    display: flex;\n    gap: 12px;\n    align-items: center;\n    padding: 0;\n    margin: 0;\n}\n.top_menu .right_side li a[data-v-096658c9] {\n    color: #244976;\n    text-decoration: none;\n    font-weight: 600;\n}\n.top_menu .right_side li a[data-v-096658c9]:hover {\n    text-decoration: underline;\n}\n.top_menu .right_side .lang-item[data-v-096658c9] {\n    display: flex;\n    align-items: center;\n}\n.top_menu .right_side .lang-item .lang-select[data-v-096658c9] {\n    min-width: 90px;\n    padding: 6px 8px;\n}\n\n/* Language select styles */\n.lang-wrap[data-v-096658c9] {\n    display: flex;\n    align-items: center;\n    gap: 6px;\n    margin-left: 8px;\n}\n.lang-wrap .fa-globe[data-v-096658c9] {\n    color: #244976;\n    font-size: 16px;\n}\n.lang-select[data-v-096658c9] {\n    background: #fff;\n    border: 1px solid #ccc;\n    color: #333;\n    font-weight: 600;\n    padding: 6px 8px;\n    border-radius: 4px;\n    outline: none;\n    min-width: 90px;\n}\n.lang-select option[data-v-096658c9] {\n    color: #000;\n}\n@media (max-width:700px) {\n.lang-wrap[data-v-096658c9] {\n        display: block;\n        margin: 6px auto;\n        text-align: center;\n}\n.lang-wrap .fa-globe[data-v-096658c9] {\n        display: none;\n}\n.lang-select[data-v-096658c9] {\n        color: #000;\n        background: #fff;\n        border: 1px solid rgba(0, 0, 0, 0.1);\n        padding: 8px 12px;\n        width: 80%;\n        min-width: 120px;\n}\n}\n\n/* Dropdown menu CSS code */\n.dropdown[data-v-096658c9] {\n    position: relative;\n    display: inline-block;\n}\n.drop-content[data-v-096658c9],\n.drop-content2[data-v-096658c9] {\n    display: none;\n    position: absolute;\n    background-color: #1b4cd3;\n    min-width: 120px;\n    font-size: 16px;\n    top: 34px;\n    z-index: 1;\n    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);\n}\n\n/* on hover show dropdown */\n.dropdown:hover .drop-content[data-v-096658c9],\n.dropdown2:hover .drop-content2[data-v-096658c9] {\n    display: block;\n}\n\n/* drondown links */\n.drop-content a[data-v-096658c9] {\n    padding: 12px 10px;\n    border-bottom: 1px solid rgb(197, 197, 250);\n    display: block;\n    transition: all 0.5s ease !important;\n}\n.dropBtn .drop-content a[data-v-096658c9]:hover {\n    background-color: rgb(230, 230, 230);\n}\n.dropdown:hover .dropBtn[data-v-096658c9],\n.dropdown2:hover .dropBtn2[data-v-096658c9] {\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.dropdown2 .drop-content2[data-v-096658c9] {\n    position: absolute;\n    left: 120px;\n    top: 126px;\n}\n.dropBtn2 i[data-v-096658c9] {\n    margin-left: 15px;\n}\n.badge-notify[data-v-096658c9] {\n    background: #2CC701;\n    position: relative;\n    top: -15px;\n    left: -7px;\n    color: black;\n}\n", ""]);
 
 // exports
 
@@ -17325,7 +17114,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nimg {\r\n\r\n  border-radius: 7px;\n}\n.product-card {\r\n  padding: 241px;\r\n  padding-top: 21px;\r\n  padding-right: 21px;\r\n  padding-bottom: 21px;\r\n  padding-left: 21px;\r\n  border: 1px solid #e1e7ec;\r\n  border-radius: 7px;\r\n  background-color: #fff;\n}\r\n", ""]);
+exports.push([module.i, "\nimg {\n\n  border-radius: 7px;\n}\n.product-card {\n  padding: 241px;\n  padding-top: 21px;\n  padding-right: 21px;\n  padding-bottom: 21px;\n  padding-left: 21px;\n  border: 1px solid #e1e7ec;\n  border-radius: 7px;\n  background-color: #fff;\n}\n", ""]);
 
 // exports
 
@@ -72423,8 +72212,8 @@ var routes = [{
   props: true,
   component: _components_admin_category_UpdateCategory__WEBPACK_IMPORTED_MODULE_2__["default"]
 },
-// { 
-//   path: '/create_category', 
+// {
+//   path: '/create_category',
 //   name:'create_category',
 //   component: AddCategory
 // },
@@ -72451,8 +72240,8 @@ var routes = [{
   props: true,
   component: _components_admin_product_UpdateProduct__WEBPACK_IMPORTED_MODULE_7__["default"]
 },
-// { 
-//   path: '/create_product', 
+// {
+//   path: '/create_product',
 //   name:'create_product',
 //   component: AddProduct
 // },
@@ -72466,8 +72255,8 @@ var routes = [{
   props: true,
   component: _components_admin_attribute_UpdateAttribute__WEBPACK_IMPORTED_MODULE_9__["default"]
 },
-// { 
-//   path: '/create_attribute', 
+// {
+//   path: '/create_attribute',
 //   name:'create_attribute',
 //   component: AddAttribute
 // },
@@ -72481,8 +72270,8 @@ var routes = [{
   props: true,
   component: _components_admin_attribute_family_UpdateAttributeFamily__WEBPACK_IMPORTED_MODULE_11__["default"]
 },
-// { 
-//   path: '/create_attribute_family', 
+// {
+//   path: '/create_attribute_family',
 //   name:'create_attribute_family',
 //   component: AddAttributeFamily
 // },

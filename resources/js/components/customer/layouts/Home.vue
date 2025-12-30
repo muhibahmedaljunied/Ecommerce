@@ -93,7 +93,7 @@
             <div class="product-card">
               <div class="single-product">
                 <div class="product-img">
-                  <img class="img-fluid w-100" :src="`//assets/upload/${f_Product.image}`" alt="" />
+                  <img class="img-fluid w-100" :src="`/Ecommerce//assets/upload/${f_Product.image}`" alt="" />
                   <div class="p_icon">
                     <router-link :to="`/customer/single-product/${f_Product.id}`">
                       <i class="ti-eye"></i>
@@ -322,7 +322,7 @@
             <div class="product-card">
               <div class="single-product">
                 <div class="product-img">
-                  <img class="img-fluid w-100" :src="`/assets/upload/${newProduct.image}`" alt="">
+                  <img class="img-fluid w-100" :src="`/Ecommerce/assets/upload/${newProduct.image}`" alt="">
                   <div class="p_icon">
                     <router-link :to="`/customer/single-product/${newProduct.id}`">
                       <i class="ti-eye"></i>

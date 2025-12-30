@@ -1,113 +1,128 @@
 <template>
 
-  <header class="header_area">
-    <div class="top_menu">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-2">
-            <div class="float-left" v-if="showSession">
-             <i class="fa fa-phone"></i>: +967 {{ showSession.phone }}
+    <header class="header_area">
+        <div class="top_menu">
+            <div class="container-fluid">
+                <div class="row">
 
-            </div>
-          </div>
-          <div class="col-lg-2">
-            <div class="float-left" v-if="showSession">
 
-             <i class="fa fa-mail-forward"></i>:{{ showSession.email }}
-            </div>
-          </div>
-          <div class="col-lg-1">
-            <div class="float-left" v-if="showSession">
 
-              <i class="fa fa-whatsapp"></i>
-            </div>
-          </div>
-          <div class="col-lg-1">
-            <div class="float-left" v-if="showSession">
+                    <div class="col-lg-6 top-left">
+                        <div class="top-icons" v-if="showSession">
+                            <span class="top-icon"><i class="fa fa-facebook" aria-hidden="true"></i></span>
+                            <span class="top-icon"><i class="fa fa-whatsapp" aria-hidden="true"></i></span>
+                            <span class="top-icon"><i class="fa fa-mail-forward" aria-hidden="true"></i> <span class="contact-text">{{ showSession.email }}</span></span>
+                            <span class="top-icon"><i class="fa fa-phone" aria-hidden="true"></i> <span class="contact-text">+967 {{ showSession.phone }}</span></span>
+                        </div>
+                    </div>
 
-              <i class="fa fa-facebook"></i>
-            </div>
-          </div>
+                    <div class="col-lg-3 top-right">
+                        <div class="float-right">
+                            <ul class="right_side" v-if="showSession">
 
-          <div class="col-lg-3">
-            <div class="float-right">
-              <ul class="right_side" v-if="showSession">
-                <li>
-                  <a href="#">
-                    {{ showSession.name }}
-                  </a>
-                </li>
-                <li>
+                                <li>
+                                    <a href="#">
+                                        {{ showSession.name }}
+                                    </a>
+                                </li>
 
-                  <a href="#" @click="logout">
-                    logout
-                  </a>
-                </li>
+                                <li>
 
-                <!-- <li>
+                                    <a href="#" @click="logout">
+                                        تسجيل خروج
+                                    </a>
+                                </li>
+                                <li class="lang-item">
+                                    <div class="lang-wrap">
+
+                                        <select v-model="selectedLanguage" @change="changeLang" class="lang-select"
+                                            aria-label="Select language">
+                                            <option value="ar">العربية</option>
+                                            <option value="en">English</option>
+                                        </select>
+                                    </div>
+                                </li>
+
+                                <!-- <li>
 
                   <button type = 'button' @click ="logout"  class="btn ">Logout</button>
 
                 </li>  -->
-              </ul>
-              <ul class="right_side" v-else>
-                <li>
-                  <!-- <router-link to="/customer/login">
+                            </ul>
+                            <ul class="right_side" v-else>
+
+                                <li>
+                                    <!-- <router-link to="/customer/login">
                     Login
                   </router-link> -->
-                  <router-link to="/customer/login">
-                    تسجيل الدخول
-                  </router-link>
-                </li>
-                <li>
-                  <!-- <router-link to="/customer/register">
+                                    <router-link to="/customer/login">
+                                        تسجيل الدخول
+                                    </router-link>
+                                </li>
+
+                                <li>
+                                    <!-- <router-link to="/customer/register">
                     Register
                   </router-link> -->
-                  <router-link to="/customer/register">
-                    انشاء حساب
-                  </router-link>
+                                    <router-link to="/customer/register">
+                                        انشاء حساب
+                                    </router-link>
 
 
-                </li>
+                                </li>
+                                <li class="lang-item">
+                                    <div class="lang-wrap">
+                                        <select v-model="selectedLanguage" @change="changeLang" class="lang-select"
+                                            aria-label="Select language">
+                                            <option value="ar">العربية</option>
+                                            <option value="en">English</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-              </ul>
+                </div>
+
+
             </div>
-          </div>
-
         </div>
-      </div>
-    </div>
-    <div class="main_menu">
-      <div class="container-fluid">
-        <div class="navbar">
-         
-              <!-- Navbar logo -->
-              <div class="nav-header">
-                  <div class="nav-logo">
-                      <a href="#">
-                          <img src="/assets/img/logo_muhib.jpg" width="100px" alt="logo">
-                        </a>
-                    </div>
-                </div>
-         
-              <!-- responsive navbar toggle button -->
-          <!--     <input type="checkbox" id="nav-check">
-              <div class="nav-btn">
-                  <label for="nav-check">
-                    <span></span>
-                      <span></span>
-                      <span></span>
-                    </label>
-                </div> -->
-         
-              <!-- Navbar items -->
-              <div class="nav-links">
-            <!--       <a href="#">Home</a> -->
-            <router-link to="/customer/home">الرئيسيه</router-link>
-              
-           
+        <div class="main_menu">
+            <div class="container-fluid">
+                <div class="navbar">
+                     
+                        <!-- Navbar logo -->
+                        <div class="nav-header">
+                              <div class="nav-logo">
+                                    <a href="#">
+                                          <img src="/Ecommerce/assets/img/logo_muhib.jpg" width="100px" alt="logo">
+                                        </a>
+                                  </div>
+                            </div>
 
-            <!--       <div class="dropdown">
+                        <!-- responsive navbar toggle button -->
+                        <div class="nav-btn" role="button" aria-label="Toggle navigation" @click="navOpen = !navOpen"
+                        :aria-expanded="navOpen">
+                              <label>
+                                  <span></span>
+                                    <span></span>
+                                    <span></span>
+                                  </label>
+                            </div>
+                        <!-- Navbar items -->
+                        <div class="nav-links" :class="{ open: navOpen }" @click="navOpen = false">
+                        <!-- Search (main menu) -->
+                        <form class="search-form" @submit.prevent="performSearch" role="search" aria-label="Site search">
+                            <input type="search" v-model="searchQuery" class="search-input" placeholder="Search products..." aria-label="Search products" />
+                            <button type="submit" class="search-btn" aria-label="Search"><i class="fa fa-search"></i></button>
+                        </form>
+                        <!--       <a href="#">Home</a> -->
+                        <router-link to="/customer/home">الرئيسيه</router-link>
+                            
+                         
+
+                        <!--       <div class="dropdown">
                       <a class="dropBtn" href="#">Category
                         </a>
                       <div class="drop-content">
@@ -123,25 +138,29 @@
                         
               </div>
                     </div> -->
-                 <div class="dropdown" v-for="category in categories">
-                    
-              <!-- <router-link :to="`/customer/category/${category.id}`">{{ category.text }}</router-link> -->
-              <router-link :to="{ name: 'CustomerCategory', params: { id: category.id }}" replace: true >{{ category.text }}</router-link>
-               
-                  
-            </div>
-               <a href="/">لوحه التحكم</a>
-               
-                  <router-link to="/customer/cart"><i class="fa fa-shopping-cart"></i> <span class="badge badge-notify">{{
-                    showCountCart }}</span></router-link>
-             <router-link to="/customer/login"><i class="ti-user" aria-hidden="true"></i></router-link>
-              
-          </div>
-         
-            </div>
+                             <div class="dropdown" v-for="category in categories">
+                                    
+                            <!-- <router-link :to="`/customer/category/${category.id}`">{{ category.text }}</router-link> -->
+                            <router-link :to="{ name: 'CustomerCategory', params: { id: category.id } }" replace:
+                                true>{{
+                                    category.text }}</router-link>
+                               
+                                  
+                        </div>
+                           <a href="/Ecommerce">لوحه التحكم</a>
+                             
+                              <router-link to="/customer/cart"><i class="fa fa-shopping-cart"></i> <span
+                                class="badge badge-notify">{{
+                                    showCountCart }}</span></router-link>
+                        <!--  <router-link to="/customer/login"><i class="ti-user" aria-hidden="true"></i></router-link> -->
+                            
+                    </div>
+                     
+                      
+                </div>
 
 
-        <!-- <nav class="navbar navbar-expand-lg navbar-light w-100">
+                <!-- <nav class="navbar navbar-expand-lg navbar-light w-100">
           <a class="navbar-brand logo_h" href="#">
             <img src="" alt="" />
           </a>
@@ -197,75 +216,93 @@
             </div>
           </div>
         </nav> -->
-      </div>
-    </div>
-  </header>
+            </div>
+        </div>
+    </header>
 </template>
 
 <script>
 export default {
-  // name: "header_area",
-  data() {
-    return {
-      categories: [],
-    }
-  },
-  created() {
-    this.axios.post('/home')
-      .then((response => {
-        // console.log(response.data);
-        this.categories = response.data
-      }))
-  },
-  mounted() {
-    this.$Progress.start();
-    this.$store.dispatch("countCart");
-    this.$store.dispatch("customerSession");
-    this.$Progress.finish();
-  },
-  computed: {
-    showCountCart() {
-      return this.$store.getters.getCountCart
+    // name: "header_area",
+    data() {
+        return {
+            categories: [],
+            navOpen: false,
+            selectedLanguage: localStorage.getItem('lang') || 'ar',
+            searchQuery: ''
+        }
     },
-    showSession() {
-      return this.$store.getters.getSessionData
-    }
-  },
-  methods: {
+    created() {
+        this.axios.post('/home')
+            .then((response => {
+                // console.log(response.data);
+                this.categories = response.data
+            }))
+    },
+    mounted() {
+        this.$Progress.start();
+        this.$store.dispatch("countCart");
+        this.$store.dispatch("customerSession");
+        this.$Progress.finish();
+    },
+    computed: {
+        showCountCart() {
+            return this.$store.getters.getCountCart
+        },
+        showSession() {
+            return this.$store.getters.getSessionData
+        }
+    },
+    methods: {
 
-    push(id) {
+        push(id) {
 
-      this.$router.push({
-        name: 'CustomerCategory',
-        params: id
-      },
-      );
+            this.$router.push({
+                name: 'CustomerCategory',
+                params: id
+            },
+            );
+
+        },
+        logout() {
+            axios.post('/customer/customer-logout')
+                .then((response) => {
+                    // console.log(response.data)
+                    this.$store.dispatch("customerSession");
+                })
+        },
+        changeLang() {
+            // persist choice and notify parent / other parts of the app
+            localStorage.setItem('lang', this.selectedLanguage);
+            // set document language attribute (helpful for accessibility / direction)
+            document.documentElement.lang = this.selectedLanguage;
+            this.$emit('language-changed', this.selectedLanguage);
+        },
+        performSearch() {
+            if (!this.searchQuery || !this.searchQuery.trim()) return;
+            // close mobile nav if open
+            this.navOpen = false;
+            // push to search route (adjust route/path as needed)
+            this.$router.push({ path: '/customer/search', query: { q: this.searchQuery.trim() } });
+            // clear input if you want: this.searchQuery = '';
+        },
+        // search(){
+        //   axios.post('/search-product',{
+        //     searchKey: this.searchKey
+        //   })
+        //   .then((response)=>{
+        //     //console.log(response.data.searchData)
+        //     this.searchResult = response.data.searchData
+
+        //   })
+        // }https://www.youtube.com/watch?v=eSLOOb5Mb5c&list=PLfDx4cQoUNObqJzxBKEst6Sd8uw6C2qSK
 
     },
-    logout() {
-      axios.post('/customer/customer-logout')
-        .then((response) => {
-          // console.log(response.data)
-          this.$store.dispatch("customerSession");
-        })
-    },
-    // search(){
-    //   axios.post('/search-product',{
-    //     searchKey: this.searchKey
-    //   })
-    //   .then((response)=>{
-    //     //console.log(response.data.searchData)
-    //     this.searchResult = response.data.searchData
-
-    //   })
-    // }https://www.youtube.com/watch?v=eSLOOb5Mb5c&list=PLfDx4cQoUNObqJzxBKEst6Sd8uw6C2qSK
-
-  },
-  //     watch: {
-  //     searchKey(after, before) {
-  //         this.search();
-  //     }
-  // },
+    //     watch: {
+    //     searchKey(after, before) {
+    //         this.search();
+    //     }
+    // },
 }
 </script>
 <style scoped>
@@ -274,208 +311,385 @@ export default {
 
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  /* background-image: url(background-img.jpg); */
-  background-size: cover;
-  background-attachment: fixed;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    /* background-image: url(background-img.jpg); */
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .navbar {
-  height: 70px;
-  width: 100%;
-  padding: 19px 30px;
-  background-color: #244976;
-  position: relative;
+    height: 70px;
+    width: 100%;
+    padding: 19px 30px;
+    background-color: #244976;
+    position: relative;
 }
 
 .navbar .nav-header {
-  display: inline;
+    display: inline;
 }
 
 .navbar .nav-header .nav-logo {
-  display: inline-block;
-  margin-top: -7px;
+    display: inline-block;
+    margin-top: -7px;
 }
 
 .navbar .nav-links {
-  display: inline;
-  float: right;
-  font-size: 18px;
+    display: inline;
+    float: right;
+    font-size: 18px;
 }
 
 .navbar .nav-links .loginBtn {
-  display: inline-block;
-  padding: 5px 15px;
-  margin-left: 20px;
-  font-size: 17px;
-  color: rgb(9, 14, 90);
+    display: inline-block;
+    padding: 5px 15px;
+    margin-left: 20px;
+    font-size: 17px;
+    color: rgb(9, 14, 90);
 }
 
 .navbar .nav-links a {
-  padding: 10px 12px;
-  text-decoration: none;
-  font-weight: 550;
-  color: white;
+    padding: 10px 12px;
+    text-decoration: none;
+    font-weight: 550;
+    color: white;
 }
 
 /* Hover effects */
 .navbar .nav-links a:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Search form in main menu */
+.navbar .search-form { display: inline-block; margin-right: 300px; vertical-align: middle; }
+.navbar .search-form .search-input { padding: 8px 83px; border-radius: 30px; border: none; min-width: 220px; }
+.navbar .search-form .search-btn { background: transparent; border: none; color: #fff; padding: 8px; cursor: pointer; }
+
+@media (max-width:700px) {
+    .navbar .search-form { display: block; margin: 12px auto; width: calc(100% - 40px); padding: 0 20px; text-align: center; }
+    .navbar .search-form .search-input { width: calc(100% - 44px); min-width: auto; }
+    .navbar .search-form .search-btn { position: relative; right: 0; }
 }
 
 /* responsive navbar toggle button */
 .navbar #nav-check,
 .navbar .nav-btn {
-  display: none;
+    display: none;
 }
 
 @media (max-width:700px) {
-  .navbar .nav-btn {
-    display: inline-block;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-  }
+    .navbar .nav-btn {
+        display: inline-block;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
 
-  .navbar .nav-btn label {
-    display: inline-block;
-    width: 80px;
-    height: 70px;
-    padding: 25px;
-  }
+    .navbar .nav-btn label {
+        display: inline-block;
+        width: 80px;
+        height: 70px;
+        padding: 25px;
+        cursor: pointer;
+    }
 
-  .navbar .nav-btn label span {
-    display: block;
-    height: 10px;
-    width: 25px;
-    border-top: 3px solid #eee;
-  }
+    .navbar .nav-btn label span {
+        display: block;
+        height: 3px;
+        width: 25px;
+        background: #fff;
+        margin: 6px 0;
+    }
 
-  .navbar .nav-btn label:hover,
-  .navbar #nav-check:checked~.nav-btn label {
-    background-color: rgb(9, 14, 90);
-    transition: all 0.5s ease;
-  }
+    .navbar .nav-btn label:hover {
+        background-color: rgb(9, 14, 90);
+        transition: all 0.5s ease;
+    }
 
-  .navbar .nav-links {
-    position: absolute;
-    display: block;
-    text-align: center;
-    width: 50%;
-    background-color: rgb(9, 14, 90);
-    transition: all 0.3s ease-in;
-    overflow-y: hidden;
-    top: 70px;
-    right: 0px;
-  }
+    .navbar .nav-links {
+        position: absolute;
+        display: block;
+        text-align: center;
+        width: 100%;
+        background-color: rgb(9, 14, 90);
+        z-index: 9999;
+        transition: height 0.3s ease-in;
+        overflow-y: hidden;
+        top: 70px;
+        right: 0px;
+        height: 0px;
+    }
 
-  .navbar .nav-links a {
-    display: block;
-  }
+    .navbar .nav-links a {
+        display: block;
+    }
 
-  /* when nav toggle button not checked */
-  .navbar #nav-check:not(:checked)~.nav-links {
-    height: 0px;
-  }
+    /* when nav toggle button is open */
+    .navbar .nav-links.open {
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
 
-  /* when nav toggle button is checked */
-  .navbar #nav-check:checked~.nav-links {
-    height: calc(100vh - 70px);
-    overflow-y: auto;
-  }
+    .navbar .nav-links .loginBtn {
+        padding: 10px 40px;
+        margin: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: rgb(9, 14, 90);
+    }
 
-  .navbar .nav-links .loginBtn {
-    padding: 10px 40px;
-    margin: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: rgb(9, 14, 90);
-  }
+    /* Responsive dropdown code */
+    .navbar .nav-links .dropdown,
+    .navbar .nav-links .dropdown2 {
+        float: none;
+        width: 100%;
+    }
 
-  /* Responsive dropdown code */
-  .navbar .nav-links .dropdown,
-  .navbar .nav-links .dropdown2 {
-    float: none;
-    width: 100%;
-  }
+    .navbar .nav-links .drop-content,
+    .navbar .nav-links .drop-content2 {
+        position: relative;
+        background-color: rgb(220, 220, 250);
+        top: 0px;
+        left: 0px;
+    }
 
-  .navbar .nav-links .drop-content,
-  .navbar .nav-links .drop-content2 {
-    position: relative;
-    background-color: rgb(220, 220, 250);
-    top: 0px;
-    left: 0px;
-  }
+    /* Text color */
+    .navbar .nav-links .drop-content a {
+        color: rgb(9, 14, 90);
+    }
 
-  /* Text color */
-  .navbar .nav-links .drop-content a {
-    color: rgb(9, 14, 90);
-  }
+    /* Stack the top menu items */
+    .top_menu .container .row>div {
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 5px;
+    }
 
+    .top_menu .float-left,
+    .top_menu .float-right {
+        float: none;
+        display: inline-block;
+    }
+
+    .navbar .nav-header .nav-logo img {
+        width: 80px;
+    }
+
+    .badge-notify {
+        top: -10px;
+        left: -3px;
+    }
+
+}
+
+/* Top menu improvements */
+.top_menu {
+    background: #f7fbff;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(36, 73, 118, 0.08);
+    font-size: 14px;
+    color: #244976;
+    margin-bottom: 10px;
+    /* space between top menu and main menu */
+}
+
+.top_menu .row>div {
+    display: flex;
+    align-items: center;
+}
+
+.top_menu .container .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+@media (max-width:700px) {
+    .top_menu .container .row {
+        display: block;
+    }
+
+    .top_menu .row>div {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 6px;
+    }
+}
+
+/* Left and right alignment */
+.top_menu .top-left { justify-content: center;}
+.top_menu .top-left .top-icons { display: flex; gap: 14px; align-items: center; }
+.top_menu .top-left .top-icon { color: #244976; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.top_menu .top-left .top-icon i { color: #244976; }
+.top_menu .top-left .contact-text { font-weight: 500; color: #244976; }
+
+.top_menu .top-right { justify-content: flex-end; padding-right: 12px; }
+.top_menu .top-right .float-right { margin-left: 0; display: flex; align-items: center; }
+.top_menu .top-right .right_side { margin: 0; }
+
+@media (max-width:700px) {
+    .top_menu .top-left { margin-right: 0; padding-left: 0; }
+    .top_menu .top-right { padding-right: 0; }
+}
+
+@media (max-width:700px) {
+    .top_menu .top-left .top-icons { justify-content: center; gap: 8px; }
+    .top_menu .top-right { text-align: center; }
+    .top_menu .top-right .float-right { justify-content: center; }
+}
+
+.top_menu .float-left {
+    margin-right: 8px;
+    color: #244976;
+}
+
+.top_menu .float-right {
+    margin-left: auto;
+}
+
+.top_menu .right_side {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.top_menu .right_side li a {
+    color: #244976;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.top_menu .right_side li a:hover {
+    text-decoration: underline;
+}
+
+.top_menu .right_side .lang-item {
+    display: flex;
+    align-items: center;
+}
+
+.top_menu .right_side .lang-item .lang-select {
+    min-width: 90px;
+    padding: 6px 8px;
+}
+
+/* Language select styles */
+.lang-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 8px;
+}
+
+.lang-wrap .fa-globe {
+    color: #244976;
+    font-size: 16px;
+}
+
+.lang-select {
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #333;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-radius: 4px;
+    outline: none;
+    min-width: 90px;
+}
+
+.lang-select option {
+    color: #000;
+}
+
+@media (max-width:700px) {
+    .lang-wrap {
+        display: block;
+        margin: 6px auto;
+        text-align: center;
+    }
+
+    .lang-wrap .fa-globe {
+        display: none;
+    }
+
+    .lang-select {
+        color: #000;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 8px 12px;
+        width: 80%;
+        min-width: 120px;
+    }
 }
 
 /* Dropdown menu CSS code */
 .dropdown {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .drop-content,
 .drop-content2 {
-  display: none;
-  position: absolute;
-  background-color: #1b4cd3;
-  min-width: 120px;
-  font-size: 16px;
-  top: 34px;
-  z-index: 1;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+    display: none;
+    position: absolute;
+    background-color: #1b4cd3;
+    min-width: 120px;
+    font-size: 16px;
+    top: 34px;
+    z-index: 1;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
 }
 
 /* on hover show dropdown */
 .dropdown:hover .drop-content,
 .dropdown2:hover .drop-content2 {
-  display: block;
+    display: block;
 }
 
 /* drondown links */
 .drop-content a {
-  padding: 12px 10px;
-  border-bottom: 1px solid rgb(197, 197, 250);
-  display: block;
-  transition: all 0.5s ease !important;
+    padding: 12px 10px;
+    border-bottom: 1px solid rgb(197, 197, 250);
+    display: block;
+    transition: all 0.5s ease !important;
 }
 
 .dropBtn .drop-content a:hover {
-  background-color: rgb(230, 230, 230);
+    background-color: rgb(230, 230, 230);
 }
 
 .dropdown:hover .dropBtn,
 .dropdown2:hover .dropBtn2 {
-  background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .dropdown2 .drop-content2 {
-  position: absolute;
-  left: 120px;
-  top: 126px;
+    position: absolute;
+    left: 120px;
+    top: 126px;
 }
 
 .dropBtn2 i {
-  margin-left: 15px;
+    margin-left: 15px;
 }
 
 .badge-notify {
-  background: #2CC701;
-  position: relative;
-  top: -15px;
-  left: -7px;
-  color: black;
+    background: #2CC701;
+    position: relative;
+    top: -15px;
+    left: -7px;
+    color: black;
 }
 </style>

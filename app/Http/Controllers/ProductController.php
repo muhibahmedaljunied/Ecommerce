@@ -93,6 +93,7 @@ class ProductController extends Controller
 
 
 
+
         $products = Product::where('id', $request->id)->with('children')->get();
 
         $last_nodes = Product::where('parent_id', null)->select('products.*')->max('id');

@@ -12177,13 +12177,13 @@ var render = function render() {
     staticClass: "float-left"
   }, [_c("i", {
     staticClass: "fa fa-phone"
-  }), _vm._v(": +967 " + _vm._s(_vm.showSession.phone) + "\n\n          ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(": +967 " + _vm._s(_vm.showSession.phone) + "\n\n                    ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-2"
   }, [_vm.showSession ? _c("div", {
     staticClass: "float-left"
   }, [_c("i", {
     staticClass: "fa fa-mail-forward"
-  }), _vm._v(":" + _vm._s(_vm.showSession.email) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(":" + _vm._s(_vm.showSession.email) + "\n                    ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-1"
   }, [_vm.showSession ? _c("div", {
     staticClass: "float-left"
@@ -12205,24 +12205,24 @@ var render = function render() {
     attrs: {
       href: "#"
     }
-  }, [_vm._v("\n                  " + _vm._s(_vm.showSession.name) + "\n                ")])]), _vm._v(" "), _c("li", [_c("a", {
+  }, [_vm._v("\n                                    " + _vm._s(_vm.showSession.name) + "\n                                ")])]), _vm._v(" "), _c("li", [_c("a", {
     attrs: {
       href: "#"
     },
     on: {
       click: _vm.logout
     }
-  }, [_vm._v("\n                  logout\n                ")])])]) : _c("ul", {
+  }, [_vm._v("\n                                    logout\n                                ")])])]) : _c("ul", {
     staticClass: "right_side"
   }, [_c("li", [_c("router-link", {
     attrs: {
       to: "/customer/login"
     }
-  }, [_vm._v("\n                  تسجيل الدخول\n                ")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
+  }, [_vm._v("\n                                    تسجيل الدخول\n                                ")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
     attrs: {
       to: "/customer/register"
     }
-  }, [_vm._v("\n                  انشاء حساب\n                ")])], 1)])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                                    انشاء حساب\n                                ")])], 1)])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "main_menu"
   }, [_c("div", {
     staticClass: "container-fluid"
@@ -12234,7 +12234,7 @@ var render = function render() {
     attrs: {
       to: "/customer/home"
     }
-  }, [_vm._v("الرئيسيه")]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
+  }, [_vm._v("555555")]), _vm._v(" "), _vm._l(_vm.categories, function (category) {
     return _c("div", {
       staticClass: "dropdown"
     }, [_c("router-link", {
@@ -17056,7 +17056,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n/* ------------------- */\n*[data-v-096658c9] {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\nbody[data-v-096658c9] {\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n  /* background-image: url(background-img.jpg); */\n  background-size: cover;\n  background-attachment: fixed;\n}\n.navbar[data-v-096658c9] {\n  height: 70px;\n  width: 100%;\n  padding: 19px 30px;\n  background-color: #244976;\n  position: relative;\n}\n.navbar .nav-header[data-v-096658c9] {\n  display: inline;\n}\n.navbar .nav-header .nav-logo[data-v-096658c9] {\n  display: inline-block;\n  margin-top: -7px;\n}\n.navbar .nav-links[data-v-096658c9] {\n  display: inline;\n  float: right;\n  font-size: 18px;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\n  display: inline-block;\n  padding: 5px 15px;\n  margin-left: 20px;\n  font-size: 17px;\n  color: rgb(9, 14, 90);\n}\n.navbar .nav-links a[data-v-096658c9] {\n  padding: 10px 12px;\n  text-decoration: none;\n  font-weight: 550;\n  color: white;\n}\n\n/* Hover effects */\n.navbar .nav-links a[data-v-096658c9]:hover {\n  background-color: rgba(0, 0, 0, 0.3);\n}\n\n/* responsive navbar toggle button */\n.navbar #nav-check[data-v-096658c9],\n.navbar .nav-btn[data-v-096658c9] {\n  display: none;\n}\n@media (max-width:700px) {\n.navbar .nav-btn[data-v-096658c9] {\n    display: inline-block;\n    position: absolute;\n    top: 0px;\n    right: 0px;\n}\n.navbar .nav-btn label[data-v-096658c9] {\n    display: inline-block;\n    width: 80px;\n    height: 70px;\n    padding: 25px;\n}\n.navbar .nav-btn label span[data-v-096658c9] {\n    display: block;\n    height: 10px;\n    width: 25px;\n    border-top: 3px solid #eee;\n}\n.navbar .nav-btn label[data-v-096658c9]:hover,\n  .navbar #nav-check:checked~.nav-btn label[data-v-096658c9] {\n    background-color: rgb(9, 14, 90);\n    transition: all 0.5s ease;\n}\n.navbar .nav-links[data-v-096658c9] {\n    position: absolute;\n    display: block;\n    text-align: center;\n    width: 50%;\n    background-color: rgb(9, 14, 90);\n    transition: all 0.3s ease-in;\n    overflow-y: hidden;\n    top: 70px;\n    right: 0px;\n}\n.navbar .nav-links a[data-v-096658c9] {\n    display: block;\n}\n\n  /* when nav toggle button not checked */\n.navbar #nav-check:not(:checked)~.nav-links[data-v-096658c9] {\n    height: 0px;\n}\n\n  /* when nav toggle button is checked */\n.navbar #nav-check:checked~.nav-links[data-v-096658c9] {\n    height: calc(100vh - 70px);\n    overflow-y: auto;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\n    padding: 10px 40px;\n    margin: 20px;\n    font-size: 18px;\n    font-weight: bold;\n    color: rgb(9, 14, 90);\n}\n\n  /* Responsive dropdown code */\n.navbar .nav-links .dropdown[data-v-096658c9],\n  .navbar .nav-links .dropdown2[data-v-096658c9] {\n    float: none;\n    width: 100%;\n}\n.navbar .nav-links .drop-content[data-v-096658c9],\n  .navbar .nav-links .drop-content2[data-v-096658c9] {\n    position: relative;\n    background-color: rgb(220, 220, 250);\n    top: 0px;\n    left: 0px;\n}\n\n  /* Text color */\n.navbar .nav-links .drop-content a[data-v-096658c9] {\n    color: rgb(9, 14, 90);\n}\n}\n\n/* Dropdown menu CSS code */\n.dropdown[data-v-096658c9] {\n  position: relative;\n  display: inline-block;\n}\n.drop-content[data-v-096658c9],\n.drop-content2[data-v-096658c9] {\n  display: none;\n  position: absolute;\n  background-color: #1b4cd3;\n  min-width: 120px;\n  font-size: 16px;\n  top: 34px;\n  z-index: 1;\n  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);\n}\n\n/* on hover show dropdown */\n.dropdown:hover .drop-content[data-v-096658c9],\n.dropdown2:hover .drop-content2[data-v-096658c9] {\n  display: block;\n}\n\n/* drondown links */\n.drop-content a[data-v-096658c9] {\n  padding: 12px 10px;\n  border-bottom: 1px solid rgb(197, 197, 250);\n  display: block;\n  transition: all 0.5s ease !important;\n}\n.dropBtn .drop-content a[data-v-096658c9]:hover {\n  background-color: rgb(230, 230, 230);\n}\n.dropdown:hover .dropBtn[data-v-096658c9],\n.dropdown2:hover .dropBtn2[data-v-096658c9] {\n  background-color: rgba(0, 0, 0, 0.3);\n}\n.dropdown2 .drop-content2[data-v-096658c9] {\n  position: absolute;\n  left: 120px;\n  top: 126px;\n}\n.dropBtn2 i[data-v-096658c9] {\n  margin-left: 15px;\n}\n.badge-notify[data-v-096658c9] {\n  background: #2CC701;\n  position: relative;\n  top: -15px;\n  left: -7px;\n  color: black;\n}\n", ""]);
+exports.push([module.i, "\n/* ------------------- */\n*[data-v-096658c9] {\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n}\nbody[data-v-096658c9] {\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n    /* background-image: url(background-img.jpg); */\n    background-size: cover;\n    background-attachment: fixed;\n}\n.navbar[data-v-096658c9] {\n    height: 70px;\n    width: 100%;\n    padding: 19px 30px;\n    background-color: #244976;\n    position: relative;\n}\n.navbar .nav-header[data-v-096658c9] {\n    display: inline;\n}\n.navbar .nav-header .nav-logo[data-v-096658c9] {\n    display: inline-block;\n    margin-top: -7px;\n}\n.navbar .nav-links[data-v-096658c9] {\n    display: inline;\n    float: right;\n    font-size: 18px;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\n    display: inline-block;\n    padding: 5px 15px;\n    margin-left: 20px;\n    font-size: 17px;\n    color: rgb(9, 14, 90);\n}\n.navbar .nav-links a[data-v-096658c9] {\n    padding: 10px 12px;\n    text-decoration: none;\n    font-weight: 550;\n    color: white;\n}\n\n/* Hover effects */\n.navbar .nav-links a[data-v-096658c9]:hover {\n    background-color: rgba(0, 0, 0, 0.3);\n}\n\n/* responsive navbar toggle button */\n.navbar #nav-check[data-v-096658c9],\n.navbar .nav-btn[data-v-096658c9] {\n    display: none;\n}\n@media (max-width:700px) {\n.navbar .nav-btn[data-v-096658c9] {\n        display: inline-block;\n        position: absolute;\n        top: 0px;\n        right: 0px;\n}\n.navbar .nav-btn label[data-v-096658c9] {\n        display: inline-block;\n        width: 80px;\n        height: 70px;\n        padding: 25px;\n}\n.navbar .nav-btn label span[data-v-096658c9] {\n        display: block;\n        height: 10px;\n        width: 25px;\n        border-top: 3px solid #eee;\n}\n.navbar .nav-btn label[data-v-096658c9]:hover,\n    .navbar #nav-check:checked~.nav-btn label[data-v-096658c9] {\n        background-color: rgb(9, 14, 90);\n        transition: all 0.5s ease;\n}\n.navbar .nav-links[data-v-096658c9] {\n        position: absolute;\n        display: block;\n        text-align: center;\n        width: 50%;\n        background-color: rgb(9, 14, 90);\n        transition: all 0.3s ease-in;\n        overflow-y: hidden;\n        top: 70px;\n        right: 0px;\n}\n.navbar .nav-links a[data-v-096658c9] {\n        display: block;\n}\n\n    /* when nav toggle button not checked */\n.navbar #nav-check:not(:checked)~.nav-links[data-v-096658c9] {\n        height: 0px;\n}\n\n    /* when nav toggle button is checked */\n.navbar #nav-check:checked~.nav-links[data-v-096658c9] {\n        height: calc(100vh - 70px);\n        overflow-y: auto;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\n        padding: 10px 40px;\n        margin: 20px;\n        font-size: 18px;\n        font-weight: bold;\n        color: rgb(9, 14, 90);\n}\n\n    /* Responsive dropdown code */\n.navbar .nav-links .dropdown[data-v-096658c9],\n    .navbar .nav-links .dropdown2[data-v-096658c9] {\n        float: none;\n        width: 100%;\n}\n.navbar .nav-links .drop-content[data-v-096658c9],\n    .navbar .nav-links .drop-content2[data-v-096658c9] {\n        position: relative;\n        background-color: rgb(220, 220, 250);\n        top: 0px;\n        left: 0px;\n}\n\n    /* Text color */\n.navbar .nav-links .drop-content a[data-v-096658c9] {\n        color: rgb(9, 14, 90);\n}\n}\n\n/* Dropdown menu CSS code */\n.dropdown[data-v-096658c9] {\n    position: relative;\n    display: inline-block;\n}\n.drop-content[data-v-096658c9],\n.drop-content2[data-v-096658c9] {\n    display: none;\n    position: absolute;\n    background-color: #1b4cd3;\n    min-width: 120px;\n    font-size: 16px;\n    top: 34px;\n    z-index: 1;\n    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);\n}\n\n/* on hover show dropdown */\n.dropdown:hover .drop-content[data-v-096658c9],\n.dropdown2:hover .drop-content2[data-v-096658c9] {\n    display: block;\n}\n\n/* drondown links */\n.drop-content a[data-v-096658c9] {\n    padding: 12px 10px;\n    border-bottom: 1px solid rgb(197, 197, 250);\n    display: block;\n    transition: all 0.5s ease !important;\n}\n.dropBtn .drop-content a[data-v-096658c9]:hover {\n    background-color: rgb(230, 230, 230);\n}\n.dropdown:hover .dropBtn[data-v-096658c9],\n.dropdown2:hover .dropBtn2[data-v-096658c9] {\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.dropdown2 .drop-content2[data-v-096658c9] {\n    position: absolute;\n    left: 120px;\n    top: 126px;\n}\n.dropBtn2 i[data-v-096658c9] {\n    margin-left: 15px;\n}\n.badge-notify[data-v-096658c9] {\n    background: #2CC701;\n    position: relative;\n    top: -15px;\n    left: -7px;\n    color: black;\n}\n", ""]);
 
 // exports
 
@@ -17075,7 +17075,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nimg {\n\n  border-radius: 7px;\n}\n.product-card {\n  padding: 241px;\n  padding-top: 21px;\n  padding-right: 21px;\n  padding-bottom: 21px;\n  padding-left: 21px;\n  border: 1px solid #e1e7ec;\n  border-radius: 7px;\n  background-color: #fff;\n}\n", ""]);
+exports.push([module.i, "\nimg {\r\n\r\n  border-radius: 7px;\n}\n.product-card {\r\n  padding: 241px;\r\n  padding-top: 21px;\r\n  padding-right: 21px;\r\n  padding-bottom: 21px;\r\n  padding-left: 21px;\r\n  border: 1px solid #e1e7ec;\r\n  border-radius: 7px;\r\n  background-color: #fff;\n}\r\n", ""]);
 
 // exports
 

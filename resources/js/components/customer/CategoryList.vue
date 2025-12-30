@@ -312,7 +312,7 @@
 
                                 <div v-for="dd in catProduct['product_attribute']">
                                     <div class="product-img">
-                                        <img class="card-img" :src="`/assets/upload/${dd.image}`" alt="Product Image"
+                                        <img class="card-img" :src="`/Ecommerce/assets/upload/${dd.image}`" alt="Product Image"
                                             height='50px' />
                                         <div class="p_icon">
                                             <router-link :to="`/customer/single-product/${dd.product_id}`">
@@ -348,7 +348,7 @@
                             </div>
                             <div v-else class="single-product">
                                 <div class="product-img">
-                                    <img class="card-img" :src="`/assets/upload/${catProduct.image}`" alt="Product Image"
+                                    <img class="card-img" :src="`/Ecommerce/assets/upload/${catProduct.image}`" alt="Product Image"
                                         height='50px' />
                                     <div class="p_icon">
                                         <router-link :to="`/customer/single-product/${catProduct.product_id}`">
@@ -535,8 +535,8 @@ export default {
             });
         },
 
-     
-  
+
+
     },
     computed: {
         // showCatProduct() {

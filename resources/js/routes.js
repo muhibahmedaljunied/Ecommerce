@@ -35,162 +35,162 @@ import ListApi from './components/api/ListApi'
 
 // -------------------------------------------------------------------
  const routes = [
-  { 
-    path: '/api/login', 
+  {
+    path: '/api/login',
     component: LoginApi
   },
-  { 
-    path: '/api/register', 
+  {
+    path: '/api/register',
     component: RegisterApi
   },
 
-  { 
-    path: '/api/listApi', 
+  {
+    path: '/api/listApi',
     component: ListApi
   },
 
-  { 
-    path: '/', 
+  {
+    path: '/',
     component: Dashboard
   },
-  { 
-    path: '/dashboard', 
+  {
+    path: '/dashboard',
     component: Dashboard
   },
-   { 
-    path: '/customer/home', 
+   {
+    path: '/customer/home',
     component: Home
   },
-  { 
-    path: '/category', 
+  {
+    path: '/category',
     name:'category',
     component: Categories
   },
-  { 
-    path: '/edit_category/:id', 
+  {
+    path: '/edit_category/:id',
     name:'edit_category',
     props: true,
     component: UpdateCategory
   },
-  // { 
-  //   path: '/create_category', 
+  // {
+  //   path: '/create_category',
   //   name:'create_category',
   //   component: AddCategory
   // },
-  { 
-    path: '/user', 
+  {
+    path: '/user',
     name:'user',
     component: User
   },
-  { 
-    path: '/edit_user/:id', 
+  {
+    path: '/edit_user/:id',
     name:'edit_user',
     props: true,
     component: UpdateUser
   },
-  { 
-    path: '/create_user', 
+  {
+    path: '/create_user',
     name:'create_user',
     component: AddUser
   },
-  { 
-    path: '/product', 
+  {
+    path: '/product',
     name:'product',
     component: Products
   },
-   { 
-    path: '/edit_product/:id', 
+   {
+    path: '/edit_product/:id',
     name:'edit_product',
     props: true,
     component: UpdateProduct
   },
-  // { 
-  //   path: '/create_product', 
+  // {
+  //   path: '/create_product',
   //   name:'create_product',
   //   component: AddProduct
   // },
-  { 
-    path: '/attribute', 
+  {
+    path: '/attribute',
     name:'attribute',
     component: Attributes
   },
-   { 
-    path: '/edit_attribute/:id', 
+   {
+    path: '/edit_attribute/:id',
     name:'edit_attribute',
     props: true,
     component: UpdateAttribute
   },
-  // { 
-  //   path: '/create_attribute', 
+  // {
+  //   path: '/create_attribute',
   //   name:'create_attribute',
   //   component: AddAttribute
   // },
-  { 
-    path: '/attribute_family', 
+  {
+    path: '/attribute_family',
     name:'attribute_family',
     component: AttributeFamilies
   },
-   { 
-    path: '/edit_attribute_family/:id', 
+   {
+    path: '/edit_attribute_family/:id',
     name:'edit_attribute_family',
     props: true,
     component: UpdateAttributeFamily
   },
-  // { 
-  //   path: '/create_attribute_family', 
+  // {
+  //   path: '/create_attribute_family',
   //   name:'create_attribute_family',
   //   component: AddAttributeFamily
   // },
-   { 
-    path: '/order', 
+   {
+    path: '/order',
     name:'order',
     component: Order
   },
-  { 
-    path: '/order_details/:id', 
+  {
+    path: '/order_details/:id',
     name:'order_details',
     component: ViewOrder
   },
-  { 
-    path: '/order_invoice/:id', 
+  {
+    path: '/order_invoice/:id',
     component: OrderInvoice
   },
   // --------------------------------------customer----------------------
-  { 
-    path: '/customer/login', 
+  {
+    path: '/customer/login',
     component: Login
   },
-  { 
-    path: '/customer/register', 
+  {
+    path: '/customer/register',
     component: Register
   },
- { 
-    path: '/customer/category/:id', 
+ {
+    path: '/customer/category/:id',
     name:'CustomerCategory',
     component: CategoryCustomer
   },
-  { 
-    path: '/customer/single-product/:id', 
+  {
+    path: '/customer/single-product/:id',
     component: SingleProduct
   },
-  { 
-    path: '/customer/cart', 
+  {
+    path: '/customer/cart',
     component: Cart
   },
-  { 
-    path: '/customer/shipping', 
+  {
+    path: '/customer/shipping',
     component: Shipping
   },
-  { 
-    path: '/customer/shipping2', 
+  {
+    path: '/customer/shipping2',
     component: Shipping2
   },
-  { 
-    path: '/customer/payment', 
+  {
+    path: '/customer/payment',
     component: Payment
   },
-  { 
-    path: '/customer/payment/:message', 
+  {
+    path: '/customer/payment/:message',
     component: Payment
   },
 ]

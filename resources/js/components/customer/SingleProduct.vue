@@ -4,7 +4,7 @@
     <div class="product_image_area">
       <div class="container">
         <div class="row s_product_inner" v-for="single in singleProduct">
-        
+
           <div class="col-lg-6">
             <div class="s_product_img">
               <div class="product-card">
@@ -28,13 +28,13 @@
                     <img class="d-block w-100" :src="`/Ecommerce/assets/upload/${single.image}`" alt="Second slide" />
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" v-bind:src="`/Ecommerceassets/upload/${single.image}`" alt="Third slide" />
+                    <img class="d-block w-100" v-bind:src="`/Ecommerce/assets/upload/${single.image}`" alt="Third slide" />
                   </div>
                 </div>
               </div>
 
               </div>
-             
+
             </div>
           </div>
           <div class="col-lg-5 offset-lg-1">
@@ -50,23 +50,23 @@
               </span>
               <ul class="list">
 
-                
+
                 <li>
-                
+
                       <span>المنتج</span> : {{ single.product.text }}
-               
+
                 </li>
-         
+
                     <li v-for="single2 in single.family_attribute_option" >
 
 
-                          <span>{{single2.attribute_option.attribute.name}}</span> : {{single2.attribute_option.value}}   
+                          <span>{{single2.attribute_option.attribute.name}}</span> : {{single2.attribute_option.value}}
 
                 </li>
-           
-                
-             
-             
+
+
+
+
 
                 <li>
                   <span>المتوفر</span>في المخزن :{{ singleProduct.qty }}
@@ -79,7 +79,7 @@
               </p>
               <form method="post" @submit.prevent="addToCart(single.id)">
                 <div class="product_count">
-                
+
                   <input type="number" name="qty" v-model="cartQty" value="1" title="Quantity" class="input-text qty" />
                   <label for="qty">:الكميه</label>
                 </div>
@@ -125,7 +125,7 @@
 
             </div>
           </div>
-      
+
           <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
             <div class="row">
               <div class="col-lg-6">
