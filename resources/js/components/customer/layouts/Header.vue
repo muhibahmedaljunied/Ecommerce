@@ -22,14 +22,14 @@
 
                                 <li>
                                     <a href="#">
-                                        {{ showSession.name }}
+                                        {{ $t('messages.welcome') }}, {{ showSession.name }}
                                     </a>
                                 </li>
 
                                 <li>
 
                                     <a href="#" @click="logout">
-                                        تسجيل خروج
+                                        {{ $t('messages.logout') }}
                                     </a>
                                 </li>
                                 <li class="lang-item">
@@ -60,7 +60,7 @@
                     Login
                   </router-link> -->
                                     <router-link to="/customer/login">
-                                        تسجيل الدخول
+                                        {{ $t('messages.login') }}
                                     </router-link>
                                 </li>
 
@@ -69,7 +69,7 @@
                     Register
                   </router-link> -->
                                     <router-link to="/customer/register">
-                                        انشاء حساب
+                                        {{ $t('messages.register') }}
                                     </router-link>
 
 
@@ -123,11 +123,11 @@
                         <div class="nav-links" :class="{ open: navOpen }" @click="navOpen = false">
                         <!-- Search (main menu) -->
                         <form class="search-form" @submit.prevent="performSearch" role="search" aria-label="Site search">
-                            <input type="search" v-model="searchQuery" class="search-input" placeholder="Search products..." aria-label="Search products" />
+                            <input type="search" v-model="searchQuery" class="search-input" :placeholder="$t('messages.search_placeholder')" aria-label="Search products" />
                             <button type="submit" class="search-btn" aria-label="Search"><i class="fa fa-search"></i></button>
                         </form>
                         <!--       <a href="#">Home</a> -->
-                        <router-link to="/customer/home">الرئيسيه</router-link>
+                        <router-link to="/customer/home">{{ $t('messages.home') }}</router-link>
                             
                          
 
@@ -144,19 +144,20 @@
                 </ul>
 
 
-                        
+                        {}
               </div>
                     </div> -->
+
                              <div class="dropdown" v-for="category in categories">
                                     
+                         
                             <!-- <router-link :to="`/customer/category/${category.id}`">{{ category.text }}</router-link> -->
                             <router-link :to="{ name: 'CustomerCategory', params: { id: category.id } }" replace:
-                                true>{{
-                                    category.text }}</router-link>
+                                true>{{ $t('messages.' + category.text) }}</router-link>
                                
                                   
                         </div>
-                           <a href="/Ecommerce">لوحه التحكم</a>
+                           <a href="/Ecommerce">{{ $t('messages.dashboard') }}</a>
                              
                               <router-link to="/customer/cart"><i class="fa fa-shopping-cart"></i> <span
                                 class="badge badge-notify">{{
@@ -231,17 +232,13 @@
 </template>
 
 <script>
-import { languageUtils } from '../../../utils/language';
-
 export default {
     // name: "header_area",
     data() {
         return {
             categories: [],
             navOpen: false,
-            selectedLanguage: localStorage.getItem('lang') || 'en',
             searchQuery: '',
-            currentDirection: 'ltr',
         }
     },
     created() {
@@ -250,11 +247,12 @@ export default {
                 this.categories = response.data
             }))
     },
-    mounted() {
+    async mounted() {
         this.$Progress.start();
         this.$store.dispatch("countCart");
         this.$store.dispatch("customerSession");
-        this.loadCurrentLanguage();
+        await this.$store.dispatch("loadTranslations", this.selectedLanguage);
+        document.documentElement.dir = this.currentDirection;
         this.$Progress.finish();
     },
     computed: {
@@ -263,6 +261,14 @@ export default {
         },
         showSession() {
             return this.$store.getters.getSessionData
+        },
+        selectedLanguage: {
+            get() {
+                return this.$store.getters.getCurrentLocale;
+            },
+            set(value) {
+                this.$store.dispatch('setLanguage', value);
+            }
         }
     },
     methods: {
@@ -280,19 +286,8 @@ export default {
                     this.$store.dispatch("customerSession");
                 })
         },
-        async loadCurrentLanguage() {
-            const data = await languageUtils.getCurrentLanguage();
-            this.selectedLanguage = data.locale;
-            this.currentDirection = data.direction;
-            localStorage.setItem('lang', data.locale);
-        },
-        async changeLang() {
-            const result = await languageUtils.setLanguage(this.selectedLanguage);
-            if (!result.error) {
-                localStorage.setItem('lang', this.selectedLanguage);
-                this.currentDirection = result.direction;
-                document.documentElement.dir = result.direction;
-            }
+        changeLang() {
+            // Handled by selectedLanguage setter
         },
         performSearch() {
             if (!this.searchQuery || !this.searchQuery.trim()) return;
@@ -311,7 +306,7 @@ export default {
         //     this.searchResult = response.data.searchData
 
         //   })
-        // }https://www.youtube.com/watch?v=eSLOOb5Mb5c&list=PLfDx4cQoUNObqJzxBKEst6Sd8uw6C2qSK
+        // }
 
     },
     //     watch: {

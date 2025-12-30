@@ -15,9 +15,21 @@ export default {
     productOrder:[],
     orderDetails:[],
     customerOrder:[],
+    currentLocale: localStorage.getItem('lang') || 'en',
+    translations: {},
+    availableLanguages: [],
   },
 
   getters: {
+    getCurrentLocale(state) {
+        return state.currentLocale;
+    },
+    getTranslations(state) {
+        return state.translations;
+    },
+    getAvailableLanguages(state) {
+        return state.availableLanguages;
+    },
     getCategory(state){
   		return state.categories
   	},
@@ -133,6 +145,36 @@ export default {
             context.commit("countCartItem", response.data.count_cart)
           })
     },
+
+    async setLanguage({ commit, dispatch }, locale) {
+        try {
+            const response = await axios.post('/api/language/set', { locale });
+            commit('setCurrentLocale', locale);
+            localStorage.setItem('lang', locale);
+            document.documentElement.dir = response.data.direction;
+            await dispatch('loadTranslations', locale);
+        } catch (error) {
+            console.error('Error setting language:', error);
+        }
+    },
+
+    async loadTranslations({ commit }, locale) {
+        try {
+            const response = await axios.get(`/api/translations/${locale}`);
+            commit('setTranslations', response.data || {});
+        } catch (error) {
+            console.error('Error loading translations:', error);
+        }
+    },
+
+    async loadAvailableLanguages({ commit }) {
+        try {
+            const response = await axios.get('/api/language/available');
+            commit('setAvailableLanguages', response.data);
+        } catch (error) {
+            console.error('Error loading available languages:', error);
+        }
+    },
     getAllCarttotal(context){
       axios.post('/all-cart')
           .then((response) =>{
@@ -180,6 +222,15 @@ export default {
 	mutations: {
     allCategory(state, data){
       return state.categories = data
+    },
+    setCurrentLocale(state, locale) {
+        state.currentLocale = locale;
+    },
+    setTranslations(state, translations) {
+        state.translations = translations;
+    },
+    setAvailableLanguages(state, languages) {
+        state.availableLanguages = languages;
     },
     allSize(state, data){
       return state.sizes = data

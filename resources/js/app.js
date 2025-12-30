@@ -5,8 +5,11 @@ window.Vue = require("vue"); //import vue same as(import Vue from 'vue')
 import VueRouter from "vue-router"; //import vue router
 import VueAxios from "vue-axios";
 import axios from "axios";
-// window.axios.defaults.baseURL = "http://localhost:9000/Ecommerce";
-window.axios.defaults.baseURL = "http://localhost/Ecommerce";
+// Use a dynamic baseURL based on the current origin and path
+const projectPath = "/Ecommerce";
+window.axios.defaults.baseURL = window.location.origin + projectPath;
+window.axios.defaults.withCredentials = true;
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // ---------------------------- sweetalert ---------------------------------------------------------
 import swal from "sweetalert2";
 
@@ -66,6 +69,10 @@ Vue.use(VueProgressBar, {
 });
 
 import storeData from "./store/store.js";
+import { globalLanguageMixin } from './utils/translations';
+
+Vue.mixin(globalLanguageMixin);
+
 const store = new Vuex.Store(storeData);
 // -------------------------------------------------------------------------------------------------
 Vue.component(
@@ -108,7 +115,7 @@ import routes from "./routes.js";
 
 //router instance and pass the `routes` option
 const router = new VueRouter({
-    base: "/Ecommerce/",
+    base: "/Ecommerce",
     routes,
     mode: "history",
     scrollBehavior(to, from, savedPosition) {
@@ -129,4 +136,4 @@ const app = new Vue({
     router,
     store,
 });
-// window.Laravel.csrfToken = {{ csrf_token() }};
+// window.Laravel.csrfToken = "";

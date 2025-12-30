@@ -53,7 +53,7 @@
 
                 <li>
 
-                      <span>المنتج</span> : {{ single.product.text }}
+                      <span>{{ $t('messages.product') }}</span> : {{ single.product.text }}
 
                 </li>
 
@@ -69,10 +69,10 @@
 
 
                 <li>
-                  <span>المتوفر</span>في المخزن :{{ singleProduct.qty }}
+                  <span>{{ $t('messages.available') }}</span> {{ $t('messages.in_stock') }} :{{ singleProduct.qty }}
                 </li>
                 <li>
-                  <span>المبيعات</span>:{{ singleProduct.qty }}
+                  <span>{{ $t('messages.sales') }}</span> :{{ singleProduct.qty }}
                 </li>
               </ul>
               <p>
@@ -81,10 +81,10 @@
                 <div class="product_count">
 
                   <input type="number" name="qty" v-model="cartQty" value="1" title="Quantity" class="input-text qty" />
-                  <label for="qty">:الكميه</label>
+                  <label for="qty">:{{ $t('messages.quantity') }}</label>
                 </div>
                 <div class="card_area">
-                  <input type="submit" class="main_btn" value="ضيق للسله">
+                  <input type="submit" class="main_btn" :value="$t('messages.add_to_cart')">
                 </div>
               </form>
             </div>
@@ -99,19 +99,19 @@
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" ria-controls="home"
-              aria-selected="true">Description</a>
+              aria-selected="true">{{ $t('messages.description') }}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-              aria-selected="false">Specification</a>
+              aria-selected="false">{{ $t('messages.specification') }}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="detail-tab" data-toggle="tab" href="#detail" role="tab" aria-controls="detail"
-              aria-selected="false">Comments</a>
+              aria-selected="false">{{ $t('messages.comments') }}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-              aria-selected="false">Reviews</a>
+              aria-selected="false">{{ $t('messages.reviews') }}</a>
           </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -132,14 +132,14 @@
                 <div class="row total_rate">
                   <div class="col-6">
                     <div class="box_total">
-                      <h5>Overall</h5>
+                      <h5>{{ $t('messages.overall') }}</h5>
                       <h4>4.0</h4>
-                      <h6>(03 Reviews)</h6>
+                      <h6>(03 {{ $t('messages.reviews') }})</h6>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="rating_list">
-                      <h3>Based on 3 Reviews</h3>
+                      <h3>{{ $t('messages.based_on') }} 3 {{ $t('messages.reviews') }}</h3>
                       <ul class="list">
                         <li>
                           <a href="#">5 Star
@@ -253,8 +253,8 @@
               </div>
               <div class="col-lg-6">
                 <div class="review_box">
-                  <h4>Add a Review</h4>
-                  <p>Your Rating:</p>
+                  <h4>{{ $t('messages.add_review') }}</h4>
+                  <p>{{ $t('messages.your_rating') }}:</p>
                   <ul class="list">
                     <li>
                       <a href="#">
@@ -282,33 +282,33 @@
                       </a>
                     </li>
                   </ul>
-                  <p>Outstanding</p>
+                  <p>{{ $t('messages.outstanding') }}</p>
                   <form class="row contact_form" action="contact_process.php" method="post" id="contactForm"
                     novalidate="novalidate">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Full name" />
+                        <input type="text" class="form-control" id="name" name="name" :placeholder="$t('messages.full_name')" />
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" />
+                        <input type="email" class="form-control" id="email" name="email" :placeholder="$t('messages.email_address')" />
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number" />
+                        <input type="text" class="form-control" id="number" name="number" :placeholder="$t('messages.phone')" />
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
                         <textarea class="form-control" name="message" id="message" rows="1"
-                          placeholder="Review"></textarea>
+                          :placeholder="$t('messages.reviews')"></textarea>
                       </div>
                     </div>
                     <div class="col-md-12 text-right">
                       <button type="submit" value="submit" class="btn submit_btn">
-                        Submit Now
+                        {{ $t('messages.submit_now') }}
                       </button>
                     </div>
                   </form>

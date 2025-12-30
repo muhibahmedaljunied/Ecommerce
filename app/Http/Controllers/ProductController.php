@@ -53,6 +53,7 @@ class ProductController extends Controller
     public function show(Request $request, FilterService $filter)
     {
 
+        // dd($request->id);
         $filter->product_id =  $request->id;
         $product_filterable_attributes = ProductFilterableAttribute::where(function ($query) use ($request) {
             return $query->where('product_filterable_attributes.product_id', '=', $request->id);
@@ -67,6 +68,7 @@ class ProductController extends Controller
 
         // $filter->queryfilter($request['type'])->filter();
 
+        // dd($product_filterable_attributes);
 
         return response()->json([
             'products' => $filter->data,

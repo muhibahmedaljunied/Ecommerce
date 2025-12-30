@@ -62,8 +62,8 @@ class LanguageController extends Controller
     public function getAvailableLanguages()
     {
         $languages = [
-            ['code' => 'en', 'name' => 'English', 'flag' => '🇺🇸', 'direction' => 'ltr'],
-            ['code' => 'ar', 'name' => 'العربية', 'flag' => '🇸🇦', 'direction' => 'rtl'],
+            ['code' => 'en', 'name' => 'English', 'flag' => '🇺🇸', 'direction' => 'rtl'],
+            ['code' => 'ar', 'name' => 'العربية', 'flag' => '🇸🇦', 'direction' => 'ltr'],
             ['code' => 'fr', 'name' => 'Français', 'flag' => '🇫🇷', 'direction' => 'ltr'],
             ['code' => 'de', 'name' => 'Deutsch', 'flag' => '🇩🇪', 'direction' => 'ltr'],
             ['code' => 'it', 'name' => 'Italiano', 'flag' => '🇮🇹', 'direction' => 'ltr'],
@@ -72,5 +72,15 @@ class LanguageController extends Controller
         ];
 
         return response()->json($languages);
+    }
+
+    public function getTranslations($locale)
+    {
+        $path = resource_path("lang/{$locale}/messages.php");
+        if (file_exists($path)) {
+            $translations = require $path;
+            return response()->json(['messages' => $translations]);
+        }
+        return response()->json(['messages' => []]);
     }
 }

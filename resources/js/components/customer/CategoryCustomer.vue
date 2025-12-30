@@ -17,7 +17,7 @@
                         aria-expanded="true" aria-controls="collapseOne">
                         <!-- Filter By Category -->
 
-                        بحسب الصنف
+                        {{ $t('messages.filter_by_category') }}
                       </button>
                     </h1>
                   </div>
@@ -38,7 +38,7 @@
                           <div class="col-xs-12">
                             <div class="input-group">
 
-                              <input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
+                              <input type="text" id="ricerca-enti" class="form-control" :placeholder="$t('messages.search') + '...'"
                                 aria-describedby="search-addon">
 
                             </div>
@@ -56,13 +56,14 @@
 
                   </div>
                 </div>
+
                 <div class="card" v-for="(attribute_filter, index) in data_fliter">
 
                   <div class="card-header" :id=index>
                     <h1 class="mb-0">
                       <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#' + index"
                         aria-expanded="false" :aria-controls=index>
-                        بحسب {{ index }}
+                        {{ $t('messages.filter_by') }} {{ index }}
                       </button>
 
                     </h1>
@@ -80,7 +81,7 @@
                         </li>
                         <li>
                           <input type="checkbox">
-                          <label>الكل </label>
+                          <label>{{ $t('messages.all') }} </label>
                         </li>
                       </ul>
                     </div>

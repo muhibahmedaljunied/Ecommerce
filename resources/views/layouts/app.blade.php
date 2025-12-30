@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- Title -->
 <!-- <title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title> -->
@@ -38,8 +38,6 @@
 <link href="{{URL::asset('assets/' . \App\Helpers\LanguageHelper::getCSSPath() . '/style-dark.css')}}" rel="stylesheet">
 <!---Skinmodes css-->
 <link href="{{URL::asset('assets/' . \App\Helpers\LanguageHelper::getCSSPath() . '/skin-modes.css')}}" rel="stylesheet">
-<script src="{{ mix('css/app.css') }}" defer></script>
-
 </head>
 <body>
     <div id="app">

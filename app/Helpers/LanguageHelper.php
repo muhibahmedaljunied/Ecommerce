@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class LanguageHelper
 {
-    private static $rtlLanguages = ['ar'];
+    private static $rtlLanguages = ['en'];
     
     public static function isRTL($locale = null)
     {

@@ -6,10 +6,10 @@
         <div class="container">
           <div class="banner_content row">
             <div class="col-lg-12">
-              <p class="sub text-uppercase">men Collection</p>
-              <h3><span>Show</span> Your <br />Personal <span>Taste</span></h3>
+              <p class="sub text-uppercase">{{ $t('messages.men_collection') }}</p>
+              <h3 v-html="$t('messages.show_taste')"></h3>
               <!-- <h4>Fowl saw dry which a above together place.</h4> -->
-              <a class="main_btn mt-40" href="#">View Collection</a>
+              <a class="main_btn mt-40" href="#">{{ $t('messages.view_collection') }}</a>
             </div>
           </div>
         </div>
@@ -26,10 +26,10 @@
               <a href="#" class="title">
                 <i class="flaticon-money"></i>
                 <!-- <h3>Money back gurantee</h3> -->
-                <h3>ضمان استعادة الاموال</h3>
+                <h3>{{ $t('messages.money_back') }}</h3>
               </a>
               <!-- <p>Shall open divide a one</p> -->
-              <p>نعيد الأموال في غضون 30 يومًا</p>
+              <p>{{ $t('messages.money_back_desc') }}</p>
             </div>
           </div>
 
@@ -38,10 +38,10 @@
               <a href="#" class="title">
                 <i class="flaticon-truck"></i>
                 <!-- <h3>Free Delivery</h3> -->
-                <h3>توصيل مجاني </h3>
+                <h3>{{ $t('messages.free_delivery') }}</h3>
               </a>
               <!-- <p>Shall open divide a one</p> -->
-              <p>توصيل اي طلب مجانا</p>
+              <p>{{ $t('messages.free_delivery_desc') }}</p>
             </div>
           </div>
 
@@ -50,10 +50,10 @@
               <a href="#" class="title">
                 <i class="flaticon-support"></i>
                 <!-- <h3>Alway support</h3> -->
-                <h3>دعم مستمر</h3>
+                <h3>{{ $t('messages.always_support') }}</h3>
               </a>
               <!-- <p>Shall open divide a one</p> -->
-              <p>دعم عملاء ودود على مدار الساعة طوال أيام الأسبوع</p>
+              <p>{{ $t('messages.always_support_desc') }}</p>
 
             </div>
           </div>
@@ -63,10 +63,10 @@
               <a href="#" class="title">
                 <i class="flaticon-blockchain"></i>
                 <!-- <h3>Secure payment</h3> -->
-                <h3>دفع أمن</h3>
+                <h3>{{ $t('messages.secure_payment') }}</h3>
               </a>
               <!-- <p>Shall open divide a one</p> -->
-              <p>نحن نمتلك SSL / شهادة آمنة</p>
+              <p>{{ $t('messages.secure_payment_desc') }}</p>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@
           <div class="col-lg-12">
             <div class="main_title">
               <!-- <h2><span>Featured product</span></h2> -->
-              <h2><span>منتجات مميزة</span></h2>
+              <h2><span>{{ $t('messages.featured_products') }}</span></h2>
               <!-- <p>Bring called seed first of third give itself now ment</p> -->
             </div>
           </div>
@@ -143,14 +143,14 @@
             <div class="offer_content">
               <!-- <h3 class="text-uppercase mb-40">all men’s collection</h3> -->
               <!-- <h3 class="text-uppercase mb-40">جميع تورت حفلات التخرج </h3> -->
-              <h3 class="text-uppercase mb-40">جميع  الملابس الرجاليه  </h3>
+              <h3 class="text-uppercase mb-40">{{ $t('messages.mens_collection_all') }}</h3>
 
               <!-- <h2 class="text-uppercase">50% off</h2> -->
-              <h2 class="text-uppercase">50% تخفيض</h2>
+              <h2 class="text-uppercase">{{ $t('messages.off_50') }}</h2>
               <!-- <a href="#" class="main_btn mb-20 mt-5">Discover Now</a> -->
-              <a href="#" class="main_btn mb-20 mt-5">تسوق الان</a>
+              <a href="#" class="main_btn mb-20 mt-5">{{ $t('messages.shop_now') }}</a>
               <!-- <p>Limited Time Offer</p>   -->
-              <p>عرض لفترة محدودة </p>
+              <p>{{ $t('messages.limited_offer') }}</p>
             </div>
           </div>
         </div>
@@ -310,7 +310,7 @@
           <div class="col-lg-12">
             <div class="main_title">
               <!-- <h2><span>New products</span></h2> -->
-              <h2><span>احدث المنتجات</span></h2>
+              <h2><span>{{ $t('messages.new_products') }}</span></h2>
               <!-- <p>Bring called seed first of third give itself now ment</p> -->
             </div>
           </div>

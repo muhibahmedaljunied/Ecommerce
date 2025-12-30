@@ -9,11 +9,11 @@
               <thead>
                 <tr>
                   <!-- <th scope="col"></th> -->
-                  <th scope="col">Product</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">{{ $t('messages.products') }}</th>
+                  <th scope="col">{{ $t('messages.price') }}</th>
+                  <th scope="col">{{ $t('messages.quantity') }}</th>
+                  <th scope="col">{{ $t('messages.total') }}</th>
+                  <th scope="col">{{ $t('messages.action') }}</th>
                   <!-- <th scope="col">المنتج</th>
                   <th scope="col">السعر</th>
                   <th scope="col">الكميه</th>
@@ -55,7 +55,7 @@
                     
                   </td>
                   <td><!-- {{checkItem}} --></td>
-                  <td><h5>Subtotal</h5></td>
+                  <td><h5>{{ $t('messages.subtotal') }}</h5></td>
                   <td>
                     <h5>$ {{showSubtotal}}</h5>
                   </td>
@@ -76,8 +76,8 @@
                       <router-link class="main_btn" to="/customer/login">Proceed to checkout</router-link>
                     </div> -->
                      <div class="checkout_btn_inner" >
-                      <router-link class="gray_btn" to="/customer/home">Continue Shopping</router-link>
-                      <router-link class="main_btn" to="/customer/payment">Proceed to checkout</router-link>
+                      <router-link class="gray_btn" to="/customer/home">{{ $t('messages.continue_shopping') }}</router-link>
+                      <router-link class="main_btn" to="/customer/payment">{{ $t('messages.proceed_checkout') }}</router-link>
                     </div>
                   
                   </td>
@@ -111,8 +111,8 @@
                 // console.log(response.data);
                
                 toast.fire({
-                                title: "Deleted!",
-                                text: "Your product has been deleted from cart.",
+                                title: this.$t('messages.remove'),
+                                text: this.$t('messages.cart_deleted'),
                                 button: "Close", // Text on button
                                 icon: "success", //built in icons: success, warning, error, info
                                 timer: 3000, //timeOut for auto-close

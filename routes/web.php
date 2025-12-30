@@ -24,6 +24,7 @@ Route::get('/language/{locale}', [LanguageController::class, 'setLanguage'])->na
 Route::post('/api/language/set', [LanguageController::class, 'setLanguageApi'])->name('language.set.api');
 Route::get('/api/language/current', [LanguageController::class, 'getCurrentLanguage'])->name('language.current.api');
 Route::get('/api/language/available', [LanguageController::class, 'getAvailableLanguages'])->name('language.available.api');
+Route::get('/api/translations/{locale}', [LanguageController::class, 'getTranslations']);
 
 require __dir__ . '/customer.php';
 
