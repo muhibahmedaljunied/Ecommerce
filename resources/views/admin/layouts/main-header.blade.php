@@ -21,40 +21,65 @@
 							<li class="">
 								<div class="dropdown  nav-itemd-none d-md-flex">
 									<a href="#" class="d-flex  nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false">
-										<span class="avatar country-Flag mr-0 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/us_flag.jpg')}}" alt="img"></span>
+										@php
+											$currentLocale = app()->getLocale();
+											$flagMap = [
+												'en' => ['flag' => 'assets/img/flags/us_flag.jpg', 'name' => 'English'],
+												'ar' => ['flag' => 'assets/img/flags/india_flag.jpg', 'name' => 'العربية'],
+												'fr' => ['flag' => 'assets/img/flags/french_flag.jpg', 'name' => 'Français'],
+												'de' => ['flag' => 'assets/img/flags/germany_flag.jpg', 'name' => 'Deutsch'],
+												'it' => ['flag' => 'assets/img/flags/italy_flag.jpg', 'name' => 'Italiano'],
+												'ru' => ['flag' => 'assets/img/flags/russia_flag.jpg', 'name' => 'Русский'],
+												'es' => ['flag' => 'assets/img/flags/spain_flag.jpg', 'name' => 'Español'],
+											];
+											$current = $flagMap[$currentLocale] ?? $flagMap['en'];
+										@endphp
+										<span class="avatar country-Flag mr-0 align-self-center bg-transparent"><img src="{{URL::asset($current['flag'])}}" alt="img"></span>
 										<div class="my-auto">
-											<strong class="mr-2 ml-2 my-auto">English</strong>
+											<strong class="mr-2 ml-2 my-auto">{{ $current['name'] }}</strong>
 										</div>
 									</a>
 									<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
-										<a href="#" class="dropdown-item d-flex ">
+										<a href="{{ route('language.switch', 'en') }}" class="dropdown-item d-flex">
+											<span class="avatar  ml-3 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/us_flag.jpg')}}" alt="img"></span>
+											<div class="d-flex">
+												<span class="mt-2">English</span>
+											</div>
+										</a>
+										<a href="{{ route('language.switch', 'ar') }}" class="dropdown-item d-flex">
+											<span class="avatar  ml-3 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/india_flag.jpg')}}" alt="img"></span>
+											<div class="d-flex">
+												<span class="mt-2">العربية</span>
+											</div>
+										</a>
+										<a href="{{ route('language.switch', 'fr') }}" class="dropdown-item d-flex">
 											<span class="avatar  ml-3 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/french_flag.jpg')}}" alt="img"></span>
 											<div class="d-flex">
-												<span class="mt-2">French</span>
+												<span class="mt-2">Français</span>
 											</div>
 										</a>
-										<a href="#" class="dropdown-item d-flex">
-											<span class="avatar  ml-3 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/germany_flag.jpg')}}" alt="img"></span>
+										<a href="{{ route('language.switch', 'de') }}" class="dropdown-item d-flex">
+											<span class="avatar ml-3 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/germany_flag.jpg')}}" alt="img"></span>
 											<div class="d-flex">
-												<span class="mt-2">Germany</span>
+												<span class="mt-2">Deutsch</span>
 											</div>
 										</a>
-										<a href="#" class="dropdown-item d-flex">
+										<a href="{{ route('language.switch', 'it') }}" class="dropdown-item d-flex">
 											<span class="avatar ml-3 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/italy_flag.jpg')}}" alt="img"></span>
 											<div class="d-flex">
-												<span class="mt-2">Italy</span>
+												<span class="mt-2">Italiano</span>
 											</div>
 										</a>
-										<a href="#" class="dropdown-item d-flex">
+										<a href="{{ route('language.switch', 'ru') }}" class="dropdown-item d-flex">
 											<span class="avatar ml-3 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/russia_flag.jpg')}}" alt="img"></span>
 											<div class="d-flex">
-												<span class="mt-2">Russia</span>
+												<span class="mt-2">Русский</span>
 											</div>
 										</a>
-										<a href="#" class="dropdown-item d-flex">
+										<a href="{{ route('language.switch', 'es') }}" class="dropdown-item d-flex">
 											<span class="avatar  ml-3 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/spain_flag.jpg')}}" alt="img"></span>
 											<div class="d-flex">
-												<span class="mt-2">spain</span>
+												<span class="mt-2">Español</span>
 											</div>
 										</a>
 									</div>

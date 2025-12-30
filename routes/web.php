@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/language/{locale}', [LanguageController::class, 'setLanguage'])->name('language.switch');
+Route::post('/api/language/set', [LanguageController::class, 'setLanguageApi'])->name('language.set.api');
+Route::get('/api/language/current', [LanguageController::class, 'getCurrentLanguage'])->name('language.current.api');
+Route::get('/api/language/available', [LanguageController::class, 'getAvailableLanguages'])->name('language.available.api');
 
 require __dir__ . '/customer.php';
 

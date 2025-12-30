@@ -4,6 +4,10 @@
 
 {{-- <link href="{{URL::asset('css/app.css')}}" rel="stylesheet"> --}}
 <link href="{{URL::asset('css/app.css')}}" rel="stylesheet">
+<!-- Dynamic RTL/LTR CSS -->
+@if(\App\Helpers\LanguageHelper::isRTL())
+<link href="{{URL::asset('assets/css-rtl/bootstrap.rtl.css')}}" rel="stylesheet">
+@endif
 <link href="{{URL::asset('assets/font-awesome/css/fontawesome.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/font-awesome/css/fontawesome.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/font-awesome/css/solid.css')}}" rel="stylesheet">

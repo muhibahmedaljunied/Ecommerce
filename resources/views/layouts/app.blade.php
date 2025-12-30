@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ \App\Helpers\LanguageHelper::getDirection() }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,14 +30,14 @@
 <!--  Sidebar css -->
 <link href="{{URL::asset('assets/plugins/sidebar/sidebar.css')}}" rel="stylesheet">
 <!-- Sidemenu css -->
-<link rel="stylesheet" href="{{URL::asset('assets/css-rtl/sidemenu.css')}}">
+<link rel="stylesheet" href="{{URL::asset('assets/' . \App\Helpers\LanguageHelper::getCSSPath() . '/sidemenu.css')}}">
 @yield('css')
 <!--- Style css -->
-<link href="{{URL::asset('assets/css-rtl/style.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/' . \App\Helpers\LanguageHelper::getCSSPath() . '/style.css')}}" rel="stylesheet">
 <!--- Dark-mode css -->
-<link href="{{URL::asset('assets/css-rtl/style-dark.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/' . \App\Helpers\LanguageHelper::getCSSPath() . '/style-dark.css')}}" rel="stylesheet">
 <!---Skinmodes css-->
-<link href="{{URL::asset('assets/css-rtl/skin-modes.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/' . \App\Helpers\LanguageHelper::getCSSPath() . '/skin-modes.css')}}" rel="stylesheet">
 <script src="{{ mix('css/app.css') }}" defer></script>
 
 </head>

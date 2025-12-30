@@ -34,11 +34,15 @@
                                 </li>
                                 <li class="lang-item">
                                     <div class="lang-wrap">
-
                                         <select v-model="selectedLanguage" @change="changeLang" class="lang-select"
                                             aria-label="Select language">
-                                            <option value="ar">العربية</option>
                                             <option value="en">English</option>
+                                            <option value="ar">العربية</option>
+                                            <option value="fr">Français</option>
+                                            <option value="de">Deutsch</option>
+                                            <option value="it">Italiano</option>
+                                            <option value="ru">Русский</option>
+                                            <option value="es">Español</option>
                                         </select>
                                     </div>
                                 </li>
@@ -74,8 +78,13 @@
                                     <div class="lang-wrap">
                                         <select v-model="selectedLanguage" @change="changeLang" class="lang-select"
                                             aria-label="Select language">
-                                            <option value="ar">العربية</option>
                                             <option value="en">English</option>
+                                            <option value="ar">العربية</option>
+                                            <option value="fr">Français</option>
+                                            <option value="de">Deutsch</option>
+                                            <option value="it">Italiano</option>
+                                            <option value="ru">Русский</option>
+                                            <option value="es">Español</option>
                                         </select>
                                     </div>
                                 </li>
@@ -222,20 +231,22 @@
 </template>
 
 <script>
+import { languageUtils } from '../../../utils/language';
+
 export default {
     // name: "header_area",
     data() {
         return {
             categories: [],
             navOpen: false,
-            selectedLanguage: localStorage.getItem('lang') || 'ar',
-            searchQuery: ''
+            selectedLanguage: localStorage.getItem('lang') || 'en',
+            searchQuery: '',
+            currentDirection: 'ltr',
         }
     },
     created() {
         this.axios.post('/home')
             .then((response => {
-                // console.log(response.data);
                 this.categories = response.data
             }))
     },
@@ -243,6 +254,7 @@ export default {
         this.$Progress.start();
         this.$store.dispatch("countCart");
         this.$store.dispatch("customerSession");
+        this.loadCurrentLanguage();
         this.$Progress.finish();
     },
     computed: {
@@ -256,27 +268,31 @@ export default {
     methods: {
 
         push(id) {
-
             this.$router.push({
                 name: 'CustomerCategory',
                 params: id
             },
             );
-
         },
         logout() {
             axios.post('/customer/customer-logout')
                 .then((response) => {
-                    // console.log(response.data)
                     this.$store.dispatch("customerSession");
                 })
         },
-        changeLang() {
-            // persist choice and notify parent / other parts of the app
-            localStorage.setItem('lang', this.selectedLanguage);
-            // set document language attribute (helpful for accessibility / direction)
-            document.documentElement.lang = this.selectedLanguage;
-            this.$emit('language-changed', this.selectedLanguage);
+        async loadCurrentLanguage() {
+            const data = await languageUtils.getCurrentLanguage();
+            this.selectedLanguage = data.locale;
+            this.currentDirection = data.direction;
+            localStorage.setItem('lang', data.locale);
+        },
+        async changeLang() {
+            const result = await languageUtils.setLanguage(this.selectedLanguage);
+            if (!result.error) {
+                localStorage.setItem('lang', this.selectedLanguage);
+                this.currentDirection = result.direction;
+                document.documentElement.dir = result.direction;
+            }
         },
         performSearch() {
             if (!this.searchQuery || !this.searchQuery.trim()) return;
