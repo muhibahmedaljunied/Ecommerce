@@ -108,7 +108,7 @@
                 </div>
                 <div class="product-btm">
                   <router-link :to="`/customer/single-product/${f_Product.id}`" class="d-block">
-                    <h4>{{ f_Product.text }}</h4>
+                    <h4>{{ $t('messages.' + f_Product.text) }}</h4>
                   </router-link>
                   <div class="mt-3" v-if="f_Product.price">
                     <span class="mr-4">$ {{ f_Product.price - f_Product.discount }}</span>
@@ -337,7 +337,7 @@
                 </div>
                 <div class="product-btm">
                   <router-link :to="`/customer/single-product/${newProduct.id}`" class="d-block">
-                    <h4>{{ newProduct.text }}</h4>
+                    <h4>{{ $t('messages.' + newProduct.text) }}</h4>
                   </router-link>
                   <div class="mt-3" v-if="newProduct.price">
                     <span class="mr-4">$ {{ newProduct.price - newProduct.discount }}</span>
@@ -367,18 +367,20 @@
 
 <script>
 export default {
+  mounted() {
+    this.fetchProducts();
+  },
+  watch: {
+    currentLocale() {
+      this.fetchProducts();
+    }
+  },
   methods: {
-    // addToCart(id){
-    //     this.$Progress.start();
-    //     axios.post('/add-cart',{
-    //         id: id
-    //     })
-    //         .then((response)=>{
-    //             this.$store.dispatch("countCart");
-    //             this.$Progress.finish()
-    //         })
-    // }
-
+    fetchProducts() {
+      this.$Progress.start();
+      this.$store.dispatch("featuredProduct");
+      this.$store.dispatch("newProduct");
+    },
     addToCart(id) {
       this.$Progress.start();
       this.id = id
@@ -392,13 +394,6 @@ export default {
           this.$Progress.finish()
         })
     }
-  },
-  mounted() {
-
-    this.$Progress.start();
-    this.$store.dispatch("featuredProduct");
-    this.$store.dispatch("newProduct");
-    this.$Progress.finish();
   },
   computed: {
     showFeaturedProduct() {

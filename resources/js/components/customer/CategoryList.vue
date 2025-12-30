@@ -52,7 +52,7 @@
                                 <h5 class="mb-0">
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
                                         aria-expanded="false" aria-controls="collapseTwo">
-                                        Filter By Size
+                                        {{ $t('messages.filter_by_size') }}
                                     </button>
                                 </h5>
                             </div>
@@ -78,7 +78,7 @@
                                 <h5 class="mb-0">
                                     <button class="btn btn-link collapsed" data-toggle="collapse"
                                         data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Filter By Country
+                                        {{ $t('messages.filter_by_country') }}
                                     </button>
                                 </h5>
                             </div>
@@ -107,7 +107,7 @@
 
                                     <button class="btn btn-link collapsed" data-toggle="collapse"
                                         data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                        Filter By Price
+                                        {{ $t('messages.filter_by_price') }}
                                     </button>
                                 </h5>
                             </div>
@@ -121,7 +121,7 @@
                                         <div class="range_item">
                                             <div id="slider-range"></div>
                                             <div class="">
-                                                <label for="amount">Price : </label>
+                                                <label for="amount">{{ $t('messages.price') }} : </label>
                                                 <input v-model="myInput" type="text" id="amount" @input="get_by_price()" />
                                             </div>
                                         </div>
@@ -137,7 +137,7 @@
 
                                     <button class="btn btn-link collapsed" data-toggle="collapse"
                                         data-target="#collapsefive" aria-expanded="false" aria-controls="collapsefive">
-                                        Filter By Color
+                                        {{ $t('messages.filter_by_color') }}
                                     </button>
                                 </h5>
                             </div>
@@ -167,7 +167,7 @@
 
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix"
                                         aria-expanded="false" aria-controls="collapseSix">
-                                        Filter By Material
+                                        {{ $t('messages.filter_by_material') }}
                                     </button>
                                 </h5>
                             </div>
@@ -197,7 +197,7 @@
 
                                     <button class="btn btn-link collapsed" data-toggle="collapse"
                                         data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                        Filter By Gender
+                                        {{ $t('messages.filter_by_gender') }}
                                     </button>
                                 </h5>
                             </div>
@@ -289,14 +289,14 @@
                 <div class="product_top_bar">
                     <div class="left_dorp">
                         <select class="sorting">
-                            <option value="1">Default sorting</option>
-                            <option value="2">Default sorting 01</option>
-                            <option value="4">Default sorting 02</option>
+                            <option value="1">{{ $t('messages.default_sorting') }}</option>
+                            <option value="2">{{ $t('messages.default_sorting') }} 01</option>
+                            <option value="4">{{ $t('messages.default_sorting') }} 02</option>
                         </select>
                         <select class="show">
-                            <option value="1">Show 12</option>
-                            <option value="2">Show 14</option>
-                            <option value="4">Show 16</option>
+                            <option value="1">{{ $t('messages.show') }} 12</option>
+                            <option value="2">{{ $t('messages.show') }} 14</option>
+                            <option value="4">{{ $t('messages.show') }} 16</option>
                         </select>
                     </div>
                 </div>
@@ -338,7 +338,7 @@
                                         <div class="mt-3" v-else>
                                             <span class="mr-4">${{ dd.price }}</span>
                                         </div>
-                                        <h4>Sales</h4>
+                                        <h4>{{ $t('messages.sales') }}</h4>
 
 
                                     </div>
@@ -366,7 +366,7 @@
                                 </div>
                                 <div class="product-btm">
                                     <router-link :to="`/customer/single-product/${catProduct.product_id}`">
-                                        <h4>{{ catProduct.text }}</h4>
+                                        <h4>{{ $t('messages.' + catProduct.text) }}</h4>
                                     </router-link>
                                     <div class="mt-3" v-if="catProduct.discount">
                                         <span class="mr-4">$ {{ catProduct.price }}</span>
@@ -374,7 +374,7 @@
                                     <div class="mt-3" v-else>
                                         <span class="mr-4">${{ catProduct.price }}</span>
                                     </div>
-                                    <h4>Sales</h4>
+                                    <h4>{{ $t('messages.sales') }}</h4>
 
 
                                 </div>
@@ -385,7 +385,7 @@
                     <div v-else class="row">
 
                         <div class="col-md-12">
-                            <h1> لايوجد اي منتجات
+                            <h1> {{ $t('messages.no_products') }}
 
                             </h1>
                         </div>

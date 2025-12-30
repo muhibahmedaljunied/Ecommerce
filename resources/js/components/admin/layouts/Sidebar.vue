@@ -1,9 +1,9 @@
 <template>
 <!-- Sidebar-right-->
-		<div class="sidebar sidebar-left sidebar-animate">
+		<div class="sidebar sidebar-animate" :class="currentDirection === 'rtl' ? 'sidebar-right' : 'sidebar-left'">
 			<div class="panel panel-primary card mb-0 box-shadow">
 				<div class="tab-menu-heading border-0 p-3">
-					<div class="card-title mb-0">Notifications</div>
+					<div class="card-title mb-0">{{ $t('messages.notifications') }}</div>
 					<div class="card-options mr-auto">
 						<a href="#" class="sidebar-remove"><i class="fe fe-x"></i></a>
 					</div>
@@ -12,9 +12,9 @@
 					<div class="tabs-menu ">
 						<!-- Tabs -->
 						<ul class="nav panel-tabs">
-							<li class=""><a href="#side1" class="active" data-toggle="tab"><i class="ion ion-md-chatboxes tx-18 ml-2"></i> Chat</a></li>
-							<li><a href="#side2" data-toggle="tab"><i class="ion ion-md-notifications tx-18  ml-2"></i> Notifications</a></li>
-							<li><a href="#side3" data-toggle="tab"><i class="ion ion-md-contacts tx-18 ml-2"></i> Friends</a></li>
+							<li class=""><a href="#side1" class="active" data-toggle="tab"><i class="ion ion-md-chatboxes tx-18 ml-2"></i> {{ $t('messages.chat') }}</a></li>
+							<li><a href="#side2" data-toggle="tab"><i class="ion ion-md-notifications tx-18  ml-2"></i> {{ $t('messages.notifications') }}</a></li>
+							<li><a href="#side3" data-toggle="tab"><i class="ion ion-md-contacts tx-18 ml-2"></i> {{ $t('messages.friends') }}</a></li>
 						</ul>
 					</div>
 					<div class="tab-content">
@@ -244,3 +244,9 @@
 		</div>
 <!--/Sidebar-right-->
 </template>
+
+<script>
+export default {
+    name: 'Sidebar'
+}
+</script>

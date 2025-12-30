@@ -129,7 +129,7 @@
                     <h5 class="mb-0">
                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
                         aria-expanded="false" aria-controls="collapseTwo">
-                        Filter By Size
+                        {{ $t('messages.filter_by_size') }}
                       </button>
                     </h5>
                   </div>
@@ -144,7 +144,7 @@
                         <li>
                           <input v-model="check_size[index]" type="checkbox" id="size_id" :value="0"
                             @change="onchange_size(0, index)">
-                          <label>Show all</label>
+                          <label>{{ $t('messages.all') }}</label>
                         </li>
                       </ul>
                     </div>
@@ -155,7 +155,7 @@
                     <h5 class="mb-0">
                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
                         aria-expanded="false" aria-controls="collapseThree">
-                        Filter By Country
+                        {{ $t('messages.filter_by_country') }}
                       </button>
                     </h5>
                   </div>
@@ -170,7 +170,7 @@
                         <li>
                           <input v-model="check_country[index]" type="checkbox" id="country_id" :value="0"
                             @change="onchange_country(0, index)">
-                          <label>Show all</label>
+                          <label>{{ $t('messages.all') }}</label>
                         </li>
                       </ul>
                     </div>
@@ -182,7 +182,7 @@
 
                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
                         aria-expanded="false" aria-controls="collapseFour">
-                        Filter By Price
+                        {{ $t('messages.filter_by_price') }}
                       </button>
                     </h5>
                   </div>
@@ -193,7 +193,7 @@
                         <div class="range_item">
                           <div id="slider-range"></div>
                           <div class="">
-                            <label for="amount">Price : </label>
+                            <label for="amount">{{ $t('messages.price') }} : </label>
                             <input v-model="myInput" type="text" id="amount" @input="get_by_price()" />
                           </div>
                         </div>
@@ -209,7 +209,7 @@
 
                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsefive"
                         aria-expanded="false" aria-controls="collapsefive">
-                        Filter By Color
+                        {{ $t('messages.filter_by_color') }}
                       </button>
                     </h5>
                   </div>
@@ -234,7 +234,7 @@
 
                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix"
                         aria-expanded="false" aria-controls="collapseSix">
-                        Filter By Material
+                        {{ $t('messages.filter_by_material') }}
                       </button>
                     </h5>
                   </div>
@@ -259,7 +259,7 @@
 
                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven"
                         aria-expanded="false" aria-controls="collapseSeven">
-                        Filter By Gender
+                        {{ $t('messages.filter_by_gender') }}
                       </button>
                     </h5>
                   </div>
@@ -284,7 +284,7 @@
 
                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight"
                         aria-expanded="false" aria-controls="collapseEight">
-                        Filter By Brand
+                        {{ $t('messages.filter_by_brand') }}
                       </button>
                     </h5>
                   </div>
@@ -311,14 +311,14 @@
               <div class="left_dorp">
 
                 <select class="sorting">
-                  <option value="1">Default sorting</option>
-                  <option value="2">Default sorting 01</option>
-                  <option value="4">Default sorting 02</option>
+                  <option value="1">{{ $t('messages.default_sorting') }}</option>
+                  <option value="2">{{ $t('messages.default_sorting') }} 01</option>
+                  <option value="4">{{ $t('messages.default_sorting') }} 02</option>
                 </select>
                 <select class="show">
-                  <option value="1">Show 12</option>
-                  <option value="2">Show 14</option>
-                  <option value="4">Show 16</option>
+                  <option value="1">{{ $t('messages.show') }} 12</option>
+                  <option value="2">{{ $t('messages.show') }} 14</option>
+                  <option value="4">{{ $t('messages.show') }} 16</option>
                 </select>
               </div>
             </div>
@@ -462,6 +462,7 @@ export default {
     },
     currentLocale() {
       this.refreshTree();
+      this.showProduct();
     }
 
   },

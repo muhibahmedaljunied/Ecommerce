@@ -126,15 +126,14 @@ class ProductController extends Controller
     }
 
 
-    public function get_attribute(){
+    public function get_attribute()
+    {
 
 
         return response()->json([
             'attributes' => Attribute::all(),
 
         ]);
-
-
     }
 
 
@@ -177,33 +176,46 @@ class ProductController extends Controller
             $product_attribute->save();
         }
     }
+
+
+
+
     public function store(ProductService $product_service)
     {
 
 
 
-        dd($this->request->all());
+        // dd($this->request->all());
         $this->init_data($product_service);
+        // dd($product_service->data,$product_service->request,$product_service->count);
         try {
             DB::beginTransaction(); // Tell Laravel all the code beneath this is a transaction
 
+            // dd($product_service->count);
             // --------------------------------------------------------------------------------------
             $product_service->save_product();
             // --------------------------------------------------------------------------------------
             $product_service->get_attribute_option();
 
 
-            foreach ($product_service->count as $value) {
 
+            for ($value = 0; $value < count($product_service->count); $value++) {
+                # code...
+                // }
+                // foreach ($product_service->count as $value) {
+                // dd($product_service->count,$value);
                 // --------------------------------this save variant details of every product---------------
                 $product_service->save_product_family_attribute($this->request->file('image'), $value);
 
                 // -----------------------------------this save attributes of every product------------------
                 $product_service->save_family_attribute_option($value);
+
+
             }
 
 
 
+            // dd(11);
             // dd(Product::all());
             // ------------------------------------------------------------------------------------------------------
             DB::commit(); // Tell Laravel this transacion's all good and it can persist to DB

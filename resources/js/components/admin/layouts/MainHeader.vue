@@ -16,7 +16,7 @@
 							<a class="close-toggle" href="#"><i class="header-icons fe fe-x"></i></a>
 						</div>
 						<div class="main-header-center mr-3 d-sm-none d-md-none d-lg-block">
-							<input class="form-control" placeholder="Search for anything..." type="search"> <button class="btn"><i class="fas fa-search d-none d-md-block"></i></button>
+							<input class="form-control" :placeholder="$t('messages.search_placeholder')" type="search"> <button class="btn"><i class="fas fa-search d-none d-md-block"></i></button>
 						</div>
 					</div>
 					<div class="main-header-right">
@@ -122,6 +122,17 @@
 								</a>
 
 							</div>
+							<div class="nav-item">
+								<select v-model="selectedLanguage" class="form-control" style="border: none; background: transparent; font-weight: bold;">
+									<option value="en">English</option>
+									<option value="ar">العربية</option>
+									<option value="fr">Français</option>
+									<option value="de">Deutsch</option>
+									<option value="it">Italiano</option>
+									<option value="ru">Русский</option>
+									<option value="es">Español</option>
+								</select>
+							</div>
 							<div class="nav-item full-screen fullscreen-button">
 								<a class="new nav-link full-screen-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                     ><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg></a>
@@ -137,14 +148,14 @@
 											</div>
 										</div>
 									</div>
-									<a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>Profile</a>
-									<a class="dropdown-item" href=""><i class="bx bx-cog"></i> Edit Profile</a>
-									<a class="dropdown-item" href=""><i class="bx bxs-inbox"></i>Inbox</a>
-									<a class="dropdown-item" href=""><i class="bx bx-envelope"></i>Messages</a>
-									<a class="dropdown-item" href=""><i class="bx bx-slider-alt"></i> Account Settings</a>
+									<a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>{{ $t('messages.profile') }}</a>
+									<a class="dropdown-item" href=""><i class="bx bx-cog"></i> {{ $t('messages.edit_profile') }}</a>
+									<a class="dropdown-item" href=""><i class="bx bxs-inbox"></i>{{ $t('messages.inbox') }}</a>
+									<a class="dropdown-item" href=""><i class="bx bx-envelope"></i>{{ $t('messages.messages') }}</a>
+									<a class="dropdown-item" href=""><i class="bx bx-slider-alt"></i> {{ $t('messages.account_settings') }}</a>
 									<!-- <a class="dropdown-item" href='page-signin'><i class="bx bx-log-out"></i> Sign Out</a> -->
 
-									<a class="dropdown-item" href='#' @click="logout" ><i class="bx bx-log-out"></i> Sign Out</a>
+									<a class="dropdown-item" href='#' @click="logout" ><i class="bx bx-log-out"></i> {{ $t('messages.sign_out') }}</a>
 
 								</div>
 							</div>
@@ -167,6 +178,25 @@ export default {
     data() {
         return {
             processing: false
+        }
+    },
+
+    async mounted() {
+        await this.$store.dispatch("loadTranslations", this.selectedLanguage);
+        // Ensure direction is set on mount
+        document.documentElement.dir = this.currentDirection;
+    },
+
+    computed: {
+        selectedLanguage: {
+            get() {
+                return this.$store.getters.getCurrentLocale;
+            },
+            set(value) {
+                this.$store.dispatch('setLanguage', value);
+                // Force immediate direction change for UI elements that depend on currentDirection
+                document.documentElement.dir = value === 'en' ? 'rtl' : 'ltr';
+            }
         }
     },
 
