@@ -6,13 +6,13 @@
 
 
 
-			<legend class="float-none w-auto px-3">شجره الاصناف</legend>
+			<legend class="float-none w-auto px-3">{{ $t('messages.Category Tree') }}</legend>
 
 
 
 			<div class="input-group">
 
-				<input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
+				<input type="text" id="ricerca-enti" class="form-control" :placeholder="$t('messages.Search') + '...'"
 					aria-describedby="search-addon">
 
 			</div>
@@ -55,7 +55,7 @@
 							</button>
 
 							<input type="search" autocomplete="on" name="search" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="true" placeholder="بحث " v-model="word_search"
+								aria-haspopup="true" aria-expanded="true" :placeholder="$t('messages.Search')" v-model="word_search"
 								@input="get_search()" />
 						</div>
 					</div>
@@ -94,7 +94,7 @@
 
 													</div>
 													<div class="col-md-2">
-														{{ productss.text }}
+														{{ $t('messages.' + productss.text) }}
 
 														<div class="col-md-12"
 															v-for="produc_option in productss['product_family_attribute']">
@@ -102,7 +102,7 @@
 
 															<span 
 																v-for="option in produc_option.family_attribute_option">
-															{{ option.value }}
+															{{ $t('messages.' + option.value) }}
 															</span>
 
 														</div>
@@ -121,12 +121,12 @@
 																	<div class="col-md-4">
 
 																		<div class="col-md-12">
-																			الكميه: {{ product_family.qty }}
+																			{{ $t('messages.Quantity') }}: {{ product_family.qty }}
 
 																		</div>
 
 																		<div class="col-md-12">
-																			السعر:{{ product_family.price }}
+																			{{ $t('messages.Price') }}:{{ product_family.price }}
 
 																		</div>
 
@@ -190,7 +190,7 @@
 									<tbody v-else>
 										<tr>
 											<td style="text-align: center;" colspan="7">
-												لايوجد اي بيانات
+												{{ $t('messages.No data available') }}
 											</td>
 										</tr>
 									</tbody>
@@ -262,8 +262,31 @@ export default {
 
 		})
 	},
+	watch: {
+		currentLocale() {
+			this.refreshTree();
+		}
+	},
 	methods: {
-
+		refreshTree() {
+			if ($('#treeview_json_product').jstree(true)) {
+				$('#treeview_json_product').jstree(true).destroy();
+			}
+			this.showtree();
+		},
+		translateTree(nodes) {
+			if (!nodes) return [];
+			return nodes.map(node => {
+				const newNode = { ...node };
+				if (newNode.text) {
+					newNode.text = this.$t('messages.' + newNode.text);
+				}
+				if (newNode.children && newNode.children.length > 0) {
+					newNode.children = this.translateTree(newNode.children);
+				}
+				return newNode;
+			});
+		},
 		delete_product(id) {
 
 			this.axios.post(`/delete_product/${id}`).then(response => {
@@ -369,7 +392,7 @@ export default {
 			this.axios.post(uri).then((response) => {
 				//   this.trees = response.data.trees;
 
-				this.jsonTreeData = response.data.trees;
+				this.jsonTreeData = this.translateTree(response.data.trees);
 				this.attribute_families = response.data.attribute_families;
 
 				$(`#treeview_json_product`).jstree({

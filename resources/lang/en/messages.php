@@ -97,6 +97,16 @@ return [
     'filter_by_gender' => 'Filter By Gender',
     'filter_by_brand' => 'Filter By Brand',
     'default_sorting' => 'Default sorting',
+
+    'الحجم' => ' size',
+    'الدوله' => ' country',
+    'السعر' => ' price',
+    'اللون' => ' color',
+    'الخامة' => ' material',
+    'النوع' => ' gender',
+    'الماركة' => ' brand',
+
+
     'show' => 'Show',
     // Dynamic Categories
     'Electronics' => 'Electronics',
@@ -104,4 +114,5 @@ return [
     'Home & Garden' => 'Home & Garden',
     'ملابس' => 'Fashion',
     'الرئيسيه' => 'Home',
+    'بنطال' => 'Pants',
 ];

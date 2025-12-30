@@ -28,9 +28,10 @@ export const translationUtils = {
         let value = translations[currentLocale] || {};
 
         for (const k of keys) {
-            value = value[k];
-            if (value === undefined) {
-                return key;
+            if (value && typeof value === 'object' && value[k] !== undefined) {
+                value = value[k];
+            } else {
+                return keys[keys.length - 1];
             }
         }
 
@@ -53,7 +54,7 @@ export const globalLanguageMixin = {
                 if (value && typeof value === 'object' && value[k] !== undefined) {
                     value = value[k];
                 } else {
-                    return key;
+                    return keys[keys.length - 1];
                 }
             }
             return value;

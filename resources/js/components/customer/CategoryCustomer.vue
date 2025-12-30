@@ -63,7 +63,7 @@
                     <h1 class="mb-0">
                       <button class="btn btn-link collapsed" data-toggle="collapse" :data-target="'#' + index"
                         aria-expanded="false" :aria-controls=index>
-                        {{ $t('messages.filter_by') }} {{ index }}
+                        {{ $t('messages.filter_by') }}   {{ $t('messages.' + index) }}
                       </button>
 
                     </h1>
@@ -356,7 +356,7 @@
                           <div class="mt-3">
 
                             <router-link :to="`/customer/single-product/${dd.product_id}`">
-                              <h1 class="product-title">{{ catProduct.text }}</h1>
+                              <h1 class="product-title">{{ $t('messages.' + catProduct.text) }}</h1>
                             </router-link>
 
                           </div>
@@ -455,16 +455,37 @@ export default {
       this.$store.dispatch("categoryByID", this.$route.params.id)
       this.$Progress.finish();
       this.showProduct();
-      this.showtree();
+      this.refreshTree();
 
 
 
     },
+    currentLocale() {
+      this.refreshTree();
+    }
 
   },
 
   methods: {
-
+    refreshTree() {
+      if ($('#treeview_json_product').jstree(true)) {
+        $('#treeview_json_product').jstree(true).destroy();
+      }
+      this.showtree();
+    },
+    translateTree(nodes) {
+      if (!nodes) return [];
+      return nodes.map(node => {
+        const newNode = { ...node };
+        if (newNode.text) {
+          newNode.text = this.$t('messages.' + newNode.text);
+        }
+        if (newNode.children && newNode.children.length > 0) {
+          newNode.children = this.translateTree(newNode.children);
+        }
+        return newNode;
+      });
+    },
     showtree() {
 
       console.log('in show tree', this.$route.params.id);
@@ -489,7 +510,7 @@ export default {
       this.axios.post(uri).then((response) => {
         //   this.trees = response.data.trees;
 
-        this.jsonTreeData = response.data.trees;
+        this.jsonTreeData = this.translateTree(response.data.trees);
 
         $(`#treeview_json_product`).jstree({
           core: {

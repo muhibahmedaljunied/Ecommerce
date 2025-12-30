@@ -15,13 +15,13 @@
 
 
 
-			<legend class="float-none w-auto px-3">شجره الاصناف</legend>
+			<legend class="float-none w-auto px-3">{{ $t('messages.Category Tree') }}</legend>
 
 
 
 			<div class="input-group">
 
-				<input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
+				<input type="text" id="ricerca-enti" class="form-control" :placeholder="$t('messages.Search') + '...'"
 					aria-describedby="search-addon">
 
 			</div>
@@ -65,7 +65,7 @@
 							</button>
 
 							<input type="search" autocomplete="on" name="search" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="true" placeholder="بحث " v-model="word_search"
+								aria-haspopup="true" aria-expanded="true" :placeholder="$t('messages.Search')" v-model="word_search"
 								@input="get_search()" />
 						</div>
 					</div>
@@ -75,11 +75,11 @@
 							<table class="table text-md-nowrap" id="example1">
 								<thead>
 									<tr>
-										<th class="wd-15p border-bottom-0">الرقم التسلسلي</th>
+										<th class="wd-15p border-bottom-0">{{ $t('messages.Serial Number') }}</th>
 
-										<th class="wd-15p border-bottom-0">الاسم</th>
+										<th class="wd-15p border-bottom-0">{{ $t('messages.Name') }}</th>
 
-										<th class="wd-15p border-bottom-0"> العمليات</th>
+										<th class="wd-15p border-bottom-0">{{ $t('messages.Operations') }}</th>
 
 
 
@@ -89,7 +89,7 @@
 									<tr v-for="(categorys,index) in category" :key="index">
 										<td>{{ index+1 }}</td>
 
-										<td>{{ categorys.text }}</td>
+										<td>{{ $t('messages.' + categorys.text) }}</td>
 										<!-- <td>
                                                 <img :src="`assets/img/20191214045454_41TxNIo3cQL.jpg`" height="50px" alt="category image">
                                                 </td> -->
@@ -115,7 +115,7 @@
 								<tbody v-else>
 									<tr>
 										<td style="text-align: center;" colspan="5">
-											لايوجد اي بيانات
+											{{ $t('messages.No data available') }}
 										</td>
 									</tr>
 								</tbody>
@@ -174,7 +174,31 @@ export default {
 		this.showtree();
 
 	},
+	watch: {
+		currentLocale() {
+			this.refreshTree();
+		}
+	},
 	methods: {
+		refreshTree() {
+			if ($('#treeview_json_product').jstree(true)) {
+				$('#treeview_json_product').jstree(true).destroy();
+			}
+			this.showtree();
+		},
+		translateTree(nodes) {
+			if (!nodes) return [];
+			return nodes.map(node => {
+				const newNode = { ...node };
+				if (newNode.text) {
+					newNode.text = this.$t('messages.' + newNode.text);
+				}
+				if (newNode.children && newNode.children.length > 0) {
+					newNode.children = this.translateTree(newNode.children);
+				}
+				return newNode;
+			});
+		},
 		showtree() {
 
 			var uri = `/tree_product`;
@@ -198,7 +222,7 @@ export default {
 			this.axios.post(uri).then((response) => {
 				//   this.trees = response.data.trees;
 
-				this.jsonTreeData = response.data.trees;
+				this.jsonTreeData = this.translateTree(response.data.trees);
 				$(`#treeview_json_product`).jstree({
 					core: {
 						themes: {
@@ -245,7 +269,7 @@ export default {
 
 							renameItem: {
 								// The "rename" menu item
-								label: "تحرير",
+								label: this.$t('messages.Edit'),
 								action: function (data) {
 
 									console.log('تحرير');
@@ -253,7 +277,7 @@ export default {
 							},
 							deleteItem: {
 								// The "delete" menu item
-								label: "حذف",
+								label: this.$t('messages.Delete'),
 								action: function (data) {
 
 									console.log('حذف');
@@ -262,7 +286,7 @@ export default {
 							},
 							addItem: {
 								// The "delete" menu item
-								label: "اضافه",
+								label: this.$t('messages.Add'),
 								action: function (data) {
 
 

@@ -10,7 +10,7 @@
                                 <h5 class="mb-0">
                                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
                                         aria-expanded="true" aria-controls="collapseOne">
-                                        Filter By Category
+                                        {{ $t('messages.filter_by_category') }}
 
                                     </button>
                                 </h5>
@@ -330,7 +330,7 @@
                                     </div>
                                     <div class="product-btm">
                                         <router-link :to="`/customer/single-product/${dd.product_id}`">
-                                            <h4>{{ catProduct.text }}</h4>
+                                            <h4>{{ $t('messages.' + catProduct.text) }}</h4>
                                         </router-link>
                                         <div class="mt-3" v-if="dd.discount">
                                             <span class="mr-4">$ {{ dd.price }}</span>
@@ -432,15 +432,38 @@ export default {
         this.showtree();
 
     },
+    watch: {
+        currentLocale() {
+            this.refreshTree();
+        }
+    },
     methods: {
-
+        refreshTree() {
+            if ($('#treeview_json_product').jstree(true)) {
+                $('#treeview_json_product').jstree(true).destroy();
+            }
+            this.showtree();
+        },
+        translateTree(nodes) {
+            if (!nodes) return [];
+            return nodes.map(node => {
+                const newNode = { ...node };
+                if (newNode.text) {
+                    newNode.text = this.$t('messages.' + newNode.text);
+                }
+                if (newNode.children && newNode.children.length > 0) {
+                    newNode.children = this.translateTree(newNode.children);
+                }
+                return newNode;
+            });
+        },
         showtree() {
             var uri = `/tree_product/${this.$route.params.id}`;
             var gf = this;
             this.axios.post(uri).then((response) => {
                 //   this.trees = response.data.trees;
 
-                this.jsonTreeData = response.data.trees;
+                this.jsonTreeData = this.translateTree(response.data.trees);
 
                 $(`#treeview_json_product`).jstree({
                     core: {

@@ -5,13 +5,13 @@
 						<div class="card overflow-hidden sales-card bg-primary-gradient">
 							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
 								<div class="">
-									<h6 class="mb-3 tx-12 text-white">TODAY ORDERS</h6>
+									<h6 class="mb-3 tx-12 text-white">{{ $t('messages.TODAY ORDERS') }}</h6>
 								</div>
 								<div class="pb-0 mt-0">
 									<div class="d-flex">
 										<div class="">
 											<h4 class="tx-20 font-weight-bold mb-1 text-white">{{order}}</h4>
-											<p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+											<p class="mb-0 tx-12 text-white op-7">{{ $t('messages.Compared to last week') }}</p>
 										</div>
 										<span class="float-right my-auto mr-auto">
 											<i class="fas fa-arrow-circle-up text-white"></i>
@@ -26,13 +26,13 @@
 						<div class="card overflow-hidden sales-card bg-danger-gradient">
 							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
 								<div class="">
-									<h6 class="mb-3 tx-12 text-white">categorys</h6>
+									<h6 class="mb-3 tx-12 text-white">{{ $t('messages.categories') }}</h6>
 								</div>
 								<div class="pb-0 mt-0">
 									<div class="d-flex">
 										<div class="">
 											<h4 class="tx-20 font-weight-bold mb-1 text-white">{{category}}</h4>
-											<p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+											<p class="mb-0 tx-12 text-white op-7">{{ $t('messages.Compared to last week') }}</p>
 										</div>
 										<span class="float-right my-auto mr-auto">
 											<i class="fas fa-arrow-circle-down text-white"></i>
@@ -47,13 +47,13 @@
 						<div class="card overflow-hidden sales-card bg-success-gradient">
 							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
 								<div class="">
-									<h6 class="mb-3 tx-12 text-white">TOTAL EARNINGS</h6>
+									<h6 class="mb-3 tx-12 text-white">{{ $t('messages.TOTAL EARNINGS') }}</h6>
 								</div>
 								<div class="pb-0 mt-0">
 									<div class="d-flex">
 										<div class="">
 											<h4 class="tx-20 font-weight-bold mb-1 text-white">$7,125.70</h4>
-											<p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+											<p class="mb-0 tx-12 text-white op-7">{{ $t('messages.Compared to last week') }}</p>
 										</div>
 										<span class="float-right my-auto mr-auto">
 											<i class="fas fa-arrow-circle-up text-white"></i>
@@ -68,13 +68,13 @@
 						<div class="card overflow-hidden sales-card bg-warning-gradient">
 							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
 								<div class="">
-									<h6 class="mb-3 tx-12 text-white">PRODUCT</h6>
+									<h6 class="mb-3 tx-12 text-white">{{ $t('messages.PRODUCT') }}</h6>
 								</div>
 								<div class="pb-0 mt-0">
 									<div class="d-flex">
 										<div class="">
 											<h4 class="tx-20 font-weight-bold mb-1 text-white">{{product}}</h4>
-											<p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
+											<p class="mb-0 tx-12 text-white op-7">{{ $t('messages.Compared to last week') }}</p>
 										</div>
 										<span class="float-right my-auto mr-auto">
 											<i class="fas fa-arrow-circle-down text-white"></i>

@@ -8,13 +8,13 @@
 
 
                         <div class="card-header">
-                        تعديل المنتجات
+                        {{ $t('messages.Update Product') }}
                     </div>
                         <div class="card-body">
 
 
                             <fieldset class="border rounded-3 p-3">
-                                <legend class="float-none w-auto px-3">شحره الاصناف </legend>
+                                <legend class="float-none w-auto px-3">{{ $t('messages.Category Tree') }} </legend>
 
 
 
@@ -26,7 +26,7 @@
                                 <div class="input-group">
 
 
-                                    <input type="text" id="ricerca-enti" class="form-control" placeholder="بحث..."
+                                    <input type="text" id="ricerca-enti" class="form-control" :placeholder="$t('messages.Search') + '...'"
                                         aria-describedby="search-addon">
 
 
@@ -47,12 +47,12 @@
 
                             </fieldset>
                             <fieldset class="border rounded-3 p-3">
-                                <legend class="float-none w-auto px-3">بياتات المنتج</legend>
+                                <legend class="float-none w-auto px-3">{{ $t('messages.Product Data') }}</legend>
                                 <form @submit.prevent="formSubmit" enctype="multipart/form-data">
                                     <div class="row">
 
                                         <div v-if="status_product == 'true'" class="col-md-6">
-                                            <label for="pagoPrevio">المنتج</label>
+                                            <label for="pagoPrevio">{{ $t('messages.Product') }}</label>
                                             <input v-model="product" type="text" name="Product" id="Product"
                                                 class="form-control">
 
@@ -89,7 +89,7 @@
                                         </div> -->
 
                                         <div class="col-md-6">
-                                            <label for="pagoPrevio">مجموعه الخواص</label>
+                                            <label for="pagoPrevio">{{ $t('messages.Attribute Family') }}</label>
 
                                             <select @change="get_attribute()" v-model="family_attribute" name="Category"
                                                 id="Category" class="form-control">
@@ -104,25 +104,25 @@
 
                                         </div>
                                         <div class="col-md-12">
-                                            <label for="pagoPrevio">جديد</label>
+                                            <label for="pagoPrevio">{{ $t('messages.New') }}</label>
 
                                             <select v-model="New" name="Category" id="Category" class="form-control">
-                                                <option value="">select</option>
-                                                <option value="yes">yes</option>
-                                                <option value="no">no</option>
+                                                <option value="">{{ $t('messages.Select') }}</option>
+                                                <option value="yes">{{ $t('messages.Yes') }}</option>
+                                                <option value="no">{{ $t('messages.No') }}</option>
 
                                             </select>
 
                                         </div>
                                         <div class="col-md-12">
-                                            <label for="pagoPrevio">مميز</label>
+                                            <label for="pagoPrevio">{{ $t('messages.Featured') }}</label>
 
 
                                             <select v-model="featured" name="Category" id="Category"
                                                 class="form-control">
-                                                <option value="">select</option>
-                                                <option value="yes">yes</option>
-                                                <option value="no">no</option>
+                                                <option value="">{{ $t('messages.Select') }}</option>
+                                                <option value="yes">{{ $t('messages.Yes') }}</option>
+                                                <option value="no">{{ $t('messages.No') }}</option>
 
 
                                             </select>
@@ -140,7 +140,7 @@
 
 
                             <fieldset class="border rounded-3 p-3">
-                                <legend class="float-none w-auto px-3">الخواص</legend>
+                                <legend class="float-none w-auto px-3">{{ $t('messages.Attributes') }}</legend>
                                 <div class="col-md-12">
 
 
@@ -153,13 +153,13 @@
                                                 style="width: 100%; font-size: x-small">
                                                 <thead>
                                                     <tr>
-                                                        <th>السعر</th>
-                                                        <th>الخصم</th>
-                                                        <th>الكميه</th>
-                                                        <th>الخواص</th>
-                                                        <th>صوره المنتج</th>
-                                                        <th>الوصف</th>
-                                                        <th>اضافه</th>
+                                                        <th>{{ $t('messages.Price') }}</th>
+                                                        <th>{{ $t('messages.Discount') }}</th>
+                                                        <th>{{ $t('messages.Quantity') }}</th>
+                                                        <th>{{ $t('messages.Attributes') }}</th>
+                                                        <th>{{ $t('messages.Product Image') }}</th>
+                                                        <th>{{ $t('messages.Description') }}</th>
+                                                        <th>{{ $t('messages.Add') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -186,7 +186,7 @@
                                                                 <div v-for="(atta2, index2) in atta.attribute_family_mapping"
                                                                     class="col-md-12">
                                                                     <label for="pagoPrevio"> {{
-                                                                        atta2.attribute.name
+                                                                        $t('messages.' + atta2.attribute.name)
                                                                         }}</label>
 
                                                                     <select
@@ -196,7 +196,7 @@
                                                                             v-for="(atta3, index3) in atta2.attribute.attribute_option"
                                                                             :value="atta3.id">
                                                                             {{
-                                                                                atta3.value
+                                                                                $t('messages.' + atta3.value)
                                                                             }}
                                                                         </option>
 
@@ -252,7 +252,7 @@
                                                         <td colspan="6"></td>
                                                         <td>
                                                             <button
-                                                                class="btn btn-primary btn-lg btn-block">حفظ</button>
+                                                                class="btn btn-primary btn-lg btn-block">{{ $t('messages.Save') }}</button>
                                                         </td>
                                                     </tr>
 
@@ -356,12 +356,34 @@ export default {
 
 
     },
-
+    watch: {
+        currentLocale() {
+            this.refreshTree();
+        }
+    },
 
 
 
     methods: {
-
+        refreshTree() {
+            if ($('#treeview_json_product_update').jstree(true)) {
+                $('#treeview_json_product_update').jstree(true).destroy();
+            }
+            this.showtree();
+        },
+        translateTree(nodes) {
+            if (!nodes) return [];
+            return nodes.map(node => {
+                const newNode = { ...node };
+                if (newNode.text) {
+                    newNode.text = this.$t('messages.' + newNode.text);
+                }
+                if (newNode.children && newNode.children.length > 0) {
+                    newNode.children = this.translateTree(newNode.children);
+                }
+                return newNode;
+            });
+        },
         addComponent(index) {
             // alert(index);
             this.count += 1;
@@ -438,7 +460,7 @@ export default {
             this.axios.post(uri).then((response) => {
                 //   this.trees = response.data.trees;
 
-                this.jsonTreeData = response.data.trees;
+                this.jsonTreeData = this.translateTree(response.data.trees);
                 this.attribute_families = response.data.attribute_families;
 
                 $(`#treeview_json_product_update`).jstree({
@@ -487,7 +509,7 @@ export default {
 
                             renameItem: {
                                 // The "rename" menu item
-                                label: "تحرير",
+                                label: this.$t('messages.Edit'),
                                 action: function (data) {
 
                                     console.log('تحرير');
@@ -495,7 +517,7 @@ export default {
                             },
                             deleteItem: {
                                 // The "delete" menu item
-                                label: "حذف",
+                                label: this.$t('messages.Delete'),
                                 action: function (data) {
 
                                     console.log('حذف');
@@ -504,7 +526,7 @@ export default {
                             },
                             addItem: {
                                 // The "delete" menu item
-                                label: "اضافه",
+                                label: this.$t('messages.Add'),
                                 action: function (data) {
 
 
