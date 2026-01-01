@@ -150,7 +150,7 @@
 
                              <div class="dropdown" v-for="category in categories">
                                     
-                         
+
                             <!-- <router-link :to="`/customer/category/${category.id}`">{{ category.text }}</router-link> -->
                             <router-link :to="{ name: 'CustomerCategory', params: { id: category.id } }" replace:
                                 true>{{ $t('messages.' + category.text) }}</router-link>
@@ -335,7 +335,7 @@ body {
 }
 
 .navbar {
-    height: 70px;
+    height: 100px;
     width: 100%;
     padding: 19px 30px;
     background-color: #244976;
@@ -502,12 +502,12 @@ body {
 
 /* Top menu improvements */
 .top_menu {
-    background: #f7fbff;
+    background: #fff;
     padding: 6px 0;
     border-bottom: 1px solid rgba(36, 73, 118, 0.08);
     font-size: 14px;
     color: #244976;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     /* space between top menu and main menu */
 }
 
@@ -611,7 +611,7 @@ body {
 
 .lang-select {
     background: #fff;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     color: #333;
     font-weight: 600;
     padding: 6px 8px;

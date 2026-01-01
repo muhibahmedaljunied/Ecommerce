@@ -49,7 +49,9 @@
                                 <form @submit.prevent="formSubmit" enctype="multipart/form-data">
                                     <div class="row">
 
-                                        <div v-if="status_product == 'true'" class="col-md-6">
+                                        <!-- <div v-if="status_product == 'true'" class="col-md-6"> -->
+                                        <div  class="col-md-6">
+
                                             <label for="pagoPrevio">المنتج</label>
                                             <input v-model="product" type="text" name="Product" id="Product"
                                                 class="form-control">
@@ -134,7 +136,7 @@
 
 
 
-<!-- 
+                            <!--
                             <div v-if="attributes[0]">
 
                                 {{ attributes[0].attribute_family_mapping[0].attribute.name }}
@@ -167,7 +169,7 @@
                                                 <tbody>
                                                     <tr v-for="index in count" :key="index">
 
-                                                        
+
                                                         <td>
                                                             <input v-model="price[index - 1]" type="text"
                                                                 class="form-control" name="name" id="name" required />
@@ -189,7 +191,7 @@
                                                                     class="col-md-12">
                                                                     <label for="pagoPrevio"> {{
                                                                         atta2.attribute.name
-                                                                    }}</label>
+                                                                        }}</label>
 
                                                                     <select
                                                                         @change="addFind(index, index2, $event, atta2.id)"
@@ -527,7 +529,7 @@ export default {
                         console.log('muhibbbbbbbbb', response.data.product);
 
                         gf.status_product = response.data.product.status;
-                        // gf.array_id.product_id = data.node.id;
+                        gf.product_id = data.node.id;
 
                     });
 

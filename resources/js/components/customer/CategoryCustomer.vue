@@ -328,7 +328,7 @@
 
 
 
-                <div class="col-lg-6 col-md-6" v-for="catProduct in showCatProduct">
+                <div class="col-lg-4 col-md-4" v-for="catProduct in showCatProduct">
 
                   <div class="product-card">
                     <div v-if="catProduct['product_family_attribute']" class="single-product">
@@ -345,9 +345,9 @@
                             <a href="#">
                               <i class="ti-heart"></i>
                             </a>
-                            <button @click="addToCart(dd.id)">
+                            <a href="#" @click="addToCart(dd.id)">
                               <i class="ti-shopping-cart"></i>
-                            </button>
+                            </a>
 
 
                           </div>

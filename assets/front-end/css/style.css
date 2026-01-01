@@ -309,8 +309,8 @@ ul {
     line-height: 70px;
 }
 .top_menu {
-    background: #f6f6f6;
-    height: 30px;
+    background: #fff;
+    height: 50px;
     line-height: 16px;
 }
 .top_menu .float-left {
@@ -2984,7 +2984,7 @@ h6 {
 }
 .single-product .product-img .p_icon {
     width: 90%;
-    padding: 7px 30px;
+    padding: 30px 10px;
     position: absolute;
     bottom: -100px;
     left: 50%;

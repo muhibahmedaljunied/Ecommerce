@@ -156,7 +156,7 @@ class ProductController extends Controller
     {
 
 
-        // dd($request->all());
+        dd($request->all());
         $product = new Product();
         $product->text = $request->post('product');
         if ($request->post('parent') != 0) {
@@ -168,12 +168,11 @@ class ProductController extends Controller
 
         foreach ($request->post('items') as $value) {
 
-
-
             $product_attribute = new ProductFilterableAttribute();
             $product_attribute->product_id = $product->id;
             $product_attribute->attribute_id = $value;
             $product_attribute->save();
+
         }
     }
 
@@ -197,20 +196,14 @@ class ProductController extends Controller
             // --------------------------------------------------------------------------------------
             $product_service->get_attribute_option();
 
-
-
             for ($value = 0; $value < count($product_service->count); $value++) {
-                # code...
-                // }
-                // foreach ($product_service->count as $value) {
-                // dd($product_service->count,$value);
+
+                // dd(count($product_service->count),$value);
                 // --------------------------------this save variant details of every product---------------
                 $product_service->save_product_family_attribute($this->request->file('image'), $value);
 
                 // -----------------------------------this save attributes of every product------------------
                 $product_service->save_family_attribute_option($value);
-
-
             }
 
 
@@ -222,7 +215,7 @@ class ProductController extends Controller
 
 
             return response([
-                'message' => "purchase created successfully",
+                'message' => "product created successfully",
                 'status' => "success"
             ], 200);
         } catch (\Exception $exp) {

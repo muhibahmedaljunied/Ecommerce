@@ -88,7 +88,7 @@
         </div>
         <div class="row">
 
-          <div class="col-lg-4 col-md-6" v-for="f_Product in showFeaturedProduct">
+          <div class="col-lg-3 col-md-6" v-for="f_Product in showFeaturedProduct">
 
             <div class="product-card">
               <div class="single-product">
@@ -101,9 +101,9 @@
                     <a href="#">
                       <i class="ti-heart"></i>
                     </a>
-                    <button @click.prevent="addToCart(f_Product.id)">
+                    <a href="#" @click.prevent="addToCart(f_Product.id)">
                       <i class="ti-shopping-cart"></i>
-                    </button>
+                    </a>
                   </div>
                 </div>
                 <div class="product-btm">
@@ -317,7 +317,7 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-4 col-md-6" v-for="newProduct in showNewProduct">
+          <div class="col-lg-3 col-md-6" v-for="newProduct in showNewProduct">
 
             <div class="product-card">
               <div class="single-product">

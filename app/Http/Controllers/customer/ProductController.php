@@ -57,12 +57,12 @@ class ProductController extends Controller
     }
     public function category_filter(FilterService $filter)
     {
-        
+
 
 
         $filter->product_id =  $this->request->id;
         $filter->queryfilter($this->request['type']);
-      
+
 
         return response()->json([
             'products' => $filter->data,
@@ -70,9 +70,9 @@ class ProductController extends Controller
 
     }
 
-   
 
-  
+
+
 
     public function product_by_price(Request $request)
     {
@@ -134,24 +134,23 @@ class ProductController extends Controller
 
     public function getFeaturedProducts()
     {
-    
+
         $featuredProduct = DB::table('products')
             ->join('product_family_attributes', 'product_family_attributes.product_id', '=', 'products.id')
             ->where('product_family_attributes.featured', '=', 'yes')
             ->select('products.*', 'product_family_attributes.*')
-            ->limit(6)
             ->get();
+            // dd($featuredProduct);
         return response()->json($featuredProduct);
     }
 
     public function getNewProducts()
     {
-    
+
         $newProduct = DB::table('products')
             ->join('product_family_attributes', 'product_family_attributes.product_id', '=', 'products.id')
             ->where('product_family_attributes.new', '=', 'yes')
             ->select('products.*', 'product_family_attributes.*')
-            ->limit(6)
             ->get();
         return response()->json($newProduct);
     }
