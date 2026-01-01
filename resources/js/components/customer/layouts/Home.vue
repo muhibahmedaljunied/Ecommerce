@@ -411,14 +411,5 @@ img {
   border-radius: 7px;
 }
 
-.product-card {
-  padding: 241px;
-  padding-top: 21px;
-  padding-right: 21px;
-  padding-bottom: 21px;
-  padding-left: 21px;
-  border: 1px solid #e1e7ec;
-  border-radius: 7px;
-  background-color: #fff;
-}
+
 </style>

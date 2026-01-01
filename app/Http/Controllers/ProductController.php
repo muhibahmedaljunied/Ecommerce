@@ -208,7 +208,7 @@ class ProductController extends Controller
 
 
 
-            // dd(11);
+            dd(11);
             // dd(Product::all());
             // ------------------------------------------------------------------------------------------------------
             DB::commit(); // Tell Laravel this transacion's all good and it can persist to DB

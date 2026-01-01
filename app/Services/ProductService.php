@@ -103,8 +103,8 @@ class ProductService
     {
 
 
-        // dd(11);
-        // dd($this->arrayName['att'],$this->arrayName['fam'],$this->arrayName['att'][$value],$this->arrayName['att'][$value][$value],$this->arrayName['att'][$value][$value + 1]);
+// $this->arrayName['att'][$value][$value],$this->arrayName['att'][$value][$value + 1]
+        dd($this->arrayName['att'],$this->arrayName['fam'],$this->arrayName['att'][$value],$this->arrayName['fam'][$value]);
         foreach ($this->arrayName['att'][$value] as $value2) {
 
 
@@ -114,5 +114,7 @@ class ProductService
             $attribute_option->attribute_option_id = $value2[0];
             $attribute_option->save();
         }
+
+                dd(1111);
     }
 }

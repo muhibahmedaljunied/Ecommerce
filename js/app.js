@@ -17377,7 +17377,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nimg {\n\n  border-radius: 7px;\n}\n.product-card {\n  padding: 241px;\n  padding-top: 21px;\n  padding-right: 21px;\n  padding-bottom: 21px;\n  padding-left: 21px;\n  border: 1px solid #e1e7ec;\n  border-radius: 7px;\n  background-color: #fff;\n}\n", ""]);
+exports.push([module.i, "\nimg {\n\n  border-radius: 7px;\n}\n\n\n", ""]);
 
 // exports
 
