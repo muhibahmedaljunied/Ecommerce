@@ -69,3 +69,13 @@
 <!-- main-sidebar -->
 
 </template>
+
+<script>
+export default {
+    watch: {
+        currentLocale() {
+            // Direction is already reactive in template via :class
+        }
+    }
+}
+</script>

@@ -16,6 +16,7 @@ export default {
     orderDetails:[],
     customerOrder:[],
     currentLocale: localStorage.getItem('lang') || 'en',
+    currentDirection: localStorage.getItem('dir') || 'ltr',
     translations: {},
     availableLanguages: [],
   },
@@ -23,6 +24,9 @@ export default {
   getters: {
     getCurrentLocale(state) {
         return state.currentLocale;
+    },
+    getCurrentDirection(state) {
+        return state.currentDirection;
     },
     getTranslations(state) {
         return state.translations;
@@ -150,7 +154,9 @@ export default {
         try {
             const response = await axios.post('/api/language/set', { locale });
             commit('setCurrentLocale', locale);
+            commit('setCurrentDirection', response.data.direction);
             localStorage.setItem('lang', locale);
+            localStorage.setItem('dir', response.data.direction);
             document.documentElement.dir = response.data.direction;
             await dispatch('loadTranslations', locale);
         } catch (error) {
@@ -225,6 +231,9 @@ export default {
     },
     setCurrentLocale(state, locale) {
         state.currentLocale = locale;
+    },
+    setCurrentDirection(state, direction) {
+        state.currentDirection = direction;
     },
     setTranslations(state, translations) {
         state.translations = translations;

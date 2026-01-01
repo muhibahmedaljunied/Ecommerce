@@ -101,7 +101,32 @@
             
           }
         },
+        mounted(){
+          this.fetchCart();
+        },
+        watch: {
+          currentLocale() {
+            this.fetchCart();
+          }
+        },
+        computed: {
+          showCartItem(){
+            return this.$store.getters.getCartItem
+          },
+          showSubtotal(){
+            return this.$store.getters.getCartSubtotal
+          },
+          showSession(){
+              return this.$store.getters.getSessionData
+          }
+        },
         methods:{
+          fetchCart() {
+            this.$Progress.start();
+            this.$store.dispatch("getCartItem")
+            this.$store.dispatch("getAllCarttotal")
+            this.$Progress.finish();
+          },
           removeCart(Id){
               // this.$Progress.start();
               axios.post('/delete-cart',{
@@ -181,23 +206,6 @@
           },
           start () {
             this.$Progress.start()
-          }
-        },
-        mounted(){
-          this.$Progress.start();
-          this.$store.dispatch("getCartItem")
-          this.$store.dispatch("getAllCarttotal")
-          this.$Progress.finish();
-        },
-        computed: {
-          showCartItem(){
-            return this.$store.getters.getCartItem
-          },
-          showSubtotal(){
-            return this.$store.getters.getCartSubtotal
-          },
-          showSession(){
-              return this.$store.getters.getSessionData
           }
         }
     }

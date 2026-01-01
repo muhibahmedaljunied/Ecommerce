@@ -509,7 +509,7 @@ export default {
 
                             renameItem: {
                                 // The "rename" menu item
-                                label: this.$t('messages.Edit'),
+                                label: gf.$t('messages.edit'),
                                 action: function (data) {
 
                                     console.log('تحرير');
@@ -517,7 +517,7 @@ export default {
                             },
                             deleteItem: {
                                 // The "delete" menu item
-                                label: this.$t('messages.Delete'),
+                                label: gf.$t('messages.delete'),
                                 action: function (data) {
 
                                     console.log('حذف');
@@ -526,7 +526,7 @@ export default {
                             },
                             addItem: {
                                 // The "delete" menu item
-                                label: this.$t('messages.Add'),
+                                label: gf.$t('messages.add'),
                                 action: function (data) {
 
 

@@ -156,13 +156,7 @@ export default {
 		}
 	},
 	mounted() {
-
-
-
-		this.axios.post('/category').then(response => {
-			this.category = response.data;
-
-		})
+		this.fetchCategories();
 
 		this.axios.post('/get_attribute').then(response => {
 
@@ -177,9 +171,15 @@ export default {
 	watch: {
 		currentLocale() {
 			this.refreshTree();
+			this.fetchCategories();
 		}
 	},
 	methods: {
+		fetchCategories() {
+			this.axios.post('/category').then(response => {
+				this.category = response.data;
+			})
+		},
 		refreshTree() {
 			if ($('#treeview_json_product').jstree(true)) {
 				$('#treeview_json_product').jstree(true).destroy();
@@ -269,7 +269,7 @@ export default {
 
 							renameItem: {
 								// The "rename" menu item
-								label: this.$t('messages.Edit'),
+								label: gf.$t('messages.edit'),
 								action: function (data) {
 
 									console.log('تحرير');
@@ -277,7 +277,7 @@ export default {
 							},
 							deleteItem: {
 								// The "delete" menu item
-								label: this.$t('messages.Delete'),
+								label: gf.$t('messages.delete'),
 								action: function (data) {
 
 									console.log('حذف');
@@ -286,7 +286,7 @@ export default {
 							},
 							addItem: {
 								// The "delete" menu item
-								label: this.$t('messages.Add'),
+								label: gf.$t('messages.add'),
 								action: function (data) {
 
 
@@ -325,21 +325,21 @@ export default {
 			this.axios.post(`delete_category/${id}`).then(response => {
 
 				toast.fire({
-					title: "Deleted!",
-					text: "Your category has been deleted.",
-					button: "Close", // Text on button
+					title: this.$t('messages.deleted'),
+					text: this.$t('messages.category_deleted_success'),
+					button: this.$t('messages.close'), // Text on button
 					icon: "success", //built in icons: success, warning, error, info
 					timer: 3000, //timeOut for auto-close
 					buttons: {
 						confirm: {
-							text: "OK",
+							text: this.$t('messages.ok'),
 							value: true,
 							visible: true,
 							className: "",
 							closeModal: true
 						},
 						cancel: {
-							text: "Cancel",
+							text: this.$t('messages.cancel'),
 							value: false,
 							visible: true,
 							className: "",
@@ -358,13 +358,13 @@ export default {
 
 
 		exports_excel() {
-
+			var gf = this;
 			axios
 				.post(`/export_opening_inventuries`)
 				.then(function (response) {
 
-					toastMessage("تم اتمام عمليه التصدير");
-					this.$router.go(0);
+					toastMessage(gf.$t('messages.export_success'));
+					gf.$router.go(0);
 				})
 				.catch(error => {
 
@@ -372,12 +372,12 @@ export default {
 				});
 		},
 		imports_excel() {
-
+			var gf = this;
 			axios
 				.post(`/import_opening_inventuries`)
 				.then(function (response) {
-					toastMessage("تم اتمام عمليه الاستيراد");
-					this.$router.go(0);
+					toastMessage(gf.$t('messages.import_success'));
+					gf.$router.go(0);
 
 					// this.list();
 

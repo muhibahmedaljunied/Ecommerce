@@ -2015,6 +2015,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2062,7 +2068,32 @@ __webpack_require__.r(__webpack_exports__);
       return new Array(_this.count_attributes);
     });
   },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.refreshTree();
+    }
+  },
   methods: {
+    refreshTree: function refreshTree() {
+      if ($('#treeview_json_product_add').jstree(true)) {
+        $('#treeview_json_product_add').jstree(true).destroy();
+      }
+      this.showtree();
+    },
+    translateTree: function translateTree(nodes) {
+      var _this2 = this;
+      if (!nodes) return [];
+      return nodes.map(function (node) {
+        var newNode = _objectSpread({}, node);
+        if (newNode.text) {
+          newNode.text = _this2.$t('messages.' + newNode.text);
+        }
+        if (newNode.children && newNode.children.length > 0) {
+          newNode.children = _this2.translateTree(newNode.children);
+        }
+        return newNode;
+      });
+    },
     addComponent: function addComponent(index) {
       // alert(index);
       this.count += 1;
@@ -2103,7 +2134,7 @@ __webpack_require__.r(__webpack_exports__);
       return;
     },
     showtree: function showtree() {
-      var _this2 = this;
+      var _this3 = this;
       // console.log('in show tree', this.$route.params.id);
       var uri = "/tree_product";
       var gf = this;
@@ -2124,8 +2155,8 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.post(uri).then(function (response) {
         //   this.trees = response.data.trees;
 
-        _this2.jsonTreeData = response.data.trees;
-        _this2.attribute_families = response.data.attribute_families;
+        _this3.jsonTreeData = _this3.translateTree(response.data.trees);
+        _this3.attribute_families = response.data.attribute_families;
         $("#treeview_json_product_add").jstree({
           core: {
             themes: {
@@ -2133,7 +2164,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             // so that create works
             check_callback: true,
-            data: _this2.jsonTreeData
+            data: _this3.jsonTreeData
           },
           // types: {
           // default: {
@@ -2165,21 +2196,21 @@ __webpack_require__.r(__webpack_exports__);
             items: {
               renameItem: {
                 // The "rename" menu item
-                label: "تحرير",
+                label: gf.$t('messages.edit'),
                 action: function action(data) {
                   console.log('تحرير');
                 }
               },
               deleteItem: {
                 // The "delete" menu item
-                label: "حذف",
+                label: gf.$t('messages.delete'),
                 action: function action(data) {
                   console.log('حذف');
                 }
               },
               addItem: {
                 // The "delete" menu item
-                label: "اضافه",
+                label: gf.$t('messages.add'),
                 action: function action(data) {
                   console.log('اضافه');
                 }
@@ -2300,18 +2331,23 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     this.att_family = Array.from(Array(this.count), function () {
       return new Array(_this.count_attributes);
     });
-    this.axios.post('/product').then(function (response) {
-      console.log(response.data.product);
-      _this.showCatProduct = response.data.product;
-      // this.$root.logo = 'Product'
-    });
+    this.fetchProducts();
   },
   watch: {
     currentLocale: function currentLocale() {
       this.refreshTree();
+      this.fetchProducts();
     }
   },
   methods: {
+    fetchProducts: function fetchProducts() {
+      var _this2 = this;
+      this.axios.post('/product').then(function (response) {
+        console.log(response.data.product);
+        _this2.showCatProduct = response.data.product;
+        // this.$root.logo = 'Product'
+      });
+    },
     refreshTree: function refreshTree() {
       if ($('#treeview_json_product').jstree(true)) {
         $('#treeview_json_product').jstree(true).destroy();
@@ -2319,25 +2355,26 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.showtree();
     },
     translateTree: function translateTree(nodes) {
-      var _this2 = this;
+      var _this3 = this;
       if (!nodes) return [];
       return nodes.map(function (node) {
         var newNode = _objectSpread({}, node);
         if (newNode.text) {
-          newNode.text = _this2.$t('messages.' + newNode.text);
+          newNode.text = _this3.$t('messages.' + newNode.text);
         }
         if (newNode.children && newNode.children.length > 0) {
-          newNode.children = _this2.translateTree(newNode.children);
+          newNode.children = _this3.translateTree(newNode.children);
         }
         return newNode;
       });
     },
     delete_product: function delete_product(id) {
+      var _this4 = this;
       this.axios.post("/delete_product/".concat(id)).then(function (response) {
         toast.fire({
-          title: "Deleted!",
-          text: "Your product has been deleted.",
-          button: "Close",
+          title: _this4.$t('messages.deleted'),
+          text: _this4.$t('messages.product_deleted_success'),
+          button: _this4.$t('messages.close'),
           // Text on button
           icon: "success",
           //built in icons: success, warning, error, info
@@ -2345,14 +2382,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           //timeOut for auto-close
           buttons: {
             confirm: {
-              text: "OK",
+              text: _this4.$t('messages.ok'),
               value: true,
               visible: true,
               className: "",
               closeModal: true
             },
             cancel: {
-              text: "Cancel",
+              text: _this4.$t('messages.cancel'),
               value: false,
               visible: true,
               className: "",
@@ -2401,7 +2438,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       return;
     },
     showtree: function showtree() {
-      var _this3 = this;
+      var _this5 = this;
       // console.log('in show tree', this.$route.params.id);
       var uri = "/tree_product";
       var gf = this;
@@ -2422,8 +2459,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.axios.post(uri).then(function (response) {
         //   this.trees = response.data.trees;
 
-        _this3.jsonTreeData = _this3.translateTree(response.data.trees);
-        _this3.attribute_families = response.data.attribute_families;
+        _this5.jsonTreeData = _this5.translateTree(response.data.trees);
+        _this5.attribute_families = response.data.attribute_families;
         $("#treeview_json_product").jstree({
           core: {
             themes: {
@@ -2431,7 +2468,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
             },
             // so that create works
             check_callback: true,
-            data: _this3.jsonTreeData
+            data: _this5.jsonTreeData
           },
           // types: {
           // default: {
@@ -2463,21 +2500,21 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
             items: {
               renameItem: {
                 // The "rename" menu item
-                label: "تحرير",
+                label: gf.$t('messages.edit'),
                 action: function action(data) {
                   console.log('تحرير');
                 }
               },
               deleteItem: {
                 // The "delete" menu item
-                label: "حذف",
+                label: gf.$t('messages.delete'),
                 action: function action(data) {
                   console.log('حذف');
                 }
               },
               addItem: {
                 // The "delete" menu item
-                label: "اضافه",
+                label: gf.$t('messages.add'),
                 action: function action(data) {
                   console.log('اضافه');
                 }
@@ -2541,15 +2578,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       // this.$router.go(-1);
     },
     exports_excel: function exports_excel() {
+      var gf = this;
       axios.post("/export_opening_inventuries").then(function (response) {
-        toastMessage("تم اتمام عمليه التصدير");
-        this.$router.go(0);
+        toastMessage(gf.$t('messages.export_success'));
+        gf.$router.go(0);
       })["catch"](function (error) {});
     },
     imports_excel: function imports_excel() {
+      var gf = this;
       axios.post("/import_opening_inventuries").then(function (response) {
-        toastMessage("تم اتمام عمليه الاستيراد");
-        this.$router.go(0);
+        toastMessage(gf.$t('messages.import_success'));
+        gf.$router.go(0);
 
         // this.list();
       })["catch"](function (error) {});
@@ -2667,21 +2706,30 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
     console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
     this.counts[0] = 1;
-    this.axios.post('/attribute').then(function (response) {
-      _this.attributes = response.data.attributes;
-      _this.attribute_families = response.data.attribute_families;
-    });
+    this.fetchAttributes();
+  },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.fetchAttributes();
+    }
   },
   methods: {
+    fetchAttributes: function fetchAttributes() {
+      var _this = this;
+      this.axios.post('/attribute').then(function (response) {
+        _this.attributes = response.data.attributes;
+        _this.attribute_families = response.data.attribute_families;
+      });
+    },
     delete_Attribute: function delete_Attribute(id) {
+      var _this2 = this;
       this.axios.post("delete_Attribute/".concat(id)).then(function (response) {
         toast.fire({
-          title: "Deleted!",
-          text: "Your category has been deleted.",
-          button: "Close",
+          title: _this2.$t('messages.deleted'),
+          text: _this2.$t('messages.attribute_deleted_success'),
+          button: _this2.$t('messages.close'),
           // Text on button
           icon: "success",
           //built in icons: success, warning, error, info
@@ -2689,14 +2737,14 @@ __webpack_require__.r(__webpack_exports__);
           //timeOut for auto-close
           buttons: {
             confirm: {
-              text: "OK",
+              text: _this2.$t('messages.ok'),
               value: true,
               visible: true,
               className: "",
               closeModal: true
             },
             cancel: {
-              text: "Cancel",
+              text: _this2.$t('messages.cancel'),
               value: false,
               visible: true,
               className: "",
@@ -2709,15 +2757,17 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     exports_excel: function exports_excel() {
+      var gf = this;
       axios.post("/export_opening_inventuries").then(function (response) {
-        toastMessage("تم اتمام عمليه التصدير");
-        this.$router.go(0);
+        toastMessage(gf.$t('messages.export_success'));
+        gf.$router.go(0);
       })["catch"](function (error) {});
     },
     imports_excel: function imports_excel() {
+      var gf = this;
       axios.post("/import_opening_inventuries").then(function (response) {
-        toastMessage("تم اتمام عمليه الاستيراد");
-        this.$router.go(0);
+        toastMessage(gf.$t('messages.import_success'));
+        gf.$router.go(0);
 
         // this.list();
       })["catch"](function (error) {});
@@ -2835,12 +2885,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-    this.axios.post("/attribute_family/get_attributes").then(function (response) {
-      _this.attributes = response.data.attributes;
-    });
+    this.fetchAttributes();
+  },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.fetchAttributes();
+    }
   },
   methods: {
+    fetchAttributes: function fetchAttributes() {
+      var _this = this;
+      this.axios.post("/attribute_family/get_attributes").then(function (response) {
+        _this.attributes = response.data.attributes;
+      });
+    },
     add: function add() {
       this.axios.post("/store_attribute_family_mapping", {
         name: this.name,
@@ -2875,17 +2933,23 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-    this.axios.post("/attribute_family/get_attributes").then(function (response) {
-      _this.attributes = response.data.attributes;
-    });
-    this.axios.post('/attribute_family_mapping').then(function (response) {
-      _this.attribute_families = response.data.attribute_families;
-    });
+    this.fetchData();
+  },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.fetchData();
+    }
   },
   methods: {
-    // delete_size(id) {
-
+    fetchData: function fetchData() {
+      var _this = this;
+      this.axios.post("/attribute_family/get_attributes").then(function (response) {
+        _this.attributes = response.data.attributes;
+      });
+      this.axios.post('/attribute_family_mapping').then(function (response) {
+        _this.attribute_families = response.data.attribute_families;
+      });
+    } // delete_size(id) {
     // 	this.axios.post(`delete_size/${id}`).then(response => {
     // 		toast.fire({
     // 			title: "Deleted!",
@@ -2910,38 +2974,28 @@ __webpack_require__.r(__webpack_exports__);
     // 				}
     // 			}
     // 		})
-
     // 		// this.$router.push('size')
-
     // 	})
     // },
-
     // exports_excel() {
-
     // 	axios
     // 		.post(`/export_opening_inventuries`)
     // 		.then(function (response) {
-
     // 			toastMessage("تم اتمام عمليه التصدير");
     // 			this.$router.go(0);
     // 		})
     // 		.catch(error => {
-
     // 		});
     // },
     // imports_excel() {
-
     // 	axios
     // 		.post(`/import_opening_inventuries`)
     // 		.then(function (response) {
     // 			toastMessage("تم اتمام عمليه الاستيراد");
     // 			this.$router.go(0);
-
     // 			// this.list();
-
     // 		})
     // 		.catch(error => {
-
     // 		});
     // },
   }
@@ -3036,6 +3090,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3057,9 +3117,34 @@ __webpack_require__.r(__webpack_exports__);
     });
     this.showtree();
   },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.refreshTree();
+    }
+  },
   methods: {
-    showtree: function showtree() {
+    refreshTree: function refreshTree() {
+      if ($('#treeview_json_product_add').jstree(true)) {
+        $('#treeview_json_product_add').jstree(true).destroy();
+      }
+      this.showtree();
+    },
+    translateTree: function translateTree(nodes) {
       var _this2 = this;
+      if (!nodes) return [];
+      return nodes.map(function (node) {
+        var newNode = _objectSpread({}, node);
+        if (newNode.text) {
+          newNode.text = _this2.$t('messages.' + newNode.text);
+        }
+        if (newNode.children && newNode.children.length > 0) {
+          newNode.children = _this2.translateTree(newNode.children);
+        }
+        return newNode;
+      });
+    },
+    showtree: function showtree() {
+      var _this3 = this;
       // console.log('in show tree', this.$route.params.id);
       var uri = "/tree_product";
       var gf = this;
@@ -3081,7 +3166,7 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.post(uri).then(function (response) {
         //   this.trees = response.data.trees;
 
-        _this2.jsonTreeData = response.data.trees;
+        _this3.jsonTreeData = _this3.translateTree(response.data.trees);
         $("#treeview_json_product_add").jstree({
           core: {
             themes: {
@@ -3089,7 +3174,7 @@ __webpack_require__.r(__webpack_exports__);
             },
             // so that create works
             check_callback: true,
-            data: _this2.jsonTreeData
+            data: _this3.jsonTreeData
           },
           // types: {
           // default: {
@@ -3101,7 +3186,6 @@ __webpack_require__.r(__webpack_exports__);
           // },
           // checkbox: {
           //   three_state: false,
-
           // },
           state: {
             key: "demo2"
@@ -3121,21 +3205,21 @@ __webpack_require__.r(__webpack_exports__);
             items: {
               renameItem: {
                 // The "rename" menu item
-                label: "تحرير",
+                label: _this3.$t('messages.edit'),
                 action: function action(data) {
                   console.log('تحرير');
                 }
               },
               deleteItem: {
                 // The "delete" menu item
-                label: "حذف",
+                label: _this3.$t('messages.delete'),
                 action: function action(data) {
                   console.log('حذف');
                 }
               },
               addItem: {
                 // The "delete" menu item
-                label: "اضافه",
+                label: _this3.$t('messages.add'),
                 action: function action(data) {
                   console.log('اضافه');
                 }
@@ -3205,9 +3289,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   },
   mounted: function mounted() {
     var _this = this;
-    this.axios.post('/category').then(function (response) {
-      _this.category = response.data;
-    });
+    this.fetchCategories();
     this.axios.post('/get_attribute').then(function (response) {
       _this.attributes = response.data.attributes;
     });
@@ -3216,9 +3298,16 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   watch: {
     currentLocale: function currentLocale() {
       this.refreshTree();
+      this.fetchCategories();
     }
   },
   methods: {
+    fetchCategories: function fetchCategories() {
+      var _this2 = this;
+      this.axios.post('/category').then(function (response) {
+        _this2.category = response.data;
+      });
+    },
     refreshTree: function refreshTree() {
       if ($('#treeview_json_product').jstree(true)) {
         $('#treeview_json_product').jstree(true).destroy();
@@ -3226,21 +3315,21 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.showtree();
     },
     translateTree: function translateTree(nodes) {
-      var _this2 = this;
+      var _this3 = this;
       if (!nodes) return [];
       return nodes.map(function (node) {
         var newNode = _objectSpread({}, node);
         if (newNode.text) {
-          newNode.text = _this2.$t('messages.' + newNode.text);
+          newNode.text = _this3.$t('messages.' + newNode.text);
         }
         if (newNode.children && newNode.children.length > 0) {
-          newNode.children = _this2.translateTree(newNode.children);
+          newNode.children = _this3.translateTree(newNode.children);
         }
         return newNode;
       });
     },
     showtree: function showtree() {
-      var _this3 = this;
+      var _this4 = this;
       var uri = "/tree_product";
       var gf = this;
 
@@ -3261,7 +3350,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.axios.post(uri).then(function (response) {
         //   this.trees = response.data.trees;
 
-        _this3.jsonTreeData = _this3.translateTree(response.data.trees);
+        _this4.jsonTreeData = _this4.translateTree(response.data.trees);
         $("#treeview_json_product").jstree({
           core: {
             themes: {
@@ -3269,7 +3358,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
             },
             // so that create works
             check_callback: true,
-            data: _this3.jsonTreeData
+            data: _this4.jsonTreeData
           },
           // types: {
           // default: {
@@ -3301,21 +3390,21 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
             items: {
               renameItem: {
                 // The "rename" menu item
-                label: _this3.$t('messages.Edit'),
+                label: gf.$t('messages.edit'),
                 action: function action(data) {
                   console.log('تحرير');
                 }
               },
               deleteItem: {
                 // The "delete" menu item
-                label: _this3.$t('messages.Delete'),
+                label: gf.$t('messages.delete'),
                 action: function action(data) {
                   console.log('حذف');
                 }
               },
               addItem: {
                 // The "delete" menu item
-                label: _this3.$t('messages.Add'),
+                label: gf.$t('messages.add'),
                 action: function action(data) {
                   console.log('اضافه');
                 }
@@ -3335,11 +3424,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       // $('#treeview_json_product').jstree(true).destroy();
     },
     delete_category: function delete_category(id) {
+      var _this5 = this;
       this.axios.post("delete_category/".concat(id)).then(function (response) {
         toast.fire({
-          title: "Deleted!",
-          text: "Your category has been deleted.",
-          button: "Close",
+          title: _this5.$t('messages.deleted'),
+          text: _this5.$t('messages.category_deleted_success'),
+          button: _this5.$t('messages.close'),
           // Text on button
           icon: "success",
           //built in icons: success, warning, error, info
@@ -3347,14 +3437,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           //timeOut for auto-close
           buttons: {
             confirm: {
-              text: "OK",
+              text: _this5.$t('messages.ok'),
               value: true,
               visible: true,
               className: "",
               closeModal: true
             },
             cancel: {
-              text: "Cancel",
+              text: _this5.$t('messages.cancel'),
               value: false,
               visible: true,
               className: "",
@@ -3367,15 +3457,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       });
     },
     exports_excel: function exports_excel() {
+      var gf = this;
       axios.post("/export_opening_inventuries").then(function (response) {
-        toastMessage("تم اتمام عمليه التصدير");
-        this.$router.go(0);
+        toastMessage(gf.$t('messages.export_success'));
+        gf.$router.go(0);
       })["catch"](function (error) {});
     },
     imports_excel: function imports_excel() {
+      var gf = this;
       axios.post("/import_opening_inventuries").then(function (response) {
-        toastMessage("تم اتمام عمليه الاستيراد");
-        this.$router.go(0);
+        toastMessage(gf.$t('messages.import_success'));
+        gf.$router.go(0);
 
         // this.list();
       })["catch"](function (error) {});
@@ -3594,6 +3686,18 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       }, _callee);
     }))();
   },
+  watch: {
+    currentLocale: function currentLocale(newLocale) {
+      // Translations are already handled by setLanguage action
+    },
+    currentDirection: function currentDirection(newDirection, oldDirection) {
+      if (oldDirection && newDirection !== oldDirection) {
+        window.location.reload();
+      } else {
+        document.documentElement.dir = newDirection;
+      }
+    }
+  },
   computed: {
     selectedLanguage: {
       get: function get() {
@@ -3601,8 +3705,6 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       },
       set: function set(value) {
         this.$store.dispatch('setLanguage', value);
-        // Force immediate direction change for UI elements that depend on currentDirection
-        document.documentElement.dir = value === 'en' ? 'rtl' : 'ltr';
       }
     }
   },
@@ -3619,6 +3721,25 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/layouts/MainSidebar.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/layouts/MainSidebar.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  watch: {
+    currentLocale: function currentLocale() {
+      // Direction is already reactive in template via :class
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/layouts/Sidebar.vue?vue&type=script&lang=js":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/layouts/Sidebar.vue?vue&type=script&lang=js ***!
@@ -3629,7 +3750,12 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Sidebar'
+  name: 'Sidebar',
+  watch: {
+    currentLocale: function currentLocale() {
+      // Direction is already reactive in template via :class
+    }
+  }
 });
 
 /***/ }),
@@ -3650,11 +3776,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-    this.axios.post('/order').then(function (response) {
-      console.log(response.data.order);
-      _this.order = response.data.order;
-    });
+    this.fetchOrders();
+  },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.fetchOrders();
+    }
+  },
+  methods: {
+    fetchOrders: function fetchOrders() {
+      var _this = this;
+      this.axios.post('/order').then(function (response) {
+        console.log(response.data.order);
+        _this.order = response.data.order;
+      });
+    }
   }
 });
 
@@ -3677,11 +3813,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    //    this.$Progress.start();
-    //   this.$store.dispatch("productByorder", this.$route.params.id)
-    //   this.$store.dispatch("getOrderdetails",this.$route.params.id)
-    //   this.$store.dispatch("customerByorder",this.$route.params.id)
-    //   this.$Progress.finish();
+    this.fetchData();
+  },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.fetchData();
+    }
+  },
+  methods: {
+    fetchData: function fetchData() {
+      this.$store.dispatch("productByorder", this.$route.params.id);
+      this.$store.dispatch("getOrderdetails", this.$route.params.id);
+      this.$store.dispatch("customerByorder", this.$route.params.id);
+    }
   },
   computed: {
     showProductInformation: function showProductInformation() {
@@ -3718,10 +3862,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$Progress.start();
-    this.$store.dispatch("productByorder", this.$route.params.id);
-    this.$store.dispatch("getOrderdetails", this.$route.params.id);
-    this.$store.dispatch("customerByorder", this.$route.params.id);
+    this.fetchData();
     this.$Progress.finish();
+  },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.fetchData();
+    }
+  },
+  methods: {
+    fetchData: function fetchData() {
+      this.$store.dispatch("productByorder", this.$route.params.id);
+      this.$store.dispatch("getOrderdetails", this.$route.params.id);
+      this.$store.dispatch("customerByorder", this.$route.params.id);
+    }
   },
   computed: {
     showProductInformation: function showProductInformation() {
@@ -3930,21 +4084,21 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
             items: {
               renameItem: {
                 // The "rename" menu item
-                label: _this3.$t('messages.Edit'),
+                label: gf.$t('messages.edit'),
                 action: function action(data) {
                   console.log('تحرير');
                 }
               },
               deleteItem: {
                 // The "delete" menu item
-                label: _this3.$t('messages.Delete'),
+                label: gf.$t('messages.delete'),
                 action: function action(data) {
                   console.log('حذف');
                 }
               },
               addItem: {
                 // The "delete" menu item
-                label: _this3.$t('messages.Add'),
+                label: gf.$t('messages.add'),
                 action: function action(data) {
                   console.log('اضافه');
                 }
@@ -4078,13 +4232,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-    this.axios.post('/user').then(function (response) {
-      _this.$root.logo = 'User';
-      _this.user = response.data;
-    });
+    this.fetchUsers();
+  },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.fetchUsers();
+    }
   },
   methods: {
+    fetchUsers: function fetchUsers() {
+      var _this = this;
+      this.axios.post('/user').then(function (response) {
+        _this.$root.logo = 'User';
+        _this.user = response.data;
+      });
+    },
     delete_user: function delete_user(id) {
       this.axios.post("/delete_user/".concat(id)).then(function (response) {
 
@@ -4264,7 +4426,32 @@ __webpack_require__.r(__webpack_exports__);
       checkItem: []
     };
   },
+  mounted: function mounted() {
+    this.fetchCart();
+  },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.fetchCart();
+    }
+  },
+  computed: {
+    showCartItem: function showCartItem() {
+      return this.$store.getters.getCartItem;
+    },
+    showSubtotal: function showSubtotal() {
+      return this.$store.getters.getCartSubtotal;
+    },
+    showSession: function showSession() {
+      return this.$store.getters.getSessionData;
+    }
+  },
   methods: {
+    fetchCart: function fetchCart() {
+      this.$Progress.start();
+      this.$store.dispatch("getCartItem");
+      this.$store.dispatch("getAllCarttotal");
+      this.$Progress.finish();
+    },
     removeCart: function removeCart(Id) {
       var _this = this;
       // this.$Progress.start();
@@ -4346,23 +4533,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     start: function start() {
       this.$Progress.start();
-    }
-  },
-  mounted: function mounted() {
-    this.$Progress.start();
-    this.$store.dispatch("getCartItem");
-    this.$store.dispatch("getAllCarttotal");
-    this.$Progress.finish();
-  },
-  computed: {
-    showCartItem: function showCartItem() {
-      return this.$store.getters.getCartItem;
-    },
-    showSubtotal: function showSubtotal() {
-      return this.$store.getters.getCartSubtotal;
-    },
-    showSession: function showSession() {
-      return this.$store.getters.getSessionData;
     }
   }
 });
@@ -4631,10 +4801,10 @@ __webpack_require__.r(__webpack_exports__);
         password: this.form.password
       }).then(function (response) {
         if (response.data == 'Error') {
-          _this.error = 'Invalid Credential';
+          _this.error = 'invalid_credential';
         } else {
           //console.log(response)
-          _this.success = 'Login Success';
+          _this.success = 'login_success';
           _this.form = [];
           _this.$store.dispatch("customerSession");
           _this.$router.go(-1);
@@ -4928,7 +5098,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         //console.log(response.data.errors)
         //this.$router.push('/user-login')
-        _this.success = 'Thanks For Registration. We have email you with password.';
+        _this.success = 'registration_success';
         _this.form = [];
         _this.$store.dispatch("customerSession");
         _this.$Progress.finish();
@@ -5065,9 +5235,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.$Progress.start();
-    this.$store.dispatch("getProducstbyId", this.$route.params.id);
-    this.$Progress.finish();
+    this.fetchProduct();
+  },
+  watch: {
+    currentLocale: function currentLocale() {
+      this.fetchProduct();
+    }
   },
   computed: {
     singleProduct: function singleProduct() {
@@ -5078,6 +5251,11 @@ __webpack_require__.r(__webpack_exports__);
     //   }
   },
   methods: {
+    fetchProduct: function fetchProduct() {
+      this.$Progress.start();
+      this.$store.dispatch("getProducstbyId", this.$route.params.id);
+      this.$Progress.finish();
+    },
     addToCart: function addToCart(id) {
       var _this = this;
       this.$Progress.start();
@@ -5428,7 +5606,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v("\n                    مجموعه الخواص\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("messages.attribute_families")) + "\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "text-wrap"
@@ -5436,7 +5614,29 @@ var render = function render() {
     staticClass: "example"
   }, [_c("div", {
     staticClass: "panel panel-primary tabs-style-1"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "tab-menu-heading"
+  }, [_c("div", {
+    staticClass: "tabs-menu1"
+  }, [_c("ul", {
+    staticClass: "nav panel-tabs main-nav-line"
+  }, [_c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      href: "#tab1",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v(" " + _vm._s(_vm.$t("messages.view")))])]), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      href: "#tab2",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.add")))])])])])]), _vm._v(" "), _c("div", {
     staticClass: "panel-body tabs-menu-body main-content-body-right border-top-0 border"
   }, [_c("div", {
     staticClass: "tab-content"
@@ -5452,33 +5652,7 @@ var render = function render() {
     }
   }, [_c("add-attribute-family")], 1)])])])])])])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "tab-menu-heading"
-  }, [_c("div", {
-    staticClass: "tabs-menu1"
-  }, [_c("ul", {
-    staticClass: "nav panel-tabs main-nav-line"
-  }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "#tab1",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v(" عرض")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "#tab2",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v("اضافه")])])])])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -5511,7 +5685,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v("\n                    الخواص\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("messages.attributes")) + "\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "text-wrap"
@@ -5519,7 +5693,29 @@ var render = function render() {
     staticClass: "example"
   }, [_c("div", {
     staticClass: "panel panel-primary tabs-style-1"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "tab-menu-heading"
+  }, [_c("div", {
+    staticClass: "tabs-menu1"
+  }, [_c("ul", {
+    staticClass: "nav panel-tabs main-nav-line"
+  }, [_c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      href: "#tab1",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v(" " + _vm._s(_vm.$t("messages.view")))])]), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      href: "#tab2",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.add")))])])])])]), _vm._v(" "), _c("div", {
     staticClass: "panel-body tabs-menu-body main-content-body-right border-top-0 border"
   }, [_c("div", {
     staticClass: "tab-content"
@@ -5535,33 +5731,7 @@ var render = function render() {
     }
   }, [_c("add-attribute")], 1)])])])])])])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "tab-menu-heading"
-  }, [_c("div", {
-    staticClass: "tabs-menu1"
-  }, [_c("ul", {
-    staticClass: "nav panel-tabs main-nav-line"
-  }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "#tab1",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v(" عرض")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "#tab2",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v("اضافه")])])])])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -5594,7 +5764,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v("\nالاصناف  \n            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n          " + _vm._s(_vm.$t("messages.categories")) + "\n        ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "text-wrap"
@@ -5602,7 +5772,29 @@ var render = function render() {
     staticClass: "example"
   }, [_c("div", {
     staticClass: "panel panel-primary tabs-style-1"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "tab-menu-heading"
+  }, [_c("div", {
+    staticClass: "tabs-menu1"
+  }, [_c("ul", {
+    staticClass: "nav panel-tabs main-nav-line"
+  }, [_c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      href: "#tab1",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.view")))])]), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      href: "#tab2",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.add")))])])])])]), _vm._v(" "), _c("div", {
     staticClass: "panel-body tabs-menu-body main-content-body-right border-top-0 border"
   }, [_c("div", {
     staticClass: "tab-content"
@@ -5618,33 +5810,7 @@ var render = function render() {
     }
   }, [_c("add-category")], 1)])])])])])])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "tab-menu-heading"
-  }, [_c("div", {
-    staticClass: "tabs-menu1"
-  }, [_c("ul", {
-    staticClass: "nav panel-tabs main-nav-line"
-  }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "#tab1",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v(" عرض")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "#tab2",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v("اضافه")])])])])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -5676,11 +5842,25 @@ var render = function render() {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-body"
-  }, [_vm._m(0), _vm._v(" "), _c("fieldset", {
+  }, [_c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
-  }, [_vm._v("بياتات المنتج")]), _vm._v(" "), _c("form", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.category_tree")) + " ")]), _vm._v(" "), _c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "ricerca-enti",
+      placeholder: _vm.$t("messages.search") + "...",
+      "aria-describedby": "search-addon"
+    }
+  })]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("fieldset", {
+    staticClass: "border rounded-3 p-3"
+  }, [_c("legend", {
+    staticClass: "float-none w-auto px-3"
+  }, [_vm._v(_vm._s(_vm.$t("messages.product_data")))]), _vm._v(" "), _c("form", {
     attrs: {
       enctype: "multipart/form-data"
     },
@@ -5698,7 +5878,7 @@ var render = function render() {
     attrs: {
       "for": "pagoPrevio"
     }
-  }, [_vm._v("المنتج")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.product")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -5726,7 +5906,7 @@ var render = function render() {
     attrs: {
       "for": "pagoPrevio"
     }
-  }, [_vm._v("مجموعه الخواص")]), _vm._v(" "), _c("select", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.attribute_family")))]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -5753,6 +5933,7 @@ var render = function render() {
     }
   }, _vm._l(_vm.attribute_families, function (families) {
     return _c("option", {
+      key: families.id,
       domProps: {
         value: families.id
       }
@@ -5763,7 +5944,7 @@ var render = function render() {
     attrs: {
       "for": "pagoPrevio"
     }
-  }, [_vm._v("جديد")]), _vm._v(" "), _c("select", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.new")))]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -5790,21 +5971,21 @@ var render = function render() {
     attrs: {
       value: ""
     }
-  }, [_vm._v("select")]), _vm._v(" "), _c("option", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.select")))]), _vm._v(" "), _c("option", {
     attrs: {
       value: "yes"
     }
-  }, [_vm._v("yes")]), _vm._v(" "), _c("option", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.yes")))]), _vm._v(" "), _c("option", {
     attrs: {
       value: "no"
     }
-  }, [_vm._v("no")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.no")))])])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-12"
   }, [_c("label", {
     attrs: {
       "for": "pagoPrevio"
     }
-  }, [_vm._v("مميز")]), _vm._v(" "), _c("select", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.featured")))]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -5831,19 +6012,19 @@ var render = function render() {
     attrs: {
       value: ""
     }
-  }, [_vm._v("select")]), _vm._v(" "), _c("option", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.select")))]), _vm._v(" "), _c("option", {
     attrs: {
       value: "yes"
     }
-  }, [_vm._v("yes")]), _vm._v(" "), _c("option", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.yes")))]), _vm._v(" "), _c("option", {
     attrs: {
       value: "no"
     }
-  }, [_vm._v("no")])])])])])]), _vm._v(" "), _c("fieldset", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.no")))])])])])])]), _vm._v(" "), _c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
-  }, [_vm._v("تباينات المنتج")]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.product_variants")))]), _vm._v(" "), _c("div", {
     staticClass: "col-md-12"
   }, [_c("form", {
     attrs: {
@@ -5863,7 +6044,7 @@ var render = function render() {
       width: "100%",
       "font-size": "x-small"
     }
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", [_vm._l(_vm.count, function (index) {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v(_vm._s(_vm.$t("messages.price")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.discount")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.quantity")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.attributes")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.product_image")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.description")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.add")))])])]), _vm._v(" "), _c("tbody", [_vm._l(_vm.count, function (index) {
     return _c("tr", {
       key: index
     }, [_c("td", [_c("input", {
@@ -5935,14 +6116,17 @@ var render = function render() {
         }
       }
     })]), _vm._v(" "), _c("td", _vm._l(_vm.attributes, function (atta, index1) {
-      return _c("div", _vm._l(atta.attribute_family_mapping, function (atta2, index2) {
+      return _c("div", {
+        key: index1
+      }, _vm._l(atta.attribute_family_mapping, function (atta2, index2) {
         return _c("div", {
+          key: index2,
           staticClass: "col-md-12"
         }, [_c("label", {
           attrs: {
             "for": "pagoPrevio"
           }
-        }, [_vm._v(" " + _vm._s(atta2.attribute.name))]), _vm._v(" "), _c("select", {
+        }, [_vm._v(" " + _vm._s(_vm.$t("messages." + atta2.attribute.name)))]), _vm._v(" "), _c("select", {
           staticClass: "form-control",
           on: {
             change: function change($event) {
@@ -5951,10 +6135,11 @@ var render = function render() {
           }
         }, _vm._l(atta2.attribute.attribute_option, function (atta3, index3) {
           return _c("option", {
+            key: index3,
             domProps: {
               value: atta3.id
             }
-          }, [_vm._v("\n                                                                        " + _vm._s(atta3.value) + "\n                                                                    ")]);
+          }, [_vm._v("\n                                                                        " + _vm._s(_vm.$t("messages." + atta3.value)) + "\n                                                                    ")]);
         }), 0)]);
       }), 0);
     }), 0), _vm._v(" "), _c("td", [_c("input", {
@@ -6006,26 +6191,18 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-minus-circle"
     })])]) : _vm._e()]);
-  }), _vm._v(" "), _vm._m(2)], 2)])])])])])])])])])])]);
+  }), _vm._v(" "), _c("tr", [_c("td", {
+    attrs: {
+      colspan: "6"
+    }
+  }), _vm._v(" "), _c("td", [_c("button", {
+    staticClass: "btn btn-primary btn-lg btn-block"
+  }, [_vm._v(_vm._s(_vm.$t("messages.save")))])])])], 2)])])])])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("fieldset", {
-    staticClass: "border rounded-3 p-3"
-  }, [_c("legend", {
-    staticClass: "float-none w-auto px-3"
-  }, [_vm._v("شحره الاصناف ")]), _vm._v(" "), _c("div", {
-    staticClass: "input-group"
-  }, [_c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "ricerca-enti",
-      placeholder: "بحث...",
-      "aria-describedby": "search-addon"
-    }
-  })]), _vm._v(" "), _c("div", {
+  return _c("div", {
     attrs: {
       id: "treeview_json_product_add"
     }
@@ -6033,21 +6210,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "test"
     }
-  })])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("السعر")]), _vm._v(" "), _c("th", [_vm._v("الخصم")]), _vm._v(" "), _c("th", [_vm._v("الكميه")]), _vm._v(" "), _c("th", [_vm._v("الخواص")]), _vm._v(" "), _c("th", [_vm._v("صوره المنتج")]), _vm._v(" "), _c("th", [_vm._v("الوصف")]), _vm._v(" "), _c("th", [_vm._v("اضافه")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("tr", [_c("td", {
-    attrs: {
-      colspan: "6"
-    }
-  }), _vm._v(" "), _c("td", [_c("button", {
-    staticClass: "btn btn-primary btn-lg btn-block"
-  }, [_vm._v("حفظ")])])]);
+  })]);
 }];
 render._withStripped = true;
 
@@ -6283,7 +6446,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v("\nالمنتجات  \n            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n          " + _vm._s(_vm.$t("messages.products")) + "\n        ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "text-wrap"
@@ -6291,7 +6454,29 @@ var render = function render() {
     staticClass: "example"
   }, [_c("div", {
     staticClass: "panel panel-primary tabs-style-1"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "tab-menu-heading"
+  }, [_c("div", {
+    staticClass: "tabs-menu1"
+  }, [_c("ul", {
+    staticClass: "nav panel-tabs main-nav-line"
+  }, [_c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      href: "#tab1",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.view")))])]), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link",
+    attrs: {
+      href: "#tab2",
+      "data-toggle": "tab"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.add")))])])])])]), _vm._v(" "), _c("div", {
     staticClass: "panel-body tabs-menu-body main-content-body-right border-top-0 border"
   }, [_c("div", {
     staticClass: "tab-content"
@@ -6307,33 +6492,7 @@ var render = function render() {
     }
   }, [_c("add-product")], 1)])])])])])])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "tab-menu-heading"
-  }, [_c("div", {
-    staticClass: "tabs-menu1"
-  }, [_c("ul", {
-    staticClass: "nav panel-tabs main-nav-line"
-  }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "#tab1",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v(" عرض")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "#tab2",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v("اضافه")])])])])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -6597,7 +6756,7 @@ var render = function render() {
       role: "button",
       "aria-haspopup": "true",
       "aria-expanded": "true",
-      placeholder: "بحث "
+      placeholder: _vm.$t("messages.search") + "..."
     },
     domProps: {
       value: _vm.word_search
@@ -6620,7 +6779,7 @@ var render = function render() {
     attrs: {
       "for": "pagoPrevio"
     }
-  }, [_vm._v("مجموعه الخواص")]), _vm._v(" "), _c("select", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.attribute_families")))]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -6645,6 +6804,7 @@ var render = function render() {
     }
   }, _vm._l(_vm.attribute_families, function (families) {
     return _c("option", {
+      key: families.id,
       domProps: {
         value: families.id
       }
@@ -6658,11 +6818,22 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm.attributes && _vm.attributes.length > 0 ? _c("tbody", _vm._l(_vm.attributes, function (attribute, index) {
+  }, [_c("thead", [_c("tr", [_c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.serial_number")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.name")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.code")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.values")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(" " + _vm._s(_vm.$t("messages.operations")))])])]), _vm._v(" "), _vm.attributes && _vm.attributes.length > 0 ? _c("tbody", _vm._l(_vm.attributes, function (attribute, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(attribute.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(attribute.code))]), _vm._v(" "), _c("td", [_vm._l(attribute.attribute_option, function (attr, indexd) {
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.$t("messages." + attribute.name)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(attribute.code))]), _vm._v(" "), _c("td", [_vm._l(attribute.attribute_option, function (attr, indexd) {
       return [[_c("div", {
+        key: indexd,
         staticStyle: {
           "float": "left"
         }
@@ -6670,8 +6841,20 @@ var render = function render() {
         staticStyle: {
           color: "blue"
         }
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(attr.value) + "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" \n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t")])]];
-    })], 2), _vm._v(" "), _c("td", [_vm._m(1, true), _vm._v(" "), _c("router-link", {
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(_vm.$t("messages." + attr.value)) + "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" \n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t")])]];
+    })], 2), _vm._v(" "), _c("td", [_c("button", {
+      staticClass: "btn btn-danger btn-sm",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.delete_Attribute(attribute.id);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "fa fa-trash"
+    })]), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-success btn-sm",
       attrs: {
         to: {
@@ -6684,45 +6867,16 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0) : _c("tbody", [_vm._m(2)])])])])])])])])])]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الرقم التسلسلي")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الاسم")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الرمز")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("القيم")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v(" العمليات")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("button", {
-    staticClass: "btn btn-danger btn-sm",
-    attrs: {
-      type: "button"
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-trash"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("tr", [_c("td", {
+  }), 0) : _c("tbody", [_c("tr", [_c("td", {
     staticStyle: {
       "text-align": "center"
     },
     attrs: {
       colspan: "5"
     }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t\t\t")])]);
-}];
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(_vm.$t("messages.no_data_available")) + "\n\t\t\t\t\t\t\t\t\t\t\t")])])])])])])])])])])])]);
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -6945,7 +7099,7 @@ var render = function render() {
     staticClass: "card-body"
   }, [_c("form", {
     staticClass: "row g-3"
-  }, [_c("fieldset", [_c("legend", [_vm._v("الاسم")]), _vm._v(" "), _c("input", {
+  }, [_c("fieldset", [_c("legend", [_vm._v(_vm._s(_vm.$t("messages.name")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -6966,7 +7120,7 @@ var render = function render() {
         _vm.name = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v("الرمز")]), _vm._v(" "), _c("input", {
+  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v(_vm._s(_vm.$t("messages.code")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -6987,8 +7141,9 @@ var render = function render() {
         _vm.code = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v("الخواص")]), _vm._v(" "), _vm._l(_vm.attributes, function (item) {
+  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v(_vm._s(_vm.$t("messages.attributes")))]), _vm._v(" "), _vm._l(_vm.attributes, function (item) {
     return _c("div", {
+      key: item.id,
       staticClass: "form-check form-check-inline"
     }, [_c("input", {
       directives: [{
@@ -7029,7 +7184,7 @@ var render = function render() {
       attrs: {
         "for": "inlineCheckbox1"
       }
-    }, [_vm._v(_vm._s(item.name))])]);
+    }, [_vm._v(_vm._s(_vm.$t("messages." + item.name)))])]);
   })], 2), _vm._v(" "), _c("fieldset", [_c("button", {
     staticClass: "btn btn-primary",
     attrs: {
@@ -7040,7 +7195,7 @@ var render = function render() {
         return _vm.add();
       }
     }
-  }, [_vm._v("حفظ")])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.save")))])])])]), _vm._v(" "), _c("div", {
     staticClass: "card-footer"
   })])])])]);
 };
@@ -7117,7 +7272,7 @@ var render = function render() {
       role: "button",
       "aria-haspopup": "true",
       "aria-expanded": "true",
-      placeholder: "بحث "
+      placeholder: _vm.$t("messages.search") + "..."
     },
     domProps: {
       value: _vm.word_search
@@ -7139,16 +7294,27 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm.attribute_families && _vm.attribute_families.length > 0 ? _c("tbody", _vm._l(_vm.attribute_families, function (family, index) {
+  }, [_c("thead", [_c("tr", [_c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.serial_number")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.name")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.code")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(" " + _vm._s(_vm.$t("messages.attributes")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(" " + _vm._s(_vm.$t("messages.operations")))])])]), _vm._v(" "), _vm.attribute_families && _vm.attribute_families.length > 0 ? _c("tbody", _vm._l(_vm.attribute_families, function (family, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.code))]), _vm._v(" "), _c("td", [_vm._l(family.attribute_family_mapping, function (attr) {
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(family.code))]), _vm._v(" "), _c("td", [_vm._l(family.attribute_family_mapping, function (attr, attrIndex) {
       return [[_c("span", {
+        key: attrIndex,
         staticStyle: {
           color: "blue"
         }
-      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(attr.attribute.name) + "\n\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" \n\n\t\t\t\t\t\t\t\t\t\t\t")]];
-    })], 2), _vm._v(" "), _c("td", [_vm._m(1, true), _vm._v(" "), _c("router-link", {
+      }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(_vm.$t("messages." + attr.attribute.name)) + "\n\t\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" \n\n\t\t\t\t\t\t\t\t\t\t\t\t")]];
+    })], 2), _vm._v(" "), _c("td", [_vm._m(0, true), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-success btn-sm",
       attrs: {
         to: {
@@ -7161,23 +7327,16 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-edit"
     })])], 1)]);
-  }), 0) : _c("tbody", [_vm._m(2)])])])])])])]);
+  }), 0) : _c("tbody", [_c("tr", [_c("td", {
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t" + _vm._s(_vm.$t("messages.no_data_available")) + "\n\t\t\t\t\t\t\t\t\t")])])])])])])])])]);
 };
 var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الرقم التسلسلي")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الاسم")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الرمز")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v(" الخواص")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v(" العمليات")])])]);
-}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("button", {
@@ -7188,17 +7347,6 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "fa fa-trash"
   })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("tr", [_c("td", {
-    staticStyle: {
-      "text-align": "center"
-    },
-    attrs: {
-      colspan: "5"
-    }
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\tلايوجد اي بيانات\n\t\t\t\t\t\t\t\t\t")])]);
 }];
 render._withStripped = true;
 
@@ -7231,11 +7379,11 @@ var render = function render() {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v("\n                    تعديل مجموعه الاصناف\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("messages.edit_attribute_family")) + "\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     staticClass: "row g-3"
-  }, [_c("fieldset", [_c("legend", [_vm._v("الاسم")]), _vm._v(" "), _c("input", {
+  }, [_c("fieldset", [_c("legend", [_vm._v(_vm._s(_vm.$t("messages.name")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7256,7 +7404,7 @@ var render = function render() {
         _vm.name = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v("الرمز")]), _vm._v(" "), _c("input", {
+  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v(_vm._s(_vm.$t("messages.code")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7277,8 +7425,9 @@ var render = function render() {
         _vm.code = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v("الخواص")]), _vm._v(" "), _vm._l(_vm.data.attribute_family_mapping, function (item) {
+  })]), _vm._v(" "), _c("fieldset", [_c("legend", [_vm._v(_vm._s(_vm.$t("messages.attributes")))]), _vm._v(" "), _vm._l(_vm.data.attribute_family_mapping, function (item) {
     return _c("div", {
+      key: item.attribute.id,
       staticClass: "form-check form-check-inline"
     }, [_c("input", {
       staticClass: "form-check-input",
@@ -7299,7 +7448,7 @@ var render = function render() {
       attrs: {
         "for": "inlineCheckbox1"
       }
-    }, [_vm._v(_vm._s(item.attribute.name))])]);
+    }, [_vm._v(_vm._s(_vm.$t("messages." + item.attribute.name)))])]);
   })], 2), _vm._v(" "), _c("fieldset", [_c("button", {
     staticClass: "btn btn-primary",
     attrs: {
@@ -7310,7 +7459,7 @@ var render = function render() {
         return _vm.update(_vm.data.id);
       }
     }
-  }, [_vm._v("حفظ")])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.save")))])])])]), _vm._v(" "), _c("div", {
     staticClass: "card-footer"
   })])])])]);
 };
@@ -7354,7 +7503,7 @@ var render = function render() {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
-  }, [_vm._v(" الاسم ")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(" " + _vm._s(_vm.$t("messages.name")) + " ")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -7375,11 +7524,25 @@ var render = function render() {
         _vm.name = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("fieldset", {
+  })]), _vm._v(" "), _c("fieldset", {
     staticClass: "border rounded-3 p-3"
   }, [_c("legend", {
     staticClass: "float-none w-auto px-3"
-  }, [_vm._v("الخواص")]), _vm._v(" "), _c("div", [_vm._l(_vm.attributes, function (item) {
+  }, [_vm._v(_vm._s(_vm.$t("messages.category_tree")))]), _vm._v(" "), _c("div", {
+    staticClass: "input-group"
+  }, [_c("input", {
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "ricerca-enti",
+      placeholder: _vm.$t("messages.search") + "...",
+      "aria-describedby": "search-addon"
+    }
+  })]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("fieldset", {
+    staticClass: "border rounded-3 p-3"
+  }, [_c("legend", {
+    staticClass: "float-none w-auto px-3"
+  }, [_vm._v(_vm._s(_vm.$t("messages.attributes")))]), _vm._v(" "), _c("div", [_vm._l(_vm.attributes, function (item) {
     return _c("div", {
       staticClass: "form-check form-check-inline",
       staticStyle: {
@@ -7438,26 +7601,12 @@ var render = function render() {
         return _vm.add();
       }
     }
-  }, [_vm._v("حفظ")])], 2)])])])])])])])])]);
+  }, [_vm._v(_vm._s(_vm.$t("messages.save")))])], 2)])])])])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("fieldset", {
-    staticClass: "border rounded-3 p-3"
-  }, [_c("legend", {
-    staticClass: "float-none w-auto px-3"
-  }, [_vm._v("شجره الاصناف")]), _vm._v(" "), _c("div", {
-    staticClass: "input-group"
-  }, [_c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "ricerca-enti",
-      placeholder: "بحث...",
-      "aria-describedby": "search-addon"
-    }
-  })]), _vm._v(" "), _c("div", {
+  return _c("div", {
     attrs: {
       id: "treeview_json_product_add"
     }
@@ -7465,7 +7614,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "test"
     }
-  })])]);
+  })]);
 }];
 render._withStripped = true;
 
@@ -8726,7 +8875,11 @@ var render = function render() {
     staticClass: "content"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("span", {
+    staticClass: "h4"
+  }, [_vm._v(_vm._s(_vm.$t("messages.orders")))])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "row"
@@ -8741,7 +8894,11 @@ var render = function render() {
     attrs: {
       id: "brandDatatable"
     }
-  }, [_vm._m(1), _vm._v(" "), _vm.order && _vm.order.length > 0 ? _c("tbody", _vm._l(_vm.order, function (orders) {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v(_vm._s(_vm.$t("messages.order_no")))]), _vm._v(" "), _c("th", {
+    attrs: {
+      width: "200"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.customer")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.order_total")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.order_status")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.operations")))])])]), _vm._v(" "), _vm.order && _vm.order.length > 0 ? _c("tbody", _vm._l(_vm.order, function (orders) {
     return _c("tr", [_c("td", [_vm._v(_vm._s(orders.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(orders.customer_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(orders.order_total))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(orders.order_status))]), _vm._v(" "), _c("td", [_c("router-link", {
       staticClass: "btn btn-success btn-sm",
       attrs: {
@@ -8755,36 +8912,16 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-search-plus"
     })])], 1)]);
-  }), 0) : _c("tbody", [_vm._m(2)])])])])])])])])])])]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header"
-  }, [_c("span", {
-    staticClass: "h4"
-  }, [_vm._v("الطلبات")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("رقم الطلب")]), _vm._v(" "), _c("th", {
-    attrs: {
-      width: "200"
-    }
-  }, [_vm._v("العميل")]), _vm._v(" "), _c("th", [_vm._v("الاجمالي")]), _vm._v(" "), _c("th", [_vm._v("حاله الطلب")]), _vm._v(" "), _c("th", [_vm._v("العمليات")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("tr", [_c("td", {
+  }), 0) : _c("tbody", [_c("tr", [_c("td", {
     staticStyle: {
       "text-align": "center"
     },
     attrs: {
       colspan: "5"
     }
-  }, [_vm._v("\n                                                    لايوجد اي بيانات\n                                                ")])]);
-}];
+  }, [_vm._v("\n                                                    " + _vm._s(_vm.$t("messages.no_data_available")) + "\n                                                ")])])])])])])])])])])])])]);
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -8808,20 +8945,41 @@ var render = function render() {
     attrs: {
       id: "invoice"
     }
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "toolbar hidden-print"
+  }, [_c("div", {
+    staticClass: "text-right"
+  }, [_c("button", {
+    staticClass: "btn btn-info",
+    attrs: {
+      id: "printInvoice"
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-print"
+  }), _vm._v(" " + _vm._s(_vm.$t("messages.print")))]), _vm._v(" "), _c("a", {
+    staticClass: "btn btn-info",
+    attrs: {
+      href: ""
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-file-pdf-o"
+  }), _vm._v(" " + _vm._s(_vm.$t("messages.export_pdf")))]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-info"
+  }, [_vm._v(_vm._s(_vm.$t("messages.export_excel")))])]), _vm._v(" "), _c("hr")]), _vm._v(" "), _c("div", {
     staticClass: "invoice overflow-auto"
   }, [_c("div", {
     staticStyle: {
       "min-width": "600px"
     }
-  }, [_vm._m(1), _vm._v(" "), _c("main", [_c("div", {
+  }, [_vm._m(0), _vm._v(" "), _c("main", [_c("div", {
     staticClass: "row contacts"
   }, [_vm._l(_vm.showCustomerInformation, function (customer) {
     return _c("div", {
+      key: customer.id,
       staticClass: "col invoice-to"
     }, [_c("div", {
       staticClass: "text-gray-light"
-    }, [_vm._v("INVOICE TO:")]), _vm._v(" "), _c("h2", {
+    }, [_vm._v(_vm._s(_vm.$t("messages.invoice_to")) + ":")]), _vm._v(" "), _c("h2", {
       staticClass: "to"
     }, [_vm._v(_vm._s(customer.name))]), _vm._v(" "), _c("div", {
       staticClass: "address"
@@ -8833,24 +8991,42 @@ var render = function render() {
         href: ""
       }
     }, [_vm._v(_vm._s(customer.email))])])]);
-  }), _vm._v(" "), _vm._m(2)], 2), _vm._v(" "), _c("table", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "col invoice-details"
+  }, [_c("h1", {
+    staticClass: "invoice-id"
+  }, [_vm._v(_vm._s(_vm.$t("messages.invoice")))]), _vm._v(" "), _c("div", {
+    staticClass: "date"
+  }, [_vm._v(_vm._s(_vm.$t("messages.order_date")) + ": " + _vm._s(_vm.showorderInformation.created_at))]), _vm._v(" "), _c("div", {
+    staticClass: "date"
+  }, [_vm._v(_vm._s(_vm.$t("messages.invoice_date")) + ": " + _vm._s(new Date().toLocaleDateString()) + " ")])])], 2), _vm._v(" "), _c("table", {
     attrs: {
       border: "0",
       cellspacing: "2",
       cellpadding: "2"
     }
-  }, [_vm._m(3), _vm._v(" "), _c("tbody", _vm._l(_vm.showProductInformation, function (product) {
-    return _c("tr", [_c("td", {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", {
+    staticClass: "text-left"
+  }, [_vm._v(_vm._s(_vm.$t("messages.product")))]), _vm._v(" "), _c("th", {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("messages.price")))]), _vm._v(" "), _c("th", {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("messages.quantity")))]), _vm._v(" "), _c("th", {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("messages.total")))])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.showProductInformation, function (product, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", {
       staticClass: "no"
-    }, [_vm._v("01")]), _vm._v(" "), _c("td", {
+    }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", {
       staticClass: "text-left"
-    }, [_c("h3", [_vm._v(_vm._s(product.name))])]), _vm._v(" "), _c("td", {
+    }, [_c("h3", [_vm._v(_vm._s(_vm.$t("messages." + product.text)))])]), _vm._v(" "), _c("td", {
       staticClass: "unit"
-    }, [_vm._v("Tk. " + _vm._s(product.price))]), _vm._v(" "), _c("td", {
+    }, [_vm._v(" " + _vm._s(product.product_price))]), _vm._v(" "), _c("td", {
       staticClass: "qty"
-    }, [_vm._v(_vm._s(product.qty))]), _vm._v(" "), _c("td", {
+    }, [_vm._v(_vm._s(product.quantity))]), _vm._v(" "), _c("td", {
       staticClass: "total"
-    }, [_vm._v("Tk. " + _vm._s(product.qty * product.price))])]);
+    }, [_vm._v(" " + _vm._s(product.quantity * product.product_price))])]);
   }), 0), _vm._v(" "), _c("tfoot", [_c("tr", [_c("td", {
     attrs: {
       colspan: "2"
@@ -8859,33 +9035,31 @@ var render = function render() {
     attrs: {
       colspan: "2"
     }
-  }, [_vm._v("SUBTOTAL ")]), _vm._v(" "), _c("td", [_vm._v("Tk." + _vm._s(_vm.SUBTOTAL) + " ")])]), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5)])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.subtotal")) + " ")]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(_vm.showorderInformation.order_total) + " ")])]), _vm._v(" "), _c("tr", [_c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.delivery_charge")))]), _vm._v(" "), _c("td", [_vm._v("0")])]), _vm._v(" "), _c("tr", [_c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.grand_total")))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.showorderInformation.order_total) + " ")])])])]), _vm._v(" "), _c("div", {
     staticClass: "thanks"
-  }, [_vm._v("Thank you!")]), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _c("footer", [_vm._v("\n                Invoice was created on a computer and is valid without the signature and seal.\n            ")])]), _vm._v(" "), _c("div")])]);
+  }, [_vm._v(_vm._s(_vm.$t("messages.thank_you")))]), _vm._v(" "), _c("div", {
+    staticClass: "notices"
+  }, [_c("div", [_vm._v(_vm._s(_vm.$t("messages.notice")) + ":")]), _vm._v(" "), _c("div", {
+    staticClass: "notice"
+  }, [_vm._v(_vm._s(_vm.$t("messages.invoice_notice_text")))])])]), _vm._v(" "), _c("footer", [_vm._v("\n                " + _vm._s(_vm.$t("messages.invoice_footer")) + "\n            ")])]), _vm._v(" "), _c("div")])]);
 };
 var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "toolbar hidden-print"
-  }, [_c("div", {
-    staticClass: "text-right"
-  }, [_c("button", {
-    staticClass: "btn btn-info",
-    attrs: {
-      id: "printInvoice"
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-print"
-  }), _vm._v(" Print")]), _vm._v(" "), _c("a", {
-    staticClass: "btn btn-info",
-    attrs: {
-      href: ""
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-file-pdf-o"
-  }), _vm._v(" Export as PDF")]), _vm._v(" "), _c("button", [_vm._v("Export as Excel")])]), _vm._v(" "), _c("hr")]);
-}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("header", [_c("div", {
@@ -8911,62 +9085,6 @@ var staticRenderFns = [function () {
       href: "https://lobianijs.com"
     }
   }, [_vm._v("\n                                Lara3\n                            ")])]), _vm._v(" "), _c("div", [_vm._v("Sector-10, Uttara, BD")]), _vm._v(" "), _c("div", [_vm._v("(+880) 175-691-974")]), _vm._v(" "), _c("div", [_vm._v("company@example.com")])])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "col invoice-details"
-  }, [_c("h1", {
-    staticClass: "invoice-id"
-  }, [_vm._v("INVOICE ")]), _vm._v(" "), _c("div", {
-    staticClass: "date"
-  }, [_vm._v("Order Date:adadadadadaad")]), _vm._v(" "), _c("div", {
-    staticClass: "date"
-  }, [_vm._v("Date of Invoice:adsdasdaadad ")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", {
-    staticClass: "text-left"
-  }, [_vm._v("PRODUCT ")]), _vm._v(" "), _c("th", {
-    staticClass: "text-right"
-  }, [_vm._v("PRICE")]), _vm._v(" "), _c("th", {
-    staticClass: "text-right"
-  }, [_vm._v("Quantity")]), _vm._v(" "), _c("th", {
-    staticClass: "text-right"
-  }, [_vm._v("TOTAL")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("tr", [_c("td", {
-    attrs: {
-      colspan: "2"
-    }
-  }), _vm._v(" "), _c("td", {
-    attrs: {
-      colspan: "2"
-    }
-  }, [_vm._v("Delivery Charge")]), _vm._v(" "), _c("td", [_vm._v("Tk. ")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("tr", [_c("td", {
-    attrs: {
-      colspan: "2"
-    }
-  }), _vm._v(" "), _c("td", {
-    attrs: {
-      colspan: "2"
-    }
-  }, [_vm._v("GRAND TOTAL")]), _vm._v(" "), _c("td", [_vm._v("Tk. ")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "notices"
-  }, [_c("div", [_vm._v("NOTICE:")]), _vm._v(" "), _c("div", {
-    staticClass: "notice"
-  }, [_vm._v("A finance charge of 1.5% will be made on unpaid balances after 30 days.")])]);
 }];
 render._withStripped = true;
 
@@ -8999,21 +9117,27 @@ var render = function render() {
     staticClass: "col-md-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("span", {
+    staticClass: "h2"
+  }, [_vm._v(_vm._s(_vm.$t("messages.order_details")))])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("table", {
     staticClass: "table table-bordered"
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v(_vm._s(_vm.showorderInformation.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.showorderInformation.order_total))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(_vm.showorderInformation.order_status))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(_vm.showorderInformation.created_at))])])])])])])])]), _vm._v(" "), _c("div", {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v(_vm._s(_vm.$t("messages.order_no")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.order_total")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.order_status")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.date")))])])]), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v(_vm._s(_vm.showorderInformation.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.showorderInformation.order_total))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(_vm.showorderInformation.order_status))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(_vm.showorderInformation.created_at))])])])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(2), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("h2", [_vm._v(_vm._s(_vm.$t("messages.customer_data")))])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("table", {
     staticClass: "table table-bordered"
-  }, [_vm._m(3), _vm._v(" "), _c("tbody", _vm._l(_vm.showCustomerInformation, function (customer) {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v(_vm._s(_vm.$t("messages.name")) + " ")]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.phone")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.email")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.address")))])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.showCustomerInformation, function (customer) {
     return _c("tr", [_c("td", [_vm._v(_vm._s(customer.full_name))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(customer.phone_no))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(customer.email_address))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(customer.address))])]);
   }), 0)])])])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
@@ -9021,28 +9145,32 @@ var render = function render() {
     staticClass: "col-md-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(4), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("h2", [_vm._v(_vm._s(_vm.$t("messages.payment_data")))])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("table", {
     staticClass: "table table-bordered"
-  }, [_vm._m(5), _vm._v(" "), _c("tbody", _vm._l(_vm.showCustomerInformation, function (payment) {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v(_vm._s(_vm.$t("messages.status")) + " ")]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.payment_type")))])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.showCustomerInformation, function (payment) {
     return _c("tr", [payment.payment_status == "paid" ? _c("td", {
       staticStyle: {
         color: "red"
       }
-    }, [_vm._v("مدفوع")]) : _vm._e(), _vm._v(" "), _c("td", [_vm._v(_vm._s(payment.payment_info))])]);
+    }, [_vm._v(_vm._s(_vm.$t("messages.paid")))]) : _vm._e(), _vm._v(" "), _c("td", [_vm._v(_vm._s(payment.payment_info))])]);
   }), 0)])])])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(6), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("h2", [_vm._v(_vm._s(_vm.$t("messages.product_info")))])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("table", {
     staticClass: "table table-bordered"
-  }, [_vm._m(7), _vm._v(" "), _c("tbody", _vm._l(_vm.showProductInformation, function (Product) {
-    return _c("tr", [_c("td", [_vm._v(_vm._s(Product.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(Product.text))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.quantity))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price * Product.quantity))])]);
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v(_vm._s(_vm.$t("messages.product_no")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.product_name")) + " ")]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.price")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.quantity")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.total")))])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.showProductInformation, function (Product) {
+    return _c("tr", [_c("td", [_vm._v(_vm._s(Product.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.$t("messages." + Product.text)))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.quantity))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price * Product.quantity))])]);
   }), 0)])])])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
@@ -9052,51 +9180,9 @@ var render = function render() {
     attrs: {
       to: "/order_invoice/".concat(_vm.showorderInformation.id)
     }
-  }, [_vm._v("\n                                فاتوره ")])], 1)])])])]);
+  }, [_vm._v("\n                                " + _vm._s(_vm.$t("messages.invoice")) + " ")])], 1)])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header"
-  }, [_c("span", {
-    staticClass: "h2"
-  }, [_vm._v("تفاصيل الطلب")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("رقم الطلب")]), _vm._v(" "), _c("th", [_vm._v("الاجمالي ")]), _vm._v(" "), _c("th", [_vm._v("حاله الطلب")]), _vm._v(" "), _c("th", [_vm._v("التاريخ")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header"
-  }, [_c("h2", [_vm._v("بيانات العميل")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("الاسم ")]), _vm._v(" "), _c("th", [_vm._v("الهاتف")]), _vm._v(" "), _c("th", [_vm._v("البريد الالكتروني")]), _vm._v(" "), _c("th", [_vm._v("العنوان")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header"
-  }, [_c("h2", [_vm._v("بيانات الدفع")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("الحاله ")]), _vm._v(" "), _c("th", [_vm._v("نوع الدفع")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header"
-  }, [_c("h2", [_vm._v("معلومات المنتج")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("رقم المنتج")]), _vm._v(" "), _c("th", [_vm._v("اسم المنتج ")]), _vm._v(" "), _c("th", [_vm._v("السعر")]), _vm._v(" "), _c("th", [_vm._v("الكميه")]), _vm._v(" "), _c("th", [_vm._v("الاجمالي")])])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -9520,7 +9606,15 @@ var render = function render() {
     staticClass: "col-xl-12"
   }, [_c("div", {
     staticClass: "card"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "card-header pb-0"
+  }, [_c("div", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("h4", {
+    staticClass: "card-title mg-b-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.users")))]), _vm._v(" "), _c("i", {
+    staticClass: "mdi mdi-dots-horizontal text-gray"
+  })])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "form"
@@ -9540,7 +9634,7 @@ var render = function render() {
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("الاسم")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.name")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -9567,7 +9661,7 @@ var render = function render() {
     attrs: {
       "for": "status"
     }
-  }, [_vm._v("الحاله")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.status")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -9593,21 +9687,9 @@ var render = function render() {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("حفظ")])])])])])])]);
+  }, [_vm._v(_vm._s(_vm.$t("messages.save")))])])])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header pb-0"
-  }, [_c("div", {
-    staticClass: "d-flex justify-content-between"
-  }, [_c("h4", {
-    staticClass: "card-title mg-b-0"
-  }, [_vm._v("المستخدمين")]), _vm._v(" "), _c("i", {
-    staticClass: "mdi mdi-dots-horizontal text-gray"
-  })])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -9635,7 +9717,7 @@ var render = function render() {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v("\n                        تعديل المستخدمين\n                    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("messages.edit_user")) + "\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "form"
@@ -9655,7 +9737,7 @@ var render = function render() {
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("الاسم")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.name")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -9682,7 +9764,7 @@ var render = function render() {
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("الهاتف")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.phone")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -9709,7 +9791,7 @@ var render = function render() {
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("البريد الالكتروني")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.email")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -9736,7 +9818,7 @@ var render = function render() {
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("العنوان")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.address")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -9763,7 +9845,7 @@ var render = function render() {
     attrs: {
       "for": "status"
     }
-  }, [_vm._v("الحاله")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.status")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -9789,7 +9871,7 @@ var render = function render() {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("حفظ")])])])])])])]);
+  }, [_vm._v(_vm._s(_vm.$t("messages.save")))])])])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9821,7 +9903,7 @@ var render = function render() {
     staticClass: "card-header pb-0"
   }, [_c("span", {
     staticClass: "h4"
-  }, [_vm._v("المستخدمين")]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.users")))]), _vm._v(" "), _c("div", {
     staticStyle: {
       display: "flex",
       "float": "left",
@@ -9852,7 +9934,7 @@ var render = function render() {
       role: "button",
       "aria-haspopup": "true",
       "aria-expanded": "true",
-      placeholder: "بحث"
+      placeholder: _vm.$t("messages.search")
     },
     domProps: {
       value: _vm.word_search
@@ -9874,10 +9956,24 @@ var render = function render() {
     attrs: {
       id: "example1"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm.user && _vm.user.length > 0 ? _c("tbody", _vm._l(_vm.user, function (users, index) {
+  }, [_c("thead", [_c("tr", [_c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.serial_number")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.name")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.phone")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.email")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.address")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(_vm._s(_vm.$t("messages.status")))]), _vm._v(" "), _c("th", {
+    staticClass: "wd-15p border-bottom-0"
+  }, [_vm._v(" " + _vm._s(_vm.$t("messages.operations")))])])]), _vm._v(" "), _vm.user && _vm.user.length > 0 ? _c("tbody", _vm._l(_vm.user, function (users, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.phone))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.address))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.status))]), _vm._v(" "), _c("td", [_vm._m(1, true), _vm._v(" "), _c("router-link", {
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.phone))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.address))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(users.status))]), _vm._v(" "), _c("td", [_vm._m(0, true), _vm._v(" "), _c("router-link", {
       staticClass: "edit btn btn-success btn-sm",
       attrs: {
         to: {
@@ -9893,24 +9989,6 @@ var render = function render() {
   }), 0) : _vm._e()])])])])])]);
 };
 var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الرقم التسلسلي")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الاسم")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الهاتف")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("البريد الالكتروني")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("العنوان")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v("الحاله")]), _vm._v(" "), _c("th", {
-    staticClass: "wd-15p border-bottom-0"
-  }, [_vm._v(" العمليات")])])]);
-}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("button", {
@@ -10701,9 +10779,9 @@ var render = function render() {
     staticClass: "card mt-5 mb-5"
   }, [_c("div", {
     staticClass: "card-header text-center"
-  }, [_c("h3", [_vm._v("Please Login")]), _vm._v(" "), _vm.success ? _c("h5", {
+  }, [_c("h3", [_vm._v(_vm._s(_vm.$t("messages.please_login")))]), _vm._v(" "), _vm.success ? _c("h5", {
     staticClass: "text-success"
-  }, [_vm._v(_vm._s(_vm.success))]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages." + _vm.success)))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     attrs: {
@@ -10711,7 +10789,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Email address")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.email_address")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10735,9 +10813,9 @@ var render = function render() {
     }
   }), _vm._v(" "), _vm.error ? _c("span", {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.error))]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages." + _vm.error)))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Password")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.password")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10768,11 +10846,11 @@ var render = function render() {
     on: {
       click: _vm.login
     }
-  }, [_vm._v("Login")])]), _vm._v(" "), _c("router-link", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.login")))])]), _vm._v(" "), _c("router-link", {
     attrs: {
       to: "/customer/register"
     }
-  }, [_vm._v("Register Here")])], 1)])])])])]);
+  }, [_vm._v(_vm._s(_vm.$t("messages.register_here")))])], 1)])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -10802,7 +10880,9 @@ var render = function render() {
     staticClass: "offset-3 col-md-6"
   }, [_c("div", {
     staticClass: "card mt-5"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "card-header text-center"
+  }, [_c("h3", [_vm._v(_vm._s(_vm.$t("messages.choose_payment_method")))])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     attrs: {
@@ -10810,7 +10890,7 @@ var render = function render() {
     }
   }, [_c("table", {
     staticClass: "table table-bordered"
-  }, [_c("tr", [_c("td", [_vm._v("Cash on delivery")]), _vm._v(" "), _c("td", [_c("input", {
+  }, [_c("tr", [_c("td", [_vm._v(_vm._s(_vm.$t("messages.cash_on_delivery")))]), _vm._v(" "), _c("td", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10830,7 +10910,7 @@ var render = function render() {
         _vm.type = "cash";
       }
     }
-  })])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("Paypal")]), _vm._v(" "), _c("td", [_c("input", {
+  })])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v(_vm._s(_vm.$t("messages.paypal")))]), _vm._v(" "), _c("td", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10850,7 +10930,7 @@ var render = function render() {
         _vm.type = "paypal";
       }
     }
-  })])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("Stripe")]), _vm._v(" "), _c("td", [_c("input", {
+  })])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v(_vm._s(_vm.$t("messages.stripe")))]), _vm._v(" "), _c("td", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10878,7 +10958,7 @@ var render = function render() {
     on: {
       click: _vm.orderPayment
     }
-  }, [_vm._v("Confirm Order")]) : _vm._e()]), _vm._v(" "), _vm.type == "stripe" ? _c("div", [_c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.confirm_order")))]) : _vm._e()]), _vm._v(" "), _vm.type == "stripe" ? _c("div", [_c("div", {
     staticClass: "panel-body"
   }, [_c("form", {
     staticClass: "validation",
@@ -10888,7 +10968,67 @@ var render = function render() {
       "data-stripe-publishable-key": "pk_test_51NDNkyD06bl0jbZ3v3YEDP13LGwaJueHTrhPbB5medA2gyNoEP6ETE6hHWUBISv6QRgj4NxpTnTBSFiSYa1zJARu006gQD4YTz",
       id: "payment-form"
     }
-  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "form-group required"
+  }, [_c("label", {
+    staticClass: "control-label"
+  }, [_vm._v(_vm._s(_vm.$t("messages.name_on_card")))]), _vm._v(" "), _c("input", {
+    staticClass: "form-control",
+    attrs: {
+      size: "4",
+      type: "text",
+      value: "muhib"
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group card required"
+  }, [_c("label", {
+    staticClass: "control-label"
+  }, [_vm._v(_vm._s(_vm.$t("messages.card_number")))]), _vm._v(" "), _c("input", {
+    staticClass: "form-control card-num",
+    attrs: {
+      autocomplete: "off",
+      size: "20",
+      type: "text",
+      value: "4242424242424242"
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group cvc required"
+  }, [_c("label", {
+    staticClass: "control-label"
+  }, [_vm._v(_vm._s(_vm.$t("messages.cvc")))]), _vm._v(" "), _c("input", {
+    staticClass: "form-control card-cvc",
+    attrs: {
+      autocomplete: "off",
+      placeholder: _vm.$t("messages.cvc_placeholder"),
+      size: "4",
+      type: "text",
+      value: "128"
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group expiration required"
+  }, [_c("label", {
+    staticClass: "control-label"
+  }, [_vm._v(_vm._s(_vm.$t("messages.expiration_month")))]), _vm._v(" "), _c("input", {
+    staticClass: "form-control card-expiry-month",
+    attrs: {
+      placeholder: "MM",
+      size: "2",
+      type: "text",
+      value: "4"
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group expiration required"
+  }, [_c("label", {
+    staticClass: "control-label"
+  }, [_vm._v(_vm._s(_vm.$t("messages.expiration_year")))]), _vm._v(" "), _c("input", {
+    staticClass: "form-control card-expiry-year",
+    attrs: {
+      placeholder: "YYYY",
+      size: "4",
+      type: "text",
+      value: "2029"
+    }
+  })]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-xs-12"
@@ -10900,13 +11040,13 @@ var render = function render() {
         return _vm.orderConfirm_stripe.apply(null, arguments);
       }
     }
-  }, [_vm._v("Pay\n                                            Now\n                                            (₹100)")])])])])])]) : _vm._e(), _vm._v(" "), _vm.type == "cash" ? _c("div", [_c("form", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.pay_now")) + "\n                                            ($ 100)")])])])])])]) : _vm._e(), _vm._v(" "), _vm.type == "cash" ? _c("div", [_c("form", {
     attrs: {
       method: "post"
     }
   }, [_c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Full name")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.full_name")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10930,7 +11070,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Email address")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.email_address")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10954,7 +11094,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Phone Number")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.phone")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -10978,7 +11118,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Address")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.address")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11008,95 +11148,9 @@ var render = function render() {
     on: {
       click: _vm.orderConfirm
     }
-  }, [_vm._v("\n                                تأكيد الطلب")]) : _vm._e()])]) : _vm._e()])])])])]);
+  }, [_vm._v("\n                                " + _vm._s(_vm.$t("messages.confirm_order")))]) : _vm._e()])]) : _vm._e()])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card-header text-center"
-  }, [_c("h3", [_vm._v("Choose a Payment Method!\n                    ")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group required"
-  }, [_c("label", {
-    staticClass: "control-label"
-  }, [_vm._v("Name on Card")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      size: "4",
-      type: "text",
-      value: "muhib"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group card required"
-  }, [_c("label", {
-    staticClass: "control-label"
-  }, [_vm._v("Card Number")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control card-num",
-    attrs: {
-      autocomplete: "off",
-      size: "20",
-      type: "text",
-      value: "4242424242424242"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group cvc required"
-  }, [_c("label", {
-    staticClass: "control-label"
-  }, [_vm._v("CVC")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control card-cvc",
-    attrs: {
-      autocomplete: "off",
-      placeholder: "e.g 415",
-      size: "4",
-      type: "text",
-      value: "128"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group expiration required"
-  }, [_c("label", {
-    staticClass: "control-label"
-  }, [_vm._v("Expiration Month")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control card-expiry-month",
-    attrs: {
-      placeholder: "MM",
-      size: "2",
-      type: "text",
-      value: "4"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "form-group expiration required"
-  }, [_c("label", {
-    staticClass: "control-label"
-  }, [_vm._v("Expiration Year")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control card-expiry-year",
-    attrs: {
-      placeholder: "YYYY",
-      size: "4",
-      type: "text",
-      value: "2029"
-    }
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -11126,9 +11180,9 @@ var render = function render() {
     staticClass: "card mt-5 mb-5"
   }, [_c("div", {
     staticClass: "card-header text-center"
-  }, [_c("h3", [_vm._v("Please Register")]), _vm._v(" "), _vm.success ? _c("h4", {
+  }, [_c("h3", [_vm._v(_vm._s(_vm.$t("messages.please_register")))]), _vm._v(" "), _vm.success ? _c("h4", {
     staticClass: "text-success"
-  }, [_vm._v(_vm._s(_vm.success))]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages." + _vm.success)))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("form", {
     attrs: {
@@ -11142,7 +11196,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("First Name")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.first_name")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11167,7 +11221,7 @@ var render = function render() {
     staticClass: "text-danger"
   }, [_vm._v(_vm._s(_vm.error.first_name[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Last Name")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.last_name")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11190,7 +11244,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Email Address")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.email_address")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11215,7 +11269,7 @@ var render = function render() {
     staticClass: "text-danger"
   }, [_vm._v(_vm._s(_vm.error.email_address[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Phone Number")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.phone")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11238,7 +11292,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Password")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.password")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11263,7 +11317,7 @@ var render = function render() {
     staticClass: "text-danger"
   }, [_vm._v(_vm._s(_vm.error.password[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Address")]), _vm._v(" "), _c("textarea", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.address")))]), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11288,11 +11342,11 @@ var render = function render() {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Register")])]), _vm._v(" "), _c("router-link", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.register")))])]), _vm._v(" "), _c("router-link", {
     attrs: {
-      to: "/user-login"
+      to: "/customer/login"
     }
-  }, [_vm._v("Login Here")])], 1)])])])])]);
+  }, [_vm._v(_vm._s(_vm.$t("messages.login_here")))])], 1)])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -11324,7 +11378,7 @@ var render = function render() {
     staticClass: "card mt-5"
   }, [_c("div", {
     staticClass: "card-header text-center"
-  }, [_c("h3", [_vm.showSession ? _c("span", [_vm._v(_vm._s(_vm.showSession.first_name))]) : _vm._e(), _vm._v("\n                        , Give your shipping info!\n                    ")])]), _vm._v(" "), _c("div", {
+  }, [_c("h3", [_vm.showSession ? _c("span", [_vm._v(_vm._s(_vm.showSession.first_name))]) : _vm._e(), _vm._v("\n                        , " + _vm._s(_vm.$t("messages.give_shipping_info")) + "\n                    ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_vm.showSession ? _c("button", {
     staticClass: "btn btn-primary",
@@ -11337,7 +11391,7 @@ var render = function render() {
         return _vm.getDefault.apply(null, arguments);
       }
     }
-  }, [_vm._v("Your\n                        address")]) : _vm._e(), _vm._v(" "), _c("button", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.your_address")))]) : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "button"
@@ -11348,13 +11402,13 @@ var render = function render() {
         return _vm.clearDefault.apply(null, arguments);
       }
     }
-  }, [_vm._v("Clear form")]), _vm._v(" "), _c("form", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.clear_form")))]), _vm._v(" "), _c("form", {
     attrs: {
       method: "post"
     }
   }, [_c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Full name")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.full_name")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11378,7 +11432,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Email address")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.email_address")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11402,7 +11456,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Phone Number")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.phone")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11426,7 +11480,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", [_vm._v("Address")]), _vm._v(" "), _c("input", {
+  }, [_c("label", [_vm._v(_vm._s(_vm.$t("messages.address")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -11456,7 +11510,7 @@ var render = function render() {
     on: {
       click: _vm.shippingInfo
     }
-  }, [_vm._v("Confirm Shipping\n                            Info")])])])])])]), _vm._v(" "), _vm._m(0)]);
+  }, [_vm._v(_vm._s(_vm.$t("messages.confirm_shipping_info")))])])])])])]), _vm._v(" "), _vm._m(0)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -12093,13 +12147,77 @@ var render = function render() {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-lg-2 col-md-6 single-footer-widget"
-  }, [_c("h4", [_vm._v(_vm._s(_vm.$t("messages.top_products")))]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("div", {
+  }, [_c("h4", [_vm._v(_vm._s(_vm.$t("messages.top_products")))]), _vm._v(" "), _c("ul", [_c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.managed_website")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.manage_reputation")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.power_tools")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.marketing_service")))])])])]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-2 col-md-6 single-footer-widget"
-  }, [_c("h4", [_vm._v(_vm._s(_vm.$t("messages.quick_links")))]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("div", {
+  }, [_c("h4", [_vm._v(_vm._s(_vm.$t("messages.quick_links")))]), _vm._v(" "), _c("ul", [_c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.jobs")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.brand_assets")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.investor_relations")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.terms_of_service")))])])])]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-2 col-md-6 single-footer-widget"
-  }, [_c("h4", [_vm._v(_vm._s(_vm.$t("messages.features")))]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c("div", {
+  }, [_c("h4", [_vm._v(_vm._s(_vm.$t("messages.features")))]), _vm._v(" "), _c("ul", [_c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.jobs")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.brand_assets")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.investor_relations")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.terms_of_service")))])])])]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-2 col-md-6 single-footer-widget"
-  }, [_c("h4", [_vm._v(_vm._s(_vm.$t("messages.resources")))]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c("div", {
+  }, [_c("h4", [_vm._v(_vm._s(_vm.$t("messages.resources")))]), _vm._v(" "), _c("ul", [_c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.guides")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.research")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.experts")))])]), _vm._v(" "), _c("li", [_c("a", {
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("messages.agencies")))])])])]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-4 col-md-6 single-footer-widget"
   }, [_c("h4", [_vm._v(_vm._s(_vm.$t("messages.newsletter")))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.$t("messages.newsletter_desc")))]), _vm._v(" "), _c("div", {
     staticClass: "form-wrap",
@@ -12125,7 +12243,7 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("button", {
     staticClass: "click-btn btn btn-default"
-  }, [_vm._v(_vm._s(_vm.$t("messages.subscribe")))]), _vm._v(" "), _vm._m(4), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.$t("messages.subscribe")))]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "info"
   })])])])]), _vm._v(" "), _c("div", {
     staticClass: "footer-bottom row align-items-center"
@@ -12141,89 +12259,9 @@ var render = function render() {
       href: "https://colorlib.com",
       target: "_blank"
     }
-  }, [_vm._v("Colorlib")])]), _vm._v(" "), _vm._m(5)])])]);
+  }, [_vm._v("Colorlib")])]), _vm._v(" "), _vm._m(1)])])]);
 };
 var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("ul", [_c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Managed Website")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Manage Reputation")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Power Tools")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Marketing Service")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("ul", [_c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Jobs")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Brand Assets")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Investor Relations")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Terms of Service")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("ul", [_c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Jobs")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Brand Assets")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Investor Relations")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Terms of Service")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("ul", [_c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Guides")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Research")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Experts")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Agencies")])])]);
-}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
@@ -17263,7 +17301,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nlegend {\r\n\r\n\tfont-weight: lighter;\r\n\tcolor: cadetblue;\n}\r\n", ""]);
+exports.push([module.i, "\nlegend {\n\n\tfont-weight: lighter;\n\tcolor: cadetblue;\n}\n", ""]);
 
 // exports
 
@@ -17282,7 +17320,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nlegend {\r\n\r\n\tfont-weight: lighter;\r\n\tcolor: cadetblue;\n}\r\n", ""]);
+exports.push([module.i, "\nlegend {\n\n\tfont-weight: lighter;\n\tcolor: cadetblue;\n}\n", ""]);
 
 // exports
 
@@ -17339,7 +17377,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-7700c480] {\r\n    margin-top: 40px;\n}\n.panel-heading[data-v-7700c480] {\r\n    display: inline;\r\n    font-weight: bold;\n}\n.flex-table[data-v-7700c480] {\r\n    display: table;\n}\n.display-tr[data-v-7700c480] {\r\n    display: table-row;\n}\n.display-td[data-v-7700c480] {\r\n    display: table-cell;\r\n    vertical-align: middle;\r\n    width: 55%;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-7700c480] {\n    margin-top: 40px;\n}\n.panel-heading[data-v-7700c480] {\n    display: inline;\n    font-weight: bold;\n}\n.flex-table[data-v-7700c480] {\n    display: table;\n}\n.display-tr[data-v-7700c480] {\n    display: table-row;\n}\n.display-td[data-v-7700c480] {\n    display: table-cell;\n    vertical-align: middle;\n    width: 55%;\n}\n", ""]);
 
 // exports
 
@@ -70712,15 +70750,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MainSidebar_vue_vue_type_template_id_11402fc2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MainSidebar.vue?vue&type=template&id=11402fc2 */ "./resources/js/components/admin/layouts/MainSidebar.vue?vue&type=template&id=11402fc2");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _MainSidebar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MainSidebar.vue?vue&type=script&lang=js */ "./resources/js/components/admin/layouts/MainSidebar.vue?vue&type=script&lang=js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MainSidebar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
   _MainSidebar_vue_vue_type_template_id_11402fc2__WEBPACK_IMPORTED_MODULE_0__["render"],
   _MainSidebar_vue_vue_type_template_id_11402fc2__WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -70734,6 +70774,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/admin/layouts/MainSidebar.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/layouts/MainSidebar.vue?vue&type=script&lang=js":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/admin/layouts/MainSidebar.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainSidebar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MainSidebar.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/layouts/MainSidebar.vue?vue&type=script&lang=js");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MainSidebar_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -72639,12 +72693,16 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     orderDetails: [],
     customerOrder: [],
     currentLocale: localStorage.getItem('lang') || 'en',
+    currentDirection: localStorage.getItem('dir') || 'ltr',
     translations: {},
     availableLanguages: []
   },
   getters: {
     getCurrentLocale: function getCurrentLocale(state) {
       return state.currentLocale;
+    },
+    getCurrentDirection: function getCurrentDirection(state) {
+      return state.currentDirection;
     },
     getTranslations: function getTranslations(state) {
       return state.translations;
@@ -72769,22 +72827,24 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
             case 4:
               response = _context.sent;
               commit('setCurrentLocale', locale);
+              commit('setCurrentDirection', response.data.direction);
               localStorage.setItem('lang', locale);
+              localStorage.setItem('dir', response.data.direction);
               document.documentElement.dir = response.data.direction;
-              _context.next = 10;
+              _context.next = 12;
               return dispatch('loadTranslations', locale);
-            case 10:
-              _context.next = 15;
-              break;
             case 12:
-              _context.prev = 12;
+              _context.next = 17;
+              break;
+            case 14:
+              _context.prev = 14;
               _context.t0 = _context["catch"](1);
               console.error('Error setting language:', _context.t0);
-            case 15:
+            case 17:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[1, 12]]);
+        }, _callee, null, [[1, 14]]);
       }))();
     },
     loadTranslations: function loadTranslations(_ref2, locale) {
@@ -72882,6 +72942,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     },
     setCurrentLocale: function setCurrentLocale(state, locale) {
       state.currentLocale = locale;
+    },
+    setCurrentDirection: function setCurrentDirection(state, direction) {
+      state.currentDirection = direction;
     },
     setTranslations: function setTranslations(state, translations) {
       state.translations = translations;
@@ -73083,9 +73146,7 @@ var globalLanguageMixin = {
       return this.$store && this.$store.getters ? this.$store.getters.getCurrentLocale : 'en';
     },
     currentDirection: function currentDirection() {
-      var locale = this.currentLocale;
-      var isRTL = locale === 'en';
-      return isRTL ? 'rtl' : 'ltr';
+      return this.$store && this.$store.getters ? this.$store.getters.getCurrentDirection : 'ltr';
     },
     storeTranslations: function storeTranslations() {
       return this.$store && this.$store.getters ? this.$store.getters.getTranslations : {};

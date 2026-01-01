@@ -20,7 +20,7 @@
 
                             <fieldset>
 
-                                <legend>الاسم</legend>
+                                <legend>{{ $t('messages.name') }}</legend>
 
                                 <input v-model="name" type="text" class="form-control" id="inputZip">
 
@@ -30,20 +30,20 @@
 
 
                             <fieldset>
-                                <legend>الرمز</legend>
+                                <legend>{{ $t('messages.code') }}</legend>
 
                                 <input v-model="code" type="text" class="form-control" id="inputZip">
                             </fieldset>
 
 
                             <fieldset>
-                                <legend>الخواص</legend>
+                                <legend>{{ $t('messages.attributes') }}</legend>
 
-                                <div v-for="item in attributes" class="form-check form-check-inline">
+                                <div v-for="item in attributes" :key="item.id" class="form-check form-check-inline">
                                     <!-- <label class="form-check-label" for="inlineCheckbox1">الخواص</label> -->
                                     <input v-model="checkedItems" :value="item.id" id="checkedItems"
                                         class="form-check-input" type="checkbox">
-                                    <label class="form-check-label" for="inlineCheckbox1">{{ item.name
+                                    <label class="form-check-label" for="inlineCheckbox1">{{ $t('messages.' + item.name)
                                         }}</label>
                                 </div>
                             </fieldset>
@@ -60,7 +60,7 @@
 
                             <fieldset>
 
-                                <button @click="add()" type="button" class="btn btn-primary">حفظ</button>
+                                <button @click="add()" type="button" class="btn btn-primary">{{ $t('messages.save') }}</button>
 
                             </fieldset>
 
@@ -106,14 +106,19 @@ export default {
     },
 
     mounted() {
-
-        this.axios.post(`/attribute_family/get_attributes`).then((response) => {
-
-            this.attributes = response.data.attributes;
-        })
-
+        this.fetchAttributes();
+    },
+    watch: {
+        currentLocale() {
+            this.fetchAttributes();
+        }
     },
     methods: {
+        fetchAttributes() {
+            this.axios.post(`/attribute_family/get_attributes`).then((response) => {
+                this.attributes = response.data.attributes;
+            })
+        },
 
 
         add() {

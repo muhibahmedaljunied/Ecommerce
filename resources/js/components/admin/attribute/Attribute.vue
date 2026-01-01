@@ -25,7 +25,7 @@
 								</button>
 
 								<input type="search" autocomplete="on" name="search" data-toggle="dropdown"
-									role="button" aria-haspopup="true" aria-expanded="true" placeholder="بحث "
+									role="button" aria-haspopup="true" aria-expanded="true" :placeholder="$t('messages.search') + '...'"
 									v-model="word_search" @input="get_search()" />
 							</div>
 						</div>
@@ -34,10 +34,10 @@
 							<div class="row">
 
 								<div class="col-md-12">
-									<label for="pagoPrevio">مجموعه الخواص</label>
+									<label for="pagoPrevio">{{ $t('messages.attribute_families') }}</label>
 									<select v-model="family_attribute" name="Category" id="Category"
 										class="form-control">
-										<option v-for="families in attribute_families" v-bind:value="families.id">
+										<option v-for="families in attribute_families" :key="families.id" v-bind:value="families.id">
 											{{ families.name }}
 										</option>
 
@@ -59,13 +59,13 @@
 									<table class="table text-md-nowrap" id="example1">
 										<thead>
 											<tr>
-												<th class="wd-15p border-bottom-0">الرقم التسلسلي</th>
+												<th class="wd-15p border-bottom-0">{{ $t('messages.serial_number') }}</th>
 
-												<th class="wd-15p border-bottom-0">الاسم</th>
-												<th class="wd-15p border-bottom-0">الرمز</th>
+												<th class="wd-15p border-bottom-0">{{ $t('messages.name') }}</th>
+												<th class="wd-15p border-bottom-0">{{ $t('messages.code') }}</th>
 
-												<th class="wd-15p border-bottom-0">القيم</th>
-												<th class="wd-15p border-bottom-0"> العمليات</th>
+												<th class="wd-15p border-bottom-0">{{ $t('messages.values') }}</th>
+												<th class="wd-15p border-bottom-0"> {{ $t('messages.operations') }}</th>
 
 											</tr>
 										</thead>
@@ -73,7 +73,7 @@
 											<tr v-for="(attribute, index) in attributes" :key="index">
 												<td>{{ index + 1 }}</td>
 
-												<td>{{ attribute.name }}</td>
+												<td>{{ $t('messages.' + attribute.name) }}</td>
 												<td>{{ attribute.code }}</td>
 
 
@@ -82,12 +82,12 @@
 
 
 														<template>
-															<div style="float: left;">
+															<div style="float: left;" :key="indexd">
 
 
 
 																<span style="color: blue;">
-																	{{ attr.value }}
+																	{{ $t('messages.' + attr.value) }}
 																</span>&ensp;
 
 															</div>
@@ -99,7 +99,7 @@
 												</td>
 
 												<td>
-													<button type='button' class="btn btn-danger btn-sm"><i
+													<button type='button' @click="delete_Attribute(attribute.id)" class="btn btn-danger btn-sm"><i
 															class="fa fa-trash"></i></button>
 													<router-link
 														:to="{ name: 'edit_attribute', params: { data: attribute } }"
@@ -114,7 +114,7 @@
 										<tbody v-else>
 											<tr>
 												<td style="text-align: center;" colspan="5">
-													لايوجد اي بيانات
+													{{ $t('messages.no_data_available') }}
 												</td>
 											</tr>
 										</tbody>
@@ -157,33 +157,41 @@ export default {
 	mounted() {
 		console.log('almuhiiiiiiiiiiiiiiiiiiiiii', window.axios.defaults.baseURL);
 		this.counts[0] = 1;
-		this.axios.post('/attribute').then(response => {
-			this.attributes = response.data.attributes;
-			this.attribute_families = response.data.attribute_families;
-
-		})
+		this.fetchAttributes();
+	},
+	watch: {
+		currentLocale() {
+			this.fetchAttributes();
+		}
 	},
 	methods: {
+		fetchAttributes() {
+			this.axios.post('/attribute').then(response => {
+				this.attributes = response.data.attributes;
+				this.attribute_families = response.data.attribute_families;
+
+			})
+		},
 
 		delete_Attribute(id) {
 
 			this.axios.post(`delete_Attribute/${id}`).then(response => {
 				toast.fire({
-					title: "Deleted!",
-					text: "Your category has been deleted.",
-					button: "Close", // Text on button
+					title: this.$t('messages.deleted'),
+					text: this.$t('messages.attribute_deleted_success'),
+					button: this.$t('messages.close'), // Text on button
 					icon: "success", //built in icons: success, warning, error, info
 					timer: 3000, //timeOut for auto-close
 					buttons: {
 						confirm: {
-							text: "OK",
+							text: this.$t('messages.ok'),
 							value: true,
 							visible: true,
 							className: "",
 							closeModal: true
 						},
 						cancel: {
-							text: "Cancel",
+							text: this.$t('messages.cancel'),
 							value: false,
 							visible: true,
 							className: "",
@@ -200,13 +208,13 @@ export default {
 
 
 		exports_excel() {
-
+			var gf = this;
 			axios
 				.post(`/export_opening_inventuries`)
 				.then(function (response) {
 
-					toastMessage("تم اتمام عمليه التصدير");
-					this.$router.go(0);
+					toastMessage(gf.$t('messages.export_success'));
+					gf.$router.go(0);
 				})
 				.catch(error => {
 
@@ -214,12 +222,12 @@ export default {
 				});
 		},
 		imports_excel() {
-
+			var gf = this;
 			axios
 				.post(`/import_opening_inventuries`)
 				.then(function (response) {
-					toastMessage("تم اتمام عمليه الاستيراد");
-					this.$router.go(0);
+					toastMessage(gf.$t('messages.import_success'));
+					gf.$router.go(0);
 
 					// this.list();
 

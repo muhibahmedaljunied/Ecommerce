@@ -247,6 +247,11 @@
 
 <script>
 export default {
-    name: 'Sidebar'
+    name: 'Sidebar',
+    watch: {
+        currentLocale() {
+            // Direction is already reactive in template via :class
+        }
+    }
 }
 </script>

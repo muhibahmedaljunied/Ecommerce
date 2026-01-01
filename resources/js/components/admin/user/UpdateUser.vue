@@ -4,43 +4,43 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                            تعديل المستخدمين
+                            {{ $t('messages.edit_user') }}
                         </div>
                 <div class="card-body">
                     <div class="form">
                         <form method="post" @submit.prevent="adduser">
 
                             <div class="form-group">
-                                <label for="name">الاسم</label>
+                                <label for="name">{{ $t('messages.name') }}</label>
                                 <input v-model="data.name" type="text" name="name" id="name">
 
                             </div>
 
                             <div class="form-group">
-                                <label for="name">الهاتف</label>
+                                <label for="name">{{ $t('messages.phone') }}</label>
                                 <input v-model="data.phone" type="text" name="name" id="name">
 
                             </div>
 
                             <div class="form-group">
-                                <label for="name">البريد الالكتروني</label>
+                                <label for="name">{{ $t('messages.email') }}</label>
                                 <input v-model="data.email" type="text" name="name" id="name">
 
                             </div>
 
                             
                             <div class="form-group">
-                                <label for="name">العنوان</label>
+                                <label for="name">{{ $t('messages.address') }}</label>
                                 <input v-model="data.address" type="text" name="name" id="name">
 
                             </div>
 
                             <div class="form-group">
-                                <label for="status">الحاله</label>
+                                <label for="status">{{ $t('messages.status') }}</label>
                                 <input v-model='data.status' type="text" name="status" id="status">
 
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">حفظ</button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">{{ $t('messages.save') }}</button>
                         </form>
                     </div>
 

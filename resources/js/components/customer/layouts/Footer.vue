@@ -5,37 +5,37 @@
         <div class="col-lg-2 col-md-6 single-footer-widget">
           <h4>{{ $t('messages.top_products') }}</h4>
           <ul>
-            <li><a href="#">Managed Website</a></li>
-            <li><a href="#">Manage Reputation</a></li>
-            <li><a href="#">Power Tools</a></li>
-            <li><a href="#">Marketing Service</a></li>
+            <li><a href="#">{{ $t('messages.managed_website') }}</a></li>
+            <li><a href="#">{{ $t('messages.manage_reputation') }}</a></li>
+            <li><a href="#">{{ $t('messages.power_tools') }}</a></li>
+            <li><a href="#">{{ $t('messages.marketing_service') }}</a></li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 single-footer-widget">
           <h4>{{ $t('messages.quick_links') }}</h4>
           <ul>
-            <li><a href="#">Jobs</a></li>
-            <li><a href="#">Brand Assets</a></li>
-            <li><a href="#">Investor Relations</a></li>
-            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">{{ $t('messages.jobs') }}</a></li>
+            <li><a href="#">{{ $t('messages.brand_assets') }}</a></li>
+            <li><a href="#">{{ $t('messages.investor_relations') }}</a></li>
+            <li><a href="#">{{ $t('messages.terms_of_service') }}</a></li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 single-footer-widget">
           <h4>{{ $t('messages.features') }}</h4>
           <ul>
-            <li><a href="#">Jobs</a></li>
-            <li><a href="#">Brand Assets</a></li>
-            <li><a href="#">Investor Relations</a></li>
-            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">{{ $t('messages.jobs') }}</a></li>
+            <li><a href="#">{{ $t('messages.brand_assets') }}</a></li>
+            <li><a href="#">{{ $t('messages.investor_relations') }}</a></li>
+            <li><a href="#">{{ $t('messages.terms_of_service') }}</a></li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 single-footer-widget">
           <h4>{{ $t('messages.resources') }}</h4>
           <ul>
-            <li><a href="#">Guides</a></li>
-            <li><a href="#">Research</a></li>
-            <li><a href="#">Experts</a></li>
-            <li><a href="#">Agencies</a></li>
+            <li><a href="#">{{ $t('messages.guides') }}</a></li>
+            <li><a href="#">{{ $t('messages.research') }}</a></li>
+            <li><a href="#">{{ $t('messages.experts') }}</a></li>
+            <li><a href="#">{{ $t('messages.agencies') }}</a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-md-6 single-footer-widget">

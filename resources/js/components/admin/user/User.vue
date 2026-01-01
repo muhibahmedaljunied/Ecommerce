@@ -5,7 +5,7 @@
 			<div class="card">
 				
 				<div class="card-header pb-0">
-						<span class="h4">المستخدمين</span>
+						<span class="h4">{{ $t('messages.users') }}</span>
 				
 
 					<div style="display: flex;float: left; margin: 5px">
@@ -15,7 +15,7 @@
 							<i class="fa fa-plus-circle"></i></router-link>
 
 						<input type="search" autocomplete="on" name="search" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="true" placeholder="بحث" v-model="word_search"
+							aria-haspopup="true" aria-expanded="true" :placeholder="$t('messages.search')" v-model="word_search"
 							@input="get_search()" />
 
 						<div></div>
@@ -26,17 +26,17 @@
 						<table class="table text-md-nowrap" id="example1">
 							<thead>
 								<tr>
-									<th class="wd-15p border-bottom-0">الرقم التسلسلي</th>
+									<th class="wd-15p border-bottom-0">{{ $t('messages.serial_number') }}</th>
 
-									<th class="wd-15p border-bottom-0">الاسم</th>
-									<th class="wd-15p border-bottom-0">الهاتف</th>
-									<th class="wd-15p border-bottom-0">البريد الالكتروني</th>
-									<th class="wd-15p border-bottom-0">العنوان</th>
+									<th class="wd-15p border-bottom-0">{{ $t('messages.name') }}</th>
+									<th class="wd-15p border-bottom-0">{{ $t('messages.phone') }}</th>
+									<th class="wd-15p border-bottom-0">{{ $t('messages.email') }}</th>
+									<th class="wd-15p border-bottom-0">{{ $t('messages.address') }}</th>
 									<!-- <th class="wd-15p border-bottom-0">password</th> -->
-									<th class="wd-15p border-bottom-0">الحاله</th>
+									<th class="wd-15p border-bottom-0">{{ $t('messages.status') }}</th>
 									<!-- <th class="wd-20p border-bottom-0">Created At</th>
 												<th class="wd-15p border-bottom-0">Updated At</th> -->
-									<th class="wd-15p border-bottom-0"> العمليات</th>
+									<th class="wd-15p border-bottom-0"> {{ $t('messages.operations') }}</th>
 
 
 
@@ -83,12 +83,20 @@ export default {
 		}
 	},
 	mounted() {
-		this.axios.post('/user').then(response => {
-			this.$root.logo = 'User'
-			this.user = response.data;
-		})
+		this.fetchUsers();
+	},
+	watch: {
+		currentLocale() {
+			this.fetchUsers();
+		}
 	},
 	methods: {
+		fetchUsers() {
+			this.axios.post('/user').then(response => {
+				this.$root.logo = 'User'
+				this.user = response.data;
+			})
+		},
 		delete_user(id) {
 
 			this.axios.post(`/delete_user/${id}`).then(response => {

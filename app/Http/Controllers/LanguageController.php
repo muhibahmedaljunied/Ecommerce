@@ -62,8 +62,8 @@ class LanguageController extends Controller
     public function getAvailableLanguages()
     {
         $languages = [
-            ['code' => 'en', 'name' => 'English', 'flag' => '🇺🇸', 'direction' => 'rtl'],
-            ['code' => 'ar', 'name' => 'العربية', 'flag' => '🇸🇦', 'direction' => 'ltr'],
+            ['code' => 'en', 'name' => 'English', 'flag' => '🇺🇸', 'direction' => 'ltr'],
+            ['code' => 'ar', 'name' => 'العربية', 'flag' => '🇸🇦', 'direction' => 'rtl'],
             ['code' => 'fr', 'name' => 'Français', 'flag' => '🇫🇷', 'direction' => 'ltr'],
             ['code' => 'de', 'name' => 'Deutsch', 'flag' => '🇩🇪', 'direction' => 'ltr'],
             ['code' => 'it', 'name' => 'Italiano', 'flag' => '🇮🇹', 'direction' => 'ltr'],

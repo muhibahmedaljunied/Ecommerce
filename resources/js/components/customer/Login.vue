@@ -6,24 +6,24 @@
             <div class="offset-3 col-md-6">
                 <div class="card mt-5 mb-5">
                     <div class="card-header text-center">
-                        <h3>Please Login</h3>
-                        <h5 v-if="success" class="text-success">{{success}}</h5>
+                        <h3>{{ $t('messages.please_login') }}</h3>
+                        <h5 v-if="success" class="text-success">{{ $t('messages.' + success) }}</h5>
                     </div>
                     <div class="card-body">
                     <form method="post">
                         <div class="form-group">
-                            <label>Email address</label>
+                            <label>{{ $t('messages.email_address') }}</label>
                             <input v-model="form['email_address']" type="email" class="form-control" name="email_address" required>
-                            <span v-if="error" class="text-danger">{{error}}</span>
+                            <span v-if="error" class="text-danger">{{ $t('messages.' + error) }}</span>
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
+                            <label>{{ $t('messages.password') }}</label>
                             <input v-model="form['password']" type="password" class="form-control" name="password">
                             <span v-if="error.password" class="text-danger">{{error.password[0]}}</span>
                         </div>
-                        <button type="button" class="btn btn-primary" @click='login'>Login</button>
+                        <button type="button" class="btn btn-primary" @click='login'>{{ $t('messages.login') }}</button>
                     </form>
-                    <router-link to="/customer/register">Register Here</router-link>
+                    <router-link to="/customer/register">{{ $t('messages.register_here') }}</router-link>
                     </div>
                 </div>
             </div>
@@ -53,10 +53,10 @@
                 })
                 .then((response)=>{
                     if (response.data =='Error') {
-                        this.error = 'Invalid Credential'
+                        this.error = 'invalid_credential'
                     }else{
                         //console.log(response)
-                        this.success = 'Login Success'
+                        this.success = 'login_success'
                         this.form = []
                         this.$store.dispatch("customerSession");
                         this.$router.go(-1)

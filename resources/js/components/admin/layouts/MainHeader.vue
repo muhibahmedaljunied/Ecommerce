@@ -187,6 +187,19 @@ export default {
         document.documentElement.dir = this.currentDirection;
     },
 
+    watch: {
+        currentLocale(newLocale) {
+            // Translations are already handled by setLanguage action
+        },
+        currentDirection(newDirection, oldDirection) {
+            if (oldDirection && newDirection !== oldDirection) {
+                window.location.reload();
+            } else {
+                document.documentElement.dir = newDirection;
+            }
+        }
+    },
+
     computed: {
         selectedLanguage: {
             get() {
@@ -194,8 +207,6 @@ export default {
             },
             set(value) {
                 this.$store.dispatch('setLanguage', value);
-                // Force immediate direction change for UI elements that depend on currentDirection
-                document.documentElement.dir = value === 'en' ? 'rtl' : 'ltr';
             }
         }
     },

@@ -4,7 +4,7 @@
         <div class="col-lg-12 col-md-12">
           <div class="card" id="basic-alert">
             <div class="card-header">
-الاصناف  
+              {{ $t('messages.categories') }}
             </div>
             <div class="card-body">
               <!-- <div>
@@ -19,10 +19,10 @@
                         <!-- Tabs -->
                         <ul class="nav panel-tabs main-nav-line">
                             <li class="nav-item">
-                            <a href="#tab1" class="nav-link" data-toggle="tab"> عرض</a>
+                            <a href="#tab1" class="nav-link" data-toggle="tab">{{ $t('messages.view') }}</a>
                           </li>
                             <li class="nav-item">
-                            <a href="#tab2" class="nav-link" data-toggle="tab">اضافه</a>
+                            <a href="#tab2" class="nav-link" data-toggle="tab">{{ $t('messages.add') }}</a>
                           </li>
   
                       

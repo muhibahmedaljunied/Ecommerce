@@ -334,9 +334,12 @@ export default {
     }
   },
   mounted() {
-    this.$Progress.start();
-    this.$store.dispatch("getProducstbyId", this.$route.params.id);
-    this.$Progress.finish();
+    this.fetchProduct();
+  },
+  watch: {
+    currentLocale() {
+      this.fetchProduct();
+    }
   },
   computed: {
     singleProduct() {
@@ -348,6 +351,11 @@ export default {
     //   }
   },
   methods: {
+    fetchProduct() {
+      this.$Progress.start();
+      this.$store.dispatch("getProducstbyId", this.$route.params.id);
+      this.$Progress.finish();
+    },
     addToCart(id) {
       this.$Progress.start();
       this.id = id

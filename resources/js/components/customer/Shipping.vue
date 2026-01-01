@@ -6,37 +6,35 @@
                     <div class="card-header text-center">
                         <h3>
                             <span v-if="showSession">{{ showSession.first_name }}</span>
-                            , Give your shipping info!
+                            , {{ $t('messages.give_shipping_info') }}
                         </h3>
                     </div>
                     <div class="card-body">
-                        <button v-if="showSession" type="button" @click.prevent="getDefault" class="btn btn-primary">Your
-                            address</button>
-                        <button type="button" @click.prevent="clearDefault" class="btn btn-primary">Clear form</button>
+                        <button v-if="showSession" type="button" @click.prevent="getDefault" class="btn btn-primary">{{ $t('messages.your_address') }}</button>
+                        <button type="button" @click.prevent="clearDefault" class="btn btn-primary">{{ $t('messages.clear_form') }}</button>
                         <form method="post">
 
                             <div class="form-group">
-                                <label>Full name</label>
+                                <label>{{ $t('messages.full_name') }}</label>
                                 <input type="text" v-model="full_name" class="form-control" name="full_name" required>
                             </div>
                             <div class="form-group">
-                                <label>Email address</label>
+                                <label>{{ $t('messages.email_address') }}</label>
                                 <input type="email" v-model="email" class="form-control" name="email_address" required>
                             </div>
                             <div class="form-group">
-                                <label>Phone Number</label>
+                                <label>{{ $t('messages.phone') }}</label>
                                 <input type="text" v-model="number" class="form-control" name="phone_no" required>
                             </div>
                             <div class="form-group">
-                                <label>Address</label>
+                                <label>{{ $t('messages.address') }}</label>
                                 <input type="text" v-model="address" class="form-control" name="address" required>
                             </div>
                             <!-- <div class="m-t-20 col-md-4"> -->
                           
 
 
-                            <button type="button" class="btn btn-primary" @click='shippingInfo'>Confirm Shipping
-                                Info</button>
+                            <button type="button" class="btn btn-primary" @click='shippingInfo'>{{ $t('messages.confirm_shipping_info') }}</button>
 
                         </form>
                     </div>

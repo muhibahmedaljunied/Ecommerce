@@ -20,7 +20,7 @@
 
 
 
-                                        <legend class="float-none w-auto px-3"> الاسم </legend>
+                                        <legend class="float-none w-auto px-3"> {{ $t('messages.name') }} </legend>
 
 
 
@@ -39,14 +39,14 @@
 
 
 
-                                        <legend class="float-none w-auto px-3">شجره الاصناف</legend>
+                                        <legend class="float-none w-auto px-3">{{ $t('messages.category_tree') }}</legend>
 
 
 
                                         <div class="input-group">
 
                                             <input type="text" id="ricerca-enti" class="form-control"
-                                                placeholder="بحث..." aria-describedby="search-addon">
+                                                :placeholder="$t('messages.search') + '...'" aria-describedby="search-addon">
 
                                         </div>
 
@@ -71,7 +71,7 @@
 
 
 
-                                        <legend class="float-none w-auto px-3">الخواص</legend>
+                                        <legend class="float-none w-auto px-3">{{ $t('messages.attributes') }}</legend>
 
 
 
@@ -90,13 +90,12 @@
 
 
                                             <button style="float: left;" @click="add()" type="button"
-                                                class="btn btn-primary">حفظ</button>
+                                                class="btn btn-primary">{{ $t('messages.save') }}</button>
 
 
                                         </div>
 
                                     </fieldset>
-
 
 
 
@@ -152,8 +151,31 @@ export default {
 
         this.showtree();
     },
+    watch: {
+        currentLocale() {
+            this.refreshTree();
+        }
+    },
     methods: {
-
+        refreshTree() {
+            if ($('#treeview_json_product_add').jstree(true)) {
+                $('#treeview_json_product_add').jstree(true).destroy();
+            }
+            this.showtree();
+        },
+        translateTree(nodes) {
+            if (!nodes) return [];
+            return nodes.map(node => {
+                const newNode = { ...node };
+                if (newNode.text) {
+                    newNode.text = this.$t('messages.' + newNode.text);
+                }
+                if (newNode.children && newNode.children.length > 0) {
+                    newNode.children = this.translateTree(newNode.children);
+                }
+                return newNode;
+            });
+        },
         showtree() {
 
             // console.log('in show tree', this.$route.params.id);
@@ -178,7 +200,7 @@ export default {
             this.axios.post(uri).then((response) => {
                 //   this.trees = response.data.trees;
 
-                this.jsonTreeData = response.data.trees;
+                this.jsonTreeData = this.translateTree(response.data.trees);
                 $(`#treeview_json_product_add`).jstree({
                     core: {
                         themes: {
@@ -198,7 +220,6 @@ export default {
                     // },
                     // checkbox: {
                     //   three_state: false,
-
                     // },
                     state: {
                         key: "demo2"
@@ -225,7 +246,7 @@ export default {
 
                             renameItem: {
                                 // The "rename" menu item
-                                label: "تحرير",
+                                label: this.$t('messages.edit'),
                                 action: function (data) {
 
                                     console.log('تحرير');
@@ -233,7 +254,7 @@ export default {
                             },
                             deleteItem: {
                                 // The "delete" menu item
-                                label: "حذف",
+                                label: this.$t('messages.delete'),
                                 action: function (data) {
 
                                     console.log('حذف');
@@ -242,7 +263,7 @@ export default {
                             },
                             addItem: {
                                 // The "delete" menu item
-                                label: "اضافه",
+                                label: this.$t('messages.add'),
                                 action: function (data) {
 
 

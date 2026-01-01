@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">المستخدمين</h4>
+                        <h4 class="card-title mg-b-0">{{ $t('messages.users') }}</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
@@ -14,17 +14,17 @@
                         <form method="post" @submit.prevent="adduser">
 
                             <div class="form-group">
-                                <label for="name">الاسم</label>
+                                <label for="name">{{ $t('messages.name') }}</label>
                                 <input v-model="data.name" type="text" name="name" id="name">
 
                             </div>
 
                             <div class="form-group">
-                                <label for="status">الحاله</label>
+                                <label for="status">{{ $t('messages.status') }}</label>
                                 <input v-model='data.status' type="text" name="status" id="status">
 
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">حفظ</button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">{{ $t('messages.save') }}</button>
                         </form>
                     </div>
 

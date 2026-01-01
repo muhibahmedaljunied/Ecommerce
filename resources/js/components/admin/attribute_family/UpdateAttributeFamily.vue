@@ -7,7 +7,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                        تعديل مجموعه الاصناف
+                        {{ $t('messages.edit_attribute_family') }}
                     </div>
 
                     <div class="card-body">
@@ -35,7 +35,7 @@
 
                             <fieldset>
 
-                                <legend>الاسم</legend>
+                                <legend>{{ $t('messages.name') }}</legend>
 
                                 <input v-model="name" type="text" class="form-control" id="inputZip">
 
@@ -45,22 +45,22 @@
 
 
                             <fieldset>
-                                <legend>الرمز</legend>
+                                <legend>{{ $t('messages.code') }}</legend>
 
                                 <input v-model="code" type="text" class="form-control" id="inputZip">
                             </fieldset>
 
 
                             <fieldset>
-                                <legend>الخواص</legend>
+                                <legend>{{ $t('messages.attributes') }}</legend>
 
-                                <div v-for="item in data.attribute_family_mapping" class="form-check form-check-inline">
+                                <div v-for="item in data.attribute_family_mapping" :key="item.attribute.id" class="form-check form-check-inline">
 
                                     <!-- <label class="form-check-label" for="inlineCheckbox1">الخواص</label> -->
 
                                     <input @input="update_data(item.attribute.id, $event.target.checked)"
                                         id='checkedItems' class="form-check-input" type="checkbox" :checked=true>
-                                    <label class="form-check-label" for="inlineCheckbox1">{{ item.attribute.name
+                                    <label class="form-check-label" for="inlineCheckbox1">{{ $t('messages.' + item.attribute.name)
                                         }}</label>
                                 </div>
                             </fieldset>
@@ -77,7 +77,7 @@
 
                             <fieldset>
 
-                                <button @click="update(data.id)" type="button" class="btn btn-primary">حفظ</button>
+                                <button @click="update(data.id)" type="button" class="btn btn-primary">{{ $t('messages.save') }}</button>
 
                             </fieldset>
 

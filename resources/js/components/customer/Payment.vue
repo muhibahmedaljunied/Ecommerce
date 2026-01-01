@@ -4,8 +4,7 @@
             <div class="offset-3 col-md-6">
                 <div class="card mt-5">
                     <div class="card-header text-center">
-                        <h3>Choose a Payment Method!
-                        </h3>
+                        <h3>{{ $t('messages.choose_payment_method') }}</h3>
                     </div>
                     <div class="card-body">
                         <form method="post">
@@ -14,12 +13,12 @@
 
 
                                 <tr>
-                                    <td>Cash on delivery</td>
+                                    <td>{{ $t('messages.cash_on_delivery') }}</td>
                                     <td><input type="radio" v-model="type" name="payment_info" value="cash"></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>Visa/Master Card</td> -->
-                                    <td>Paypal</td>
+                                    <td>{{ $t('messages.paypal') }}</td>
 
                                     <td><input type="radio" v-model="type" name="payment_info" value="paypal"></td>
                                 </tr>
@@ -28,7 +27,7 @@
                                     <td><input type="radio" v-model="type" name="payment_info" value="bkash"></td>
                                 </tr> -->
                                 <tr>
-                                    <td>Stripe</td>
+                                    <td>{{ $t('messages.stripe') }}</td>
                                     <td><input type="radio" v-model="type" name="payment_info" value="stripe"></td>
                                 </tr>
                             </table>
@@ -37,7 +36,7 @@
                                 @click="orderConfirm">Confirm
                                 Order</button> -->
                             <button type="button" v-if="type == 'paypal'" class="btn btn-primary"
-                                @click="orderPayment">Confirm Order</button>
+                                @click="orderPayment">{{ $t('messages.confirm_order') }}</button>
 
 
                         </form>
@@ -57,29 +56,29 @@
 
 
                                     <div class='form-group required'>
-                                        <label class='control-label'>Name on Card</label>
+                                        <label class='control-label'>{{ $t('messages.name_on_card') }}</label>
                                         <input class='form-control' size='4' type='text' value="muhib">
                                     </div>
 
 
                                     <div class='form-group card required'>
-                                        <label class='control-label'>Card Number</label>
+                                        <label class='control-label'>{{ $t('messages.card_number') }}</label>
                                         <input autocomplete='off' class='form-control card-num' size='20' type='text'
                                             value="4242424242424242">
                                     </div>
 
                                     <div class='form-group cvc required'>
-                                        <label class='control-label'>CVC</label>
-                                        <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415'
+                                        <label class='control-label'>{{ $t('messages.cvc') }}</label>
+                                        <input autocomplete='off' class='form-control card-cvc' :placeholder="$t('messages.cvc_placeholder')"
                                             size='4' type='text' value="128">
                                     </div>
                                     <div class='form-group expiration required'>
-                                        <label class='control-label'>Expiration Month</label> <input
+                                        <label class='control-label'>{{ $t('messages.expiration_month') }}</label> <input
                                             class='form-control card-expiry-month' placeholder='MM' size='2' type='text'
                                             value="4">
                                     </div>
                                     <div class='form-group expiration required'>
-                                        <label class='control-label'>Expiration Year</label> <input
+                                        <label class='control-label'>{{ $t('messages.expiration_year') }}</label> <input
                                             class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text'
                                             value="2029">
                                     </div>
@@ -93,9 +92,8 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <button class="btn btn-danger btn-lg btn-block"
-                                                @click.prevent="orderConfirm_stripe">Pay
-                                                Now
-                                                (₹100)</button>
+                                                @click.prevent="orderConfirm_stripe">{{ $t('messages.pay_now') }}
+                                                ($ 100)</button>
                                         </div>
                                     </div>
 
@@ -107,19 +105,19 @@
                             <form method="post">
 
                                 <div class="form-group">
-                                    <label>Full name</label>
+                                    <label>{{ $t('messages.full_name') }}</label>
                                     <input type="text" v-model="full_name" class="form-control" name="full_name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Email address</label>
+                                    <label>{{ $t('messages.email_address') }}</label>
                                     <input type="email" v-model="email" class="form-control" name="email_address" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Phone Number</label>
+                                    <label>{{ $t('messages.phone') }}</label>
                                     <input type="text" v-model="number" class="form-control" name="phone_no" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Address</label>
+                                    <label>{{ $t('messages.address') }}</label>
                                     <input type="text" v-model="address" class="form-control" name="address" required>
                                 </div>
                                 <!-- <div class="m-t-20 col-md-4"> -->
@@ -129,7 +127,7 @@
                                     Order</button> -->
                                     <button type="button" v-if="type == 'cash'" class="btn btn-primary"
                                     @click="orderConfirm">
-                                    تأكيد الطلب</button>
+                                    {{ $t('messages.confirm_order') }}</button>
 
 
 

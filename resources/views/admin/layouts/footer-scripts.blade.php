@@ -16,7 +16,11 @@
 <script src="{{URL::asset('assets/plugins/perfect-scrollbar/p-scroll.js')}}" defer></script>
 <script src="{{URL::asset('assets/plugins/jquery-sparkline/jquery.sparkline.min.js')}}" defer></script>
 <script src="{{URL::asset('assets/plugins/mscrollbar/jquery.mCustomScrollbar.concat.min.js')}}" defer></script>
+@if(\App\Helpers\LanguageHelper::isRTL())
 <script src="{{URL::asset('assets/plugins/sidebar/sidebar-rtl.js')}}" defer></script>
+@else
+<script src="{{URL::asset('assets/plugins/sidebar/sidebar.js')}}" defer></script>
+@endif
 <script src="{{URL::asset('assets/plugins/sidebar/sidebar-custom.js')}}" defer></script>
 <script src="{{URL::asset('assets/js/eva-icons.min.js')}}" defer></script>
 <script src="{{URL::asset('assets/js/sticky.js')}}" defer></script>

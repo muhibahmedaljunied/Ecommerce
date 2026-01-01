@@ -67,9 +67,7 @@ export const globalLanguageMixin = {
         },
 
         currentDirection() {
-            const locale = this.currentLocale;
-            const isRTL = locale === 'en';
-            return isRTL ? 'rtl' : 'ltr';
+            return (this.$store && this.$store.getters) ? this.$store.getters.getCurrentDirection : 'ltr';
         },
 
         storeTranslations() {

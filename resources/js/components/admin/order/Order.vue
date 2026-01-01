@@ -8,7 +8,7 @@
                 <div class="card">
 
                     <div class="card-header">
-                        <span class="h4">الطلبات</span>
+                        <span class="h4">{{ $t('messages.orders') }}</span>
                     </div>
 
                     <div class="card-body">
@@ -24,12 +24,12 @@
                                         <table id="brandDatatable" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>رقم الطلب</th>
-                                                    <th width="200">العميل</th>
-                                                    <th>الاجمالي</th>
-                                                    <th>حاله الطلب</th>
+                                                    <th>{{ $t('messages.order_no') }}</th>
+                                                    <th width="200">{{ $t('messages.customer') }}</th>
+                                                    <th>{{ $t('messages.order_total') }}</th>
+                                                    <th>{{ $t('messages.order_status') }}</th>
                                                     <!-- <th>Payment Status</th> -->
-                                                    <th>العمليات</th>
+                                                    <th>{{ $t('messages.operations') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody v-if="order && order.length > 0">
@@ -58,7 +58,7 @@
                                             <tbody v-else>
                                                 <tr>
                                                     <td style="text-align: center;" colspan="5">
-                                                        لايوجد اي بيانات
+                                                        {{ $t('messages.no_data_available') }}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -96,14 +96,21 @@ export default {
         }
     },
     mounted() {
-
-        this.axios.post('/order').then(response => {
-            console.log(response.data.order);
-            this.order = response.data.order;
-
-
-        })
+        this.fetchOrders();
     },
+    watch: {
+        currentLocale() {
+            this.fetchOrders();
+        }
+    },
+    methods: {
+        fetchOrders() {
+            this.axios.post('/order').then(response => {
+                console.log(response.data.order);
+                this.order = response.data.order;
+            })
+        }
+    }
 
 
 }

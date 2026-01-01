@@ -254,20 +254,24 @@ export default {
 		this.showtree();
 		this.att_family = Array.from(Array(this.count), () => new Array(this.count_attributes))
 
-		this.axios.post('/product').then(response => {
-
-			console.log(response.data.product);
-			this.showCatProduct = response.data.product;
-			// this.$root.logo = 'Product'
-
-		})
+		this.fetchProducts();
 	},
 	watch: {
 		currentLocale() {
 			this.refreshTree();
+			this.fetchProducts();
 		}
 	},
 	methods: {
+		fetchProducts() {
+			this.axios.post('/product').then(response => {
+
+				console.log(response.data.product);
+				this.showCatProduct = response.data.product;
+				// this.$root.logo = 'Product'
+
+			})
+		},
 		refreshTree() {
 			if ($('#treeview_json_product').jstree(true)) {
 				$('#treeview_json_product').jstree(true).destroy();
@@ -292,21 +296,21 @@ export default {
 			this.axios.post(`/delete_product/${id}`).then(response => {
 
 				toast.fire({
-					title: "Deleted!",
-					text: "Your product has been deleted.",
-					button: "Close", // Text on button
+					title: this.$t('messages.deleted'),
+					text: this.$t('messages.product_deleted_success'),
+					button: this.$t('messages.close'), // Text on button
 					icon: "success", //built in icons: success, warning, error, info
 					timer: 3000, //timeOut for auto-close
 					buttons: {
 						confirm: {
-							text: "OK",
+							text: this.$t('messages.ok'),
 							value: true,
 							visible: true,
 							className: "",
 							closeModal: true
 						},
 						cancel: {
-							text: "Cancel",
+							text: this.$t('messages.cancel'),
 							value: false,
 							visible: true,
 							className: "",
@@ -441,7 +445,7 @@ export default {
 
 							renameItem: {
 								// The "rename" menu item
-								label: "تحرير",
+								label: gf.$t('messages.edit'),
 								action: function (data) {
 
 									console.log('تحرير');
@@ -449,7 +453,7 @@ export default {
 							},
 							deleteItem: {
 								// The "delete" menu item
-								label: "حذف",
+								label: gf.$t('messages.delete'),
 								action: function (data) {
 
 									console.log('حذف');
@@ -458,7 +462,7 @@ export default {
 							},
 							addItem: {
 								// The "delete" menu item
-								label: "اضافه",
+								label: gf.$t('messages.add'),
 								action: function (data) {
 
 
@@ -551,13 +555,13 @@ export default {
 			// this.$router.go(-1);
 		},
 		exports_excel() {
-
+			var gf = this;
 			axios
 				.post(`/export_opening_inventuries`)
 				.then(function (response) {
 
-					toastMessage("تم اتمام عمليه التصدير");
-					this.$router.go(0);
+					toastMessage(gf.$t('messages.export_success'));
+					gf.$router.go(0);
 				})
 				.catch(error => {
 
@@ -565,12 +569,12 @@ export default {
 				});
 		},
 		imports_excel() {
-
+			var gf = this;
 			axios
 				.post(`/import_opening_inventuries`)
 				.then(function (response) {
-					toastMessage("تم اتمام عمليه الاستيراد");
-					this.$router.go(0);
+					toastMessage(gf.$t('messages.import_success'));
+					gf.$router.go(0);
 
 					// this.list();
 
