@@ -80,6 +80,7 @@ class FilterService
         $this->root = collect($product)->toArray();
         $this->foreach_root($this->root);
         return $this;
+        
     }
 
 

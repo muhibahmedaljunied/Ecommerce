@@ -10679,7 +10679,7 @@ var render = function render() {
         staticClass: "p_icon"
       }, [_c("router-link", {
         attrs: {
-          to: "/Ecommerce/customer/single-product/".concat(dd.id)
+          to: "/customer/single-product/".concat(dd.id)
         }
       }, [_c("i", {
         staticClass: "ti-eye"
