@@ -9,36 +9,7 @@
 
 ## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-
-<!-- muhib.free.nf
-  
-
-    Hosting Account Details
-             
-    Label: Website for muhib.free.nf
-    Domain: muhib.free.nf
-
-
-    
-    FTP User Name =>if0_35461612
-    FTP Password =>jllm5dIAlq
-    FTP Host Name =>	ftpupload.net
-    FTP Port => 21
-
-    <!-- -----database------
-    
-    MySQL DB Name =>if0_35461612_supervue	
-    MySQL User Name  =>if0_35461612	
-    MySQL Password  =>(Your vPanel Password)	
-    MySQL Host Name =>sql205.infinityfree.com
-    
-     -->
-     
-['server', 'username', 'password', 'port', 'protocol', 'local-dir', 'server-dir', 'state-name', 'dry-run', 'dangerous-clean-slate', 'exclude', 'log-level', 'security', 'timeout']
-
--->
+Laravel is a web application framework with expressive, elegant syntax.
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).

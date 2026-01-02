@@ -14,32 +14,32 @@ class CashPayment implements PaymentRepositoryInterface
     public function payment($request)
     {
 
-   
+
         // dd($request->all());
         $this->request = $request->all();
 
-   
+
             DB::beginTransaction(); // Tell Laravel all the code beneath this is a transaction
 
 
 
-            $this->cart1 = Temporale::all();
+            $this->cart1 = Temporale::select('product_family_attribute_id', 'price', 'qty', 'total')->get();
             $this->cart = Temporale::select('sum(total) as total')
                 ->select(DB::Raw('sum(total) as total'))
                 ->get();
-           
+
                 // dd($this->cart);
             $this->shipping();
-    
+
             $this->order_table();
             // dd(1);
             $this->payment_table();
-    
+
             $this->orderDetails_table();
             Temporale::truncate();
-       
-      
-          
+
+
+
 
 
         return $this->orderDetails;

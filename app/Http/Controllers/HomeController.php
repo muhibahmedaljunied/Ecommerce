@@ -32,9 +32,9 @@ class HomeController extends Controller
     }
     public function show()
     {
-            $product = count(Product::all());
+            $product = count(Product::get(['id']));
             // $category = count(Category::all());
-            $order = count(Order::all());
+            $order = count(Order::get(['id']));
 
             return response()->json(['product'=>$product,
             // 'category'=>$category,

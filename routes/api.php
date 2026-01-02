@@ -29,12 +29,12 @@ Route::get('/register', function () {
 });
 
 
-Route::post('/login', 'API\AuthController@signin');
-Route::post('/register', 'API\AuthController@signup');
+Route::post('/login', 'Api\AuthController@signin');
+Route::post('/register', 'Api\AuthController@signup');
 
 
-Route::post('/logout', 'API\AuthController@logout')->middleware('auth:sanctum');
-Route::middleware('auth:sanctum')->get('/blogs', 'API\BlogController@index');
+Route::post('/logout', 'Api\AuthController@logout')->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->get('/blogs', 'Api\BlogController@index');
 
 Route::group(['prefix' => 'paypal'], function () {
 

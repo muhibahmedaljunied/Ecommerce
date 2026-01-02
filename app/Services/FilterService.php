@@ -29,31 +29,16 @@ class FilterService
 
     function wherefilter()
     {
-
-
-
         $i = 0;
         $i1 = 0;
 
-        // dd($this->array_data['الحجم']);
         foreach ($this->array_data as $key => $value) {
-
-
             foreach ($value as $key2 => $value2) {
-
-
-
-
                 if ($value2 == 'true') {
-
                     $this->array_where[$i1] = $key2;
-                    // dd($this->array_where);
                 }
-
                 $i1 = $i1 + 1;
             }
-
-
             $i = $i + 1;
         }
         return $this;
@@ -138,43 +123,25 @@ class FilterService
 
     function filter_by_attribute($value1)
     {
-
         foreach ($value1 as $value) {
-
-
-
-
             foreach ($value['product_family_attribute'] as $key3 => $value3) {
-
                 $count = 0;
 
                 foreach ($value3['family_attribute_option'] as $value4) {
-
-
-
-                    // dd($value3['family_attribute_option']);
                     if ($value4['attribute_option'] == null) {
-
                         $this->array_attribute[$count] = null;
                     } else {
                         $this->array_attribute[$count] = $value4['attribute_option']['value'];
                         $this->group_array_attribute[$key3] = $value4['attribute_option']['value'];
                     }
 
-
-
-
                     $count = $count + 1;
                 }
                 $diff = array_diff($this->array_where, $this->array_attribute);
 
-                // dd($this->group_array_attribute);
-
                 if (!empty($diff)) {
-
                     unset($value['product_family_attribute'][$key3]);
                 }
-
 
                 $this->array_attribute = [];
             }

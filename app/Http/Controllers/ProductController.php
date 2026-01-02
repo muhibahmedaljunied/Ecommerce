@@ -52,30 +52,17 @@ class ProductController extends Controller
     }
     public function show(Request $request, FilterService $filter)
     {
-
-        // dd($request->id);
         $filter->product_id =  $request->id;
-        $product_filterable_attributes = ProductFilterableAttribute::where(function ($query) use ($request) {
-            return $query->where('product_filterable_attributes.product_id', '=', $request->id);
-        })->with([
-            'attribute.attribute_option' => function ($query) {
-                $query->select('*');
-            }
-        ])
+        $product_filterable_attributes = ProductFilterableAttribute::where('product_id', $request->id)
+            ->with(['attribute.attribute_option'])
             ->get();
-        // -----------------------------------------------------------------------------------------------
+
         $filter->queryfilter($request['type']);
-
-        // $filter->queryfilter($request['type'])->filter();
-
-        // dd($product_filterable_attributes);
 
         return response()->json([
             'products' => $filter->data,
             'product_filterable_attributes' => $product_filterable_attributes
         ]);
-
-        // return response()->json($filter->data);
     }
 
     public function get_product_status(Request $request)
@@ -140,97 +127,61 @@ class ProductController extends Controller
 
     public function create()
     {
-
         $product = Product::where('status', 'true')->get();
 
-
-        // dd($product);
-
         return response()->json([
-
             'product' => $product,
         ]);
     }
 
     public function store_category(Request $request)
     {
-
-
-        dd($request->all());
         $product = new Product();
         $product->text = $request->post('product');
         if ($request->post('parent') != 0) {
-
             $product->parent_id = $request->post('parent');
         }
         $product->status = 'true';
         $product->save();
 
         foreach ($request->post('items') as $value) {
-
             $product_attribute = new ProductFilterableAttribute();
             $product_attribute->product_id = $product->id;
             $product_attribute->attribute_id = $value;
             $product_attribute->save();
-
         }
+
+        return response()->json(['status' => 'success', 'message' => 'Category stored successfully']);
     }
-
-
-
 
     public function store(ProductService $product_service)
     {
-
-
-
-        // dd($this->request->all());
         $this->init_data($product_service);
-        // dd($product_service->data,$product_service->request,$product_service->count);
         try {
-            DB::beginTransaction(); // Tell Laravel all the code beneath this is a transaction
+            DB::beginTransaction();
 
-            // dd($product_service->count);
-            // --------------------------------------------------------------------------------------
             $product_service->save_product();
-            // --------------------------------------------------------------------------------------
             $product_service->get_attribute_option();
 
             for ($value = 0; $value < count($product_service->count); $value++) {
-
-                // dd(count($product_service->count),$value);
-                // --------------------------------this save variant details of every product---------------
                 $product_service->save_product_family_attribute($this->request->file('image'), $value);
-
-                // -----------------------------------this save attributes of every product------------------
                 $product_service->save_family_attribute_option($value);
             }
 
-
-
-            dd(11);
-            // dd(Product::all());
-            // ------------------------------------------------------------------------------------------------------
-            DB::commit(); // Tell Laravel this transacion's all good and it can persist to DB
-
+            DB::commit();
 
             return response([
                 'message' => "product created successfully",
                 'status' => "success"
             ], 200);
         } catch (\Exception $exp) {
-
-            DB::rollBack(); // Tell Laravel, "It's not you, it's me. Please don't persist to DB"
-
+            DB::rollBack();
 
             return response([
-                'message' => $exp->getMessage(),
+                'message' => "An error occurred while creating the product",
                 'status' => 'failed'
             ], 400);
         }
-
-
-        return response()->json('success');
     }
 
 

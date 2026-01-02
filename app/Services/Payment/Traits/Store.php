@@ -16,28 +16,28 @@ trait Store
     public $cart;
     public $cart1;
     public $orderDetails;
-  
+
 
 
     public function store()
     {
-    
-       
-        $this->cart1 = Temporale::all();
+
+
+        $this->cart1 = Temporale::select('product_family_attribute_id', 'price', 'qty', 'total')->get();
         $this->cart = Temporale::select('sum(total) as total')
             ->select(DB::Raw('sum(total) as total'))
             ->get();
 
         $this->order_table();
-    
+
         $this->payment_table();
 
         $this->orderDetails_table();
-   
+
         Temporale::truncate();
 
         return $this->orderDetails;
-       
+
     }
 
 
@@ -90,5 +90,5 @@ trait Store
 
 
 
-   
+
 }
