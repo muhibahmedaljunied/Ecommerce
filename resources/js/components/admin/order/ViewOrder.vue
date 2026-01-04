@@ -86,11 +86,11 @@
                                         <tr v-for="payment in showCustomerInformation">
                                             <td style="color:red;" v-if="payment.payment_status == 'paid'">{{ $t('messages.paid') }}</td>
                                             <td>{{ payment.payment_info }}</td>
-                                        
+
 
                                         </tr>
                                     </tbody>
-                                   
+
                                 </table>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                     <tbody>
                                         <tr v-for="Product in showProductInformation">
                                             <td>{{ Product.id }}</td>
-                                            <td>{{ $t('messages.' + Product.text) }}</td>
+                                            <td>{{ $t('messages.' + Product.name) }}</td>
                                             <!-- <td>{{ Product.category }}</td>
                                             <td>{{ Product.size }}</td>
                                             <td>{{ Product.country }}</td> -->
@@ -183,7 +183,7 @@ export default {
         showorderInformation() {
             return this.$store.getters.getOrderInformation
         },
-      
+
     },
 
 

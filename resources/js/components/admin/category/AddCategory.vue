@@ -167,8 +167,8 @@ export default {
             if (!nodes) return [];
             return nodes.map(node => {
                 const newNode = { ...node };
-                if (newNode.text) {
-                    newNode.text = this.$t('messages.' + newNode.text);
+                if (newNode.name) {
+                    newNode.name = this.$t('messages.' + newNode.name);
                 }
                 if (newNode.children && newNode.children.length > 0) {
                     newNode.children = this.translateTree(newNode.children);

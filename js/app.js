@@ -2085,8 +2085,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (!nodes) return [];
       return nodes.map(function (node) {
         var newNode = _objectSpread({}, node);
-        if (newNode.text) {
-          newNode.text = _this2.$t('messages.' + newNode.text);
+        if (newNode.name) {
+          newNode.name = _this2.$t('messages.' + newNode.name);
         }
         if (newNode.children && newNode.children.length > 0) {
           newNode.children = _this2.translateTree(newNode.children);
@@ -2359,8 +2359,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (!nodes) return [];
       return nodes.map(function (node) {
         var newNode = _objectSpread({}, node);
-        if (newNode.text) {
-          newNode.text = _this3.$t('messages.' + newNode.text);
+        if (newNode.name) {
+          newNode.name = _this3.$t('messages.' + newNode.name);
         }
         if (newNode.children && newNode.children.length > 0) {
           newNode.children = _this3.translateTree(newNode.children);
@@ -3134,8 +3134,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (!nodes) return [];
       return nodes.map(function (node) {
         var newNode = _objectSpread({}, node);
-        if (newNode.text) {
-          newNode.text = _this2.$t('messages.' + newNode.text);
+        if (newNode.name) {
+          newNode.name = _this2.$t('messages.' + newNode.name);
         }
         if (newNode.children && newNode.children.length > 0) {
           newNode.children = _this2.translateTree(newNode.children);
@@ -3319,8 +3319,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (!nodes) return [];
       return nodes.map(function (node) {
         var newNode = _objectSpread({}, node);
-        if (newNode.text) {
-          newNode.text = _this3.$t('messages.' + newNode.text);
+        if (newNode.name) {
+          newNode.name = _this3.$t('messages.' + newNode.name);
         }
         if (newNode.children && newNode.children.length > 0) {
           newNode.children = _this3.translateTree(newNode.children);
@@ -3512,7 +3512,7 @@ __webpack_require__.r(__webpack_exports__);
     this.axios.post("/edit_category/".concat(this.$route.params.id)).then(function (response) {
       _this.attributes = response.data.attributes[0].product_filterable_attribute;
       _this.all_attributes = response.data.all_attributes;
-      _this.name = response.data.attributes[0].text;
+      _this.name = response.data.attributes[0].name;
       _this.attributes.forEach(function (element) {
         _this.checkedItems.push(element.attribute.id);
 
@@ -3973,8 +3973,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (!nodes) return [];
       return nodes.map(function (node) {
         var newNode = _objectSpread({}, node);
-        if (newNode.text) {
-          newNode.text = _this2.$t('messages.' + newNode.text);
+        if (newNode.name) {
+          newNode.name = _this2.$t('messages.' + newNode.name);
         }
         if (newNode.children && newNode.children.length > 0) {
           newNode.children = _this2.translateTree(newNode.children);
@@ -4606,8 +4606,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (!nodes) return [];
       return nodes.map(function (node) {
         var newNode = _objectSpread({}, node);
-        if (newNode.text) {
-          newNode.text = _this.$t('messages.' + newNode.text);
+        if (newNode.name) {
+          newNode.name = _this.$t('messages.' + newNode.name);
         }
         if (newNode.children && newNode.children.length > 0) {
           newNode.children = _this.translateTree(newNode.children);
@@ -6333,7 +6333,7 @@ var render = function render() {
       staticClass: "col-md-2"
     }, [_vm._v("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(index + 1) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c("div", {
       staticClass: "col-md-2"
-    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(_vm.$t("messages." + productss.text)) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t"), _vm._l(productss["product_family_attribute"], function (produc_option) {
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(_vm.$t("messages." + productss.name)) + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t"), _vm._l(productss["product_family_attribute"], function (produc_option) {
       return _c("div", {
         staticClass: "col-md-12"
       }, _vm._l(produc_option.family_attribute_option, function (option) {
@@ -7735,7 +7735,7 @@ var render = function render() {
   }, [_vm._v(_vm._s(_vm.$t("messages.Operations")))])])]), _vm._v(" "), _vm.category && _vm.category.length > 0 ? _c("tbody", _vm._l(_vm.category, function (categorys, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.$t("messages." + categorys.text)))]), _vm._v(" "), _c("td", [_c("button", {
+    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.$t("messages." + categorys.name)))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-danger btn-sm",
       attrs: {
         type: "button"
@@ -9020,7 +9020,7 @@ var render = function render() {
       staticClass: "no"
     }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", {
       staticClass: "text-left"
-    }, [_c("h3", [_vm._v(_vm._s(_vm.$t("messages." + product.text)))])]), _vm._v(" "), _c("td", {
+    }, [_c("h3", [_vm._v(_vm._s(_vm.$t("messages." + product.name)))])]), _vm._v(" "), _c("td", {
       staticClass: "unit"
     }, [_vm._v(" " + _vm._s(product.product_price))]), _vm._v(" "), _c("td", {
       staticClass: "qty"
@@ -9170,7 +9170,7 @@ var render = function render() {
   }, [_c("table", {
     staticClass: "table table-bordered"
   }, [_c("thead", [_c("tr", [_c("th", [_vm._v(_vm._s(_vm.$t("messages.product_no")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.product_name")) + " ")]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.price")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.quantity")))]), _vm._v(" "), _c("th", [_vm._v(_vm._s(_vm.$t("messages.total")))])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.showProductInformation, function (Product) {
-    return _c("tr", [_c("td", [_vm._v(_vm._s(Product.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.$t("messages." + Product.text)))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.quantity))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price * Product.quantity))])]);
+    return _c("tr", [_c("td", [_vm._v(_vm._s(Product.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.$t("messages." + Product.name)))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.quantity))]), _vm._v(" "), _c("td", [_vm._v(" " + _vm._s(Product.product_price * Product.quantity))])]);
   }), 0)])])])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
@@ -10440,7 +10440,7 @@ var render = function render() {
       }
     })]), _vm._v(" "), _c("div", {
       staticClass: "media-body"
-    }, [_c("p", [_vm._v(_vm._s(cart.text))])])])]), _vm._v(" "), _c("td", [_c("h5", [_vm._v("$ " + _vm._s(cart.price))])]), _vm._v(" "), _c("td", [_c("div", {
+    }, [_c("p", [_vm._v(_vm._s(cart.name))])])])]), _vm._v(" "), _c("td", [_c("h5", [_vm._v("$ " + _vm._s(cart.price))])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "product_count"
     }, [_c("input", {
       directives: [{
@@ -10704,7 +10704,7 @@ var render = function render() {
         }
       }, [_c("h1", {
         staticClass: "product-title"
-      }, [_vm._v(_vm._s(_vm.$t("messages." + catProduct.text)))])])], 1), _vm._v(" "), dd.discount ? _c("div", {
+      }, [_vm._v(_vm._s(_vm.$t("messages." + catProduct.name)))])])], 1), _vm._v(" "), dd.discount ? _c("div", {
         staticClass: "mt-3"
       }, [_c("span", {
         staticClass: "mr-4"
@@ -11696,7 +11696,7 @@ var render = function render() {
       staticClass: "col-lg-5 offset-lg-1"
     }, [_c("div", {
       staticClass: "s_product_text"
-    }, [_c("h3", [_vm._v(_vm._s(single.text) + " ")]), _vm._v(" "), _c("span", [_c("h2", [_vm._v("$" + _vm._s(single.price - single.discount) + " ")]), _vm._v(" "), single.discount ? _c("del", {
+    }, [_c("h3", [_vm._v(_vm._s(single.name) + " ")]), _vm._v(" "), _c("span", [_c("h2", [_vm._v("$" + _vm._s(single.price - single.discount) + " ")]), _vm._v(" "), single.discount ? _c("del", {
       staticStyle: {
         color: "red"
       }

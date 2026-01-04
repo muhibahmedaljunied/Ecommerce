@@ -140,7 +140,7 @@
 
                                     </fieldset>
 
-                                    <!-- 
+                                    <!--
                                     <button style="float: left;" @click="update(item.product_id)" type="button"
                                                 class="btn btn-primary">حفظ</button> -->
 
@@ -204,7 +204,7 @@ export default {
             this.attributes = response.data.attributes[0].product_filterable_attribute;
             this.all_attributes = response.data.all_attributes;
 
-            this.name = response.data.attributes[0].text;
+            this.name = response.data.attributes[0].name;
 
 
 

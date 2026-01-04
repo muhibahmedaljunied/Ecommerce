@@ -43,7 +43,7 @@ class ProductService
     {
 
         $product = new Product();
-        $product->text = $this->request['product'];
+        $product->name = $this->request['product'];
         if ($this->request['parent'] != 0) {
 
             $product->parent_id = $this->request['parent'];

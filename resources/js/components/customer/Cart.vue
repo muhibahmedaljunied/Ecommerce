@@ -30,7 +30,7 @@
                         <img :src="`/Ecommerce/assets/upload/${cart.image}`" height="100px" alt="Product Image"/>
                       </div>
                       <div class="media-body">
-                        <p>{{cart.text}}</p>
+                        <p>{{cart.name}}</p>
                       </div>
                     </div>
                   </td>
@@ -49,10 +49,10 @@
                     <button @click.prevent="removeCart(cart.id)" class="btn btn-danger">X</button>
                   </td>
                 </tr>
-                
+
                 <tr class="bottom_button">
                   <td>
-                    
+
                   </td>
                   <td><!-- {{checkItem}} --></td>
                   <td><h5>{{ $t('messages.subtotal') }}</h5></td>
@@ -65,7 +65,7 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  
+
                   <td>
                     <!-- <div class="checkout_btn_inner" v-if="showSession">
                       <router-link class="gray_btn" to="/customer/home">Continue Shopping</router-link>
@@ -79,7 +79,7 @@
                       <router-link class="gray_btn" to="/customer/home">{{ $t('messages.continue_shopping') }}</router-link>
                       <router-link class="main_btn" to="/customer/payment">{{ $t('messages.proceed_checkout') }}</router-link>
                     </div>
-                  
+
                   </td>
                 </tr>
               </tbody>
@@ -98,7 +98,7 @@
         data(){
           return{
             checkItem:[],
-            
+
           }
         },
         mounted(){
@@ -132,9 +132,9 @@
               axios.post('/delete-cart',{
                 id: Id
               }).then((response)=>{
-                
+
                 // console.log(response.data);
-               
+
                 toast.fire({
                                 title: this.$t('messages.remove'),
                                 text: this.$t('messages.cart_deleted'),
@@ -165,7 +165,7 @@
               })
           },
           updateCart(Id,Qty){
-         
+
               this.$Progress.start();
 
               axios.post('/update-cart',{

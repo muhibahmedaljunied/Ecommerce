@@ -152,7 +152,7 @@ class ProductController extends Controller
     public function store_category(Request $request)
     {
         $product = new Product();
-        $product->text = $request->post('product');
+        $product->name = $request->post('product');
         if ($request->post('parent') != 0) {
             $product->parent_id = $request->post('parent');
         }

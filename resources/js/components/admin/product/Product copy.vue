@@ -90,7 +90,7 @@
 												<div class="row">
 
 													<div class="col-md-2">
-														{{ productss.text }}
+														{{ productss.name }}
 
 													</div>
 

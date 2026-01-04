@@ -29,7 +29,7 @@
                         <div>company@example.com</div>
                     </div>
                 </div>
-                
+
             </header>
             <main>
                 <div class="row contacts">
@@ -56,15 +56,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                   
+
                     <tr v-for="(product, index) in showProductInformation" :key="index">
                         <td class="no">{{ index + 1 }}</td>
-                        <td class="text-left"><h3>{{ $t('messages.' + product.text) }}</h3></td>
+                        <td class="text-left"><h3>{{ $t('messages.' + product.name) }}</h3></td>
                         <td class="unit"> {{product.product_price}}</td>
                         <td class="qty">{{product.quantity}}</td>
                         <td class="total"> {{product.quantity * product.product_price}}</td>
                     </tr>
-                    
+
                     </tbody>
                     <tfoot>
                     <tr>
@@ -93,7 +93,7 @@
             <footer>
                 {{ $t('messages.invoice_footer') }}
             </footer>
-            
+
         </div>
         <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
         <div></div>
@@ -104,10 +104,10 @@
     export default {
         data(){
           return{
-           
+
            info:[],
            SUBTOTAL:0,
-           
+
           }
         },
         mounted(){
@@ -141,4 +141,3 @@
         }
     }
 </script>
-

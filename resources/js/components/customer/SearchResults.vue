@@ -8,7 +8,7 @@
         <div class="card">
           <img :src="p.image || '/assets/img/no-image.png'" class="card-img-top" style="height:160px;object-fit:cover" />
           <div class="card-body">
-            <h5 class="card-title">{{ p.text }}</h5>
+            <h5 class="card-title">{{ p.name }}</h5>
             <p class="card-text">{{ p.price ? ('$ ' + p.price) : '' }}</p>
             <router-link :to="`/customer/single-product/${p.id}`" class="btn btn-primary">{{ $t('messages.details') }}</router-link>
           </div>

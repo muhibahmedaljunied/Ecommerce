@@ -330,7 +330,7 @@
                                     </div>
                                     <div class="product-btm">
                                         <router-link :to="`/customer/single-product/${dd.product_id}`">
-                                            <h4>{{ $t('messages.' + catProduct.text) }}</h4>
+                                            <h4>{{ $t('messages.' + catProduct.name) }}</h4>
                                         </router-link>
                                         <div class="mt-3" v-if="dd.discount">
                                             <span class="mr-4">$ {{ dd.price }}</span>
@@ -366,7 +366,7 @@
                                 </div>
                                 <div class="product-btm">
                                     <router-link :to="`/customer/single-product/${catProduct.product_id}`">
-                                        <h4>{{ $t('messages.' + catProduct.text) }}</h4>
+                                        <h4>{{ $t('messages.' + catProduct.name) }}</h4>
                                     </router-link>
                                     <div class="mt-3" v-if="catProduct.discount">
                                         <span class="mr-4">$ {{ catProduct.price }}</span>
@@ -448,8 +448,8 @@ export default {
             if (!nodes) return [];
             return nodes.map(node => {
                 const newNode = { ...node };
-                if (newNode.text) {
-                    newNode.text = this.$t('messages.' + newNode.text);
+                if (newNode.name) {
+                    newNode.name = this.$t('messages.' + newNode.name);
                 }
                 if (newNode.children && newNode.children.length > 0) {
                     newNode.children = this.translateTree(newNode.children);

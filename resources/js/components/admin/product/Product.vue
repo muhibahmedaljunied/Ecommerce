@@ -94,13 +94,13 @@
 
 													</div>
 													<div class="col-md-2">
-														{{ $t('messages.' + productss.text) }}
+														{{ $t('messages.' + productss.name) }}
 
 														<div class="col-md-12"
 															v-for="produc_option in productss['product_family_attribute']">
 
 
-															<span 
+															<span
 																v-for="option in produc_option.family_attribute_option">
 															{{ $t('messages.' + option.value) }}
 															</span>
@@ -282,8 +282,8 @@ export default {
 			if (!nodes) return [];
 			return nodes.map(node => {
 				const newNode = { ...node };
-				if (newNode.text) {
-					newNode.text = this.$t('messages.' + newNode.text);
+				if (newNode.name) {
+					newNode.name = this.$t('messages.' + newNode.name);
 				}
 				if (newNode.children && newNode.children.length > 0) {
 					newNode.children = this.translateTree(newNode.children);
