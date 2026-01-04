@@ -32,20 +32,22 @@ class HomeController extends Controller
     }
     public function show()
     {
+            // Get the total number of products.
             $product = count(Product::get(['id']));
             // $category = count(Category::all());
+            // Get the total number of orders.
             $order = count(Order::get(['id']));
-
+            // Return the counts of products, orders, and the authenticated user as a JSON response.
             return response()->json(['product'=>$product,
             // 'category'=>$category,
             'order'=>$order,'user'=>Auth::user()]);
 
     }
     public function logout() {
-
+        // Log the user out.
         Auth::logout();
         // DB::table('temporales')->delete();
-
+        // Redirect the user to the login page.
         return redirect('/login');
       }
 }

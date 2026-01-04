@@ -21,7 +21,9 @@ class OrderDetailController extends Controller
     }
     public function index($id)
     {
+        // Find the order by its ID.
         $order = Order::find($id);
+        // Return the order as a JSON response.
         return response()->json($order);
     }
 
@@ -36,7 +38,7 @@ class OrderDetailController extends Controller
                 'product_family_attributes.*',
                 'product_family_attributes.price as product_price',
                 'order_details.*',
-               
+
             )
             ->get();
         return response()->json($product);

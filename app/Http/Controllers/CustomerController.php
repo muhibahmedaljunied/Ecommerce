@@ -16,10 +16,17 @@ class CustomerController extends Controller
     {
                 // $this->middleware('Customer');
 
-        
+
     }
+
+    /**
+     * Register a new customer.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function register(Request $request){
-    	
+
     	$this->validate($request,[
     		'first_name' => 'required|string',
     		'email_address' => 'required|unique:customers',
@@ -57,9 +64,15 @@ class CustomerController extends Controller
     	return response()->json('Done');
     }
 
+    /**
+     * Log in a customer.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function login(Request $request){
-		
-		
+
+
 
     	$customer = User::where('email',$request->email_address)->first();
 		Auth::login($customer);
@@ -83,26 +96,36 @@ class CustomerController extends Controller
     	}*/
     }
 
+    /**
+     * Log out a customer.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function logout(){
 
 		Auth::logout();
         session()->forget('customerId');
-   
+
 
 
         return response()->json(session()->get('customerId'));
     }
 
+    /**
+     * Get the session data for the logged in customer.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function sessionData(){
 
 		if(session()->get('person') == 0){
-		
+
 			$customer = User::find(session()->get('customerId'));
 		}else{
 			$id = Auth::user()->id;
 			$customer = User::find($id);
 		}
-        
+
 
         return response()->json([
             's_customer' => $customer

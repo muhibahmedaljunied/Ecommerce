@@ -8,6 +8,12 @@ class LanguageController extends Controller
 {
     protected $supportedLocales = ['en', 'ar', 'fr', 'de', 'it', 'ru', 'es'];
 
+    /**
+     * Set the application language.
+     *
+     * @param  string  $locale
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function setLanguage($locale)
     {
         if (in_array($locale, $this->supportedLocales)) {
@@ -18,10 +24,16 @@ class LanguageController extends Controller
             }
             app()->setLocale($locale);
         }
-        
+
         return redirect()->back();
     }
 
+    /**
+     * Set the application language via API.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function setLanguageApi(Request $request)
     {
         $locale = $request->input('locale');
@@ -46,10 +58,15 @@ class LanguageController extends Controller
         ]);
     }
 
+    /**
+     * Get the current language.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getCurrentLanguage()
     {
-        $locale = auth()->check() 
-            ? auth()->user()->language 
+        $locale = auth()->check()
+            ? auth()->user()->language
             : session('locale', config('app.locale'));
 
         return response()->json([
@@ -59,6 +76,11 @@ class LanguageController extends Controller
         ]);
     }
 
+    /**
+     * Get the available languages.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAvailableLanguages()
     {
         $languages = [
@@ -74,6 +96,12 @@ class LanguageController extends Controller
         return response()->json($languages);
     }
 
+    /**
+     * Get the translations for a given locale.
+     *
+     * @param  string  $locale
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getTranslations($locale)
     {
         $path = resource_path("lang/{$locale}/messages.php");

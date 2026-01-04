@@ -15,7 +15,7 @@ class AttributeController extends Controller
     public function index()
     {
 
-
+        // Eager load attribute options with attributes
         $attributes = Attribute::with([
             'attribute_option' => function ($query) {
 
@@ -23,6 +23,7 @@ class AttributeController extends Controller
             }
         ])->get();
 
+        // Return all attributes and attribute families as a JSON response
         return response()->json([
             'attributes' => $attributes,
             'attribute_families' => AttributeFamily::all()

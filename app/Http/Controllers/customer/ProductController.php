@@ -15,6 +15,14 @@ class ProductController extends Controller
 
     public $filter;
     public $request;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Services\FilterService  $filter
+     * @return void
+     */
     public function __construct(Request $request, FilterService $filter)
     {
 
@@ -22,6 +30,13 @@ class ProductController extends Controller
         $this->filter = $filter;
 
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
 
@@ -40,6 +55,12 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    /**
+     * Filter products based on request data.
+     *
+     * @param  \App\Services\FilterService  $filter
+     * @return \Illuminate\Http\Response
+     */
     public function filter(FilterService $filter)
     {
 
@@ -55,6 +76,13 @@ class ProductController extends Controller
             'products' => $filter->data,
         ]);
     }
+
+    /**
+     * Filter products by category.
+     *
+     * @param  \App\Services\FilterService  $filter
+     * @return \Illuminate\Http\Response
+     */
     public function category_filter(FilterService $filter)
     {
 
@@ -74,6 +102,12 @@ class ProductController extends Controller
 
 
 
+    /**
+     * Filter products by price.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function product_by_price(Request $request)
     {
         // $array_id = [];
@@ -97,6 +131,13 @@ class ProductController extends Controller
             ->get();
         return response()->json($data);
     }
+
+    /**
+     * Get detailed information for a specific product family attribute.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function getProductDetails($id)
     {
 
@@ -132,6 +173,11 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    /**
+     * Get all featured products.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getFeaturedProducts()
     {
 
@@ -144,6 +190,11 @@ class ProductController extends Controller
         return response()->json($featuredProduct);
     }
 
+    /**
+     * Get all new products.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getNewProducts()
     {
 

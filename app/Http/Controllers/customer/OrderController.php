@@ -8,20 +8,37 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Models\ShippingAddress;
 use DB;
+use App\Models\Cart;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
+
 class OrderController extends Controller
 {
 
     use Store;
 
     public $payment;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  \App\Repository\PaymentRepositoryInterface  $payment
+     * @return void
+     */
     public function __construct(PaymentRepositoryInterface $payment)
     {
         $this->payment = $payment;
-  
+
 
     }
- 
 
+
+    /**
+     * Store shipping information.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function shippingInfo(Request $request)
     {
 
@@ -39,36 +56,48 @@ class OrderController extends Controller
         return response()->json("Shipping Info Putting in session");
     }
 
+    /**
+     * Process the payment and handle order completion.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function pay(Request $request)
     {
- 
-        
+        try {
+            DB::beginTransaction();
 
-        
-        // try {
+            $link = $this->payment->payment($request);
 
-        $link = $this->payment->payment($request);
+            // Assume $order is the newly created order from your payment repo
+            // Loop through order details and decrement stock
+            foreach ($order->orderDetails as $detail) {
+                $product = Product::find($detail->product_id);
+                if ($product) {
+                    if ($product->stock < $detail->quantity) {
+                        throw new \Exception("Out of stock");
+                    }
+                    $product->stock -= $detail->quantity;
+                    $product->save();
+                    // Optional: If stock <= 0, mark as out of stock or notify admin
+                }
+            }
 
-           
-        DB::commit(); // Tell Laravel this transacion's all good and it can persist to DB
-        return response([
-            'message' => "purchase created successfully",
-            'data'=>$link,
-            'status' => "success"
-        ], 200);
-    // } catch (\Exception $exp) {
+            DB::commit(); // Tell Laravel this transacion's all good and it can persist to DB
+            return response([
+                'message' => "purchase created successfully",
+                'data'=>$link,
+                'status' => "success"
+            ], 200);
+        } catch (\Exception $exp) {
+            DB::rollBack(); // Tell Laravel, "It's not you, it's me. Please don't persist to DB"
 
-    //     DB::rollBack(); // Tell Laravel, "It's not you, it's me. Please don't persist to DB"
-
-
-    //     return response([
-    //         'message' => $exp->getMessage(),
-    //         'data'=>'',
-    //         'status' => 'failed'
-    //     ], 400);
-    // }
-        return response()->json($link);
-
+            return response([
+                'message' => $exp->getMessage(),
+                'data'=>'',
+                'status' => 'failed'
+            ], 400);
+        }
     }
 
 

@@ -13,15 +13,16 @@ class AdminController extends Controller
      */
     public function index($id)
     {
+        // Check if a view file with the given name exists.
         if(view()->exists($id)){
+            // If it exists, return that view.
             return view($id);
         }
         else
         {
+            // If it does not exist, return the 404 error page.
             return view('404');
         }
-
-     //   return view($id);
     }
 
     /**
@@ -31,7 +32,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        // This method is not implemented.
     }
 
     /**
@@ -42,7 +43,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // This method is not implemented.
     }
 
     /**
@@ -53,7 +54,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        // This method is not implemented.
     }
 
     /**
@@ -64,7 +65,7 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        // This method is not implemented.
     }
 
     /**
@@ -76,7 +77,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // This method is not implemented.
     }
 
     /**
@@ -87,6 +88,6 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // This method is not implemented.
     }
 }

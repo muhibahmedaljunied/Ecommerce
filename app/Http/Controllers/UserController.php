@@ -8,11 +8,22 @@ use App\Models\User;
 class UserController extends Controller
 
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(){
     	$user = User::all();
-        return response()->json($user);  
+        return response()->json($user);
     }
 
+    /**
+     * Create a new user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function create(Request $request){
     	$user = new User();
         $user->name = $request->name;

@@ -8770,9 +8770,9 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", {
     staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Madeleine")]), _vm._v(" Hey! there I' am available....\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Madeleine")]), _vm._v(" Hey! there I' am available....\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t3 hours ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t3 hours ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
@@ -8781,22 +8781,9 @@ var staticRenderFns = [function () {
     attrs: {
       "data-image-src": ""
     }
-  })]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Anthony")]), _vm._v(" New product Launching...\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Anthony")]), _vm._v(" New product Launching...\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t5 hour ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-3"
-  }, [_c("span", {
-    staticClass: "avatar avatar-lg brround cover-image",
-    attrs: {
-      "data-image-src": ""
-    }
-  }, [_c("span", {
-    staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" New Schedule Realease......\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
-    staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t45 mintues ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t5 hour ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
@@ -8807,20 +8794,9 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", {
     staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Madeleine")]), _vm._v(" Hey! there I' am available....\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" New Schedule Realease......\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t3 hours ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
-    staticClass: "list-group-item d-flex align-items-center"
-  }, [_c("div", {
-    staticClass: "ml-3"
-  }, [_c("span", {
-    staticClass: "avatar avatar-lg brround cover-image",
-    attrs: {
-      "data-image-src": ""
-    }
-  })]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Anthony")]), _vm._v(" New product Launching...\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
-    staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t5 hour ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t45 mintues ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
@@ -8831,9 +8807,20 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", {
     staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" New Schedule Realease......\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Madeleine")]), _vm._v(" Hey! there I' am available....\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t45 mintues ago\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t3 hours ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+    staticClass: "list-group-item d-flex align-items-center"
+  }, [_c("div", {
+    staticClass: "ml-3"
+  }, [_c("span", {
+    staticClass: "avatar avatar-lg brround cover-image",
+    attrs: {
+      "data-image-src": ""
+    }
+  })]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Anthony")]), _vm._v(" New product Launching...\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+    staticClass: "small text-muted"
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t5 hour ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
     staticClass: "list-group-item d-flex align-items-center"
   }, [_c("div", {
     staticClass: "ml-3"
@@ -8844,9 +8831,22 @@ var staticRenderFns = [function () {
     }
   }, [_c("span", {
     staticClass: "avatar-status bg-success"
-  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" Hey! there I' am available....\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" New Schedule Realease......\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
     staticClass: "small text-muted"
-  }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t12 mintues ago\n\t\t\t\t\t\t\t\t\t\t")])])])])])]);
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t45 mintues ago\r\n\t\t\t\t\t\t\t\t\t\t")])])]), _vm._v(" "), _c("div", {
+    staticClass: "list-group-item d-flex align-items-center"
+  }, [_c("div", {
+    staticClass: "ml-3"
+  }, [_c("span", {
+    staticClass: "avatar avatar-lg brround cover-image",
+    attrs: {
+      "data-image-src": ""
+    }
+  }, [_c("span", {
+    staticClass: "avatar-status bg-success"
+  })])]), _vm._v(" "), _c("div", [_c("strong", [_vm._v("Olivia")]), _vm._v(" Hey! there I' am available....\r\n\t\t\t\t\t\t\t\t\t\t"), _c("div", {
+    staticClass: "small text-muted"
+  }, [_vm._v("\r\n\t\t\t\t\t\t\t\t\t\t\t12 mintues ago\r\n\t\t\t\t\t\t\t\t\t\t")])])])])])]);
 }];
 render._withStripped = true;
 
@@ -17282,7 +17282,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nlegend {\n\n\tfont-weight: lighter;\n\tcolor: cadetblue;\n}\n", ""]);
+exports.push([module.i, "\nlegend {\r\n\r\n\tfont-weight: lighter;\r\n\tcolor: cadetblue;\n}\r\n", ""]);
 
 // exports
 
@@ -17301,7 +17301,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nlegend {\n\n\tfont-weight: lighter;\n\tcolor: cadetblue;\n}\n", ""]);
+exports.push([module.i, "\nlegend {\r\n\r\n\tfont-weight: lighter;\r\n\tcolor: cadetblue;\n}\r\n", ""]);
 
 // exports
 
@@ -17320,7 +17320,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nlegend {\n\n\tfont-weight: lighter;\n\tcolor: cadetblue;\n}\n", ""]);
+exports.push([module.i, "\nlegend {\r\n\r\n\tfont-weight: lighter;\r\n\tcolor: cadetblue;\n}\r\n", ""]);
 
 // exports
 
@@ -17339,7 +17339,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nlegend {\n\n\tfont-weight: lighter;\n\tcolor: cadetblue;\n}\n", ""]);
+exports.push([module.i, "\nlegend {\r\n\r\n\tfont-weight: lighter;\r\n\tcolor: cadetblue;\n}\r\n", ""]);
 
 // exports
 
@@ -17358,7 +17358,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nimg {\n\n  border-radius: 7px;\n}\n.product-card {\n  padding: 241px;\n  padding-top: 21px;\n  padding-right: 21px;\n  padding-bottom: 21px;\n  padding-left: 21px;\n  border: 1px solid #e1e7ec;\n  border-radius: 7px;\n  background-color: #fff;\n}\n.product-card .product-title {\n\n  margin-bottom: 10px;\n  font-size: 16px;\n  font-weight: normal;\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, "\nimg {\r\n\r\n  border-radius: 7px;\n}\n.product-card {\r\n  padding: 241px;\r\n  padding-top: 21px;\r\n  padding-right: 21px;\r\n  padding-bottom: 21px;\r\n  padding-left: 21px;\r\n  border: 1px solid #e1e7ec;\r\n  border-radius: 7px;\r\n  background-color: #fff;\n}\n.product-card .product-title {\r\n\r\n  margin-bottom: 10px;\r\n  font-size: 16px;\r\n  font-weight: normal;\r\n  text-align: center;\n}\r\n", ""]);
 
 // exports
 
@@ -17377,7 +17377,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-7700c480] {\n    margin-top: 40px;\n}\n.panel-heading[data-v-7700c480] {\n    display: inline;\n    font-weight: bold;\n}\n.flex-table[data-v-7700c480] {\n    display: table;\n}\n.display-tr[data-v-7700c480] {\n    display: table-row;\n}\n.display-td[data-v-7700c480] {\n    display: table-cell;\n    vertical-align: middle;\n    width: 55%;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-7700c480] {\r\n    margin-top: 40px;\n}\n.panel-heading[data-v-7700c480] {\r\n    display: inline;\r\n    font-weight: bold;\n}\n.flex-table[data-v-7700c480] {\r\n    display: table;\n}\n.display-tr[data-v-7700c480] {\r\n    display: table-row;\n}\n.display-td[data-v-7700c480] {\r\n    display: table-cell;\r\n    vertical-align: middle;\r\n    width: 55%;\n}\r\n", ""]);
 
 // exports
 
@@ -17396,7 +17396,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n/* ------------------- */\n*[data-v-096658c9] {\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n}\nbody[data-v-096658c9] {\n    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    /* background-image: url(background-img.jpg); */\n    background-size: cover;\n    background-attachment: fixed;\n}\n.navbar[data-v-096658c9] {\n    height: 100px;\n    width: 100%;\n    padding: 19px 30px;\n    background-color: #244976;\n    position: relative;\n}\n.navbar .nav-header[data-v-096658c9] {\n    display: inline;\n}\n.navbar .nav-header .nav-logo[data-v-096658c9] {\n    display: inline-block;\n    margin-top: -7px;\n}\n.navbar .nav-links[data-v-096658c9] {\n    display: inline;\n    float: right;\n    font-size: 18px;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\n    display: inline-block;\n    padding: 5px 15px;\n    margin-left: 20px;\n    font-size: 17px;\n    color: rgb(9, 14, 90);\n}\n.navbar .nav-links a[data-v-096658c9] {\n    padding: 10px 12px;\n    text-decoration: none;\n    font-weight: 550;\n    color: white;\n}\n\n/* Hover effects */\n.navbar .nav-links a[data-v-096658c9]:hover {\n    background-color: rgba(0, 0, 0, 0.3);\n}\n\n/* Search form in main menu */\n.navbar .search-form[data-v-096658c9] { display: inline-block; margin-right: 300px; vertical-align: middle;\n}\n.navbar .search-form .search-input[data-v-096658c9] { padding: 8px 83px; border-radius: 30px; border: none; min-width: 220px;\n}\n.navbar .search-form .search-btn[data-v-096658c9] { background: transparent; border: none; color: #fff; padding: 8px; cursor: pointer;\n}\n@media (max-width:700px) {\n.navbar .search-form[data-v-096658c9] { display: block; margin: 12px auto; width: calc(100% - 40px); padding: 0 20px; text-align: center;\n}\n.navbar .search-form .search-input[data-v-096658c9] { width: calc(100% - 44px); min-width: auto;\n}\n.navbar .search-form .search-btn[data-v-096658c9] { position: relative; right: 0;\n}\n}\n\n/* responsive navbar toggle button */\n.navbar #nav-check[data-v-096658c9],\n.navbar .nav-btn[data-v-096658c9] {\n    display: none;\n}\n@media (max-width:700px) {\n.navbar .nav-btn[data-v-096658c9] {\n        display: inline-block;\n        position: absolute;\n        top: 0px;\n        right: 0px;\n}\n.navbar .nav-btn label[data-v-096658c9] {\n        display: inline-block;\n        width: 80px;\n        height: 70px;\n        padding: 25px;\n        cursor: pointer;\n}\n.navbar .nav-btn label span[data-v-096658c9] {\n        display: block;\n        height: 3px;\n        width: 25px;\n        background: #fff;\n        margin: 6px 0;\n}\n.navbar .nav-btn label[data-v-096658c9]:hover {\n        background-color: rgb(9, 14, 90);\n        transition: all 0.5s ease;\n}\n.navbar .nav-links[data-v-096658c9] {\n        position: absolute;\n        display: block;\n        text-align: center;\n        width: 100%;\n        background-color: rgb(9, 14, 90);\n        z-index: 9999;\n        transition: height 0.3s ease-in;\n        overflow-y: hidden;\n        top: 70px;\n        right: 0px;\n        height: 0px;\n}\n.navbar .nav-links a[data-v-096658c9] {\n        display: block;\n}\n\n    /* when nav toggle button is open */\n.navbar .nav-links.open[data-v-096658c9] {\n        height: calc(100vh - 70px);\n        overflow-y: auto;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\n        padding: 10px 40px;\n        margin: 20px;\n        font-size: 18px;\n        font-weight: bold;\n        color: rgb(9, 14, 90);\n}\n\n    /* Responsive dropdown code */\n.navbar .nav-links .dropdown[data-v-096658c9],\n    .navbar .nav-links .dropdown2[data-v-096658c9] {\n        float: none;\n        width: 100%;\n}\n.navbar .nav-links .drop-content[data-v-096658c9],\n    .navbar .nav-links .drop-content2[data-v-096658c9] {\n        position: relative;\n        background-color: rgb(220, 220, 250);\n        top: 0px;\n        left: 0px;\n}\n\n    /* Text color */\n.navbar .nav-links .drop-content a[data-v-096658c9] {\n        color: rgb(9, 14, 90);\n}\n\n    /* Stack the top menu items */\n.top_menu .container .row>div[data-v-096658c9] {\n        flex: 0 0 100%;\n        max-width: 100%;\n        text-align: center;\n        margin-bottom: 5px;\n}\n.top_menu .float-left[data-v-096658c9],\n    .top_menu .float-right[data-v-096658c9] {\n        float: none;\n        display: inline-block;\n}\n.navbar .nav-header .nav-logo img[data-v-096658c9] {\n        width: 80px;\n}\n.badge-notify[data-v-096658c9] {\n        top: -10px;\n        left: -3px;\n}\n}\n\n/* Top menu improvements */\n.top_menu[data-v-096658c9] {\n    background: #fff;\n    padding: 6px 0;\n    border-bottom: 1px solid rgba(36, 73, 118, 0.08);\n    font-size: 14px;\n    color: #244976;\n    /* margin-bottom: 10px; */\n    /* space between top menu and main menu */\n}\n.top_menu .row>div[data-v-096658c9] {\n    display: flex;\n    align-items: center;\n}\n.top_menu .container .row[data-v-096658c9] {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    justify-content: space-between;\n}\n@media (max-width:700px) {\n.top_menu .container .row[data-v-096658c9] {\n        display: block;\n}\n.top_menu .row>div[data-v-096658c9] {\n        display: block;\n        width: 100%;\n        text-align: center;\n        margin-bottom: 6px;\n}\n}\n\n/* Left and right alignment */\n.top_menu .top-left[data-v-096658c9] { justify-content: center;}\n.top_menu .top-left .top-icons[data-v-096658c9] { display: flex; gap: 14px; align-items: center;\n}\n.top_menu .top-left .top-icon[data-v-096658c9] { color: #244976; display: inline-flex; align-items: center; gap: 8px; font-weight: 600;\n}\n.top_menu .top-left .top-icon i[data-v-096658c9] { color: #244976;\n}\n.top_menu .top-left .contact-text[data-v-096658c9] { font-weight: 500; color: #244976;\n}\n.top_menu .top-right[data-v-096658c9] { justify-content: flex-end; padding-right: 12px;\n}\n.top_menu .top-right .float-right[data-v-096658c9] { margin-left: 0; display: flex; align-items: center;\n}\n.top_menu .top-right .right_side[data-v-096658c9] { margin: 0;\n}\n@media (max-width:700px) {\n.top_menu .top-left[data-v-096658c9] { margin-right: 0; padding-left: 0;\n}\n.top_menu .top-right[data-v-096658c9] { padding-right: 0;\n}\n}\n@media (max-width:700px) {\n.top_menu .top-left .top-icons[data-v-096658c9] { justify-content: center; gap: 8px;\n}\n.top_menu .top-right[data-v-096658c9] { text-align: center;\n}\n.top_menu .top-right .float-right[data-v-096658c9] { justify-content: center;\n}\n}\n.top_menu .float-left[data-v-096658c9] {\n    margin-right: 8px;\n    color: #244976;\n}\n.top_menu .float-right[data-v-096658c9] {\n    margin-left: auto;\n}\n.top_menu .right_side[data-v-096658c9] {\n    list-style: none;\n    display: flex;\n    gap: 12px;\n    align-items: center;\n    padding: 0;\n    margin: 0;\n}\n.top_menu .right_side li a[data-v-096658c9] {\n    color: #244976;\n    text-decoration: none;\n    font-weight: 600;\n}\n.top_menu .right_side li a[data-v-096658c9]:hover {\n    text-decoration: underline;\n}\n.top_menu .right_side .lang-item[data-v-096658c9] {\n    display: flex;\n    align-items: center;\n}\n.top_menu .right_side .lang-item .lang-select[data-v-096658c9] {\n    min-width: 90px;\n    padding: 6px 8px;\n}\n\n/* Language select styles */\n.lang-wrap[data-v-096658c9] {\n    display: flex;\n    align-items: center;\n    gap: 6px;\n    margin-left: 8px;\n}\n.lang-wrap .fa-globe[data-v-096658c9] {\n    color: #244976;\n    font-size: 16px;\n}\n.lang-select[data-v-096658c9] {\n    background: #fff;\n    border: 0px solid #ccc;\n    color: #333;\n    font-weight: 600;\n    padding: 6px 8px;\n    border-radius: 4px;\n    outline: none;\n    min-width: 90px;\n}\n.lang-select option[data-v-096658c9] {\n    color: #000;\n}\n@media (max-width:700px) {\n.lang-wrap[data-v-096658c9] {\n        display: block;\n        margin: 6px auto;\n        text-align: center;\n}\n.lang-wrap .fa-globe[data-v-096658c9] {\n        display: none;\n}\n.lang-select[data-v-096658c9] {\n        color: #000;\n        background: #fff;\n        border: 1px solid rgba(0, 0, 0, 0.1);\n        padding: 8px 12px;\n        width: 80%;\n        min-width: 120px;\n}\n}\n\n/* Dropdown menu CSS code */\n.dropdown[data-v-096658c9] {\n    position: relative;\n    display: inline-block;\n}\n.drop-content[data-v-096658c9],\n.drop-content2[data-v-096658c9] {\n    display: none;\n    position: absolute;\n    background-color: #1b4cd3;\n    min-width: 120px;\n    font-size: 16px;\n    top: 34px;\n    z-index: 1;\n    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);\n}\n\n/* on hover show dropdown */\n.dropdown:hover .drop-content[data-v-096658c9],\n.dropdown2:hover .drop-content2[data-v-096658c9] {\n    display: block;\n}\n\n/* drondown links */\n.drop-content a[data-v-096658c9] {\n    padding: 12px 10px;\n    border-bottom: 1px solid rgb(197, 197, 250);\n    display: block;\n    transition: all 0.5s ease !important;\n}\n.dropBtn .drop-content a[data-v-096658c9]:hover {\n    background-color: rgb(230, 230, 230);\n}\n.dropdown:hover .dropBtn[data-v-096658c9],\n.dropdown2:hover .dropBtn2[data-v-096658c9] {\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.dropdown2 .drop-content2[data-v-096658c9] {\n    position: absolute;\n    left: 120px;\n    top: 126px;\n}\n.dropBtn2 i[data-v-096658c9] {\n    margin-left: 15px;\n}\n.badge-notify[data-v-096658c9] {\n    background: #2CC701;\n    position: relative;\n    top: -15px;\n    left: -7px;\n    color: black;\n}\n", ""]);
+exports.push([module.i, "\r\n/* ------------------- */\n*[data-v-096658c9] {\r\n    margin: 0;\r\n    padding: 0;\r\n    box-sizing: border-box;\n}\nbody[data-v-096658c9] {\r\n    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\r\n    /* background-image: url(background-img.jpg); */\r\n    background-size: cover;\r\n    background-attachment: fixed;\n}\n.navbar[data-v-096658c9] {\r\n    height: 100px;\r\n    width: 100%;\r\n    padding: 19px 30px;\r\n    background-color: #244976;\r\n    position: relative;\n}\n.navbar .nav-header[data-v-096658c9] {\r\n    display: inline;\n}\n.navbar .nav-header .nav-logo[data-v-096658c9] {\r\n    display: inline-block;\r\n    margin-top: -7px;\n}\n.navbar .nav-links[data-v-096658c9] {\r\n    display: inline;\r\n    float: right;\r\n    font-size: 18px;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\r\n    display: inline-block;\r\n    padding: 5px 15px;\r\n    margin-left: 20px;\r\n    font-size: 17px;\r\n    color: rgb(9, 14, 90);\n}\n.navbar .nav-links a[data-v-096658c9] {\r\n    padding: 10px 12px;\r\n    text-decoration: none;\r\n    font-weight: 550;\r\n    color: white;\n}\r\n\r\n/* Hover effects */\n.navbar .nav-links a[data-v-096658c9]:hover {\r\n    background-color: rgba(0, 0, 0, 0.3);\n}\r\n\r\n/* Search form in main menu */\n.navbar .search-form[data-v-096658c9] { display: inline-block; margin-right: 300px; vertical-align: middle;\n}\n.navbar .search-form .search-input[data-v-096658c9] { padding: 8px 83px; border-radius: 30px; border: none; min-width: 220px;\n}\n.navbar .search-form .search-btn[data-v-096658c9] { background: transparent; border: none; color: #fff; padding: 8px; cursor: pointer;\n}\n@media (max-width:700px) {\n.navbar .search-form[data-v-096658c9] { display: block; margin: 12px auto; width: calc(100% - 40px); padding: 0 20px; text-align: center;\n}\n.navbar .search-form .search-input[data-v-096658c9] { width: calc(100% - 44px); min-width: auto;\n}\n.navbar .search-form .search-btn[data-v-096658c9] { position: relative; right: 0;\n}\n}\r\n\r\n/* responsive navbar toggle button */\n.navbar #nav-check[data-v-096658c9],\r\n.navbar .nav-btn[data-v-096658c9] {\r\n    display: none;\n}\n@media (max-width:700px) {\n.navbar .nav-btn[data-v-096658c9] {\r\n        display: inline-block;\r\n        position: absolute;\r\n        top: 0px;\r\n        right: 0px;\n}\n.navbar .nav-btn label[data-v-096658c9] {\r\n        display: inline-block;\r\n        width: 80px;\r\n        height: 70px;\r\n        padding: 25px;\r\n        cursor: pointer;\n}\n.navbar .nav-btn label span[data-v-096658c9] {\r\n        display: block;\r\n        height: 3px;\r\n        width: 25px;\r\n        background: #fff;\r\n        margin: 6px 0;\n}\n.navbar .nav-btn label[data-v-096658c9]:hover {\r\n        background-color: rgb(9, 14, 90);\r\n        transition: all 0.5s ease;\n}\n.navbar .nav-links[data-v-096658c9] {\r\n        position: absolute;\r\n        display: block;\r\n        text-align: center;\r\n        width: 100%;\r\n        background-color: rgb(9, 14, 90);\r\n        z-index: 9999;\r\n        transition: height 0.3s ease-in;\r\n        overflow-y: hidden;\r\n        top: 70px;\r\n        right: 0px;\r\n        height: 0px;\n}\n.navbar .nav-links a[data-v-096658c9] {\r\n        display: block;\n}\r\n\r\n    /* when nav toggle button is open */\n.navbar .nav-links.open[data-v-096658c9] {\r\n        height: calc(100vh - 70px);\r\n        overflow-y: auto;\n}\n.navbar .nav-links .loginBtn[data-v-096658c9] {\r\n        padding: 10px 40px;\r\n        margin: 20px;\r\n        font-size: 18px;\r\n        font-weight: bold;\r\n        color: rgb(9, 14, 90);\n}\r\n\r\n    /* Responsive dropdown code */\n.navbar .nav-links .dropdown[data-v-096658c9],\r\n    .navbar .nav-links .dropdown2[data-v-096658c9] {\r\n        float: none;\r\n        width: 100%;\n}\n.navbar .nav-links .drop-content[data-v-096658c9],\r\n    .navbar .nav-links .drop-content2[data-v-096658c9] {\r\n        position: relative;\r\n        background-color: rgb(220, 220, 250);\r\n        top: 0px;\r\n        left: 0px;\n}\r\n\r\n    /* Text color */\n.navbar .nav-links .drop-content a[data-v-096658c9] {\r\n        color: rgb(9, 14, 90);\n}\r\n\r\n    /* Stack the top menu items */\n.top_menu .container .row>div[data-v-096658c9] {\r\n        flex: 0 0 100%;\r\n        max-width: 100%;\r\n        text-align: center;\r\n        margin-bottom: 5px;\n}\n.top_menu .float-left[data-v-096658c9],\r\n    .top_menu .float-right[data-v-096658c9] {\r\n        float: none;\r\n        display: inline-block;\n}\n.navbar .nav-header .nav-logo img[data-v-096658c9] {\r\n        width: 80px;\n}\n.badge-notify[data-v-096658c9] {\r\n        top: -10px;\r\n        left: -3px;\n}\n}\r\n\r\n/* Top menu improvements */\n.top_menu[data-v-096658c9] {\r\n    background: #fff;\r\n    padding: 6px 0;\r\n    border-bottom: 1px solid rgba(36, 73, 118, 0.08);\r\n    font-size: 14px;\r\n    color: #244976;\r\n    /* margin-bottom: 10px; */\r\n    /* space between top menu and main menu */\n}\n.top_menu .row>div[data-v-096658c9] {\r\n    display: flex;\r\n    align-items: center;\n}\n.top_menu .container .row[data-v-096658c9] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n    justify-content: space-between;\n}\n@media (max-width:700px) {\n.top_menu .container .row[data-v-096658c9] {\r\n        display: block;\n}\n.top_menu .row>div[data-v-096658c9] {\r\n        display: block;\r\n        width: 100%;\r\n        text-align: center;\r\n        margin-bottom: 6px;\n}\n}\r\n\r\n/* Left and right alignment */\n.top_menu .top-left[data-v-096658c9] { justify-content: center;}\n.top_menu .top-left .top-icons[data-v-096658c9] { display: flex; gap: 14px; align-items: center;\n}\n.top_menu .top-left .top-icon[data-v-096658c9] { color: #244976; display: inline-flex; align-items: center; gap: 8px; font-weight: 600;\n}\n.top_menu .top-left .top-icon i[data-v-096658c9] { color: #244976;\n}\n.top_menu .top-left .contact-text[data-v-096658c9] { font-weight: 500; color: #244976;\n}\n.top_menu .top-right[data-v-096658c9] { justify-content: flex-end; padding-right: 12px;\n}\n.top_menu .top-right .float-right[data-v-096658c9] { margin-left: 0; display: flex; align-items: center;\n}\n.top_menu .top-right .right_side[data-v-096658c9] { margin: 0;\n}\n@media (max-width:700px) {\n.top_menu .top-left[data-v-096658c9] { margin-right: 0; padding-left: 0;\n}\n.top_menu .top-right[data-v-096658c9] { padding-right: 0;\n}\n}\n@media (max-width:700px) {\n.top_menu .top-left .top-icons[data-v-096658c9] { justify-content: center; gap: 8px;\n}\n.top_menu .top-right[data-v-096658c9] { text-align: center;\n}\n.top_menu .top-right .float-right[data-v-096658c9] { justify-content: center;\n}\n}\n.top_menu .float-left[data-v-096658c9] {\r\n    margin-right: 8px;\r\n    color: #244976;\n}\n.top_menu .float-right[data-v-096658c9] {\r\n    margin-left: auto;\n}\n.top_menu .right_side[data-v-096658c9] {\r\n    list-style: none;\r\n    display: flex;\r\n    gap: 12px;\r\n    align-items: center;\r\n    padding: 0;\r\n    margin: 0;\n}\n.top_menu .right_side li a[data-v-096658c9] {\r\n    color: #244976;\r\n    text-decoration: none;\r\n    font-weight: 600;\n}\n.top_menu .right_side li a[data-v-096658c9]:hover {\r\n    text-decoration: underline;\n}\n.top_menu .right_side .lang-item[data-v-096658c9] {\r\n    display: flex;\r\n    align-items: center;\n}\n.top_menu .right_side .lang-item .lang-select[data-v-096658c9] {\r\n    min-width: 90px;\r\n    padding: 6px 8px;\n}\r\n\r\n/* Language select styles */\n.lang-wrap[data-v-096658c9] {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 6px;\r\n    margin-left: 8px;\n}\n.lang-wrap .fa-globe[data-v-096658c9] {\r\n    color: #244976;\r\n    font-size: 16px;\n}\n.lang-select[data-v-096658c9] {\r\n    background: #fff;\r\n    border: 0px solid #ccc;\r\n    color: #333;\r\n    font-weight: 600;\r\n    padding: 6px 8px;\r\n    border-radius: 4px;\r\n    outline: none;\r\n    min-width: 90px;\n}\n.lang-select option[data-v-096658c9] {\r\n    color: #000;\n}\n@media (max-width:700px) {\n.lang-wrap[data-v-096658c9] {\r\n        display: block;\r\n        margin: 6px auto;\r\n        text-align: center;\n}\n.lang-wrap .fa-globe[data-v-096658c9] {\r\n        display: none;\n}\n.lang-select[data-v-096658c9] {\r\n        color: #000;\r\n        background: #fff;\r\n        border: 1px solid rgba(0, 0, 0, 0.1);\r\n        padding: 8px 12px;\r\n        width: 80%;\r\n        min-width: 120px;\n}\n}\r\n\r\n/* Dropdown menu CSS code */\n.dropdown[data-v-096658c9] {\r\n    position: relative;\r\n    display: inline-block;\n}\n.drop-content[data-v-096658c9],\r\n.drop-content2[data-v-096658c9] {\r\n    display: none;\r\n    position: absolute;\r\n    background-color: #1b4cd3;\r\n    min-width: 120px;\r\n    font-size: 16px;\r\n    top: 34px;\r\n    z-index: 1;\r\n    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);\n}\r\n\r\n/* on hover show dropdown */\n.dropdown:hover .drop-content[data-v-096658c9],\r\n.dropdown2:hover .drop-content2[data-v-096658c9] {\r\n    display: block;\n}\r\n\r\n/* drondown links */\n.drop-content a[data-v-096658c9] {\r\n    padding: 12px 10px;\r\n    border-bottom: 1px solid rgb(197, 197, 250);\r\n    display: block;\r\n    transition: all 0.5s ease !important;\n}\n.dropBtn .drop-content a[data-v-096658c9]:hover {\r\n    background-color: rgb(230, 230, 230);\n}\n.dropdown:hover .dropBtn[data-v-096658c9],\r\n.dropdown2:hover .dropBtn2[data-v-096658c9] {\r\n    background-color: rgba(0, 0, 0, 0.3);\n}\n.dropdown2 .drop-content2[data-v-096658c9] {\r\n    position: absolute;\r\n    left: 120px;\r\n    top: 126px;\n}\n.dropBtn2 i[data-v-096658c9] {\r\n    margin-left: 15px;\n}\n.badge-notify[data-v-096658c9] {\r\n    background: #2CC701;\r\n    position: relative;\r\n    top: -15px;\r\n    left: -7px;\r\n    color: black;\n}\r\n", ""]);
 
 // exports
 
@@ -17415,7 +17415,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nimg {\n\n  border-radius: 7px;\n}\n\n\n", ""]);
+exports.push([module.i, "\nimg {\r\n\r\n  border-radius: 7px;\n}\r\n\r\n\r\n", ""]);
 
 // exports
 

@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\DB;
 class AttributeFamilyMappingController extends Controller
 {
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
 
@@ -34,6 +40,12 @@ class AttributeFamilyMappingController extends Controller
 
 
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
 
@@ -57,6 +69,12 @@ class AttributeFamilyMappingController extends Controller
     }
 
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request)
     {
 

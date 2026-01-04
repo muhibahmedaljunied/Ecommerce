@@ -11,6 +11,13 @@ class CartController extends Controller
 
 
     // -----------------------------
+    /**
+     * Add a product to the cart.
+     *
+     * @param  int  $id
+     * @param  int  $cartQty
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function addToCart($id, $cartQty)
     {
 
@@ -39,6 +46,11 @@ class CartController extends Controller
 
 
 
+    /**
+     * Get all items in the cart.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function allCart()
     {
 
@@ -84,6 +96,12 @@ class CartController extends Controller
         // ]);
     }
 
+    /**
+     * Remove an item from the cart.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteCart(Request $request)
     {
 
@@ -93,6 +111,12 @@ class CartController extends Controller
         return response()->json(['success' => 'product deleted from cart']);
     }
 
+    /**
+     * Update an item in the cart.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateCart(Request $request)
     {
 

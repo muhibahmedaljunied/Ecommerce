@@ -23,6 +23,12 @@ class ProductController extends Controller
         $this->request = $request;
     }
 
+    /**
+     * Initialize product data from the request.
+     *
+     * @param  \App\Services\ProductService  $product_service
+     * @return void
+     */
     public function init_data($product_service)
     {
 
@@ -31,9 +37,15 @@ class ProductController extends Controller
         $product_service->data = json_decode($this->request['product_attr']);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
 
+        // Retrieve all products with a 'false' status, and eager load their attribute options.
         $product = Product::where(function ($query) {
 
             return $query->where('status', 'false');
@@ -41,6 +53,7 @@ class ProductController extends Controller
             ->with([
                 'product_family_attribute.family_attribute_option' => function ($query) {
 
+                    // Join with attribute_options and attributes tables to get all attribute information.
                     $query->join('attribute_options', 'family_attribute_options.attribute_option_id', '=', 'attribute_options.id');
                     $query->join('attributes', 'attributes.id', '=', 'attribute_options.attribute_id');
                     $query->select('*');
@@ -48,8 +61,10 @@ class ProductController extends Controller
             ])
             ->get();
 
+        // Return the products as a JSON response.
         return response()->json(['product' => $product]);
     }
+
     public function show(Request $request, FilterService $filter)
     {
         $filter->product_id =  $request->id;

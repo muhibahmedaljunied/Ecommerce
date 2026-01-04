@@ -27,6 +27,11 @@ class FilterService
 
     ];
 
+    /**
+     * Process the filter data to determine which attributes to filter by.
+     *
+     * @return $this
+     */
     function wherefilter()
     {
         $i = 0;
@@ -44,6 +49,12 @@ class FilterService
         return $this;
     }
 
+    /**
+     * Iterate through a list of items and apply the filter.
+     *
+     * @param  array  $link
+     * @return void
+     */
     public function foreach_root($link)
     {
 
@@ -53,6 +64,12 @@ class FilterService
         }
     }
 
+    /**
+     * Filter a specific item or traverse its children.
+     *
+     * @param  array  $value
+     * @return void
+     */
     function filter($value)
     {
 
@@ -65,6 +82,11 @@ class FilterService
         }
     }
 
+    /**
+     * Execute the query to retrieve products and apply filters.
+     *
+     * @return $this
+     */
     function queryfilter()
     {
 
@@ -80,11 +102,17 @@ class FilterService
         $this->root = collect($product)->toArray();
         $this->foreach_root($this->root);
         return $this;
-        
+
     }
 
 
 
+    /**
+     * Get details for a specific product and apply attribute filters if necessary.
+     *
+     * @param  array  $value
+     * @return void
+     */
     function get_details($value)
     {
 
@@ -122,6 +150,12 @@ class FilterService
     }
 
 
+    /**
+     * Filter products based on specific attribute options.
+     *
+     * @param  array  $value1
+     * @return void
+     */
     function filter_by_attribute($value1)
     {
         foreach ($value1 as $value) {

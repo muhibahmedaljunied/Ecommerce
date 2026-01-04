@@ -16,6 +16,11 @@ class ProductService
     public $arrayName;
     public $product_attribute;
 
+    /**
+     * Parse attribute options from data.
+     *
+     * @return void
+     */
     public function get_attribute_option()
     {
         $this->arrayName = array();
@@ -28,6 +33,12 @@ class ProductService
 
         $this->arrayName = $arrayName;
     }
+
+    /**
+     * Save the product.
+     *
+     * @return void
+     */
     public function save_product()
     {
 
@@ -44,6 +55,13 @@ class ProductService
     }
 
 
+    /**
+     * Save product family attribute and handle image upload.
+     *
+     * @param  array|null  $image
+     * @param  int  $value
+     * @return void
+     */
     public function save_product_family_attribute($image, $value)
     {
         $generated_new_name = null;
@@ -69,6 +87,12 @@ class ProductService
     }
 
 
+    /**
+     * Save family attribute options.
+     *
+     * @param  int  $value
+     * @return void
+     */
     public function save_family_attribute_option($value)
     {
         foreach ($this->arrayName['att'][$value] as $value2) {
