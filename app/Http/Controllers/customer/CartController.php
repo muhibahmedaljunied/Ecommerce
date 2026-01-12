@@ -20,28 +20,39 @@ class CartController extends Controller
      */
     public function addToCart($id, $cartQty)
     {
+        // Check variant exists and current available qty
+        $variant = DB::table('product_family_attributes')
+            ->where('id', $id)
+            ->select('price', 'qty')
+            ->first();
 
-        // dd($id);
-        $product = DB::table('product_family_attributes')
-        ->where('product_family_attributes.id', $id)
-        ->select('product_family_attributes.price')->get()->toArray();
-        $temporale = Temporale::where('product_family_attribute_id', $id)->get();
+        if (!$variant) {
+            return response()->json(['error' => 'Product variant not found'], 404);
+        }
 
-        if (count($temporale) == 0) {
+        $temporale = Temporale::where('product_family_attribute_id', $id)->first();
 
+        $existingQty = $temporale ? $temporale->qty : 0;
+        $newQty = $existingQty + (int)$cartQty;
+
+        if ($newQty > $variant->qty) {
+            return response()->json(['error' => 'Not enough stock available'], 400);
+        }
+
+        if (!$temporale) {
             $temporales = new Temporale();
             $temporales->product_family_attribute_id =  $id;
             $temporales->qty = $cartQty;
-            $temporales->total =  $product[0]->price * $cartQty;
+            $temporales->total =  $variant->price * $cartQty;
             $temporales->save();
+            $result = $temporales;
         } else {
-            $temporale = DB::table('temporales')->where('product_family_attribute_id', $id);
             $temporale->increment('qty', $cartQty);
-            $temporale->increment('total', $product[0]->price * $cartQty);
+            $temporale->increment('total', $variant->price * $cartQty);
+            $result = $temporale->fresh();
         }
 
-
-        return response()->json(['result' => $temporale]);
+        return response()->json(['result' => $result]);
     }
 
 
@@ -119,25 +130,29 @@ class CartController extends Controller
      */
     public function updateCart(Request $request)
     {
-
-        $total = Temporale::where('temporales.id', $request->id)
-            ->join('products', 'products.id', 'temporales.product_id')
-            ->get();
-        // return response()->json($total);
-        if ($total[0]->total != 0) {
-            $cart = Temporale::where('id', $request->id)
-                ->update([
-                    'qty' => $request->post('qty'),
-                    'total' => $request->post('qty') * $total[0]->price
-                ]);
-        } else {
-            $cart = Temporale::where('id', $request->id)
-                ->update([
-                    'qty' => $request->post('qty'),
-                    'total' => $request->post('qty') * $total[0]->price
-                ]);
+        $temporale = Temporale::find($request->id);
+        if (!$temporale) {
+            return response()->json(['error' => 'Cart item not found'], 404);
         }
 
-        return response()->json($request);
+        $variant = DB::table('product_family_attributes')
+            ->where('id', $temporale->product_family_attribute_id)
+            ->select('price', 'qty')
+            ->first();
+
+        if (!$variant) {
+            return response()->json(['error' => 'Product variant not found'], 404);
+        }
+
+        $newQty = (int)$request->post('qty');
+        if ($newQty > $variant->qty) {
+            return response()->json(['error' => 'Not enough stock available'], 400);
+        }
+
+        $temporale->qty = $newQty;
+        $temporale->total = $newQty * $variant->price;
+        $temporale->save();
+
+        return response()->json(['success' => true, 'item' => $temporale]);
     }
 }

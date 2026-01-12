@@ -13,9 +13,14 @@ class FixProductsColumnName extends Migration
      */
     public function up()
     {
+        // Avoid using renameColumn (requires Doctrine DBAL). Instead add a new column and copy values.
         Schema::table('products', function (Blueprint $table) {
-            $table->renameColumn('text', 'name');
+            if (!Schema::hasColumn('products', 'name')) {
+                $table->string('name')->nullable();
+            }
         });
+
+        \Illuminate\Support\Facades\DB::statement('UPDATE `products` SET `name` = `text` WHERE `text` IS NOT NULL');
     }
 
     /**
@@ -26,7 +31,9 @@ class FixProductsColumnName extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->renameColumn('name', 'text');
+            if (Schema::hasColumn('products', 'name')) {
+                $table->dropColumn('name');
+            }
         });
     }
 }

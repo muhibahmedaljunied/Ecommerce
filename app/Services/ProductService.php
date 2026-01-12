@@ -42,14 +42,16 @@ class ProductService
     public function save_product()
     {
 
+        // dd($this->request['status']);
         $product = new Product();
-        $product->name = $this->request['product'];
+        $product->text = $this->request['product'];
         if ($this->request['parent'] != 0) {
 
             $product->parent_id = $this->request['parent'];
         }
         $product->status = $this->request['status'];
         $product->save();
+                        // dd(1);
 
         $this->product = $product;
     }

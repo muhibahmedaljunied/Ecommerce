@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "puppeteer": "^24.34.0",
         "vform": "^2.1.0",
         "vue-axios": "^3.2.4",
         "vue-progressbar": "^0.7.5",

@@ -69,17 +69,77 @@ class OrderController extends Controller
 
             $link = $this->payment->payment($request);
 
-            // Assume $order is the newly created order from your payment repo
-            // Loop through order details and decrement stock
-            foreach ($order->orderDetails as $detail) {
-                $product = Product::find($detail->product_id);
-                if ($product) {
-                    if ($product->stock < $detail->quantity) {
-                        throw new \Exception("Out of stock");
+            // Detect if the payment implementation already processed the cart (e.g. Store::store clears temporales)
+            $cartProcessedByPayment = \App\Models\Temporale::count() === 0;
+
+            // The payment service may return an Order or an OrderDetail or other structure.
+            // Try to resolve to an Order if possible; otherwise we'll fallback to building one from temporales
+            $order = null;
+            if ($link instanceof \App\Models\Order) {
+                $order = $link;
+            } elseif (is_array($link) && isset($link['order'])) {
+                $order = $link['order'];
+            } elseif (is_object($link) && isset($link->order)) {
+                $order = $link->order;
+            } elseif ($link instanceof \App\Models\OrderDetail) {
+                $order = \App\Models\Order::find($link->order_id);
+            } elseif ($link instanceof \Illuminate\Support\Collection && $link->first() instanceof \App\Models\OrderDetail) {
+                $order = \App\Models\Order::find($link->first()->order_id);
+            } elseif (is_array($link) && isset($link['order_id'])) {
+                $order = \App\Models\Order::find($link['order_id']);
+            } elseif (is_object($link) && isset($link->order_id)) {
+                $order = \App\Models\Order::find($link->order_id);
+            }
+
+            if (!$order) {
+                // Only build an order from temporales if there are cart items remaining.
+                $temporales = \App\Models\Temporale::all();
+                if ($temporales->count() > 0) {
+                    $order = new \App\Models\Order();
+                    $order->order_total = $temporales->sum('total') ?? 0;
+                    $order->save();
+
+                    foreach ($temporales as $detail) {
+                        $variant = \App\Models\ProductFamilyAttribute::find($detail->product_family_attribute_id);
+                        if ($variant) {
+                            if ($variant->qty < $detail->qty) {
+                                throw new \Exception('Insufficient stock to complete checkout');
+                            }
+
+                            // decrement variant qty
+                            $variant->decrement('qty', $detail->qty);
+
+                            // log transaction
+                            \App\Models\StockTransaction::create([
+                                'product_family_attribute_id' => $variant->id,
+                                'change' => -$detail->qty,
+                                'type' => 'sale'
+                            ]);
+
+                        }
                     }
-                    $product->stock -= $detail->quantity;
-                    $product->save();
-                    // Optional: If stock <= 0, mark as out of stock or notify admin
+
+                    // Remove temporales entries after successful processing
+                    \App\Models\Temporale::truncate();
+                } elseif ($cartProcessedByPayment) {
+                    // Payment implementation processed the cart already (e.g. Cash on Delivery flow).
+                    // Try to locate the created order (best effort: recent order within last 5 minutes)
+                    $order = \App\Models\Order::where('created_at', '>=', now()->subMinutes(5))->latest()->first();
+                    // If we still don't have an order, that's OK — nothing else to do here since payment handled stock and details.
+                }
+            }
+
+            // If an order exists but was NOT already processed by the payment implementation, decrement stock now.
+            if ($order && !$cartProcessedByPayment) {
+                foreach ($order->orderDetails as $detail) {
+                    $product = Product::find($detail->product_id);
+                    if ($product) {
+                        if ($product->stock < $detail->quantity) {
+                            throw new \Exception("Out of stock");
+                        }
+                        $product->stock -= $detail->quantity;
+                        $product->save();
+                    }
                 }
             }
 
@@ -91,6 +151,8 @@ class OrderController extends Controller
             ], 200);
         } catch (\Exception $exp) {
             DB::rollBack(); // Tell Laravel, "It's not you, it's me. Please don't persist to DB"
+
+            \Illuminate\Support\Facades\Log::error('OrderController@pay error: ' . $exp->getMessage());
 
             return response([
                 'message' => $exp->getMessage(),

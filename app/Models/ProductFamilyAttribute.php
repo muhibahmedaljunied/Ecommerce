@@ -9,6 +9,18 @@ class ProductFamilyAttribute extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'product_id',
+        'attribute_family_mapping_id',
+        'qty',
+        'price',
+        'discount',
+        'image',
+        'new',
+        'featured',
+        'description',
+        'alert_qty'
+    ];
 
     public function product()
     {
@@ -16,7 +28,7 @@ class ProductFamilyAttribute extends Model
     }
 
 
-    
+
     // public function attribute_family_mapping()
     // {
     //     return $this->belongsTo(AttributeFamilyMapping::class);
@@ -29,5 +41,12 @@ class ProductFamilyAttribute extends Model
         return $this->hasMany(FamilyAttributeOption::class);
     }
 
+    /**
+     * Returns true if current qty is at or below alert threshold
+     */
+    public function isLowStock()
+    {
+        return $this->alert_qty !== null && $this->qty <= $this->alert_qty;
+    }
 
 }

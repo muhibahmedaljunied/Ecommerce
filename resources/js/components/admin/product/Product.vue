@@ -71,42 +71,30 @@
 							<div class="table-responsive">
 								<table class="table text-md-nowrap" id="example1">
 									<thead>
-
-										<tr>
-
-
-
-
-										</tr>
-									</thead>
-									<tbody v-if="showCatProduct && showCatProduct.length > 0">
+								<tr></tr>
+								</thead>
+								<tbody v-if="showCatProduct && showCatProduct.length > 0">
 
 										<tr v-for="(productss, index) in showCatProduct" :key="index">
 
 
 
-											<template>
-												<div class="row">
-
-													<div class="col-md-2">
-
+                                            <td colspan="7">
 														{{ index + 1 }}
 
 													</div>
 													<div class="col-md-2">
-														{{ $t('messages.' + productss.name) }}
+														{{ $t('messages.' + productss.text) }}
 
 														<div class="col-md-12"
 															v-for="produc_option in productss['product_family_attribute']">
 
-
-															<span
-																v-for="option in produc_option.family_attribute_option">
-															{{ $t('messages.' + option.value) }}
-															</span>
-
-														</div>
-
+							<template v-if="produc_option.family_attribute_option && produc_option.family_attribute_option.length">
+								<span
+									v-for="option in produc_option.family_attribute_option">
+								{{ $t('messages.' + option.value) }}
+								</span>
+							</template>
 													</div>
 
 													<div class="col-md-8">
@@ -182,12 +170,13 @@
 
 												</div>
 												<hr>
-											</template>
-
-										</tr>
+                                            </td>
+                                        </tr>
 
 									</tbody>
-									<tbody v-else>
+				                                        </tr>
+
+					<tbody v-else>
 										<tr>
 											<td style="text-align: center;" colspan="7">
 												{{ $t('messages.No data available') }}

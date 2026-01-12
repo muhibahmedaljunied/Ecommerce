@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
- 
+
     public function run()
     {
         $this->call([
@@ -13,8 +13,7 @@ class DatabaseSeeder extends Seeder
             // AttributeTableSeeder::class,
             // AttributeFamilyTableSeeder::class,
             CustomerTableSeeder::class,
-            
-       
+            \Database\Seeders\StockSeeder::class,
         ]);
      }
 }

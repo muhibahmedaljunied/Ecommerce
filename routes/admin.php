@@ -92,3 +92,10 @@ Route::post('/payment-details/{id}', 'OrderDetailController@orderpayment');
 
 
 Route::post('/user_name', 'HomeController@show');
+
+// Stock management endpoints
+use App\Http\Controllers\StockController;
+Route::post('/stock/adjust', [StockController::class, 'adjust']);
+Route::get('/stock/transactions', [StockController::class, 'transactions']);
+Route::get('/stock/transactions/latest', [StockController::class, 'lastTransaction']);
+Route::get('/stock/low', [StockController::class, 'lowStockView']);

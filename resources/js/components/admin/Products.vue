@@ -24,20 +24,20 @@
                           <li class="nav-item">
                             <a href="#tab2" class="nav-link" data-toggle="tab">{{ $t('messages.add') }}</a>
                           </li>
-  
-                      
-                       
-  
-                    
-                    
-  
-  
-                         
-  
-                          
-                    
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </ul>
                       </div>
                     </div>
@@ -55,14 +55,14 @@
                         <div class="tab-pane" id="tab2">
                           <add-product></add-product>
                         </div>
-  
-                       
-  
-                  
+
+
+
+
                       </div>
                     </div>
                   </div>
-  
+
                   <!-- End Prism Precode -->
                 </div>
               </div>
@@ -73,28 +73,28 @@
     </div>
   </template>
   <script>
-  import Product from "./Product/Product";
+  import Product from "./Product/ProductFixed";
   import AddProduct from "./Product/AddProduct";
 
-  
-  
-  
-  
+
+
+
+
   export default {
     components: {
         Product,
         AddProduct,
 
-  
-  
-  
-  
+
+
+
+
     },
-  
-  
-  
-  
-  
+
+
+
+
+
   };
-  
+
   </script>

@@ -57,12 +57,13 @@
 
                 </li>
 
-                    <li v-for="single2 in single.family_attribute_option" >
-
+                    <template v-if="single.family_attribute_option && single.family_attribute_option.length">
+                    <li v-for="single2 in single.family_attribute_option" :key="single2.id">
 
                           <span>{{single2.attribute_option.attribute.name}}</span> : {{single2.attribute_option.value}}
 
-                </li>
+                    </li>
+                </template>
 
 
 
