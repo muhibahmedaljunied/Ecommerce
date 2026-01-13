@@ -42,30 +42,28 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'stripe'], function () {
 
         Route::post('/stripe-payment', [OrderController::class, 'pay'])->name('stripe.payment');
-        
+
     });
 
 
 
-    Route::get('/{page}', function () {
-        return view('admin/layouts/master');
+    // Admin routes and admin SPA are restricted to authenticated admin users
+    Route::middleware('admin')->group(function () {
+        Route::get('/{page}', function () {
+            return view('admin/layouts/master');
+        });
+        Route::get('/{page}/{id}', function () {
+            return view('admin/layouts/master');
+        });
+        Route::get('/', function () {
+            return view('admin/layouts/master');
+        });
+
+        Route::get('/logout', 'HomeController@logout');
+        Route::post('/logout', 'HomeController@logout')->name('logout');
+
+        require __dir__ . '/admin.php';
     });
-    Route::get('/{page}/{id}', function () {
-        return view('admin/layouts/master');
-    });
-    Route::get('/', function () {
-        // dd(12);
-
-        return view('admin/layouts/master');
-    });
-
-
-    Route::get('/logout', 'HomeController@logout');
-    Route::post('/logout', 'HomeController@logout')->name('logout');
-
-   
-
-    require __dir__ . '/admin.php';
 
 
 });

@@ -43,5 +43,7 @@ Route::group(['prefix' => 'paypal'], function () {
     Route::get('cancel-transaction', [OrderController::class, 'cancel'])->name('cancelTransaction');
 });
 
-// Admin stocks API (paginated read-only)
-Route::get('/admin/stocks', [\App\Http\Controllers\StockController::class, 'index']);
+// Admin stocks API (paginated read-only) - protected by auth + admin
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/admin/stocks', [\App\Http\Controllers\StockController::class, 'index']);
+});

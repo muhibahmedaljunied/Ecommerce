@@ -73,5 +73,10 @@ class Kernel extends HttpKernel
 
         'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
         'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
+
+        // Custom role / permission middleware
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'role' => \App\Http\Middleware\AdminMiddleware::class,
+        'permission' => \App\Http\Middleware\CheckPermission::class,
     ];
 }

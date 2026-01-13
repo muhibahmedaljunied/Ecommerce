@@ -67,21 +67,40 @@
                   <td></td>
 
                   <td>
-                    <!-- <div class="checkout_btn_inner" v-if="showSession">
-                      <router-link class="gray_btn" to="/customer/home">Continue Shopping</router-link>
-                      <router-link class="main_btn" to="/customer/shipping">Proceed to checkout</router-link>
-                    </div>
-                    <div class="checkout_btn_inner" v-else>
-                      <router-link class="gray_btn" to="/customer/home">Continue Shopping</router-link>
-                      <router-link class="main_btn" to="/customer/login">Proceed to checkout</router-link>
-                    </div> -->
                      <div class="checkout_btn_inner" >
                       <router-link class="gray_btn" to="/customer/home">{{ $t('messages.continue_shopping') }}</router-link>
-                      <router-link class="main_btn" to="/customer/payment">{{ $t('messages.proceed_checkout') }}</router-link>
+                      <router-link class="main_btn" v-if="showSession" to="/customer/payment">{{ $t('messages.proceed_checkout') }}</router-link>
+                      <router-link class="main_btn" v-else :to="{ path: '/customer/login', query: { redirect: '/customer/payment' } }">{{ $t('messages.proceed_checkout') }}</router-link>
                     </div>
 
                   </td>
-                </tr>
+                </tr>"},{"explanation":"Redirect to requested page after login if redirect query param present in Login.vue","filePath":"c:\xampp\htdocs\Ecommerce\resources\js\components\customer\Login.vue","oldString":"                .then((response)=>{
+                    if (response.data =='Error') {
+                        this.error = 'invalid_credential'
+                    }else{
+                        //console.log(response)
+                        this.success = 'login_success'
+                        this.form = []
+                        this.$store.dispatch("customerSession");
+                        this.$router.go(-1)
+                    }
+                    console.log(response.data);
+                })","newString":"                .then((response)=>{
+                    if (response.data =='Error') {
+                        this.error = 'invalid_credential'
+                    }else{
+                        this.success = 'login_success'
+                        this.form = []
+                        this.$store.dispatch("customerSession");
+                        const redirect = this.$route.query.redirect;
+                        if (redirect) {
+                            this.$router.replace(redirect);
+                        } else {
+                            this.$router.go(-1);
+                        }
+                    }
+                    console.log(response.data);
+                })"}]}
               </tbody>
             </table>
           </div>

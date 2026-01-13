@@ -2,7 +2,7 @@
 <div>
     <div class="container">
         <div class="row">
-            
+
             <div class="offset-3 col-md-6">
                 <div class="card mt-5 mb-5">
                     <div class="card-header text-center">
@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label>{{ $t('messages.last_name') }}</label>
                             <input v-model="form['last_name']" type="text" class="form-control" name="last_name">
-                            
+
                         </div>
 
                         <div class="form-group">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -65,12 +65,12 @@
             }
         },
         mounted() {
-            
+
         },
         methods: {
             register(){
                 this.error = [],
-                this.success = '',
+                this.success             = '',
                 this.$Progress.start();
                 axios.post('/customer-register',{
                     first_name: this.form.first_name,

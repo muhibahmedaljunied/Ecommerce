@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             // AttributeFamilyTableSeeder::class,
             CustomerTableSeeder::class,
             \Database\Seeders\StockSeeder::class,
+            \Database\Seeders\RolePermissionSeeder::class,
         ]);
      }
 }

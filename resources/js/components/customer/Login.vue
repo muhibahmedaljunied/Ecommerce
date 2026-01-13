@@ -2,7 +2,7 @@
 <div>
     <div class="container">
         <div class="row">
-            
+
             <div class="offset-3 col-md-6">
                 <div class="card mt-5 mb-5">
                     <div class="card-header text-center">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -60,6 +60,44 @@
                         this.form = []
                         this.$store.dispatch("customerSession");
                         this.$router.go(-1)
+                    }
+                    console.log(response.data);
+                })
+            }
+        }
+    }
+</script>
+<script>
+    export default {
+        data() {
+            return{
+                form:[],
+                error:'',
+                success:''
+            }
+        },
+        methods:{
+            login(){
+                // console.log(this.form.email_address,this.form.password);
+                this.success = '',
+                this.error = '',
+                axios.post('/customer-login',{
+                    email_address: this.form.email_address,
+                    password: this.form.password
+                })
+                .then((response)=>{
+                    if (response.data =='Error') {
+                        this.error = 'invalid_credential'
+                    }else{
+                        this.success = 'login_success'
+                        this.form = []
+                        this.$store.dispatch("customerSession");
+                        const redirect = this.$route.query.redirect;
+                        if (redirect) {
+                            this.$router.replace(redirect);
+                        } else {
+                            this.$router.go(-1);
+                        }
                     }
                     console.log(response.data);
                 })

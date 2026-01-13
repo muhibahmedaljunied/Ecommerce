@@ -18,6 +18,7 @@ import Order from './components/admin/order/Order'
 import ViewOrder from './components/admin/order/ViewOrder'
 import OrderInvoice from './components/admin/order/OrderInvoice'
 import StockManagement from './components/admin/StockManagement'
+import RolesList from './components/admin/roles/RolesList'
 // ----------------------------------customer---------------------------
 import Login from './components/customer/Login'
 import Register from './components/customer/Register'
@@ -165,6 +166,11 @@ import ListApi from './components/api/ListApi'
     path: '/stocks',
     name: 'stocks',
     component: StockManagement
+  },
+  {
+    path: '/roles',
+    name: 'roles',
+    component: RolesList
   },
   // --------------------------------------customer----------------------
   {

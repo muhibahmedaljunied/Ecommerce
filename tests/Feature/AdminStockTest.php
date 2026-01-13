@@ -19,7 +19,7 @@ class AdminStockTest extends TestCase
     /** @test */
     public function it_lists_stocks_with_last_transaction_and_low_stock_flag()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['is_admin' => true]);
         $this->actingAs($user);
 
         // Create required attribute mapping (some migrations rely on these records)

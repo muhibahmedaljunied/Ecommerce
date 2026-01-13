@@ -100,7 +100,7 @@
         <div class="main_menu">
             <div class="container-fluid">
                 <div class="navbar">
-                     
+
                         <!-- Navbar logo -->
                         <div class="nav-header">
                               <div class="nav-logo">
@@ -128,8 +128,8 @@
                         </form>
                         <!--       <a href="#">Home</a> -->
                         <router-link to="/customer/home">{{ $t('messages.home') }}</router-link>
-                            
-                         
+
+
 
                         <!--       <div class="dropdown">
                       <a class="dropBtn" href="#">Category
@@ -149,24 +149,24 @@
                     </div> -->
 
                              <div class="dropdown" v-for="category in categories">
-                                    
+
 
                             <!-- <router-link :to="`/customer/category/${category.id}`">{{ category.text }}</router-link> -->
                             <router-link :to="{ name: 'CustomerCategory', params: { id: category.id } }" replace:
                                 true>{{ $t('messages.' + category.text) }}</router-link>
-                               
-                                  
+
+
                         </div>
                            <a href="/Ecommerce">{{ $t('messages.dashboard') }}</a>
-                             
+
                               <router-link to="/customer/cart"><i class="fa fa-shopping-cart"></i> <span
                                 class="badge badge-notify">{{
                                     showCountCart }}</span></router-link>
                         <!--  <router-link to="/customer/login"><i class="ti-user" aria-hidden="true"></i></router-link> -->
-                            
+
                     </div>
-                     
-                      
+
+
                 </div>
 
 
@@ -284,6 +284,14 @@ export default {
             axios.post('/customer/customer-logout')
                 .then((response) => {
                     this.$store.dispatch("customerSession");
+                    const currentPath = this.$route.path;
+                    // If user logs out while choosing payment, send them to customer login and return to payment after login
+                    if (currentPath === '/customer/payment') {
+                        this.$router.push({ path: '/customer/login', query: { redirect: '/customer/payment' } });
+                    } else {
+                        // Otherwise, go to customer home
+                        this.$router.push('/customer/home');
+                    }
                 })
         },
         changeLang() {
