@@ -70,10 +70,10 @@
 
 
                 <li>
-                  <span>{{ $t('messages.available') }}</span> {{ $t('messages.in_stock') }} :{{ singleProduct.qty }}
+                  <span>{{ $t('messages.available') }}</span> {{ $t('messages.in_stock') }} : {{ single.qty }}
                 </li>
                 <li>
-                  <span>{{ $t('messages.sales') }}</span> :{{ singleProduct.qty }}
+                  <span>{{ $t('messages.sales') }}</span> : {{ single.sales ?? 0 }}
                 </li>
               </ul>
               <p>

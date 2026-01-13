@@ -42,6 +42,14 @@ class ProductFamilyAttribute extends Model
     }
 
     /**
+     * Stock transactions for this variant (most recent transactions can be fetched with a query limit)
+     */
+    public function stockTransactions()
+    {
+        return $this->hasMany(\App\Models\StockTransaction::class, 'product_family_attribute_id');
+    }
+
+    /**
      * Returns true if current qty is at or below alert threshold
      */
     public function isLowStock()

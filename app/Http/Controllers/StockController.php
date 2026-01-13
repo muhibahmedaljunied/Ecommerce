@@ -69,6 +69,45 @@ class StockController extends Controller
     }
 
     /**
+     * Admin list of current stock variants with last transaction and low-stock flag.
+     * GET /stocks
+     */
+    public function index(Request $request)
+    {
+        $query = ProductFamilyAttribute::with('product')->orderBy('id', 'desc');
+
+        if ($request->has('product_id')) {
+            $query->where('product_id', $request->product_id);
+        }
+
+        $perPage = (int)$request->get('per_page', 50);
+
+        $data = $query->paginate($perPage);
+
+        // Attach derived fields: last_transaction and low_stock
+        $data->getCollection()->transform(function ($variant) {
+            $last = $variant->stockTransactions()->orderBy('id', 'desc')->first();
+            return [
+                'id' => $variant->id,
+                'product_id' => $variant->product_id,
+                'product_name' => $variant->product->name ?? null,
+                'sku' => $variant->id,
+                'qty' => $variant->qty,
+                'alert_qty' => $variant->alert_qty,
+                'low_stock' => $variant->isLowStock(),
+                'last_transaction' => $last ? [
+                    'id' => $last->id,
+                    'change' => $last->change,
+                    'type' => $last->type,
+                    'created_at' => $last->created_at
+                ] : null
+            ];
+        });
+
+        return response()->json($data);
+    }
+
+    /**
      * Render a simple admin view showing low-stock variants and a small adjust form.
      */
     public function lowStockView(Request $request)

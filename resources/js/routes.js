@@ -17,6 +17,7 @@ import UpdateAttributeFamily from './components/admin/attribute_family/UpdateAtt
 import Order from './components/admin/order/Order'
 import ViewOrder from './components/admin/order/ViewOrder'
 import OrderInvoice from './components/admin/order/OrderInvoice'
+import StockManagement from './components/admin/StockManagement'
 // ----------------------------------customer---------------------------
 import Login from './components/customer/Login'
 import Register from './components/customer/Register'
@@ -104,6 +105,11 @@ import ListApi from './components/api/ListApi'
     props: true,
     component: UpdateProduct
   },
+  {
+    path: '/stocks',
+    name: 'stocks',
+    component: StockManagement
+  },
   // {
   //   path: '/create_product',
   //   name:'create_product',
@@ -154,6 +160,11 @@ import ListApi from './components/api/ListApi'
   {
     path: '/order_invoice/:id',
     component: OrderInvoice
+  },
+  {
+    path: '/stocks',
+    name: 'stocks',
+    component: StockManagement
   },
   // --------------------------------------customer----------------------
   {

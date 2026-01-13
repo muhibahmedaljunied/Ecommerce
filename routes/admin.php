@@ -99,3 +99,5 @@ Route::post('/stock/adjust', [StockController::class, 'adjust']);
 Route::get('/stock/transactions', [StockController::class, 'transactions']);
 Route::get('/stock/transactions/latest', [StockController::class, 'lastTransaction']);
 Route::get('/stock/low', [StockController::class, 'lowStockView']);
+// Admin listing of current stock variants (paginated, read-only)
+Route::get('/stock/list', [StockController::class, 'index']);
